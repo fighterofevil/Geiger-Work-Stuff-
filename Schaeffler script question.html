@@ -70,7 +70,38 @@
       var sqCIPAward = jQuery("select[name^='338+0']").val();
       if (first_tab_id == 'NCC-ACCOUNT') {
         if ($('body').hasClass('cipBuyer')) { // Is a CIP Buyer 
-          if (sqCIPAward == '4932') {
+
+          // if (sqCIPAward == '4932') {
+          //   if (sqRecEmpID.length < 2) {
+          //     valid = false;
+          //     msg += "Please enter the recipient's employee number \n";
+          //   }
+          //   if (sqRecCostCenter.length < 2) {
+          //     valid = false;
+          //     msg += "Please enter the recipient's cost center \n";
+          //   }
+          //   if (sqRecEmpFName.length < 2) {
+          //     valid = false;
+          //     msg += "Please enter the recipient's first name \n";
+          //   }
+          //   if (sqRecEmpLName.length < 2) {
+          //     valid = false;
+          //     msg += "Please enter the recipient's last name";
+          //   }
+          // } else if (sqCIPAward == '4933') {
+          //   if (sqCostCenter.length < 2) {
+          //     valid = false;
+          //     msg += "Please enter your cost center \n";
+          //   }
+          //   if (sqEmpID.length < 2) {
+          //     valid = false;
+          //     msg += "Please enter your employee number";
+          //   }
+          // } else { //Invalid (Neither "Yes or "No" chosen)
+          //   valid = false;
+          //   msg += "Please choose an answer to the CIP award question";
+          // }
+
             if (sqRecEmpID.length < 2) {
               valid = false;
               msg += "Please enter the recipient's employee number \n";
@@ -87,7 +118,7 @@
               valid = false;
               msg += "Please enter the recipient's last name";
             }
-          } else if (sqCIPAward == '4933') {
+          // } else if (sqCIPAward == '4933') {
             if (sqCostCenter.length < 2) {
               valid = false;
               msg += "Please enter your cost center \n";
@@ -99,17 +130,17 @@
           } else { //Invalid (Neither "Yes or "No" chosen)
             valid = false;
             msg += "Please choose an answer to the CIP award question";
+          // }
+          } else { // Not a CIP Buyer
+            if (sqCostCenter.length < 2) {
+              valid = false;
+              msg += "Please enter your cost center \n";
+            }
+            if (sqEmpID.length < 2) {
+              valid = false;
+              msg += "Please enter your employee number";
+            }
           }
-        } else { // Not a CIP Buyer
-          if (sqCostCenter.length < 2) {
-            valid = false;
-            msg += "Please enter your cost center \n";
-          }
-          if (sqEmpID.length < 2) {
-            valid = false;
-            msg += "Please enter your employee number";
-          }
-        }
       } else if (first_tab_id == 'PLP') { // Not paying by Invoice
         if (sqEmpID.length < 2) {
           valid = false;
