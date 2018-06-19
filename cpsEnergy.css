@@ -28,10 +28,6 @@
 
 /************ CSS Reset *************/
 
-/* testing*/
-/* testing 2*/
-/*/testing 3/*/
-
 * {
     margin: 0;
 }
@@ -164,15 +160,28 @@ a{
 
 .nav a{
     color: #ffffff;
-    font-size: 22px;
+    font-size: 15px;
     text-decoration: none;
     line-height: 45px;
+    font-family: Arial;
+    font-weight: 700;
 }
 
 div#DDmenu a{
     font-size: 18px;
     line-height: 28px;
     display: block;
+    color: #004181;
+    text-align: center;
+}
+
+div#DDmenu a:hover{
+    text-decoration: none;
+    background-color: #fff;
+}
+
+div#DDmenu li a:hover{
+    text-decoration: none;
 }
 
 h1{ 
@@ -311,15 +320,14 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    height: 60px;
+    background-color: #004181;
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
+    width: 1024px;
     text-align: right;
-    margin-top: 15px;
+    margin: 0 auto;
 }
 
 #footer .wrapper{
@@ -421,19 +429,25 @@ body{
 
 #menu{
     z-index:100;
-    height: 45px;
-    margin-bottom: 15px;
-    background: #8E0215;
+    height: 61px;
+    background: #f68e1e;
 }
 
 .nav{
-    margin: 0;
+    margin: 0 auto;
     width: 1024px;
     height: 45px;
+    background-color: #f68e1e;
+    top: 15px;
+    position: relative;
 }
 
 .nav li{
-    float:left;
+    float: left;
+    min-width: 131px;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .nav a{
@@ -441,16 +455,22 @@ body{
 }
 
 .nav li:hover{
-    background-color: #b12936;
+    /*background-color: #b12936;*/
+    text-decoration: none;
+}
+
+.nav li a:hover{
+    text-decoration: none;
 }
 
 div#DDmenu{
     position: absolute;
-    background-color: #b12936;
+    background-color: #fff;
     display: none;
     z-index: 100;
     padding-bottom: 20px;
     min-width: 227px;
+    border: 1px #f68e1e solid;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -466,7 +486,7 @@ div#DDmenu li a{
 }
 
 div#DDmenu li a:hover{
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .liveChat{
@@ -477,11 +497,19 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 .utilNav ul{
     float: right;
+}
+
+.utilNav li a{
+    color: #fff;
+}
+
+.utilNav{
+    padding-top: 20px;
 }
 
 
@@ -500,7 +528,7 @@ div#DDmenu li a:hover{
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    /*margin-top: -8px;*/
 }
 
 .cartbutton{
@@ -509,8 +537,12 @@ div#DDmenu li a:hover{
 
 #cart-icon{
     float: left;
-    font-size: 28px;
-    margin: 5px 5px 0px 0px
+    font-size: 35px;
+    /* margin: 5px 5px 0px 0px; */
+    left: 55px;
+    position: relative;
+    /* top: 15px; */
+    bottom: 46px;
 }
 
 .summary{
@@ -526,8 +558,8 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
     float: right;
+    padding-left: 30px;
 }
 
 #searchForm div{
@@ -1946,3 +1978,68 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+
+#logoBanner{
+    width: 1024px;
+    margin: 0 auto;
+    height: 150px;
+    padding-top: 30px;    
+}
+
+#logoBanner .logo a{
+    background: url("../images/cpsLogo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+    height: 110px;
+    margin: 15px 0px 0px 0px;
+    width: 200px;
+}
+
+.congrats{
+    position: relative;
+    left: 200px;
+}
+
+.category-items li a:hover{
+    text-decoration: none;
+}
+
+#submenu{
+    background-color: #fff;
+    width: 1024px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#submenu2{
+    background-color: #fff;
+}
+
+.revCurve{
+    position: relative;
+    top: -15px;
+    padding-left: 0px !important;
+}
+
+.revCurve2{
+    position: relative;
+    top: -15px;
+    left: 1px;
+    max-width: 155px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.revCurve2img{
+    position: relative;
+    left: 15px;    
+}
+
+.miniCartA{
+    position: relative;
+    padding: 0px;
+    bottom: 51px;
+    text-transform: uppercase;
+    left: 40px;
+}
