@@ -152,6 +152,7 @@ a{
 #footer{
     font-size: 12px;
     position: relative;
+    text-align: center;
 }
 
 #footer a{
@@ -328,6 +329,7 @@ body{
     width: 1024px;
     text-align: right;
     margin: 0 auto;
+    height: 58px;
 }
 
 #footer .wrapper{
@@ -337,8 +339,8 @@ body{
 }
 
 #footer .wrapper p{
-    clear:both;
-    float: left;
+/*    clear:both;
+    float: left;*/
 }
 
 .repInfo {
@@ -446,8 +448,8 @@ body{
     float: left;
     min-width: 131px;
     text-align: center;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .nav a{
@@ -502,6 +504,8 @@ div#DDmenu li a:hover{
 
 .utilNav ul{
     float: right;
+    bottom: 30px;
+    position: relative;
 }
 
 .utilNav li a{
@@ -509,7 +513,8 @@ div#DDmenu li a:hover{
 }
 
 .utilNav{
-    padding-top: 20px;
+    padding-top: 42px;
+    background-color: #004181;
 }
 
 
@@ -539,7 +544,7 @@ div#DDmenu li a:hover{
     float: left;
     font-size: 35px;
     /* margin: 5px 5px 0px 0px; */
-    left: 55px;
+    left: 82px;
     position: relative;
     /* top: 15px; */
     bottom: 46px;
@@ -1994,11 +1999,14 @@ input#cvv{
     height: 110px;
     margin: 15px 0px 0px 0px;
     width: 200px;
+    left: 60px;
+    position: relative;    
 }
 
 .congrats{
     position: relative;
-    left: 200px;
+    left: 220px;
+    bottom: 25px;
 }
 
 .category-items li a:hover{
@@ -2020,12 +2028,12 @@ input#cvv{
     position: relative;
     top: -15px;
     padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 .revCurve2{
     position: relative;
     top: -15px;
-    left: 1px;
     max-width: 155px;
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -2033,13 +2041,46 @@ input#cvv{
 
 .revCurve2img{
     position: relative;
-    left: 15px;    
+    left: 56px;  
 }
 
 .miniCartA{
     position: relative;
-    padding: 0px;
+    padding: 0px !important;
     bottom: 51px;
     text-transform: uppercase;
-    left: 40px;
+    left: 68px;
 }
+
+.topCurve{
+    position: relative;
+    float: left;
+    left: -123px;
+    top: 3px;
+}
+
+.topCurve2{
+    position: relative;
+    float: right;
+    right: -616px;
+    bottom: 57px;
+}
+
+.bigBox{
+    background-color: #fff;
+    height: 60px;
+}
+
+.slick-list{
+     height: 505px !important;
+}
+
+#pageHome #content{
+    position: relative;
+    bottom: 45px;
+    padding: 0px !important;
+}
+
+
+
+
