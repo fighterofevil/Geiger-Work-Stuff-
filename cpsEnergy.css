@@ -565,6 +565,8 @@ div#DDmenu li a:hover{
     clear: right;
     float: right;
     padding-left: 30px;
+    bottom: 4px;
+    position: relative;    
 }
 
 #searchForm div{
@@ -584,7 +586,7 @@ padding-left: 2px;
 #searchForm input#searchBtn{
     width: 20px;
     height: 24px;
-    background: url("../images/btn_search.gif") 50% 50% #FFF no-repeat;
+    background: url("../images/search.png") 50% 50% #FFF no-repeat;
     border: none;
     cursor: pointer;
     float: right;
@@ -780,7 +782,11 @@ tfoot tr td{
 }
 
 .welcome-message{
-
+    position: relative;
+    left: 190px;
+    font-size: 16px;
+    font-family: arial;
+    color: #004181;
 }
 
 .spotlight {
@@ -2081,6 +2087,33 @@ input#cvv{
     padding: 0px !important;
 }
 
+.slick-dots li button:before{
+    font-size: 14px !important;
+    opacity: 1 !important;
+    color: #004181 !important;
+    background-color: #004181 !important;
+    border: 1px solid #fff !important;
+    -moz-border-radius: 75px !important;
+    -webkit-border-radius: 75px !important;
+    width: 15px !important;
+    height: 15px !important;
+}
 
+.slick-dots li.slick-active button:before
+{
+    opacity: 1 !important;
+    color: #f68e1e !important;  
+    background-color: #f68e1e !important;
+    border: 1px solid #fff !important;
+    -moz-border-radius: 75px !important;
+    -webkit-border-radius: 75px !important;
+    width: 15px !important;
+    height: 15px !important;    
+}
+
+.slick-dots{
+    bottom: 50px !important;
+    position: relative !important;
+}
 
 
