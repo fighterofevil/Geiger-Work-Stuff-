@@ -1,0 +1,158 @@
+/*
+    css for Home store slider
+*/
+
+/*.itemSlider .item-desc .code, .item-desc .code
+{
+  color: #aeaeae;
+}
+
+.itemSlider .item-desc .price .dollars, #item .item-desc .price .dollars, .itemSlider .item-desc .price .symbol, #item .item-desc .price .symbol
+{
+  color: #DFA200;
+}
+
+.itemSlider .item-desc .price .cents, #item .item-desc .price .cents
+{
+  color:#AAAAAA;
+}
+
+.item.itemSlider{
+  margin-left: 2px;
+}
+
+.itemSlider .item-img {
+  float:none;
+  height:100px;
+  position:relative;
+  text-align:center;
+  margin:0 auto;
+  width:100px;
+}
+
+.itemSlider .item-title {
+  font-size:11px;
+  font-weight:bold;
+  text-align:center;
+  width:155px;
+    min-height:30px;
+  height:30px;
+  width:158px;
+}
+
+.itemSlider .item-desc {
+  float:none;
+  overflow:hidden;
+  text-align:center;
+}
+
+.itemSlider .item-desc .price, #item .item-desc .price 
+{
+  position: relative;
+}
+
+.itemSlider .item-desc .price .symbol, #item .item-desc .price .symbol
+{
+  vertical-align:middle;
+}
+
+.itemSlider .item-desc .price .cents, #item .item-desc .price .cents
+{
+  vertical-align:top;
+}
+
+.item-desc .code, .itemSlider .item-desc .qty, .itemSlider .item-desc .price
+{
+  font-size: 11px;
+}
+
+.itemSlider .item-desc .qty
+{
+  font-weight: bold;
+}
+
+.itemSlider .item-desc .price, #item .item-desc .price
+{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.itemSlider .item-desc .price .symbol, #item .item-desc .price .symbol
+{
+  font-size: 17px;
+}
+
+.itemSlider .item-desc .price .dollars, #item .item-desc .price .dollars
+{
+  font-size: 24px;
+}
+
+.itemSlider .item-desc .price .cents, #item .item-desc .price .cents
+{
+  font-size:14px;
+}
+
+.itemSlider .item-desc .price
+{
+  font-weight: bold;
+}*/
+
+.mainSlider {
+  overflow:hidden;
+}
+/*
+.prev{
+  float:left;
+  width:30px;
+  margin-top:70px;
+  margin-left:1px;
+}
+
+.next{
+  float:left;
+  width:30px;
+  margin-top:70px;
+  margin-left:1px;
+}*/
+
+.item-hg{
+  overflow:hidden;
+  width:495px;
+  float:left;
+}
+
+.mycarousel {
+  left:0;
+  overflow:hidden;
+  /*position:relative;*/
+  visibility:visible;
+  width:91% !important;
+  float:left;
+}
+
+.firstItem{
+  width:152px !important;
+}
+
+.r_arrow{
+  background-image:url(../images/arrows.png);
+  height:25px;
+  width:25px;
+  background-repeat:no-repeat;
+  border:none;
+  cursor:pointer;
+  background-position:0 -25px;
+  float: left;
+  margin-top: 80px;
+}
+
+.l_arrow{
+  background-image:url(../images/arrows.png);
+  height:25px;
+  width:25px;
+  background-repeat:no-repeat;
+  border:none;
+  cursor:pointer;
+  float:left;
+  margin-top: 80px;
+}
