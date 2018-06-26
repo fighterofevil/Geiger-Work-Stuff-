@@ -330,6 +330,8 @@ body{
     text-align: right;
     margin: 0 auto;
     height: 58px;
+    display: flex;
+    justify-content: space-around;    
 }
 
 #footer .wrapper{
@@ -515,6 +517,7 @@ div#DDmenu li a:hover{
 .utilNav{
     padding-top: 42px;
     background-color: #004181;
+    width: 1024px;
 }
 
 
@@ -2060,17 +2063,25 @@ input#cvv{
 }
 
 .topCurve{
-    position: relative;
+/*    position: relative;
     float: left;
     left: -123px;
-    top: 3px;
+    top: 3px;*/
+    position: relative;
+    float: left;
+    /*left: 97px;*/
+    top: 3px;    
 }
 
 .topCurve2{
-    position: relative;
+/*    position: relative;
     float: right;
     right: -615px;
-    bottom: 57px;
+    bottom: 57px;*/
+    position: relative;
+    float: left;
+    /*right: 97px;*/
+    top: 3px;    
 }
 
 .bigBox{
@@ -2120,4 +2131,8 @@ input#cvv{
 #serviceCatBox{
     position: relative;
     right: 50px;
+}
+
+.welcomemsg strong{
+    color: #fff;
 }
