@@ -726,9 +726,10 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
+    background-color: #f68e1e;
     border:1px solid #777;
-    color:#000;
+    color:#FFF;
+    font-weight: bold;
     padding: 5px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
@@ -738,14 +739,13 @@ tfoot tr td{
 
 .btn:hover{
     background-color: #fff;
-    text-decoration: underline;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
 } 
 
 .btn-primary{
-    background-color: #84010F;
+    background-color: #f68e1e;
     border:1px solid #777;
     color:#FFF;
     font-weight: bold;
@@ -758,7 +758,6 @@ tfoot tr td{
 
 .btn-primary:hover{
     background-color: #CCCCCC;
-    text-decoration: underline;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -871,7 +870,8 @@ tfoot tr td{
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
-    width: 660px;
+    /*width: 660px;*/
+    width: 1024px;
 }
 
 #pageFAQ h2:hover{
@@ -880,7 +880,8 @@ tfoot tr td{
 
 #pageFAQ .section{
     padding: 10px;
-    width: 660px;
+ /*   width: 660px;*/
+    width: 1024px;
 }
 
 /****Custom Orders****/
@@ -2068,7 +2069,7 @@ input#cvv{
 .topCurve2{
     position: relative;
     float: right;
-    right: -616px;
+    right: -615px;
     bottom: 57px;
 }
 
@@ -2116,4 +2117,7 @@ input#cvv{
     position: relative !important;
 }
 
-
+#serviceCatBox{
+    position: relative;
+    right: 50px;
+}
