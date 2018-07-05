@@ -1022,13 +1022,16 @@ tfoot tr td{
 
 .loginNote {
     position: relative;
-    background: #fff;
+    /*background: #fff;*/
     max-width: 600px;
     margin: 0 auto 30px;
     padding: 20px;
     text-align: left;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
     display: none;
+    padding-top: 60px;
+    padding-right: 50px;
+    line-height: 1.75em;    
 }
 
 .login form label{
