@@ -28,6 +28,103 @@
 
 /************ CSS Reset *************/
 
+
+ /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* rSit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #f8f8f8;
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 500px; /* Could be more or less, depending on screen size */
+    height: 587px;
+    padding: 10px;
+}
+
+.modal-content h1 {
+    font-size: 16px;
+    line-height: normal;
+    color: black;
+    margin-top: 15px;
+}
+
+.modal-content #format {
+    background: #fff;
+}
+
+.modal-content #info {
+    background: white;
+}
+
+.modal-content #cred {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.modal-header {
+    height: 92px;
+    background: #d9cfac;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-header img {
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    background: darkgreen;
+    float: right;
+    font-size: 16px;
+    /* font-weight: bold; */
+    width: 146px;
+    height: 26px;
+    text-align: center;
+    line-height: 24px;
+}
+.close:hover,
+.close:focus {
+    text-decoration: none;
+    cursor: pointer;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 * {
     margin: 0;
 }
@@ -134,8 +231,12 @@ body{
 }
 
 p{ 
-    margin-bottom: 15px;
+   margin-bottom: 15px;
+}
 
+
+.nav p {
+ margin-bottom: 0px !important;
 }
 
 p .pageItem{
@@ -166,7 +267,7 @@ a{
     color: #000;
     font-size: 17px;
     text-decoration: none;
-    line-height: 45px;
+    line-height: 20px;
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -368,6 +469,10 @@ body{
     width: 200px;
 }
 
+#pageItem .sidebar{
+    display: initial;
+}
+
 .page {
     float: left;
     margin-left: 60px;
@@ -406,7 +511,7 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/storelogo.png") no-repeat scroll left top transparent;
+    background: url("../images/newLogo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 70px;
@@ -442,7 +547,7 @@ body{
 
 .utilNav{
     background: url("../images/utilNavBkg.png");
-    width: 670px;
+    /*width: 670px;*/
     height: 28px;
     margin-top: 25px;
 }
@@ -471,13 +576,20 @@ body{
 
 .nav{
     margin-right: 30px;
-    width: 667px;
+    width: 680px;
     height: 45px;
     float: right;
+    display: flex;
 }
 
 .nav li{
     float:left;
+    width: 33%;
+    text-align: center;    
+}
+
+.nav p{
+    margin-bottom: initial;
 }
 
 #home-link {
@@ -488,6 +600,7 @@ body{
 #home-link a{
     padding: 0px 30px 3px 0px;
     background: url(../images/homeIcon.png) no-repeat;
+    line-height: 45px;
 }
 
 #home-link a:hover{
@@ -496,11 +609,15 @@ body{
 }
 
 .nav a{
-    padding: 10px 20px;
+    /*padding: 10px 20px;*/
 }
 
 .nav li a:hover{
     color: #69740b;
+}
+
+a:hover {
+   cursor: pointer;
 }
 
 div#DDmenu{
@@ -614,9 +731,10 @@ div#DDmenu li a:hover{
 /**** search ****/
 
 .search {
-    clear: right;
-    padding-top: 20px;
-    float: right;
+  /*  clear: right;
+    padding-top: 20px;*/
+    float: left;
+display: none;
 }
 
 #searchForm div{
@@ -842,6 +960,8 @@ tfoot tr td{
 .category-blowouts-container{
     width: 100%;
     margin-top: 45px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .category-blowouts{
@@ -1030,7 +1150,7 @@ tfoot tr td{
     /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
     display: none;
     padding-top: 60px;
-    padding-right: 50px;
+    /* padding-right: 50px; */
     line-height: 1.75em;    
 }
 
@@ -1045,7 +1165,7 @@ tfoot tr td{
 }
 
 a.forgotPassword{
-    display: block;
+    /*display: none !important;*/
     margin-top: 5px;
 }
 
@@ -1164,13 +1284,8 @@ td.ar{
 }
 
 .sortView{
-    background-color: #fff;
     padding: 3px 5px;
-    border: 1px solid #ccc;
     margin: 10px 0px 20px 0px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
 }
 
 .active-filters{
@@ -2066,4 +2181,3 @@ input#cvv{
     clear: right;
     margin-top: 20px;
 }
-
