@@ -154,10 +154,12 @@ a{
 #footer{
     font-size: 12px;
     position: relative;
+    background-color: #1b1b1b;
+    color: #c6c6c6;
 }
 
 #footer a{
-    color:#444;
+    color: #c6c6c6;
 }
 
 .nav a{
@@ -309,21 +311,25 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    /*width: 1024px;*/
+    height: 50px;
+    background-color: #797A7B;
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
+    /*float: right;*/
+    width: 1024px;
     text-align: right;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
+    margin: 0 auto;
 }
 
 #footer .wrapper{
     box-sizing: border-box;
     height: 65px;
     padding:15px 15px;
+    width: 1024px;
+    margin: 0 auto;    
 }
 
 #footer .wrapper p{
@@ -379,17 +385,17 @@ body{
 * Place site styles here for things used on multiple pages like:
 * navigation, header, footer, etc */
 
-#header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+#header .logo a, #menu .logo a{
+    background: url("../images/logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
+    height: 20px;
     margin: 15px 0px 0px 20px;
     padding: 10px 8px 0px 0px;
-    width: 142px;
+    width: 200px;
 }
 
-#header .logo span {
+#header .logo span, #menu .logo span  {
     display: none;
 }
 
@@ -420,8 +426,8 @@ body{
 #menu{
     z-index:100;
     height: 45px;
-    margin-bottom: 15px;
-    background: #8E0215;
+    /*margin-bottom: 15px;*/
+    border-bottom: 1px solid #797a7d;
 }
 
 .nav{
@@ -498,7 +504,11 @@ div#DDmenu li a:hover{
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    background-color: #f37021;
+    bottom: 20px;
+    position: relative;
+    width: 170px;
+    height: 50px;    
 }
 
 .cartbutton{
@@ -508,12 +518,16 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 28px;
-    margin: 5px 5px 0px 0px
+    margin: 10px 5px 0px 10px;
 }
 
 .summary{
-    float: right;
+    /*float: right; */
     text-align: left;
+    padding-top: 4px;
+    /* padding-left: 5px; */
+    position: relative;
+    left: 5px;
 }
 
 #cart-quantity, #cart-total{
@@ -737,11 +751,13 @@ tfoot tr td{
 /****Home****/
 
 .home-content{
-
+    border-bottom: 1px solid #bfbfbf;
 }
 
 .welcome-message{
-
+    width: 420px;
+    position: relative;
+    float: left;
 }
 
 .spotlight {
@@ -754,6 +770,7 @@ tfoot tr td{
 
 .featured-product-carousel{
     position:relative;
+    text-align: center;
 }
 
 .featured-product-carousel .title{
@@ -775,16 +792,16 @@ tfoot tr td{
 
 .featured-product-carousel .prev{
     display:block;
-    width:23px;
-    height:127px;
+    width:52px;
+    height:52px;
     float:left;
     background:url("../images/arrowLeft.png") no-repeat;
 }
 
 .featured-product-carousel .next{
     display:block;
-    width:23px;
-    height:127px;
+    width:52px;
+    height:52px;
     float:left;
     background:url("../images/arrowRight.png") no-repeat;
 }       
@@ -1944,3 +1961,85 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+
+.utilNav a{
+    color: #fff;
+}
+
+.sf-menu{
+    margin-bottom: initial !important;
+}
+
+.sf-menu a{
+    color: #f37021 !important;    
+}
+
+.sf-menu li{
+    background: initial !important;
+}
+
+.sf-menu ul{
+    background-color: #fff !important;     
+}
+
+.sf-menu ul li a{
+    color: #000 !important;
+}
+
+#pageHome #container{
+    width: initial;
+}
+
+#pageHome .spotlight{
+    background: url("../images/spotlight.png") no-repeat scroll left top transparent;    
+    background-size: cover;
+}
+
+#pageHome #content{
+    padding: initial;
+}
+
+.utilNav{
+    top: 20px;
+    position: relative;    
+}
+
+.menuWrapper{
+    width: 1024px;
+    margin: 0 auto;
+}
+
+.spotlightPerson{
+    background: url("../images/spotlightPerson.png") no-repeat scroll left top transparent;   
+    width: 450px;
+    height: 498px;
+}
+
+.spotlightWrapper{
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.featuredSection{
+    background: url("../images/featured-bg.png") no-repeat scroll left top transparent;    
+    background-size: cover;
+    position: relative;
+    top: 60px;    
+    height: 322px;
+}
+
+.featuredSectionWrapper{
+    width: 1024px;
+    margin: 0 auto;
+}
+
+
+.featured-product-carousel h2{
+    margin-bottom: 20px;
+    margin-top: 25px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
