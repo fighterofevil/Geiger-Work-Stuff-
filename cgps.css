@@ -30,6 +30,43 @@
 
 /************ CSS Reset *************/
 
+@font-face {
+    font-family: 'GothamLight';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: local('GothamLight'), url('fonts/GothamLight.ttf') format('ttf');
+}
+
+
+@font-face {
+    font-family: 'Gotham Book';
+    font-style: normal;
+    font-weight: normal;
+    font-display: auto;
+    src: local('Gotham Book'), url("fonts/GOTHAMBOOK.woff") format('woff');
+}
+
+@font-face {
+    font-family: 'Gotham Bold';
+    font-style: normal;
+    font-weight: normal;
+    font-display: auto;
+    src: local('Gotham Bold'), url("fonts/Gotham Bold.woff") format('woff');
+}
+
+@font-face {
+    font-family: 'Gotham-Medium';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: local('Gotham-Medium'), url('fonts/gothammedium.woff') format('woff');
+}
+
+
+
+
+
 * {
     margin: 0;
 }
@@ -152,10 +189,12 @@ a{
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
     background-color: #1b1b1b;
     color: #c6c6c6;
+    font-weight: 100;
+    font-family: gotham book;
 }
 
 #footer a{
@@ -184,7 +223,13 @@ h1{
 }
 
 #pageHome h1{
-    text-align: center;
+    font-family: Gotham Book;
+    font-weight: 100;
+    font-size: 70px;
+    line-height: 64px;
+    margin: initial;
+    color: #f37021;
+
 }
 
 #pageCategory h1{
@@ -481,7 +526,8 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 25px;
+    font-family: Gotham Book;
 }
 
 .utilNav ul{
@@ -497,7 +543,7 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    width: 380px;
+    width: 450px;
     float: right;
 }
 
@@ -538,32 +584,38 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     float: right;
+    top: 10px;
+    position: relative;
+    width: 170px;
+
 }
 
 #searchForm div{
     background-color: #fff;
-    width: 175px;
-    border: 1px solid #aaaaaa;
+    width: 170px;
     height: 24px;
 }
 
 #searchForm input#key{
-border: none;
-width: 148px;
-float: left;
-padding-left: 2px;
+    border: none;
+    width: 135px;
+    float: left;
+    border-bottom: 1px solid #bfbfbf;
+    position: relative;
+    left: 10px;
+    top: 1px;
 }
 
 #searchForm input#searchBtn{
-    width: 20px;
-    height: 24px;
-    background: url("../images/btn_search.gif") 50% 50% #FFF no-repeat;
+    width: 26px;
+    height: 26px;
+    background: url("../images/search.png") 25% 25% #FFF no-repeat;
     border: none;
     cursor: pointer;
-    float: right;
-    text-indent:-20000px;
+    float: left;
+    text-indent: -20000px;
 }
 
 /*********** Global - Reused Basic Elements: tables, HR, etc; *************/
@@ -755,9 +807,11 @@ tfoot tr td{
 }
 
 .welcome-message{
-    width: 420px;
+    width: 450px;
     position: relative;
     float: left;
+    top: 160px;
+    height: 340px;
 }
 
 .spotlight {
@@ -1977,14 +2031,28 @@ input#cvv{
 
 .sf-menu li{
     background: initial !important;
+    padding-right: 20px!important;
+    font-family: Gotham Bold;
 }
 
 .sf-menu ul{
     background-color: #fff !important;     
+    top: 45px !important;
+    border-top: 5px solid #f37021;
+}
+
+.sf-menu ul li{
+    font-family: Gotham Book;
+    font-size: 14px;
+    text-align: center;
 }
 
 .sf-menu ul li a{
     color: #000 !important;
+}
+
+.sf-menu ul li a:hover{
+    color: #f37021 !important;
 }
 
 #pageHome #container{
@@ -2041,5 +2109,35 @@ input#cvv{
     margin-bottom: 20px;
     margin-top: 25px;
     text-transform: uppercase;
-    font-weight: 300;
+    font-weight: 100;
+    font-family: gotham book;
+    color: #fff;
+    font-size: 32px;
 }
+
+.menuWrapper ul{
+    position: relative;
+    float: left;
+    left: 66px;    
+}
+
+.sf-arrows .sf-with-ul:after{
+    content: initial !important;
+}
+
+.sf-arrows .sf-with-ul{
+    padding-right: initial !important;
+}
+
+.welcomemsg{
+    color: #fff
+}
+
+.welcome-message p{
+    line-height: 22px;
+    font-family: Gotham Book;
+    position: relative;
+    top: 25px;
+}
+
+
