@@ -1769,6 +1769,7 @@ input#cvv{
 
 .question {
     display: flex;
+    padding-bottom: 5px;    
 }
 
 .question label{
