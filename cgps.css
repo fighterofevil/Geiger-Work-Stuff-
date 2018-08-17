@@ -751,9 +751,9 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
+    background-color: #f37021;
     border:1px solid #777;
-    color:#000;
+    color:#fff;
     padding: 5px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
@@ -762,18 +762,18 @@ tfoot tr td{
 }
 
 .btn:hover{
-    background-color: #fff;
-    text-decoration: underline;
+    background-color: #797A79;
+    text-decoration: none;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    color: #000;
 } 
 
 .btn-primary{
-    background-color: #84010F;
+    background-color: #f37021;
     border:1px solid #777;
-    color:#FFF;
-    font-weight: bold;
+    color:#fff;
     padding: 5px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
@@ -782,11 +782,12 @@ tfoot tr td{
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    text-decoration: underline;
+    background-color: #797A79;
+    text-decoration: none;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    color: #000;
 }
 
 .gift-btn {
@@ -1767,7 +1768,11 @@ input#cvv{
 }
 
 .question {
-    display: inline;
+    display: flex;
+}
+
+.question label{
+    min-width: 140px !important;
 }
 
 /****Checkout ????????? Review****/
