@@ -238,9 +238,9 @@ h1{
 }
 
 #pageCategory h1{
-    margin-top: 15px;
+/*    margin-top: 15px;
     color: #595959;
-    font-family: Gotham Bold;  
+    font-family: Gotham Bold;  */
 }
 
 h2{ 
@@ -578,7 +578,7 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 28px;
-    margin: 10px 5px 0px 30px;
+    margin: 10px 5px 0px 10px;
 }
 
 .summary{
@@ -782,7 +782,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    color: #000;
+    color: #fff;
 } 
 
 .btn-primary{
@@ -803,7 +803,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    color: #000;
+    color: #fff;
 }
 
 .gift-btn {
@@ -2182,8 +2182,8 @@ input#cvv{
 }
 
 .f-row label{
-    font-family: Gotham Bold;
-    color: #595959;
+/*    font-family: Gotham Bold;
+    color: #595959;*/
 }
 
 input[type="text"]{
@@ -2197,4 +2197,11 @@ input[type="text"]{
 .productCategories{
     min-width: 195px !important;
     text-align: center;
+}
+
+
+#pageCategory .name a{
+    font-size: 13px;
+    line-height: 16px;
+    text-align: left;
 }
