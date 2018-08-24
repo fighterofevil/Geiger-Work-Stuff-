@@ -161,8 +161,8 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#444444;
-    font-family:    Arial,"Helvetica Neue",Helvetica,sans-serif;
+    color:#595959;
+    font-family: Gotham Book;
     font-size: 14px;
     line-height: 18px;
 }
@@ -186,8 +186,9 @@ p .pageItem{
 }
 
 a{ 
-    color:#84010F;
+    color: #f37021;
     text-decoration: none;
+    font-family: Gotham Book;
 }
 
 #footer{
@@ -222,6 +223,8 @@ h1{
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    color: #595959;
+    font-family: Gotham Book;
 }
 
 #pageHome h1{
@@ -236,6 +239,8 @@ h1{
 
 #pageCategory h1{
     margin-top: 15px;
+    color: #595959;
+    font-family: Gotham Bold;  
 }
 
 h2{ 
@@ -252,7 +257,8 @@ h6{ }
 
 .bCrumbs, .bCrumbs a{
     font-size: 12px;
-    color:#777;
+    color: #595959;
+    font-family: Gotham Book;
 }
 
 .image .price-box{
@@ -300,11 +306,12 @@ label, .label {
     font-size: 13px;
     margin-top: 10px;
     text-transform: uppercase;
-    color: #555;
+    color: #595959;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
     width: 85%;
+    font-family: Gotham Bold;
 }
 
 #recentlyViewed li {
@@ -313,10 +320,11 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#555;
+    color:#595959;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
-    font-size:12px
+    font-size:12px;
+    font-family: Gotham Book;
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
@@ -354,7 +362,7 @@ body{
 #content{
     z-index: 1;
     clear: both;
-    padding: 15px 20px;
+    padding: 35px 20px;
 }
 
 #header{
@@ -373,8 +381,8 @@ body{
 
 #footer .wrapper{
     box-sizing: border-box;
-    height: 65px;
-    padding:15px 15px;
+    height: 55px;
+    padding:20px 20px;
     width: 1024px;
     margin: 0 auto;    
 }
@@ -426,6 +434,7 @@ body{
     border: 1px solid #f00;
     padding: 5px 10px;
     font-weight: bold;
+    font-family: Gotham Bold;    
 }
 
 /*********** Global Site Components *************
@@ -437,7 +446,7 @@ body{
     display: block;
     float: left;
     height: 20px;
-    margin: 15px 0px 0px 20px;
+    margin: 17px 0px 0px 20px;
     padding: 10px 8px 0px 0px;
     width: 200px;
 }
@@ -472,7 +481,7 @@ body{
 
 #menu{
     z-index:100;
-    height: 45px;
+    height: 55px;
     /*margin-bottom: 15px;*/
     border-bottom: 1px solid #797a7d;
 }
@@ -530,6 +539,8 @@ div#DDmenu li a:hover{
     float: left;
     margin-left: 25px;
     font-family: Gotham Book;
+    position: relative;
+    top: 17px;
 }
 
 .utilNav ul{
@@ -553,10 +564,11 @@ div#DDmenu li a:hover{
 
 .mini-cart{
     background-color: #f37021;
-    bottom: 20px;
-    position: relative;
-    width: 170px;
+/*    bottom: 20px;
+    position: relative;*/
+    width: 200px;
     height: 50px;    
+    top: initial !important;    
 }
 
 .cartbutton{
@@ -566,13 +578,13 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 28px;
-    margin: 10px 5px 0px 10px;
+    margin: 10px 5px 0px 30px;
 }
 
 .summary{
     /*float: right; */
     text-align: left;
-    padding-top: 4px;
+    padding-top: 6px;
     /* padding-left: 5px; */
     position: relative;
     left: 5px;
@@ -590,19 +602,19 @@ div#DDmenu li a:hover{
     float: right;
     top: 10px;
     position: relative;
-    width: 170px;
+    width: 200px;
 
 }
 
 #searchForm div{
     background-color: #fff;
-    width: 170px;
+    width: 200px;
     height: 24px;
 }
 
 #searchForm input#key{
     border: none;
-    width: 135px;
+    width: 165px;
     float: left;
     border-bottom: 1px solid #bfbfbf;
     position: relative;
@@ -646,8 +658,8 @@ table a:hover {
 }
 
 table {
-    font-family:Arial, Helvetica, sans-serif;
-    color:#666;
+    font-family: Gotham Book;
+    color: #595959;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
@@ -761,6 +773,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    font-family: Gotham Bold;
 }
 
 .btn:hover{
@@ -781,6 +794,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    font-family: Gotham Bold;
 }
 
 .btn-primary:hover{
@@ -895,7 +909,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: Gotham Bold;
     font-size: 12px;
     margin: 0px;
     padding: 15px;
@@ -1199,6 +1213,7 @@ a.view-all{
 
 #pageItem .price {
     margin: 10px;
+    color: #595959;
 }
 
 #pageItem .actions{
@@ -1860,6 +1875,7 @@ input#cvv{
     font-size: 13px;
     text-align: center;
     margin-bottom: 20px;
+    font-family: Gotham Bold;
 }
 
 .message.success{
@@ -2035,6 +2051,7 @@ input#cvv{
 
 .sf-menu a{
     color: #f37021 !important;    
+    padding: .75em !important;
 }
 
 .sf-menu li{
@@ -2077,8 +2094,8 @@ input#cvv{
 }
 
 .utilNav{
-    top: 20px;
-    position: relative;    
+/*    top: 20px;
+    position: relative;    */
 }
 
 .menuWrapper{
@@ -2103,7 +2120,7 @@ input#cvv{
     background: url("../images/featured-bg.png") no-repeat scroll left top transparent;    
     background-size: cover;
     position: relative;
-    top: 60px;    
+    top: 45px;    
     height: 322px;
 }
 
@@ -2115,7 +2132,7 @@ input#cvv{
 
 .featured-product-carousel h2{
     margin-bottom: 20px;
-    margin-top: 25px;
+    margin-top: 38px;
     text-transform: uppercase;
     font-weight: 100;
     font-family: gotham book;
@@ -2126,7 +2143,8 @@ input#cvv{
 .menuWrapper ul{
     position: relative;
     float: left;
-    left: 66px;    
+    left: 31px;    
+    top: 8px;
 }
 
 .sf-arrows .sf-with-ul:after{
@@ -2152,4 +2170,31 @@ input#cvv{
     font-size: 13px;
     color: #797a7d;
     font-family: Gotham Book;
+}
+
+.price{
+    font-family: Gotham Bold;
+}
+
+.desc{
+    font-family: Gotham Book; 
+    color: #595959;
+}
+
+.f-row label{
+    font-family: Gotham Bold;
+    color: #595959;
+}
+
+input[type="text"]{
+    font-family: Gotham Book;
+}
+
+.sf-menu ul{
+    min-width: 195px !important;
+}
+
+.productCategories{
+    min-width: 195px !important;
+    text-align: center;
 }
