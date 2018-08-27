@@ -1912,11 +1912,15 @@ input#cvv{
 /*** Script Questions ***/
 
 .checkoutQuestions {
-    width: 200px;
+    /*width: 200px;*/
 }
 
 .question {
-    display: inline;
+    display: flex;
+    padding-bottom: 10px;
+}
+.question label{
+    min-width: 155px;
 }
 
 /****Checkout ????????? Review****/
