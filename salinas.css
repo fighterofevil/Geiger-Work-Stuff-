@@ -37,7 +37,8 @@ html, body {
 }
 
 html{
-    color:#000;background:#FFF;
+    color:#000;
+    /*background:#FFF;*/
 }
 
 html, body, div, span, applet, object, iframe,
@@ -150,19 +151,36 @@ a{
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
+    border-top: 2px solid #0079C2;
+    font-family: Montserrat;
+    font-weight: bold;
+    line-height: 35px;
+    color: #0079C2;
+    height: 54px;
+    background-color: #fff;
 }
 
 #footer a{
-    color:#444;
+    font-size: 14px;
+    position: relative;
+    font-family: Montserrat;
+    font-weight: bold;
+    line-height: 35px;
+    color: #0079C2;
 }
 
 .nav a{
-    color: #ffffff;
-    font-size: 22px;
     text-decoration: none;
     line-height: 45px;
+    height: 15px;
+    width: 263px;
+    color: #FFFFFF;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
 }
 
 div#DDmenu a{
@@ -180,7 +198,15 @@ h1{
 }
 
 #pageHome h1{
+    height: 26px;
+    color: #0079C2;
+    font-family: Montserrat;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 28px;
     text-align: center;
+    text-transform: uppercase;
+    padding-top: 37px;
 }
 
 #pageCategory h1{
@@ -285,11 +311,11 @@ label, .label {
 Place style here that define the global stturctre. Wrapper divs, one coloumn, two column definitions, etc*/
 
 html{
-    background: #fff;
+    /*background: #fff;*/
 }
 
 body{
-    background: #FFF;
+    background-color: #F7F7F7;
 }
 
 #container{
@@ -308,7 +334,8 @@ body{
 
 #header{
     width: 1024px;
-    height: 140px;
+    height: 196px;
+    background-color: #fff;
 }
 
 #header .wrapper{
@@ -319,9 +346,11 @@ body{
 }
 
 #footer .wrapper{
-    box-sizing: border-box;
-    height: 65px;
-    padding:15px 15px;
+    /* box-sizing: border-box; */
+    /* height: 65px; */
+    /* padding: 15px 15px; */
+    display: flex;
+    justify-content: space-around;
 }
 
 #footer .wrapper p{
@@ -417,9 +446,9 @@ body{
 
 #menu{
     z-index:100;
-    height: 45px;
-    margin-bottom: 15px;
-    background: #8E0215;
+    height: 50px;
+    /*margin-bottom: 15px;*/
+    background-color: #0079C2;
 }
 
 .nav{
@@ -478,6 +507,7 @@ div#DDmenu li a:hover{
 
 .utilNav ul{
     float: right;
+    padding-right: 23px;
 }
 
 
@@ -489,14 +519,15 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    width: 380px;
+    /*width: 380px;*/
     float: right;
 }
 
 /****Mini Cart****/
 
-.mini-cart{
-    margin-top: -8px;
+.mini-cart a{
+    color: #fff !important;
+    font-weight: initial !important;
 }
 
 .cartbutton{
@@ -505,32 +536,45 @@ div#DDmenu li a:hover{
 
 #cart-icon{
     float: left;
-    font-size: 28px;
-    margin: 5px 5px 0px 0px
+    font-size: 24px;
+    margin: 7px 0px 7px 17px;
 }
 
 .summary{
     float: right;
     text-align: left;
+    font-weight: 100 !important;
+    margin: 8px 0px 4px 11px;
 }
 
 #cart-quantity, #cart-total{
     clear: both;
 }
 
+#cart-total{
+    margin-left: 15px;
+}
+
 /**** search ****/
 
 .search {
-    clear: right;
-    padding-top: 20px;
+clear: right;
     float: right;
+    position: relative;
+    top: 30px;
+    height: 38px;
+    width: 281px;
+    border: 1px solid #E6E6E6;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 #searchForm div{
     background-color: #fff;
     width: 175px;
-    border: 1px solid #aaaaaa;
     height: 24px;
+    position: relative;
+    left: 30px;
 }
 
 #searchForm input#key{
@@ -735,23 +779,33 @@ tfoot tr td{
 /****Home****/
 
 .home-content{
-
+    background-color: #E4EDFF;
 }
 
-.welcome-message{
-
+.welcome-message {
+    height: 98px;
+    color: #555559;
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+    padding-left: 80px;
+    padding-right: 80px;
+    min-height: 225px;
 }
 
 .spotlight {
- /*   background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
+    background: url("../images/spotlight-img.png") no-repeat scroll left top transparent;
+    height: 447px;
     width: 1024px;
-    height: 576px;*/
 }
 
 /*Featured Products Carousel*/
 
 .featured-product-carousel{
     position:relative;
+    height: 250px;
+    background-color: #fff;
 }
 
 .featured-product-carousel .title{
@@ -776,7 +830,7 @@ tfoot tr td{
     width:23px;
     height:127px;
     float:left;
-    background:url("../images/arrowLeft.png") no-repeat;
+    background:url("../images/arrow-left.png") no-repeat;
 }
 
 .featured-product-carousel .next{
@@ -784,7 +838,7 @@ tfoot tr td{
     width:23px;
     height:127px;
     float:left;
-    background:url("../images/arrowRight.png") no-repeat;
+    background:url("../images/arrow-right.png") no-repeat;
 }       
 
 .featured-product-carousel .item{
@@ -807,7 +861,7 @@ tfoot tr td{
     display:table-cell;
     vertical-align:middle;
     text-align:center;
-    border:1px solid #C3C3C3;
+    border:1px solid #45AA40;
 }   
         
 /****FAQ ****/
@@ -1942,3 +1996,69 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+.sf-menu li{
+    background: initial !important;
+}
+
+.sf-menu a{
+    height: 15px;
+    color: #FFFFFF !important;
+    font-family: Montserrat !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    text-align: center;
+    border-left: initial !important;
+    border-top: initial !important;
+    border-top: initial !important;
+    text-transform: uppercase;
+}
+
+.home-content p{
+    margin-bottom: initial;
+    color: #555559;
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 28px;
+}
+
+#pageHome h2{
+    height: 25px;
+    color: #45AA40;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 0;
+    text-align: center;
+    padding-top: 37px;
+}
+
+#pageHome #content{
+    padding: initial;
+    background-color: #fff;
+}
+
+.featuredwrap {
+    display: flex;
+    width: 1024px;
+    justify-content: space-around;
+}
+
+.utilNav li a{
+    color: #555559;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.miniUL{
+    height: 38px;
+    width: 280px;
+    background-color: #45AA40;
+    position: relative;
+    top: 15px;
+    padding-right: initial !important;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
