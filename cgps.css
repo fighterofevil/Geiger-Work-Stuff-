@@ -259,6 +259,7 @@ h6{ }
     font-size: 12px;
     color: #595959;
     font-family: Gotham Book;
+    padding-bottom: 10px;
 }
 
 .image .price-box{
@@ -857,8 +858,8 @@ tfoot tr td{
 .featured-product-carousel .items-wrapper{
     float:left;
     width:600px;
-    padding-left:10px;
-    height: 132px;
+    /*padding-left:10px;*/
+    height: 175px;
 }   
 
 .featured-product-carousel .prev{
@@ -867,6 +868,8 @@ tfoot tr td{
     height:52px;
     float:left;
     background:url("../images/arrowLeft.png") no-repeat;
+    top: 60px;
+    position: relative;
 }
 
 .featured-product-carousel .next{
@@ -875,29 +878,31 @@ tfoot tr td{
     height:52px;
     float:left;
     background:url("../images/arrowRight.png") no-repeat;
+    top: 60px;
+    position: relative;
 }       
 
 .featured-product-carousel .item{
-    width:135px;
-    height:125px;
+    width:175px;
+    height:175px;
     float:left;
     display:table-cell;
     vertical-align:middle;
-    margin-right:5px;
+    margin-right:20px;
 }
 
 .featured-product-carousel .item img{
-    max-height:125px;
-    max-width:125px;
+    max-height:175px;
+    max-width:175px;
 }
 
 .featured-product-carousel .item a{
     width:100%;
-    height:125px;
+    height:175px;
     display:table-cell;
     vertical-align:middle;
     text-align:center;
-    border:1px solid #C3C3C3;
+    /*border:1px solid #C3C3C3;*/
 }   
         
 /****FAQ ****/
@@ -2131,7 +2136,7 @@ input#cvv{
 
 
 .featured-product-carousel h2{
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     margin-top: 38px;
     text-transform: uppercase;
     font-weight: 100;
@@ -2204,4 +2209,14 @@ input[type="text"]{
     font-size: 13px;
     line-height: 16px;
     text-align: left;
+}
+
+#passwordInput{
+    width: 142px;
+}
+
+.featuredwrap{
+    display: flex;
+    width: 1024px;
+    justify-content: space-around;
 }
