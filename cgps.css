@@ -32,6 +32,73 @@
 
 /************ CSS Reset *************/
 
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+
+    #pageHome #container{
+        width: 100vw!important;
+    }
+
+    #header .wrapper .utilNav li{
+        position: relative!important;
+        top: 0px!important;
+    }
+
+    .utilNav a{
+        position: relative;
+        top: 17px;
+
+    }
+
+    .mini-cart a{
+        position: relative;
+        top: 0px!important;
+    }
+
+    .welcomemsg{
+        padding-top: 17px!important;
+    }
+  
+    .sf-menu{
+        margin-bottom: initial !important;
+    }
+
+    .sf-menu a{
+        color: #f37021 !important;    
+        padding: .75em !important;
+    }
+
+    .sf-menu li{
+        background: initial !important;
+        padding-right: 20px!important;
+        font-family: Gotham Bold;
+    }
+
+    .sf-menu ul{
+        background-color: #fff !important;     
+        top: 45px !important;
+        border-top: 5px solid #f37021;
+    }
+
+    .sf-menu ul li{
+        font-family: Gotham Book;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .sf-menu ul li a{
+        color: #000 !important;
+    }
+
+    .sf-menu ul li a:hover{
+        color: #f37021 !important;
+    }
+
+
+}
+
+
 @font-face {
     font-family: 'GothamLight';
     font-style: normal;
