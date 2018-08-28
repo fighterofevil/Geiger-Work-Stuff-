@@ -95,6 +95,9 @@
         color: #f37021 !important;
     }
 
+    input[type='text']{
+        line-height: 1em;
+    }
 
 }
 
