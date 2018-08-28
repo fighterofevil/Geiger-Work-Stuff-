@@ -927,7 +927,7 @@ tfoot tr td{
 
 .featured-product-carousel .items-wrapper{
     float:left;
-    width:600px;
+    width:760px !important;
     /*padding-left:10px;*/
     height: 175px;
 }   
