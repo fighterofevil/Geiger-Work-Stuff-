@@ -146,7 +146,7 @@ p .pageItem{
 }
 
 a{ 
-    color:#84010F;
+    color:#45AA40;
     text-decoration: none;
 }
 
@@ -323,7 +323,8 @@ body{
     position: relative;
     text-align: left;
     width: 1024px;
-    min-height: 787px;
+    /*min-height: 787px;*/
+    box-shadow: 0 0 25px 0px rgba(0,0,0,0.25);
 }
 
 #content{
@@ -334,15 +335,16 @@ body{
 
 #header{
     width: 1024px;
-    height: 196px;
+    height: 166px;
     background-color: #fff;
 }
 
 #header .wrapper{
     float: right;
-    width: 700px;
+    width: 1024px;
     text-align: right;
     margin-top: 15px;
+    height: 130px;    
 }
 
 #footer .wrapper{
@@ -407,7 +409,7 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+    background: url("../images/logo-tag.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 110px;
@@ -449,6 +451,7 @@ body{
     height: 50px;
     /*margin-bottom: 15px;*/
     background-color: #0079C2;
+    padding-left: 193px;
 }
 
 .nav{
@@ -558,7 +561,7 @@ div#DDmenu li a:hover{
 /**** search ****/
 
 .search {
-clear: right;
+    clear: right;
     float: right;
     position: relative;
     top: 30px;
@@ -570,28 +573,30 @@ clear: right;
 }
 
 #searchForm div{
-    background-color: #fff;
-    width: 175px;
+    width: 250px;
     height: 24px;
     position: relative;
-    left: 30px;
+    top: 7px;
+    padding-left: 30px;
 }
 
 #searchForm input#key{
-border: none;
-width: 148px;
-float: left;
-padding-left: 2px;
+    border: none;
+    width: 200px;
+    float: left;
+    padding-left: 13px;
+    padding-top: 2px;
 }
 
 #searchForm input#searchBtn{
-    width: 20px;
-    height: 24px;
-    background: url("../images/btn_search.gif") 50% 50% #FFF no-repeat;
+    width: 22px;
+    height: 22px;
+    background: url("../images/search.png") 50% 50% #FFF no-repeat;
     border: none;
     cursor: pointer;
-    float: right;
+    float: left;
     text-indent:-20000px;
+    margin: 0px 0px 7px 0px;
 }
 
 /*********** Global - Reused Basic Elements: tables, HR, etc; *************/
@@ -727,9 +732,10 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
+    background-color: #45AA40;
     border:1px solid #777;
-    color:#000;
+    color:#FFF;
+    font-weight: bold;
     padding: 5px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
@@ -738,15 +744,15 @@ tfoot tr td{
 }
 
 .btn:hover{
-    background-color: #fff;
-    text-decoration: underline;
+    background-color: #CCCCCC;
+    text-decoration: none;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
 } 
 
 .btn-primary{
-    background-color: #84010F;
+    background-color: #45AA40;
     border:1px solid #777;
     color:#FFF;
     font-weight: bold;
@@ -759,7 +765,7 @@ tfoot tr td{
 
 .btn-primary:hover{
     background-color: #CCCCCC;
-    text-decoration: underline;
+    text-decoration: none;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -2049,6 +2055,7 @@ input#cvv{
     font-family: Montserrat;
     font-size: 14px;
     font-weight: bold;
+    padding-left: 20px;
 }
 
 .miniUL{
@@ -2062,3 +2069,102 @@ input#cvv{
     border-bottom-left-radius: 20px;
 }
 
+#key::placeholder {
+    font-size: 14px;
+    color: #0079C2;
+    font-family: Montserrat;
+}
+
+.miniUL a{
+    padding-left: initial !important;
+}
+
+.welcomemsg{
+    color: #555559;
+    font-family: Montserrat;
+    font-size: 14px;
+}
+
+.apparrelTitle{
+    position: relative;
+    float: left;
+    text-transform: uppercase;
+    font-size: 32px;
+    font-family: Montserrat;
+    color: #45AA40;
+    font-weight: 100;
+    top: 70px;
+    left: 210px;    
+}
+
+#logoTag{
+    position: absolute;
+    left: -35px;
+    top: -60px;
+    z-index: 9999;   
+}
+
+.productCategories{
+    width: 260px !important;    
+}
+
+.productCategories img{
+    padding-left: 20px;
+    position: relative;
+}
+
+.sf-arrows .sf-with-ul:after{
+    content: initial !important;
+}
+
+.sf-menu{
+    margin-bottom: 10px !important;
+}
+
+.sf-menu a {
+    padding-top: 17px !important;   
+}
+
+.sf-menu ul{
+    min-width: 260px !important;
+    background-color: #fff; 
+    top: 54px !important;   
+
+}
+
+.productCategories ul li a{
+    color: #000 !important;
+    text-transform: initial !important;
+}
+
+.productCategories ul li a:hover{
+    color: #fff !important;
+}
+
+.productCategories ul li:hover{
+    background-color: #005588 !important;
+}
+
+.login .btn-primary{
+    background-color: #45AA40 !important;
+}
+
+.login .btn{
+    padding-left: 76px !important;
+    padding-right: 76px !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}   
+
+
+#registerForm .btn-primary{
+    background-color: #45AA40 !important;
+}
+
+.sf-arrows .sf-with-ul{
+    padding-right: initial !important;
+}
+
+.sf-menu ul ul{
+    top:initial !important;
+}
