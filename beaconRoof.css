@@ -37,7 +37,8 @@ html, body {
 }
 
 html{
-    color:#000;background:#FFF;
+    color:#000;
+    background:#d0e0f6;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -152,10 +153,14 @@ a{
 #footer{
     font-size: 12px;
     position: relative;
+    background-color: #252525;
 }
 
 #footer a{
-    color:#444;
+    color: #FFFFFF;
+    font-family: Montserrat;
+    font-size: 12px;
+    line-height: 0;
 }
 
 .nav a{
@@ -285,11 +290,11 @@ label, .label {
 Place style here that define the global stturctre. Wrapper divs, one coloumn, two column definitions, etc*/
 
 html{
-    background: #fff;
+    /*background: #fff;*/
 }
 
 body{
-    background: #FFF;
+    background: #d0e0f6;
 }
 
 #container{
@@ -307,8 +312,11 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    /*width: 1024px;*/
+    height: 130px;
+    /*margin: 0 auto;*/
+    background: url("../images/header-bg.jpg");
+    background-size: cover;
 }
 
 #header .wrapper{
@@ -322,6 +330,10 @@ body{
     box-sizing: border-box;
     height: 65px;
     padding:15px 15px;
+    color: #FFFFFF;
+    font-family: Montserrat;
+    font-size: 12px;
+    line-height: 0;    
 }
 
 #footer .wrapper p{
@@ -378,13 +390,13 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+    background: url("../images/beacon-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
+    height: 54px;
     margin: 15px 0px 0px 20px;
     padding: 10px 8px 0px 0px;
-    width: 142px;
+    width: 241px;
 }
 
 #header .logo span {
@@ -426,6 +438,7 @@ body{
     margin: 0;
     width: 1024px;
     height: 45px;
+    margin: 0 auto;
 }
 
 .nav li{
@@ -497,6 +510,9 @@ div#DDmenu li a:hover{
 
 .mini-cart{
     margin-top: -8px;
+    background-color: #0568AF;
+    height: 40px;
+    width: 185px;    
 }
 
 .cartbutton{
@@ -522,31 +538,36 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     float: right;
+    background-color: #E6E6E6;
+    width: 185px;
+    height: 37px;
 }
 
 #searchForm div{
-    background-color: #fff;
+    /*background-color: #fff;*/
     width: 175px;
-    border: 1px solid #aaaaaa;
+    /*border: 1px solid #aaaaaa;*/
     height: 24px;
 }
 
 #searchForm input#key{
-border: none;
-width: 148px;
-float: left;
-padding-left: 2px;
+    border: none;
+    width: 148px;
+    float: left;
+    padding-left: 2px;
+    background-color: #E6E6E6;
+    border-bottom: 1px solid #000;
 }
 
 #searchForm input#searchBtn{
     width: 20px;
     height: 24px;
-    background: url("../images/btn_search.gif") 50% 50% #FFF no-repeat;
+    background: url("../images/search.png") 50% 50% no-repeat;
     border: none;
     cursor: pointer;
-    float: right;
+    float: left;
     text-indent:-20000px;
 }
 
@@ -735,7 +756,8 @@ tfoot tr td{
 /****Home****/
 
 .home-content{
-
+    background-color: #fff;
+    text-align: center;
 }
 
 .welcome-message{
@@ -752,6 +774,8 @@ tfoot tr td{
 
 .featured-product-carousel{
     position:relative;
+    height: 265px;
+    background-color: #fff;    
 }
 
 .featured-product-carousel .title{
@@ -1942,3 +1966,22 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+
+.featured-product-carousel h2{
+    text-align: center;
+}
+
+.superWrapper{
+    width: 1024px;
+    margin: 0 auto;
+}
+
+.utilNav li a{
+    color: #fff;
+}
+
+.innerMenu{
+    width: 1024px;
+    margin: 0 auto;
+}
