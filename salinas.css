@@ -2168,3 +2168,20 @@ input#cvv{
 .sf-menu ul ul{
     top:initial !important;
 }
+
+
+#pageFAQ h2{
+    width: 100% !important; 
+}
+
+#pageFAQ .page{
+    width: 90% !important;
+}
+
+#pageFAQ .section{
+    width: 100% !important;
+}
+
+#pageFAQ table{
+    margin: 20px auto !important;    
+}
