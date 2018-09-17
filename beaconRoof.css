@@ -1111,7 +1111,7 @@ td.ar{
     float: left;
     height: 275px;
     margin-right: 20px;
-    width: 151px;
+    width: 152px;
 }
 
 #pageCategory .badges, #pageSearchResults .badges{
@@ -1559,8 +1559,8 @@ float: right;
 
 #new-address-modal {
     width:600px;
-    height: 550px;
-    padding: 0px 20px;
+    height: 530px;
+    padding: 15px 20px;
     background-color:#FFF;
     overflow:auto;  /* safe scroll for all browsers */
     overflow-x:hidden;  /* browser-supported hiding of horizontal scroll */
@@ -2248,4 +2248,27 @@ input#cvv{
 
 .spotlightLogo{
     margin-bottom: 20px;
+}
+
+.icon-arrow-right{
+    position: relative;
+    top: 2px;   
+}
+
+#thirdptyft{
+    display: none;
+}
+
+.icon-th-list, .icon-plus{
+    position: relative;
+    top: 1px;    
+}
+
+.icon-envelope{
+    position: relative;
+    top: 2px;      
+}
+
+.coupon{
+    display: none;
 }
