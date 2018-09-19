@@ -160,6 +160,8 @@ a{
     font-family: Montserrat;
     font-size: 14px;
     /*line-height: 0;*/
+    text-decoration: underline;
+    color: #0568af;    
 }
 
 
@@ -196,21 +198,18 @@ h1{
     padding: 0;*/
     margin: 0px 0px 30px 0px;
     /*line-height: 30px;*/
-
     color: #333333;
     font-family: Montserrat;
-
     font-size: 28px;
     font-weight: bold;
     line-height: 0;
-
 
 }
 
 
 #pageHome h1{
     text-align: center;
-    padding-bottom: 13px;
+    padding-bottom: 15px;
     color: #333333;
     font-family: Montserrat;
     font-size: 32px;
@@ -231,7 +230,7 @@ h1{
 
 h2{ 
     font-size:22px;
-    color:#424242;
+    color:#333333;
     font-weight:bold;
     margin-bottom: 15px;
 }
@@ -298,7 +297,7 @@ label, .label {
     font-size: 13px;
     margin-top: 10px;
     text-transform: uppercase;
-    color: #555;
+    color: #333;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -309,7 +308,7 @@ label, .label {
 }
 
 .subcat-title a,#recentlyViewed a {
-    padding:3px 2px 3px 33px;
+    padding:3px 2px 5px 33px;
     display:block;
     color:#555;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
@@ -354,14 +353,14 @@ body{
     z-index: 1;
     clear: both;
 /*    padding: 15px 20px;*/
-    padding-top: 25px;
+    padding-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
     background-color: #fff;
     position: relative;
     /*top: 25px;    */
     border-radius: 10px;    
-    padding-bottom: 20px;
+    padding-bottom: 30px;
 }
 
 #header{
@@ -590,6 +589,7 @@ div#DDmenu li a:hover{
     text-align: left;
     left: 7px;
     position: relative;
+    font-size: 13px;
 }
 
 #cart-quantity, #cart-total{
@@ -789,10 +789,12 @@ tfoot tr td{
     border-radius:3px;
     font-family: Montserrat;
     font-size: 14px;
+    font-weight: 800;    
 }
 
 .btn:hover{
-    background-color: #E6E6E6;
+    /*background-color: #E6E6E6;*/
+    background-color: #1e76b7;    
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -809,15 +811,17 @@ tfoot tr td{
     -webkit-border-radius:3px;
     border-radius:3px;
     font-family: Montserrat;
-    font-size: 14px;    
+    font-size: 14px;  
+    font-weight: 800;
 }
 
 .btn-primary:hover{
-    background-color: #E6E6E6;
+    /*background-color: #E6E6E6;*/
+    background-color: #1e76b7;    
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    color: #333333;    
+    color: #333333;   
 }
 
 .gift-btn {
@@ -836,12 +840,12 @@ tfoot tr td{
 .home-content{
     /*background-color: #fff;*/
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .welcome-message{
-    height: 177px;
-    padding-top: 29px;
+    /*height: 177px;*/
+    padding-top: 30px;
     padding-left: 79px;
     padding-right: 79px;
     color: #333333;
@@ -863,10 +867,10 @@ tfoot tr td{
 
 .featured-product-carousel{
     position:relative;
-    height: 265px;
+    /*height: 265px;*/
     background-color: #fff;    
     border-radius: 10px;
-    padding-top: 50px;
+    padding-top: 30px;
 }
 
 .featured-product-carousel .title{
@@ -928,18 +932,18 @@ tfoot tr td{
 /****FAQ ****/
 
 #pageFAQ h2{
-    cursor:pointer;
+    cursor: pointer;
     background: none repeat scroll 0 0 #FAFAFA;
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
-    color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 12px;
+    color: #333;
+    font-family: Montserrat;
+    font-size: 13px;
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
-    width: 660px;
+    width: 900px;
 }
 
 #pageFAQ h2:hover{
@@ -948,7 +952,7 @@ tfoot tr td{
 
 #pageFAQ .section{
     padding: 10px;
-    width: 660px;
+    width: 900px;
 }
 
 /****Custom Orders****/
@@ -2096,6 +2100,8 @@ input#cvv{
 .utilNav li a{
     color: #fff;
     font-family: Montserrat;
+    text-decoration: none;
+    font-size: 12px!important;
 }
 
 .innerMenu{
@@ -2106,18 +2112,22 @@ input#cvv{
 .sf-menu a{
     color: #1A1A1A !important;
     font-family: Montserrat !important;
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-weight: bold !important;
     line-height: 0 !important;
     text-align: center !important;
     border-left: initial !important;
     border-top: initial !important;
     text-transform: uppercase !important;
+    padding: .75em 0em !important;
+    position: relative;
+    top: 11px;
 }
 
 .sf-menu li{
     background: initial !important;
     top: 12px !important;
+    padding-left: 1.5em;
 }
 
 .welcomemsg{
@@ -2135,30 +2145,32 @@ input#cvv{
 
 #pageHome p{
     padding-bottom: initial;
+    padding-bottom: 30px;
+    margin-bottom: initial;
 }
 
 #bannerImages{
     display: flex;
     justify-content: space-around;    
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 #bannerImages img{
     height: auto;
     width: auto;
-    max-width: 480px;
-    max-height: 264px;  
+    max-width: 500px;
+    max-height: 275px;  
 }
 
 
 #bannerImages .leftImage {
     position: relative;
-    left: -5px;
+    left: -7px;
 }
 
 #bannerImages .rightImage{
     position: relative;
-    right: -5px;
+    right: -7px;
 }
 
 .featuredwrap{
@@ -2166,6 +2178,7 @@ input#cvv{
     width: 100%;
     display: flex;
     justify-content: space-around;    
+    padding-bottom: 30px;
 }
 
 #pageHome #content{
@@ -2174,10 +2187,13 @@ input#cvv{
     top: initial;    
     border-radius: initial;
     padding-bottom: initial;
+    width:1024px;
+    padding-top: 24px !important;
+
 }
 
 .price strong{
-    font-weight: 400 !important;
+/*    font-weight: 400 !important;*/
 }
 
 .breadTitle{
@@ -2211,6 +2227,7 @@ input#cvv{
 
 #pageItem h1{
     line-height: 1.2em !important;
+    margin: 0px 0px 15px 0px !important;    
 }
 
 .DSMessage{
@@ -2271,4 +2288,69 @@ input#cvv{
 
 .coupon{
     display: none;
+}
+
+#pageMyAccount .warningText{
+    color: red;
+}
+
+table td a{
+    font-size: 13px !important;
+}
+
+#pageFAQ .sidebar{
+    display: none;
+}
+
+#pageFAQ p{
+    width: 900px;
+}
+
+#pageFAQ table{
+    margin: 0 auto;
+}
+
+#pageFAQ table p{
+    width: initial !important;
+}
+
+.sidebar a{
+    color: #333;
+}
+
+.subcat-title{
+    height: 25px;
+}
+
+.imageWindow{
+    margin-bottom: 15px;
+}
+
+#pageCategory .name a, #pageSearchResults .name a{
+    font-size: 13px;
+    line-height: 16px;
+    text-align: left;
+}
+
+.wishlist{
+    font-size: 12px!important;
+}
+
+.price{
+    font-size: 13px;
+    font-weight: 800;    
+}
+
+.sf-menu li:hover{
+    background-color: #666666 !important;
+}
+
+.sf-menu ul{
+    height: 44px;
+}
+
+.sf-menu li{
+    height: 44px;
+    position: relative;
+    top: 0px!important;
 }
