@@ -2110,7 +2110,7 @@ input#cvv{
 }
 
 .sf-menu a{
-    color: #1A1A1A !important;
+    /*color: #1A1A1A !important;*/
     font-family: Montserrat !important;
     font-size: 12px !important;
     font-weight: bold !important;
@@ -2124,10 +2124,28 @@ input#cvv{
     top: 11px;
 }
 
+.sf-menu a:hover{
+    color: #fff !important;
+}
+
 .sf-menu li{
     background: initial !important;
     top: 12px !important;
     padding-left: 1.5em;
+    padding-right: 1.5em;
+    height: 44px;
+    position: relative;
+    top: 0px!important;
+    -webkit-transition: background 0s !important;
+    transition: background 0s !important;
+}
+
+.sf-menu li:hover{
+    background-color: #666666 !important;
+}
+
+.sf-menu ul{
+    height: 44px;
 }
 
 .welcomemsg{
@@ -2218,7 +2236,7 @@ input#cvv{
 }
 
 .login .btn{
-    padding: 15px 76px !important;
+    padding: 15px 75px !important;
 }
 
 .btn new-address i{
@@ -2341,16 +2359,6 @@ table td a{
     font-weight: 800;    
 }
 
-.sf-menu li:hover{
-    background-color: #666666 !important;
-}
-
-.sf-menu ul{
-    height: 44px;
-}
-
-.sf-menu li{
-    height: 44px;
-    position: relative;
-    top: 0px!important;
+.changeColor{
+    color:#fff !important;
 }
