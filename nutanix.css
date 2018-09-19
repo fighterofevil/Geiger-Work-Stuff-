@@ -456,6 +456,7 @@ body{
     margin: 0 auto;
     position: relative;
     top: 27px;
+    margin-bottom: 40px;
 }
 
 #header{
@@ -2025,7 +2026,8 @@ input#cvv{
 }
 
 .question {
-    display: inline;
+    display: flex;
+    padding-bottom: 5px;
 }
 
 /****Checkout ????????? Review****/
@@ -2525,4 +2527,8 @@ input#cvv{
 
 #pageCategory .item {
     padding-bottom: 30px;
+}
+
+.question label{
+    min-width: 215px;
 }
