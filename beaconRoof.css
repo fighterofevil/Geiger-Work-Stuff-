@@ -381,7 +381,7 @@ body{
 #footer .wrapper{
     box-sizing: border-box;
     /*height: 65px;*/
-    padding:30px 15px;
+    padding:0px 15px;
     color: #FFFFFF;
     font-family: Montserrat;
     font-size: 12px;
@@ -390,6 +390,8 @@ body{
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
+    top: 30px;
+    position: relative;
 }
 
 #footer .wrapper p{
@@ -892,37 +894,43 @@ tfoot tr td{
 
 .featured-product-carousel .prev{
     display:block;
-    width:23px;
-    height:127px;
+    width:17px;
+    height:27px;
     float:left;
     background:url("../images/leftArrow.png") no-repeat;
+    position: relative;
+    top: 55px;
+    left: 10px;
 }
 
 .featured-product-carousel .next{
     display:block;
-    width:23px;
-    height:127px;
+    width:17px;
+    height:27px;
     float:left;
     background:url("../images/rightArrow.png") no-repeat;
+    position: relative;
+    top: 55px;
+    right: 10px;
 }       
 
 .featured-product-carousel .item{
-    width:135px;
-    height:125px;
+    width:150px;
+    height:150px;
     float:left;
     display:table-cell;
     vertical-align:middle;
-    margin-right:5px;
+    margin-right:46px;
 }
 
 .featured-product-carousel .item img{
-    max-height:125px;
-    max-width:125px;
+    max-height:150px;
+    max-width:150px;
 }
 
 .featured-product-carousel .item a{
     width:100%;
-    height:125px;
+    height:150px;
     display:table-cell;
     vertical-align:middle;
     text-align:center;
@@ -2088,7 +2096,7 @@ input#cvv{
     font-size: 32px;
     font-weight: bold;
     line-height: 0;    
-    margin-bottom: 40px;
+    margin-bottom: 45px;
 
 }
 
@@ -2316,12 +2324,12 @@ table td a{
     font-size: 13px !important;
 }
 
-#pageFAQ .sidebar{
+    #pageFAQ .sidebar{
     display: none;
 }
 
 #pageFAQ p{
-    width: 900px;
+    /*width: 900px;*/
 }
 
 #pageFAQ table{
