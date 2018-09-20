@@ -1911,11 +1911,11 @@ input#cvv{
     font-weight: bold;
     top: 0px;
     position: relative;
-    width: 400px;
+    width: 370px;
     float: left;
-    left: 3px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    left: 8px;
+    font-size: 13px;
+    padding: 5px;
 }
 
 .warningText{
