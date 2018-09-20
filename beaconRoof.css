@@ -2139,8 +2139,8 @@ input#cvv{
 .sf-menu li{
     background: initial !important;
     top: 12px !important;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
+    padding-left: 1.4em;
+    padding-right: 1.4em;
     height: 44px;
     position: relative;
     top: 0px!important;
@@ -2244,7 +2244,7 @@ input#cvv{
 }
 
 .login .btn{
-    padding: 15px 75px !important;
+    padding: 15px 72px !important;
 }
 
 .btn new-address i{
@@ -2370,3 +2370,11 @@ table td a{
 .changeColor{
     color:#fff !important;
 }
+
+ #pageLogin h1{
+    font-size: 27px !important;  
+ }
+
+ #pageTerms p{
+    margin-bottom: 30px;  
+ }
