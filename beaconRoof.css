@@ -209,7 +209,7 @@ h1{
 
 #pageHome h1{
     text-align: center;
-    padding-bottom: 15px;
+    /*padding-bottom: 15px;*/
     color: #333333;
     font-family: Montserrat;
     font-size: 32px;
@@ -353,14 +353,14 @@ body{
     z-index: 1;
     clear: both;
 /*    padding: 15px 20px;*/
-    padding-top: 30px;
+    padding-top: 40px;
     padding-left: 20px;
     padding-right: 20px;
     background-color: #fff;
     position: relative;
     /*top: 25px;    */
     border-radius: 10px;    
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 #header{
@@ -800,7 +800,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    color: #333333;
+    color: #fff;
 } 
 
 .btn-primary{
@@ -823,7 +823,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    color: #333333;   
+    color: #fff;   
 }
 
 .gift-btn {
@@ -1146,7 +1146,7 @@ td.ar{
 }
 
 #pageCategory .name{
-    text-align: center;
+    text-align: left;
 }
 
 .sortView{
@@ -1235,7 +1235,8 @@ a.view-all{
 }
 
 #pageItem .sidebar{
-    width: 322px;   
+    width: 307px;   
+    padding-left: 15px;
 }
 
 #pageItem .page{
@@ -2095,7 +2096,7 @@ input#cvv{
     font-family: Montserrat;    
     font-size: 32px;
     font-weight: bold;
-    line-height: 0;    
+    /*line-height: 0;    */
     margin-bottom: 45px;
 
 }
@@ -2337,8 +2338,8 @@ table td a{
 }
 
 #pageFAQ table p{
-    width: initial !important;
-}
+    width: initial !important;}
+
 
 .sidebar a{
     color: #333;
