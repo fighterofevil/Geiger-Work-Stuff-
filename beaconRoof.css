@@ -448,14 +448,14 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/beacon-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/newBeaconLogo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 54px;
+    height: 84px;
 /*    margin: 15px 0px 0px 20px;
     padding: 10px 8px 0px 0px;*/
     width: 241px;
-    top: 39px;
+    top: 20px;
     position: relative;
 }
 
@@ -2264,12 +2264,12 @@ input#cvv{
 #msgAndButton{
     color: #333333;
     font-family: Montserrat;
-    font-size: 70px;
-    line-height: 65px;
+    font-size: 50px;
+    line-height: 55px;
     float: right;
-    width: 335px;
+    width: 355px;
     position: relative;
-    top: 50px;    
+    top: 5px; 
 }
 #shopButton{
     background-color: #0568AF;
@@ -2288,6 +2288,7 @@ input#cvv{
 .shopButtonText{
     bottom: 7px;   
     position: relative;
+    line-height: 63px;
 }
 
 .spotlightLogo{
@@ -2378,4 +2379,35 @@ table td a{
 
  #pageTerms p{
     margin-bottom: 30px;  
+ }
+
+ .psgBanner{
+    background: url("../images/psgLogo.png") no-repeat scroll left top transparent;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    top: 30px;
+    height: 140px;
+    padding: 10px;
+    background-position: 30px; 
+ }
+
+.psgText{
+    position: relative;
+    left: 110px;
+    top: 30px;
+}
+
+ .psgText .p1{
+    font-size: 20px;
+ }
+
+.psgText .p2{
+    font-size: 18px;
+ }
+
+ .psgLink{
+    text-decoration: none;
  }
