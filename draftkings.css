@@ -37,7 +37,9 @@ html, body {
 }
 
 html{
-    color:#000;background:#FFF;
+    color:#000;
+    background: url("../images/background-img.jpg") no-repeat scroll left top transparent;
+    background-size: cover;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -68,7 +70,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
     line-height: 1;
     color: black;
-    background: white;
+    /*background: white;*/
 }
 
 ol, ul, li {
@@ -150,12 +152,14 @@ a{
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
+    background-color: #2B2A2C;
+    color: #fff;
 }
 
 #footer a{
-    color:#444;
+    color:#FFF;
 }
 
 .nav a{
@@ -285,11 +289,11 @@ label, .label {
 Place style here that define the global stturctre. Wrapper divs, one coloumn, two column definitions, etc*/
 
 html{
-    background: #fff;
+    /*background: #fff;*/
 }
 
 body{
-    background: #FFF;
+    /*background: #FFF;*/
 }
 
 #container{
@@ -304,24 +308,28 @@ body{
     z-index: 1;
     clear: both;
     padding: 15px 20px;
+    background-color: #fff;
 }
 
 #header{
     width: 1024px;
-    height: 140px;
+    height: 100px;
+    background-color: #2B2A2C;
+    border-bottom: 1px solid #F2F1F3;
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
     text-align: right;
-    margin-top: 15px;
+    width: 1024px;
+    height: 100px;
 }
 
 #footer .wrapper{
     box-sizing: border-box;
     height: 65px;
-    padding:15px 15px;
+    padding: 15px 15px;
+    display: flex;
+    justify-content: space-around;
 }
 
 #footer .wrapper p{
@@ -378,13 +386,13 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+    background: url("../images/draftkings-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
-    margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;
-    width: 142px;
+    height: 79px;
+    /*margin: 15px 0px 0px 20px;*/
+    /*padding: 10px 8px 0px 0px;*/
+    width: 134px;
 }
 
 #header .logo span {
@@ -418,8 +426,10 @@ body{
 #menu{
     z-index:100;
     height: 45px;
-    margin-bottom: 15px;
-    background: #8E0215;
+/*    margin-bottom: 15px;
+    background: #8E0215;*/
+    position: relative;
+    float: left;
 }
 
 .nav{
@@ -489,14 +499,14 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    width: 380px;
+    /*width: 380px;*/
     float: right;
 }
 
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    /*margin-top: -8px;*/
 }
 
 .cartbutton{
@@ -512,6 +522,10 @@ div#DDmenu li a:hover{
 .summary{
     float: right;
     text-align: left;
+    top: 10px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
 }
 
 #cart-quantity, #cart-total{
@@ -522,32 +536,42 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
     float: right;
+    width: 225px;
+    position: relative;
+    top: 20px;
 }
 
 #searchForm div{
     background-color: #fff;
-    width: 175px;
-    border: 1px solid #aaaaaa;
-    height: 24px;
+    width: 225px;
+    height: 35px;
+    position: relative;
+    border: 1px solid #FFF;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;    
 }
 
 #searchForm input#key{
-border: none;
-width: 148px;
-float: left;
-padding-left: 2px;
+    border: none;
+    width: 175px;
+    float: left;
+    position: relative;
+    left: 5px;
+    top: 7px;
 }
 
 #searchForm input#searchBtn{
-    width: 20px;
+    width: 22px;
     height: 24px;
-    background: url("../images/btn_search.gif") 50% 50% #FFF no-repeat;
+    background: url("../images/search.png") 50% 50% #FFF no-repeat;
     border: none;
     cursor: pointer;
-    float: right;
-    text-indent:-20000px;
+    float: left;
+    text-indent: -20000px;
+    position: relative;
+    margin-left: 12px;
+    margin-top: 7px;
 }
 
 /*********** Global - Reused Basic Elements: tables, HR, etc; *************/
@@ -739,13 +763,19 @@ tfoot tr td{
 }
 
 .welcome-message{
-
+    width: 763px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #333333;
 }
 
+
 .spotlight {
- /*   background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
+    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;
     width: 1024px;
-    height: 576px;*/
+    height: 250px;
 }
 
 /*Featured Products Carousel*/
@@ -1942,3 +1972,73 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+
+.utilNav a{
+    color: #F2F1F3;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+}
+
+#pageHome #content{
+    padding: initial;
+}
+
+.footerLogo{
+    background: url("../images/footer-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+    height: 37px;
+    width: 36px; 
+    position: relative;
+    left: 20px;
+    top: 11px;  
+}
+
+.sf-menu a{
+    text-transform: uppercase;
+    font-size: 16px !important;
+    border-top: initial !important;
+    border-left: initial !important;
+    color: #F2F1F3 !important;
+    font-family: 'Oswald', sans-serif;
+
+}
+
+.sf-menu li{
+    background-color: initial !important;
+}
+
+.miniUL{
+    height: 38px;
+    width: 225px;
+    background-color: #45AA40;
+    position: relative;
+    padding-right: initial !important;
+    border-bottom-left-radius: 10px;
+    font-family: 'Open Sans', sans-serif;
+}    
+
+#cart-total{
+    position: relative;
+    left: 15px;
+}
+
+.welcomemsg{
+    text-transform: uppercase;
+}
+
+.welcomemsg strong{
+    font-weight: initial;
+}
+
+.utilNav{
+    color: #F2F1F3;
+    font-size: 14px;
+    font-family: 'Oswald', sans-serif;
+}
+
+.mini-cart a{
+    font-family: 'Open Sans', sans-serif;
+}
