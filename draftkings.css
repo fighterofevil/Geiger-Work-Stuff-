@@ -156,6 +156,7 @@ a{
     position: relative;
     background-color: #2B2A2C;
     color: #fff;
+    font-family: Oswald;
 }
 
 #footer a{
@@ -185,6 +186,14 @@ h1{
 
 #pageHome h1{
     text-align: center;
+    font-family: Oswald;
+    color: #333333;
+    font-size: 45px;
+    text-transform: uppercase;    
+    padding-left: 13px;
+    padding-right: 13px;
+    font-weight: 400;
+
 }
 
 #pageCategory h1{
@@ -327,14 +336,16 @@ body{
 #footer .wrapper{
     box-sizing: border-box;
     height: 65px;
-    padding: 15px 15px;
     display: flex;
     justify-content: space-around;
+    padding-top: 24px;
 }
 
 #footer .wrapper p{
     clear:both;
     float: left;
+    position: absolute;
+    left: 72px;
 }
 
 .repInfo {
@@ -426,10 +437,10 @@ body{
 #menu{
     z-index:100;
     height: 45px;
-/*    margin-bottom: 15px;
-    background: #8E0215;*/
     position: relative;
     float: left;
+    left: 143px;
+    top: 12px;
 }
 
 .nav{
@@ -499,8 +510,9 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    /*width: 380px;*/
     float: right;
+    position: absolute;
+    right: 0px;
 }
 
 /****Mini Cart****/
@@ -539,7 +551,7 @@ div#DDmenu li a:hover{
     float: right;
     width: 225px;
     position: relative;
-    top: 20px;
+    top: 15px;
 }
 
 #searchForm div{
@@ -769,6 +781,8 @@ tfoot tr td{
     line-height: 24px;
     text-align: center;
     color: #333333;
+    margin-bottom: 56px;
+    margin-top: 56px;    
 }
 
 
@@ -1996,6 +2010,11 @@ input#cvv{
     top: 11px;  
 }
 
+.sf-menu{
+    margin-bottom: initial !important;
+    text-align: center;
+}
+
 .sf-menu a{
     text-transform: uppercase;
     font-size: 16px !important;
@@ -2006,8 +2025,33 @@ input#cvv{
 
 }
 
+.sf-menu a:hover{
+    color: #8FC238 !important;
+}
+
 .sf-menu li{
-    background-color: initial !important;
+    background-color: #2B2A2C !important;    
+}
+
+.sf-menu ul{
+    top: 51px !important;
+}
+
+.sf-menu ul li{
+    background-color: #2B2A2C;
+}
+
+.sf-menu ul ul{
+    top: 0 !important;
+}
+
+.sf-menu ul ul li{
+    border-left: 1px solid #fff;
+    background-color: #2B2A2C !important;    
+}
+
+.sf-menu ul li ul{
+    background-color: red !important;
 }
 
 .miniUL{
@@ -2018,6 +2062,7 @@ input#cvv{
     padding-right: initial !important;
     border-bottom-left-radius: 10px;
     font-family: 'Open Sans', sans-serif;
+    margin-left: 45px;
 }    
 
 #cart-total{
@@ -2042,3 +2087,60 @@ input#cvv{
 .mini-cart a{
     font-family: 'Open Sans', sans-serif;
 }
+
+.greenBarAndText{
+    display: inline-flex;
+    margin-bottom: 26px;
+}
+
+.greenBar{
+    height: 2px;
+    width: 100px;
+    background-color: #9DCB3B;
+    position: relative;
+    top: 18px;
+}
+
+#bannerImages{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 75px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.banner{
+    height: 250px;
+    width: 482px;
+    border: 1px solid #E6E6E6;
+    background-color: #F2F2F2;
+}
+
+
+.sf-arrows .sf-with-ul:after{
+    content: url("../images/keyboard_arrow_down-white.png") !important;
+    border: initial !important;
+    border-top-color: initial !important; 
+    border-top-color: initial !important; 
+    top:initial !important;
+    right: 25px !important;
+    margin-top: initial !important;
+}
+
+/* styling for right-facing arrows */
+.sf-arrows ul .sf-with-ul:after {
+    content: url("../images/keyboard_arrow_right-white.png") !important;
+    border-color: initial !important;
+    border-left-color: initial !important;
+    border-left-color: initial !important;
+    top: 16px;
+}
+
+
+.sf-arrows ul li > .sf-with-ul:focus:after,
+.sf-arrows ul li:hover > .sf-with-ul:after,
+.sf-arrows ul .sfHover > .sf-with-ul:after {
+    content: url("../images/keyboard_arrow_right-green.png") !important;
+}
+
+
