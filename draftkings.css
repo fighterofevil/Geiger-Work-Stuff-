@@ -38,8 +38,9 @@ html, body {
 
 html{
     color:#000;
-    background: url("../images/background-img.jpg") scroll left top transparent;
+    /*background: url("../images/background-img.jpg") scroll left top transparent;*/
     background-size: cover;
+    background-color: #141414;
 }
 
 html, body, div, span, applet, object, iframe,
