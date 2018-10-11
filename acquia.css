@@ -37,7 +37,8 @@ html, body {
 }
 
 html{
-    color:#000;background:#FFF;
+    color:#000;
+    background: url("../images/bg-grid.jpg") scroll left top transparent;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -68,7 +69,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
     line-height: 1;
     color: black;
-    background: white;
+    /*background: white;*/
 }
 
 ol, ul, li {
@@ -150,12 +151,16 @@ a{
 }
 
 #footer{
-    font-size: 12px;
     position: relative;
+    background-color: #232C61;
+    height: 124px;
+    color: #FFFFFF;
+    font-size: 16px;    
 }
 
 #footer a{
-    color:#444;
+    color: #fff;
+    font-size: 16px;
 }
 
 .nav a{
@@ -285,11 +290,11 @@ label, .label {
 Place style here that define the global stturctre. Wrapper divs, one coloumn, two column definitions, etc*/
 
 html{
-    background: #fff;
+    /*background: #fff;*/
 }
 
 body{
-    background: #FFF;
+    /*background: #FFF;*/
 }
 
 #container{
@@ -307,15 +312,14 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    background-color: #F5F5F5;
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
+    width: 1024px;
     text-align: right;
-    margin-top: 15px;
+    margin: 0 auto;
+    height: 50px;
 }
 
 #footer .wrapper{
@@ -378,7 +382,7 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+    background: url("../images/acquia-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 110px;
@@ -418,12 +422,11 @@ body{
 #menu{
     z-index:100;
     height: 45px;
-    margin-bottom: 15px;
-    background: #8E0215;
+    background: #fff;
 }
 
 .nav{
-    margin: 0;
+    margin: 0 auto;
     width: 1024px;
     height: 45px;
 }
@@ -434,6 +437,7 @@ body{
 
 .nav a{
     padding: 10px 20px;
+    color: #1D1714;
 }
 
 .nav li:hover{
@@ -497,6 +501,7 @@ div#DDmenu li a:hover{
 
 .mini-cart{
     margin-top: -8px;
+    background-color: #26A3DD;
 }
 
 .cartbutton{
@@ -512,6 +517,7 @@ div#DDmenu li a:hover{
 .summary{
     float: right;
     text-align: left;
+    color: #FFFFFF;
 }
 
 #cart-quantity, #cart-total{
@@ -739,13 +745,16 @@ tfoot tr td{
 }
 
 .welcome-message{
-
+    background-color: #FFFFFF;
+    box-shadow: 8px 0 30px 0px rgba(0,0,0,0.25);
+    height: 184px;  
 }
 
 .spotlight {
- /*   background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
-    width: 1024px;
-    height: 576px;*/
+    /*background: url("../images/spot-flow.png") no-repeat scroll left top transparent;*/
+    background-color: #26A3DD;
+    /*width: 1024px;*/
+    height: 307px;
 }
 
 /*Featured Products Carousel*/
@@ -1942,3 +1951,42 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+.utilNav, .utilNav a{
+    color: #1D1714;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.mini-cart a{
+    color: #fff;
+}
+
+.wrapper2{
+    height: 80px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;    
+}
+
+.subwrapper2{
+    width: 1024px;
+    margin: 0 auto;
+}
+
+.spotWrapper{
+    width: 1024px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.spotText{
+    text-align: left;
+    color: #FFFFFF;
+    font-size: 70px;
+    font-style: italic;
+    font-weight: 800;
+    line-height: 70px;
+    text-transform: uppercase;
+}
+
