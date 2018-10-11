@@ -1988,5 +1988,7 @@ input#cvv{
     font-weight: 800;
     line-height: 70px;
     text-transform: uppercase;
+    position: relative;
+    float: left;
 }
 
