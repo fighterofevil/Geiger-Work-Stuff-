@@ -40,7 +40,7 @@ html{
     color:#000;
     /*background: url("../images/background-img.jpg") scroll left top transparent;*/
     background-size: cover;
-    background-color: #141414;
+    background-color: #141414;    
 }
 
 html, body, div, span, applet, object, iframe,
@@ -148,8 +148,8 @@ p .pageItem{
 }
 
 a{ 
-    color:#45AA40;
-    text-decoration: none;
+    color: #8FC238;
+    text-decoration: underline;
 }
 
 #footer{
@@ -158,10 +158,12 @@ a{
     background-color: #2B2A2C;
     color: #fff;
     font-family: Oswald;
+    box-shadow: 0 4px 4px -4px #000, 4px 0 4px -4px #000, -4px 0 4px -4px #000;
 }
 
 #footer a{
     color:#FFF;
+    text-decoration: none;
 }
 
 .nav a{
@@ -179,10 +181,12 @@ div#DDmenu a{
 
 h1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 30px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    font-family: 'Oswald', sans-serif;
+    color: #444;
 }
 
 #pageHome h1{
@@ -215,7 +219,7 @@ h6{ }
 
 .bCrumbs, .bCrumbs a{
     font-size: 12px;
-    color:#777;
+    color:#444;
 }
 
 .image .price-box{
@@ -232,9 +236,11 @@ h6{ }
 }
 
 #pageItem .price {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     margin: 10px;
+    color: #444;
+    font-family: 'Oswald', sans-serif;
 }
 
 #itemCodeList {
@@ -260,14 +266,15 @@ label, .label {
 
 .sidebar .title{
     font-weight: 600;
-    font-size: 13px;
+    font-size: 16px;
     margin-top: 10px;
     text-transform: uppercase;
-    color: #555;
+    color: #444;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
     width: 85%;
+    font-family: 'Oswald', sans-serif;
 }
 
 #recentlyViewed li {
@@ -317,15 +324,18 @@ body{
 #content{
     z-index: 1;
     clear: both;
-    padding: 15px 20px;
+    padding: 30px 20px;
     background-color: #fff;
+    box-shadow: 4px 0 4px -4px #000, -4px 0 4px -4px #000;
 }
 
 #header{
     width: 1024px;
-    height: 100px;
+    height: 110px;
     background-color: #2B2A2C;
     border-bottom: 1px solid #F2F1F3;
+    margin-top: 30px;
+    box-shadow: 0 -4px 4px -4px #000, 4px 0 4px -4px #000, -4px 0 4px -4px #000;
 }
 
 #header .wrapper{
@@ -336,8 +346,8 @@ body{
 
 #footer .wrapper{
     box-sizing: border-box;
-    height: 65px;
-    display: flex;
+    height: 60px;
+    /*display: flex;*/
     justify-content: space-around;
     padding-top: 24px;
 }
@@ -347,6 +357,7 @@ body{
     float: left;
     position: absolute;
     left: 72px;
+    padding-left: 20px;
 }
 
 .repInfo {
@@ -401,10 +412,11 @@ body{
     background: url("../images/draftkings-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 79px;
-    /*margin: 15px 0px 0px 20px;*/
-    /*padding: 10px 8px 0px 0px;*/
-    width: 134px;
+    height: 90px;
+    /* margin: 15px 0px 0px 20px; */
+    /* padding: 10px 8px 0px 0px; */
+    width: 143px;
+    background-position: 18px 20px;
 }
 
 #header .logo span {
@@ -440,7 +452,7 @@ body{
     height: 45px;
     position: relative;
     float: left;
-    left: 143px;
+    left: 136px;
     top: 12px;
 }
 
@@ -495,7 +507,7 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .utilNav ul{
@@ -514,12 +526,14 @@ div#DDmenu li a:hover{
     float: right;
     position: absolute;
     right: 0px;
+    padding-right: 20px;
 }
 
 /****Mini Cart****/
 
 .mini-cart{
     /*margin-top: -8px;*/
+    margin-left: 10px !important;
 }
 
 .cartbutton{
@@ -557,7 +571,7 @@ div#DDmenu li a:hover{
 
 #searchForm div{
     background-color: #fff;
-    width: 225px;
+    width: 223px;
     height: 35px;
     position: relative;
     border: 1px solid #FFF;
@@ -597,7 +611,7 @@ Feel free to change as needed*/
 
 table a:link {
     font-weight: bold;
-    text-decoration:none;
+    text-decoration:underline;
 }
 
 table a:visited {
@@ -608,8 +622,8 @@ table a:visited {
 
 table a:active,
 table a:hover {
-    color: #bd5a35;
-    text-decoration:underline;
+    /*color: #bd5a35;*/
+    /*text-decoration:underline;*/
 }
 
 table {
@@ -720,9 +734,8 @@ tfoot tr td{
 }
 
 .btn {
-    border: 1px solid #777;
-    color: #000;
-    padding: 5px 10px;
+    color: #333;
+    padding: 10px 10px;
     cursor: pointer;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -731,6 +744,7 @@ tfoot tr td{
     font-family: Oswald;
     background-color: #D9D9D9;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .btn:hover{
@@ -738,9 +752,8 @@ tfoot tr td{
 } 
 
 .btn-primary{
-    border: 1px solid #777;
     color: #FFF;
-    padding: 5px 10px;
+    padding: 10px 10px;
     cursor: pointer;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -749,6 +762,7 @@ tfoot tr td{
     font-family: Oswald;
     background-color: #F6891F;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .btn-primary:hover{
@@ -780,7 +794,7 @@ tfoot tr td{
     text-align: center;
     color: #333333;
     margin-bottom: 56px;
-    margin-top: 56px;    
+    /*margin-top: 56px;    */
 }
 
 
@@ -1061,7 +1075,7 @@ td.ar{
 }
 
 #pageCategory .name{
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .sortView{
@@ -1991,6 +2005,7 @@ input#cvv{
     font-size: 14px;
     text-transform: uppercase;
     font-family: 'Oswald', sans-serif;
+    text-decoration: none;
 }
 
 #pageHome #content{
@@ -1998,7 +2013,7 @@ input#cvv{
 }
 
 .footerLogo{
-    background: url("../images/footer-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/footer-logo.png") no-repeat scroll center center transparent;
     display: block;
     float: left;
     height: 37px;
@@ -2055,7 +2070,7 @@ input#cvv{
 .miniUL{
     height: 38px;
     width: 225px;
-    background-color: #45AA40;
+    background-color: #5EA600;
     position: relative;
     padding-right: initial !important;
     border-bottom-left-radius: 10px;
@@ -2092,7 +2107,8 @@ input#cvv{
 
 .greenBarAndText{
     display: inline-flex;
-    margin-bottom: 26px;
+    margin-bottom: 26px;    
+    margin-top: 46px;
 }
 
 .greenBar{
@@ -2106,9 +2122,9 @@ input#cvv{
 #bannerImages{
     display: flex;
     justify-content: space-around;
-    margin-bottom: 75px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 75px;
 }
 
 .banner{
@@ -2125,7 +2141,7 @@ input#cvv{
     border-top-color: initial !important; 
     border-top-color: initial !important; 
     top:initial !important;
-    right: 25px !important;
+    right: 30px !important;
     margin-top: initial !important;
 }
 
@@ -2200,4 +2216,12 @@ input#cvv{
 
 .buttonOff{
     background-color: #2B2A2C !important;
+}
+
+#pageCategory .container a, #pageSearchResults .container a{
+    text-align: left;
+}
+
+.welcome-message p{
+    margin-bottom: initial;
 }
