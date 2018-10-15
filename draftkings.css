@@ -793,7 +793,7 @@ tfoot tr td{
     line-height: 24px;
     text-align: center;
     color: #333333;
-    margin-bottom: 56px;
+    /*margin-bottom: 56px;*/
     /*margin-top: 56px;    */
     padding-bottom: 75px;
 }
