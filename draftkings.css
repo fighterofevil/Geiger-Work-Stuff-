@@ -28,6 +28,26 @@
 
 /************ CSS Reset *************/
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+    #pageHome #content{
+        padding: 0px 0px;
+    }
+
+    .sf-menu a{
+        border-left: none !important;
+        border-top: none !important;        
+    }
+
+    .sf-arrows .sf-with-ul::after{
+        margin-top: -10px !important;
+    }
+
+
+}
+
+
+
 * {
     margin: 0;
 }
@@ -1401,9 +1421,10 @@ ul.radios-list li label{
 }
 
 .address-options {
-text-align: right;
-margin: -5px 0 8px;
-float: right;
+    text-align: right;
+    margin: -5px 0 8px;
+    float: right;
+    display: flex;
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
@@ -1507,7 +1528,7 @@ float: right;
     #new-address-modal label {display:block;margin-top:10px; font-weight:bold;}
     #new-address-modal label span {font-weight:normal; color:#999; padding:0 4px; font-size:11px}
     #new-address-modal .half {float:left;margin-right:20px}
-    #new-address-modal input {display:block; margin:2px 0; width:220px}
+    #new-address-modal input {display:block; margin:2px 0; width:213px}
     #new-address-modal .default {margin:10px 0;}
     #new-address-modal .default label, #new-address-modal .default input {display:inline;width:auto;}
     #new-address-modal .default label {font-weight:normal;position:relative;top:2px;left:4px;}
@@ -2234,4 +2255,12 @@ input#cvv{
 .login h2{
     font-size: 18px !important;
     color: #444;
+}
+
+.address-title{
+    padding-bottom: 10px;
+}
+
+#singleAddy{
+    margin-right: 5px;
 }
