@@ -2210,3 +2210,17 @@ input#cvv{
     position: relative;
     left: 52px;    
 }
+
+.secondUtilNav{
+
+}
+
+.secondUtilNav a{
+    color: #1D1714;
+    font-size: 16px;
+    text-align: right;
+}
+
+.secondUtilNav > li{
+    float: left;
+}
