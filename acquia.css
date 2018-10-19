@@ -146,8 +146,10 @@ p .pageItem{
 }
 
 a{ 
-    color:#84010F;
+    color: #168EC4;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 #footer{
@@ -180,10 +182,11 @@ div#DDmenu a{
 
 h1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 28px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    color: #1D1714;    
 }
 
 #pageHome h1{
@@ -207,8 +210,8 @@ h5{ }
 h6{ }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    font-size: 14px;
+    color: #1D1714;
 }
 
 .image .price-box{
@@ -231,7 +234,8 @@ h6{ }
 }
 
 #itemCodeList {
-    font-style: italic;
+    color: #1D1714;
+    font-size: 16px;
 }
 
 .show-estimate-calendar img{
@@ -252,11 +256,11 @@ label, .label {
 } 
 
 .sidebar .title{
-    font-weight: 600;
+    font-weight: 800;
     font-size: 13px;
     margin-top: 10px;
     text-transform: uppercase;
-    color: #555;
+    color: #1D1714;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -269,10 +273,10 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#555;
+    color: #1D1714;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
-    font-size:12px
+    font-size:13px
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
@@ -310,7 +314,11 @@ body{
 #content{
     z-index: 1;
     clear: both;
-    padding: 15px 20px;
+    padding: 26px 21px;
+    background-color: #FFFFFF;
+
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.25), -8px 0 30px -8px rgba(0,0,0,0.25), 0 8px 30px -8px rgba(0,0,0,0.25), 8px 0 30px -8px rgba(0,0,0,0.25);
+
 }
 
 #header{
@@ -392,7 +400,7 @@ body{
     background: url("../images/acquia-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
+    height: 30px;
     margin: 15px 0px 0px 20px;
     padding: 10px 8px 0px 0px;
     width: 142px;
@@ -427,9 +435,11 @@ body{
 /****Main Navigation****/
 
 #menu{
-    z-index:100;
+    z-index: 100;
     height: 45px;
     background: #fff;
+    width: 1024px;
+    margin: 0 auto;
 }
 
 .nav{
@@ -558,7 +568,7 @@ div#DDmenu li a:hover{
 
 #searchForm input#key{
     border: none;
-    width: 148px;
+    width: 200px;
     float: left;
     padding-left: 2px;
     left: 15px;
@@ -709,42 +719,36 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    border:1px solid #777;
-    color:#000;
+    background-color: #F2F2F2;
+    color: #000;
     padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    color: #1D1714;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
 }
 
 .btn:hover{
-    background-color: #fff;
-    text-decoration: underline;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #E7E7E7;
 } 
 
 .btn-primary{
     background-color: #84010F;
-    border:1px solid #777;
-    color:#FFF;
+    color: #FFF;
     font-weight: bold;
     padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius: 3px;
+    background-color: #F47A20;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    text-decoration: underline;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #DC6E1D;
 }
 
 .gift-btn {
@@ -1052,7 +1056,7 @@ td.ar{
 }
 
 #pageCategory .name{
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .sortView{
@@ -1060,6 +1064,7 @@ td.ar{
     padding: 3px 5px;
     border: 1px solid #ccc;
     margin: 10px 0px 20px 0px;
+    height: 36px;
 }
 
 .active-filters{
@@ -1102,15 +1107,21 @@ td.ar{
 .pagination-new {
     float: left;
     width: 700px;
+    padding-top: 5px;    
+    padding-left: 13px;
 }
 
 .view-all {
     float: left;
+    position: relative;
+    top: 3px;    
 }
 
 .sortControl {
     float: right;
     margin-left: 15px;
+    padding-top: 5px;  
+    padding-right: 13px;
 }
 
 .pagination-new li{
@@ -2017,6 +2028,20 @@ input#cvv{
     -o-transform: skew(20deg);    
 }
 
+.wrapper3{
+    background-color: #fff;
+}
+
+.submenu1{
+
+}
+
+.submenu2{
+    position: relative;
+    float: right;
+    top: 12px;
+}
+
 #footer .logo a{
     background: url("../images/footer-logo.png") no-repeat scroll left top transparent;
     display: block;
@@ -2219,8 +2244,58 @@ input#cvv{
     color: #1D1714;
     font-size: 16px;
     text-align: right;
+    text-transform: uppercase;
+    font-weight: initial;
+    padding: .75em 1em;    
 }
 
 .secondUtilNav > li{
     float: left;
+}
+
+.price strong{
+    font-weight: initial;
+}
+
+.estimate-calendar a{
+    text-decoration: underline;  
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.desc p{
+    color: #1D1714;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#pageHome #content{
+     background-color: initial; 
+     box-shadow: initial;
+}
+
+.searchGlass{
+    position: relative;
+    float: right; 
+    cursor: pointer;   
+    color: #232C61;
+    font-size: 36px !important;
+    top: 2px;
+    right: 5px;    
+}
+
+#home{
+    font-size: 36px;
+    color: #232C61;
+    position: relative;
+    bottom: 12px;    
+}
+
+#underHome{
+    height: 2px;
+    width: 26px;
+    background-color: #26A3DD;
+    position: relative;
+    bottom: 15px;
+    left: 5px;    
 }
