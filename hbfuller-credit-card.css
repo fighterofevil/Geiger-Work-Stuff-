@@ -150,12 +150,15 @@ a{
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
+    background-color: #776F65;
+    color: #fff;    
 }
 
 #footer a{
-    color:#444;
+    color: #fff;  
+    font-size: 14px;    
 }
 
 .nav a{
@@ -181,6 +184,7 @@ h1{
 
 #pageHome h1{
     text-align: center;
+    font-size: 34px;
 }
 
 #pageCategory h1{
@@ -307,26 +311,28 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    border-bottom: 1px solid #ccc;  
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
-    text-align: right;
-    margin-top: 15px;
+   
 }
 
 #footer .wrapper{
     box-sizing: border-box;
     height: 65px;
-    padding:15px 15px;
+    /* padding: 15px 15px; */
+    display: flex;
+    width: 1024px;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding-top: 22px;
 }
 
 #footer .wrapper p{
-    clear:both;
-    float: left;
+    position: relative;
+    right: 220px;
+    padding-top: 3px;
 }
 
 .repInfo {
@@ -378,13 +384,12 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+    background: url("../images/hbfuller-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
-    margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;
-    width: 142px;
+    height: 36px;
+    margin: 20px 0px 20px 0px;
+    width: 170px;
 }
 
 #header .logo span {
@@ -418,8 +423,6 @@ body{
 #menu{
     z-index:100;
     height: 45px;
-    margin-bottom: 15px;
-    background: #8E0215;
 }
 
 .nav{
@@ -452,7 +455,7 @@ div#DDmenu{
 li.productCategories:hover div#DDmenu{
     display: block;
 }
-
+`
 div#DDmenu li{
     float:none;
 }
@@ -473,7 +476,9 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 32px;
+    position: relative;
+    top: 6px;    
 }
 
 .utilNav ul{
@@ -489,14 +494,14 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    width: 380px;
-    float: right;
+  
 }
 
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    display: flex;
+    width: 218px;    
 }
 
 .cartbutton{
@@ -507,6 +512,8 @@ div#DDmenu li a:hover{
     float: left;
     font-size: 28px;
     margin: 5px 5px 0px 0px
+    position: relative;
+    bottom: 7px;    
 }
 
 .summary{
@@ -522,15 +529,16 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
     float: right;
 }
 
 #searchForm div{
     background-color: #fff;
-    width: 175px;
-    border: 1px solid #aaaaaa;
+    width: 200px;
     height: 24px;
+    display: flex;
+    position: relative;
+    top: 24px;
 }
 
 #searchForm input#key{
@@ -739,19 +747,30 @@ tfoot tr td{
 }
 
 .welcome-message{
+    margin-bottom: 36px;
+    margin-top: 36px;
+}
 
+.welcomeText{
+    width: 827px;
+    color: #333333;
+    font-size: 15px;
+    line-height: 24px;    
+    margin-left: 90px;
 }
 
 .spotlight {
- /*   background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
-    width: 1024px;
-    height: 576px;*/
+    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;
+    height: 390px;
 }
 
 /*Featured Products Carousel*/
 
 .featured-product-carousel{
     position:relative;
+    height: 275px;
+    background: url("../images/feat-bg.jpg") no-repeat scroll left top transparent;   
+    margin-bottom: 38px; 
 }
 
 .featured-product-carousel .title{
@@ -773,18 +792,30 @@ tfoot tr td{
 
 .featured-product-carousel .prev{
     display:block;
-    width:23px;
-    height:127px;
+    width:50px;
+    height:50px;
     float:left;
-    background:url("../images/arrowLeft.png") no-repeat;
+    /*background:url("../images/arrowLeft.png") no-repeat;*/
+    background-color: #5ABFE5;
+    box-shadow: -1px 1px 6px 0 rgba(0,0,0,0.5);    
+    color: #fff;
+    text-align: center;
+    position: relative;
+    top: 30px;    
 }
 
 .featured-product-carousel .next{
     display:block;
-    width:23px;
-    height:127px;
+    width:50px;
+    height:50px;
     float:left;
-    background:url("../images/arrowRight.png") no-repeat;
+    /*background:url("../images/arrowRight.png") no-repeat;*/
+    background-color: #5ABFE5;
+    box-shadow: -1px 1px 6px 0 rgba(0,0,0,0.5);
+    color:#fff;
+    text-align: center;
+    position: relative;
+    top: 30px;    
 }       
 
 .featured-product-carousel .item{
@@ -1942,3 +1973,107 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+.utilWrapper{
+    height: 40px;
+    background-color: #0039A6;    
+    color: #fff;
+}
+
+.utilNav{
+    width: 1024px;
+    margin: 0 auto;    
+}
+
+.utilNav a{
+    color: #fff;
+}
+
+.menuWrapper{
+    height: 75px;
+    display: flex;
+    width: 1024px;
+    margin: 0 auto;   
+    justify-content: space-between; 
+}
+
+#pageHome #content{
+    padding: initial;
+}
+
+.banners{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 39px;
+}
+
+.banner1{
+    background: url("../images/banner1.jpg") no-repeat scroll left top transparent;
+    width: 485px;
+    height: 225px;
+}
+
+.banner2{
+    background: url("../images/banner2.jpg") no-repeat scroll left top transparent;
+    width: 485px;
+    height: 225px;
+}
+
+
+#footer .logo a{
+    background: url("../images/footer-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+    height: 25px;
+    width: 115px;
+}
+
+.sf-vertical li{
+    width: 202px!important;
+}
+
+.search input[type="text"] {
+    color: #0039A6;
+    font-size: 14px;
+}
+
+.searchGlass{
+    position: relative;
+    float: left;
+    cursor: pointer;
+    color: #0039A6;
+    font-size: 36px !important;
+    bottom: 3px;  
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:#0039A6;
+    opacity: 1; /* Firefox */
+    font-size: 14px;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:#0039A6;
+    font-size: 14px;    
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color:#0039A6;
+    font-size: 14px; 
+}
+
+.featured-product-carousel h1{
+    margin-bottom: 39px;
+    padding-top: 39px;
+}
+
+#navigate{
+    font-size: 50px;
+    position: relative;    
+}
+
+.featuredwrap{
+    display: flex;
+    justify-content: space-evenly;    
+}
