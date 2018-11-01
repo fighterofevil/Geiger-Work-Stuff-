@@ -212,6 +212,7 @@ h6{ }
 .bCrumbs, .bCrumbs a{
     font-size: 14px;
     color: #1D1714;
+    font-weight: 500 !important;    
 }
 
 .image .price-box{
@@ -277,6 +278,7 @@ label, .label {
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
     font-size:13px
+    font-weight: 500 !important;    
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
@@ -316,8 +318,9 @@ body{
     /*clear: both;*/
     padding: 26px 21px;
     background-color: #FFFFFF;
-
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.25), -8px 0 30px -8px rgba(0,0,0,0.25), 0 8px 30px -8px rgba(0,0,0,0.25), 8px 0 30px -8px rgba(0,0,0,0.25);
+    margin-top: 30px;
+    padding-bottom: 60px;     
 
 }
 
@@ -401,7 +404,7 @@ body{
     display: block;
     float: left;
     height: 30px;
-    margin: 15px 0px 0px 20px;
+    margin: 25px 0px 0px 20px;
     padding: 10px 8px 0px 0px;
     width: 142px;
 }
@@ -440,6 +443,7 @@ body{
     background: #fff;
     width: 1024px;
     margin: 0 auto;
+    padding-top: 5px;
 }
 
 .nav{
@@ -542,8 +546,8 @@ div#DDmenu li a:hover{
     color: #FFFFFF;
     position: relative;
     top: 10px;
-    right: 15px;
-}    
+    /*right: 15px;*/
+    left: 14px;   
 }
 
 #cart-quantity, #cart-total{
@@ -721,11 +725,11 @@ tfoot tr td{
 .btn {
     background-color: #F2F2F2;
     color: #000;
-    padding: 5px 10px;
+    padding: 10px 20px;
     cursor: pointer;
     color: #1D1714;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     border: none;
 }
@@ -738,12 +742,12 @@ tfoot tr td{
     background-color: #84010F;
     color: #FFF;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 10px 20px;
     cursor: pointer;
     border-radius: 3px;
     background-color: #F47A20;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -1101,6 +1105,7 @@ td.ar{
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
+    font-weight: bold;
 
 }
 
@@ -2000,6 +2005,9 @@ input#cvv{
 
 .mini-cart a{
     color: #fff;
+    position: relative;
+    right: 5px;
+    float: left;
 }
 
 .wrapper2{
@@ -2033,8 +2041,8 @@ input#cvv{
     -o-transform: skew(20deg);    
     width: 717px;
     position: relative;
-    left: 190px;
-    top: 60px;    
+    left: 210px;
+    top: 80px;    
 }
 
 .wrapper3{
@@ -2075,6 +2083,7 @@ input#cvv{
     right: 50px;
     float: right;
     position: relative;
+    bottom: 5px;
 }
 
 .footRight ul li::after{
@@ -2085,10 +2094,6 @@ input#cvv{
 
 .footRight .lastLI::after{
     content: none;
-}
-
-#pageHome #content{
-    padding: 15px 0px;
 }
 
 #banners{
@@ -2211,7 +2216,7 @@ input#cvv{
 .utilNav ul li::after{
     content: "|";
     position: relative;
-    left: 5px;
+    left: 7px;
 }
 
 .utilNav .mini-cart::after, .utilNav .orderHistory::after{
@@ -2234,10 +2239,11 @@ input#cvv{
     width: 149px;
     height: 26px;
     position: relative;    
+    top: 10px;
 }
 
 .welcomeMsgInfo{
-    width: 730px;
+    width: 745px;
     color: #1D1714;
     font-size: 16px;
     font-weight: 300;
@@ -2247,8 +2253,18 @@ input#cvv{
     left: 52px;    
 }
 
-.secondUtilNav{
+.welcomeMsgInfo p{
+    margin-bottom: initial;
+}
 
+.welcomeMsgInfo p a{
+    font-size: 16px;
+}
+
+.secondUtilNav{
+    position: relative;
+    float: right;
+    left: 15px;
 }
 
 .secondUtilNav a{
@@ -2278,11 +2294,16 @@ input#cvv{
     color: #1D1714;
     font-size: 14px;
     font-weight: 300;
+    line-height: 20px
 }
 
 #pageHome #content{
      background-color: initial; 
      box-shadow: initial;
+     margin-top: initial;     
+     padding-left: 15px;
+     padding-right: 15px;     
+     padding-top: 60px;   
 }
 
 .searchGlass{
