@@ -277,15 +277,15 @@ label, .label {
     color: #1D1714;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
-    font-size:13px
-    font-weight: 500 !important;    
+    font-size:13px;
+    font-weight: 400 !important;    
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
     color:#555;
     background-position:2px -48px;
     text-decoration:none;
-    font-size:12px;
+    font-size:13px;
     color:#00acd4;
 }
 
@@ -320,7 +320,7 @@ body{
     background-color: #FFFFFF;
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.25), -8px 0 30px -8px rgba(0,0,0,0.25), 0 8px 30px -8px rgba(0,0,0,0.25), 8px 0 30px -8px rgba(0,0,0,0.25);
     margin-top: 30px;
-    padding-bottom: 60px;     
+    margin-bottom: 60px;     
 
 }
 
@@ -1152,6 +1152,8 @@ a.view-all{
 
 #itemForm > div {
     margin-bottom: 15px;
+    position: relative;
+    float: right;    
 }
 
 #pageItem .sidebar{
@@ -2099,8 +2101,8 @@ input#cvv{
 #banners{
     display: flex;
     position: relative;
-    top: 50px;    
-    margin-bottom: 23px;
+    margin-top: 60px;    
+    margin-bottom: 13px;
     height: 342px;    
 }
 
@@ -2133,7 +2135,7 @@ input#cvv{
     box-shadow: 8px 0 30px 0px rgba(0,0,0,0.3);
     position: relative;
     top: 160px;
-    left: 250px;
+    left: 220px;
     text-align: center;
     color: #1D1714;
     font-size: 24px;
@@ -2240,6 +2242,7 @@ input#cvv{
     height: 26px;
     position: relative;    
     top: 10px;
+    right: 10px;
 }
 
 .welcomeMsgInfo{
@@ -2250,7 +2253,7 @@ input#cvv{
     line-height: 30px;
     height: 105px;
     position: relative;
-    left: 52px;    
+    left: 32px;    
 }
 
 .welcomeMsgInfo p{
@@ -2281,7 +2284,7 @@ input#cvv{
 }
 
 .price strong{
-    font-weight: initial;
+    font-weight: 800;
 }
 
 .estimate-calendar a{
