@@ -769,7 +769,7 @@ tfoot tr td{
 /****Home****/
 
 .home-content{
-
+    width: 1024px;
 }
 
 .welcome-message{
@@ -2135,7 +2135,7 @@ input#cvv{
     box-shadow: 8px 0 30px 0px rgba(0,0,0,0.3);
     position: relative;
     top: 160px;
-    left: 220px;
+    left: 251px;
     text-align: center;
     color: #1D1714;
     font-size: 24px;
@@ -2242,7 +2242,7 @@ input#cvv{
     height: 26px;
     position: relative;    
     top: 10px;
-    right: 10px;
+    padding-left: 30px;
 }
 
 .welcomeMsgInfo{
@@ -2303,10 +2303,8 @@ input#cvv{
 #pageHome #content{
      background-color: initial; 
      box-shadow: initial;
-     margin-top: initial;     
-     padding-left: 15px;
-     padding-right: 15px;     
-     padding-top: 60px;   
+     margin-top: 60px;
+     padding: initial;
 }
 
 .searchGlass{
