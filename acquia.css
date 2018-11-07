@@ -524,7 +524,7 @@ div#DDmenu li a:hover{
 .mini-cart{
     margin-top: -8px;
     background-color: #26A3DD;
-    width: 200px;    
+    min-width: 200px;    
     height: 40px;
     position: relative;
     bottom: 5px;
