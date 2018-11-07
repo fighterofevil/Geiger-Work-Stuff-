@@ -772,6 +772,7 @@ tfoot tr td{
 .welcome-message{
     margin-bottom: 36px;
     margin-top: 36px;
+    text-align: center;
 }
 
 .welcomeText{
@@ -2105,4 +2106,12 @@ input#cvv{
 .featuredwrap{
     display: flex;
     justify-content: space-evenly;    
+}
+
+#pageHome #header{
+    margin-bottom: initial;
+}
+
+.sf-menu ul li a{
+    font-size: 14px;
 }
