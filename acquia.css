@@ -1,5 +1,3 @@
-/* testing push from home*/
-
 /**************
 * This is the basic CSS file for use on Geiger Stores. 
 * 
@@ -29,6 +27,14 @@
 **************/
 
 /************ CSS Reset *************/
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+    #pageHome #content{
+        box-shadow: 0px 0px 0px 0px;
+        background-color:transparent;
+    }
+}
 
 * {
     margin: 0;
@@ -782,6 +788,7 @@ tfoot tr td{
     padding-left: 41px;
     padding-right: 52px;    
     display: flex;
+    width: 929px;    
 }
 
 .spotlight {
@@ -2043,6 +2050,7 @@ input#cvv{
     -webkit-transform: skew(20deg);
     -moz-transform: skew(20deg);
     -o-transform: skew(20deg);    
+    -ms-transform: skew(20deg);    
     width: 717px;
     position: relative;
     left: 210px;
@@ -2213,6 +2221,7 @@ input#cvv{
     -webkit-transform: skew(-20deg);
     -moz-transform: skew(-20deg);
     -o-transform: skew(-20deg);
+    -ms-transform: skew(-20deg);;
     position: relative;
     right: 180px;
 }
