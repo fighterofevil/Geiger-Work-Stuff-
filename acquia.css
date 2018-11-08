@@ -452,6 +452,7 @@ body{
     width: 1024px;
     margin: 0 auto;
     padding-top: 5px;
+    display: flex;    
 }
 
 .nav{
@@ -2278,7 +2279,8 @@ input#cvv{
 .secondUtilNav{
     position: relative;
     float: right;
-    left: 15px;
+    left: -4px;
+    width: 370px;
 }
 
 .secondUtilNav a{
