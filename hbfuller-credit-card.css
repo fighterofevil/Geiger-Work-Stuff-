@@ -28,6 +28,22 @@
 
 /************ CSS Reset *************/
 
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+
+    .featuredwrap{
+        margin-left: 80px;
+    }
+
+    .featured-product-carousel .prev{
+        margin-right: 20px;
+    }
+
+
+}
+
+
 * {
     margin: 0;
 }
