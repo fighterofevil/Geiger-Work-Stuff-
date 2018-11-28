@@ -29,6 +29,7 @@
 
 ******* CUSTOM *******/
 
+
 #pageCategoryStatic .page p {
 
 }
@@ -1957,6 +1958,7 @@ float: right;
     border: 1px solid #444;
     padding: 12px;
     width: 800px !important;
+    height: 560px !important;
 }
 
 #simplemodal-container a.modalCloseImg {
@@ -1973,7 +1975,7 @@ float: right;
 
 #new-address-modal {
     width: 755px !important;
-    height: 550px;
+    height: 570px;
     padding: 0px 20px;
     background-color:#FFF;
     overflow:auto;  /* safe scroll for all browsers */
@@ -2481,7 +2483,7 @@ input#cvv{
     justify-content: space-between;
 }
 
-#pageLogin .btn-primary:before {
+#pageLogin .btn-primary::before {
     content: '';
     width: 0;
     height: 0;
@@ -2493,16 +2495,16 @@ input#cvv{
     bottom: 1px;
 }
 
-#pageLogin .btn-primary:after {
+#pageLogin .btn-primary::after {
     content: '';
     width: 0;
     height: 0;
     border-top: 40px solid #888;
     border-right: 20px solid transparent;
     float: right;
-    margin-right: -27px;
+    margin-right: -27px; 
     position: relative;
-    bottom: 1px;
+    bottom: 1px; 
 }
 
 .ship-to-multiple{
@@ -2523,4 +2525,115 @@ input#cvv{
     display: flex;
     position: relative;
     left: 310px;
+}
+
+
+@-moz-document url-prefix() {
+    #pageLogin .btn-primary::before {
+        margin-left: -28px !important;
+        bottom: 0px !important;;
+    }
+
+    #pageLogin .btn-primary::after {
+        margin-right: -28px !important;
+        bottom: 0px !important;;
+    }
+
+    #pageCheckoutAddresses .btn-primary:before, #pageCheckoutPayment .btn-primary:before, #pageCheckoutReview .btn-primary:before{
+        margin-left: -28px !important;
+        bottom: 0px !important;
+    }
+
+    #pageCheckoutAddresses .btn-primary:after,  #pageCheckoutPayment .btn-primary:after, #pageCheckoutReview .btn-primary:after{
+        margin-right: -28px !important;
+        bottom: 0px !important;
+    }
+
+    #checkout-continue:before, #pageCheckoutAddressesMulti .btn-primary::before{
+        margin-left: -28px !important;
+        bottom: 0px !important;        
+    }
+
+    #checkout-continue:after, #pageCheckoutAddressesMulti .btn-primary::after{
+        margin-left: -28px !important;
+        bottom: 0px !important;
+    }    
+
+    #pageCheckoutAddresses .btn::before {
+        margin-left: -28px;
+        bottom: 0px;
+
+    }
+
+    #pageCheckoutAddresses .btn::after {
+        margin-right: -28px;
+        bottom: 0px;
+
+    }
+
+}
+
+/*@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)*/
+/*@media screen and (-webkit-min-device-pixel-ratio:0) {*/
+@media not all and (min-resolution:.001dpcm){
+    @media {
+        #pageLogin .btn-primary:before{
+            margin-left: -26px;
+            bottom: 2px;
+        }
+
+        #pageLogin .btn-primary:after{
+            margin-right: -26px;
+            bottom: 2px;        
+        }   
+        .button-wrapper{
+            width: 185px;
+        }        
+
+        #pageCheckoutAddresses .btn-primary:before, #pageCheckoutPayment .btn-primary:before, #pageCheckoutReview .btn-primary:before, #checkout-continue:before{
+            margin-left: -26px !important;
+            bottom: 2px !important;
+        }
+
+        #pageCheckoutAddresses .btn-primary:after,  #pageCheckoutPayment .btn-primary:after, #pageCheckoutReview .btn-primary:after, #checkout-continue:after{
+            margin-right: -26px !important;
+            bottom: 2px !important;
+        }
+
+        #checkout-continue:before, #pageCheckoutAddressesMulti .btn-primary::before{
+            margin-left: -26px !important;
+            bottom: 2px !important;        
+        }
+
+        #checkout-continue:after, #pageCheckoutAddressesMulti .btn-primary::after{
+            margin-right: -26px !important;
+            bottom: 2px !important;
+        }            
+
+        #pageCheckoutAddresses .btn::before {
+            margin-left: -26px;
+            bottom: 2px;
+
+        }
+
+        #pageCheckoutAddresses .btn::after {
+            margin-right: -26px;
+            bottom: 2px;
+        }
+
+        #newAddy:before, #pageCheckoutSplitAddress .btn:before {
+            margin-left: -26px;
+            bottom: 2px;
+        }    
+
+        #newAddy:after, #pageCheckoutSplitAddress .btn:after {
+            margin-right: -26px;
+            bottom: 2px;
+        }            
+
+    }
+}
+
+.address-title{
+    margin-bottom: 30px;
 }
