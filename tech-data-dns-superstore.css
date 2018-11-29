@@ -1137,7 +1137,7 @@ tfoot tr td{
     float: left;
     margin-left: -27px;
     position: relative;
-    bottom: 2px;
+    bottom: 1px;
 }
 
 #pageCheckoutAddresses .btn:after{
@@ -2528,6 +2528,37 @@ input#cvv{
 }
 
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+
+    #pageLogin .btn-primary:before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-bottom: 40px solid #888;
+        border-left: 20px solid transparent;
+        float: left;
+        margin-left: -27px;
+        position: relative;
+        bottom: 1px;
+    }
+
+    #pageLogin .btn-primary:after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-top: 40px solid #888;
+        border-right: 20px solid transparent;
+        float: right;
+        margin-right: -27px; 
+        position: relative;
+        bottom: 1px; 
+    }
+
+
+
+}
+
 @-moz-document url-prefix() {
     #pageLogin .btn-primary::before {
         margin-left: -28px !important;
@@ -2570,6 +2601,16 @@ input#cvv{
         bottom: 0px;
 
     }
+
+    #newAddy:before, #pageCheckoutSplitAddress .btn:before {
+        margin-left: -26px;
+        bottom: 0px;
+    }    
+
+    #newAddy:after, #pageCheckoutSplitAddress .btn:after {
+        margin-right: -26px;
+        bottom: 0px;
+    }         
 
 }
 
@@ -2636,4 +2677,28 @@ input#cvv{
 
 .address-title{
     margin-bottom: 30px;
+}
+
+#pageCheckoutAddresses .btn:hover:before, #newAddy:hover:before{
+    border-bottom: 40px solid #E8EDEF;
+}
+
+#pageCheckoutAddresses .btn:hover:after, #newAddy:hover:after{
+    border-top: 40px solid #E8EDEF;
+}
+
+#pageCheckoutAddresses .btn-primary:hover:before, #pageCheckoutPayment .btn-primary:hover:before, #pageCheckoutReview .btn-primary:hover:before, #checkout-continue:hover:before, #pageCheckoutAddressesMulti .btn-primary:hover:before{
+    border-bottom: 40px solid #F3B531 !important;
+}
+
+#pageCheckoutAddresses .btn-primary:hover:after, #pageCheckoutPayment .btn-primar:hover:after, #pageCheckoutReview .btn-primary:hover:after, #checkout-continue:hover:after, #pageCheckoutAddressesMulti .btn-primary:hover:after{
+    border-top: 40px solid #F3B531 !important;
+}
+
+#pageLogin .btn-primary:hover:before{
+    border-bottom: 40px solid #999;
+}
+
+#pageLogin .btn-primary:hover:after{
+    border-top: 40px solid #999;
 }
