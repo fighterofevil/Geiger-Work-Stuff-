@@ -150,12 +150,16 @@ a{
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 16px;
     position: relative;
+    background-color: #768692;
+    color: #fff;
+    line-height: 18px;
+    font-family: Arial;  
 }
 
 #footer a{
-    color:#444;
+    color:#fff;
 }
 
 .nav a{
@@ -181,6 +185,7 @@ h1{
 
 #pageHome h1{
     text-align: center;
+    font-size: 40px;
 }
 
 #pageCategory h1{
@@ -307,21 +312,25 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    height: 153px;
+    background-color: #444D55;
+    /*box-shadow: 0 0 15px 0px rgba(0,0,1,0.4);*/
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
-    text-align: right;
-    margin-top: 15px;
+    width: 1024px;
+    /*text-align: right;   */
+    margin: 0 auto;
 }
 
 #footer .wrapper{
     box-sizing: border-box;
     height: 65px;
-    padding:15px 15px;
+    padding: 15px 15px;
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 #footer .wrapper p{
@@ -378,13 +387,13 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+    background: url("../images/hydro-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
-    margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;
-    width: 142px;
+    height: 73px;
+    width: 73px;
+    margin-bottom: 40px;
+    margin-top: 40px;;
 }
 
 #header .logo span {
@@ -418,8 +427,6 @@ body{
 #menu{
     z-index:100;
     height: 45px;
-    margin-bottom: 15px;
-    background: #8E0215;
 }
 
 .nav{
@@ -488,15 +495,16 @@ div#DDmenu li a:hover{
     padding:0px 10px;
 }
 
-#footer ul{
-    width: 380px;
+#footer ul{   
     float: right;
 }
 
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    width: 210px;
+    background-color: #768692;
+    height: 40px;
 }
 
 .cartbutton{
@@ -522,22 +530,25 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
     float: right;
+    right: 2px;
+    position: relative;
 }
 
 #searchForm div{
     background-color: #fff;
-    width: 175px;
-    border: 1px solid #aaaaaa;
-    height: 24px;
+    width: 210px;
+    height: 35px;
+    display: flex;
+    position: relative;
+    top: 24px;
 }
 
 #searchForm input#key{
-border: none;
-width: 148px;
-float: left;
-padding-left: 2px;
+    border: none;
+    width: 148px;
+    float: left;
+    padding-left: 2px;
 }
 
 #searchForm input#searchBtn{
@@ -739,13 +750,25 @@ tfoot tr td{
 }
 
 .welcome-message{
-
+    width: 1024px;
+    margin: 0 auto;
+    font-family: "Times New Roman";
+    color: #757575;    
+    font-size: 17px;
+    text-align: center;
+    width: 772px;
+    line-height: 23px;    
 }
 
 .spotlight {
- /*   background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
+    height: 600px; 
+}
+
+.spotlightWrapper{
+    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;  
     width: 1024px;
-    height: 576px;*/
+    height: 400px;     
+    margin: 0 auto;
 }
 
 /*Featured Products Carousel*/
@@ -1942,3 +1965,51 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+.welcomeMsgBlock{
+    height: 200px;
+    background-color: #F4F4F4;
+    color: #fff;
+}
+
+.banners {
+    display: flex;
+    justify-content: space-between;
+}
+
+.banner1 {
+    background: url(../images/banner1.jpg) no-repeat scroll left top transparent;
+    width: 475px;
+    height: 250px;
+}
+
+.banner2 {
+    background: url(../images/banner2.jpg) no-repeat scroll left top transparent;
+    width: 475px;
+    height: 250px;
+}
+
+.utilNav a{
+    color: #fff;
+}
+
+.productCategories{
+    min-width: 240px;
+}
+
+.welcomemsg{
+    color: #fff;
+}
+
+.searchGlass {
+    position: relative;
+    float: left;
+    cursor: pointer;
+    color: #43807A;
+    font-size: 36px !important;
+}
+
+.search input[type="text"]{
+    color: #43807A;
+    font-size: 14px;    
+}
