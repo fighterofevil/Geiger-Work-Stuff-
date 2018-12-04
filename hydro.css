@@ -163,6 +163,7 @@ a{
 
 #footer a{
     color:#fff;
+    text-decoration: none;
 }
 
 .nav a{
@@ -1521,7 +1522,7 @@ float: right;
     #new-address-modal label {display:block;margin-top:10px; font-weight:bold;}
     #new-address-modal label span {font-weight:normal; color:#999; padding:0 4px; font-size:11px}
     #new-address-modal .half {float:left;margin-right:20px}
-    #new-address-modal input {display:block; margin:2px 0; width:220px}
+    #new-address-modal input {display:block; margin:2px 0; width:210px}
     #new-address-modal .default {margin:10px 0;}
     #new-address-modal .default label, #new-address-modal .default input {display:inline;width:auto;}
     #new-address-modal .default label {font-weight:normal;position:relative;top:2px;left:4px;}
@@ -2130,4 +2131,14 @@ input#cvv{
     padding: 13px;
     position: relative;
     top: 1px;    
+}
+
+#pageCategory .btn{
+    min-width: 75px;
+    padding-top: 15px;
+    min-height: 35px;    
+}
+
+#pageLogin .login form{
+    text-shadow: initial;
 }
