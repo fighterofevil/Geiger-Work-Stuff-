@@ -787,7 +787,7 @@ tfoot tr td{
     border: initial !important;
 }
 
-.btn-primary:hover{
+.btn-primary:hover, #shopButton:hover{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -2345,4 +2345,12 @@ input#cvv{
 .finAdv #shopButton{
     background-color: #1E75AE;
     color: #fff;
+}
+
+.wipfli a:hover{
+    text-decoration: none;
+}
+
+.finAdv #shopButton:hover{
+    background-color: #6895B8;
 }
