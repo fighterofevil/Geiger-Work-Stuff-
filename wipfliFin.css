@@ -194,7 +194,7 @@ h1{
     text-align: center;
     font-size: 32px;
     font-weight: 400;
-    border-bottom: 4px solid #ffb700;
+    border-bottom: 4px solid #1E75AE;
     width: 140px;
     margin: 0 auto;
     font-family: 'Roboto Slab', serif;
@@ -326,11 +326,7 @@ body{
     padding: 15px 20px;
 }
 
-#header, .fakeHeader{
-    height: 123px;
-    background-color: #444D55;
-    background: url("../images/header-img.jpg") no-repeat scroll left top transparent;
-    background-size: cover;
+.fakeHeader{
     border: 1px solid transparent;
     -moz-border-image: -moz-linear-gradient(to right, #ffb700 50%, #3da4ea 50%);
     -webkit-border-image: -webkit-linear-gradient(to right, #ffb700 50%, #3da4ea 50%);
@@ -339,6 +335,17 @@ body{
     border-top: 0;
     border-left: 0;
     border-right: 0;
+}
+
+#header, .fakeHeader{
+    height: 123px;
+    background-color: #444D55;
+    background: url("../images/header-img.jpg") no-repeat scroll left top transparent;
+    background-size: cover;
+}
+
+#header{
+    border-bottom: 1px solid #3da4ea;
 }
 
 #header .wrapper{
@@ -411,12 +418,12 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/wipfli-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/financial-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 43px;
+    height: 60px;
     width: 214px;
-    top: 61px;
+    top: 40px;
     position: relative;
 }
 
@@ -540,7 +547,7 @@ div#DDmenu li a:hover{
 
 .mini-cart{
     width: 210px;
-    background-color: #FFB700;
+    background-color: #1E75AE;
     height: 40px;
     margin-right: 0px !important;
     display: flex;
@@ -780,7 +787,7 @@ tfoot tr td{
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    background-color: #FFB700;
+    background-color: #1E75AE;
     min-width: 140px;
     min-height: 45px;
     text-align: center;
@@ -791,13 +798,13 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    background-color: #FFD466;
+    background-color: #6895B8;
 }
 
 #pageItem .btn-primary{
     padding-top: 15px;
     min-height: 35px;
-    color: #5B6770;
+    color: #fff;
 }
 
 .gift-btn {
@@ -826,7 +833,7 @@ tfoot tr td{
 
 
 .spotlight{
-    background-color: #FFF1CC;
+    background-color: #E6EFF6;
 }
 
 #pageLanding .spotlight {
@@ -838,11 +845,11 @@ tfoot tr td{
 }
 
 .spotlightWrapper{
-    background: url("../images/spot-items-wip.png") no-repeat scroll left top transparent;  
+    background: url("../images/spot-items-fin.png") no-repeat scroll left top transparent;  
     width: 1024px;
     height: 400px;     
     margin: 0 auto;
-    background-position: 400px 0px;
+    background-position: 385px 0px;
 }
 
 #pageLanding .spotlightWrapper{
@@ -2060,13 +2067,13 @@ input#cvv{
 }
 
 .banner1 {
-    background: url(../images/banner1-wip.jpg) no-repeat scroll left top transparent;
+    background: url(../images/banner1-fin.jpg) no-repeat scroll left top transparent;
     width: 475px;
     height: 250px;
 }
 
 .banner2 {
-    background: url(../images/banner2-wip.jpg) no-repeat scroll left top transparent;
+    background: url(../images/banner2-fin.jpg) no-repeat scroll left top transparent;
     width: 475px;
     height: 250px;
 }
@@ -2079,7 +2086,7 @@ input#cvv{
 }
 
 .utilNav a:hover{
-    color: #FFB700;
+    color: #3DA4EA;
 }
 
 .productCategories{
@@ -2118,7 +2125,7 @@ input#cvv{
     /*background: url(../images/welcome-text.png) no-repeat scroll left top transparent;*/
     width: 485px;
     height: 290px;
-    top: 63px;
+    top: 35px;
     position: relative;    
 }
 
@@ -2181,8 +2188,8 @@ input#cvv{
 }
 
 #shopButton {
-    background-color: #FFB700;
-    color: #5B6770;
+    background-color: #1E75AE;
+    color: #fff;
     height: 50px;
     width: 200px;
     font-size: 18px;
@@ -2190,23 +2197,23 @@ input#cvv{
     text-align: center;
     border-radius: 5px;
     position: relative;
-    top:30px;
+    top:10px;
 }
 
 
 .mini-cart a{
-    color: #4F5559;
+    color: #FFF;
     font-family: arial;
     font-size: 14px;
 }
 
 .mini-cart a:hover{
-    color: #4F5559;
+    color: #fff;
 }
 
 #pageCategory .name a{
     font-weight: 800;
-    color: #FFB700;
+    color: #1E75AE;
 }
 
 #header .logo{
