@@ -132,6 +132,7 @@ body{
 
 p{ 
     margin-bottom: 15px;
+    line-height: 19px;
 
 }
 
@@ -148,7 +149,7 @@ a{
     text-decoration: none;
     color: #444D55;
     font-family: Arial;
-    font-size: 15px;
+    font-size: 13px;
     text-decoration: underline;
 }
 
@@ -159,11 +160,13 @@ a{
     color: #fff;
     line-height: 18px;
     font-family: Arial;  
+    height: 50px;
 }
 
 #footer a{
     color:#fff;
     text-decoration: none;
+    font-size: 16px;
 }
 
 .nav a{
@@ -180,11 +183,13 @@ div#DDmenu a{
 }
 
 h1{ 
-    font-weight: bold;
-    font-size: 26px;
+    font-weight: 400;
+    font-size: 36px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    font-family: Times New Roman;
+    letter-spacing: -1px;
 }
 
 #pageHome h1{
@@ -198,13 +203,16 @@ h1{
     font-size: 40px;
     color: #000000;
     font-weight: 400;
+    letter-spacing: -1px;
 }
 
 h2{ 
-    font-size:22px;
-    color:#424242;
-    font-weight:bold;
+    font-size: 28px;
+    color: #000;
+    font-weight: 400;
     margin-bottom: 15px;
+    letter-spacing: -1px;
+    font-family: Times New Roman;
 }
 
 h3{ }
@@ -230,7 +238,7 @@ h6{ }
 #pageItem .price {
     font-weight: bold;
     margin: 10px;
-    font-size: 24px;
+    font-size: 21px;
     font-family: Arial;
     color: #43807A;
 }
@@ -282,11 +290,11 @@ label, .label {
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
-    color:#555;
     background-position:2px -48px;
     text-decoration:none;
     font-size:12px;
-    color:#00acd4;
+    color:#565E66;
+    text-decoration: underline;
 }
 
 .facettitle.blue {
@@ -316,7 +324,7 @@ body{
 #content{
     z-index: 1;
     clear: both;
-    padding: 15px 20px;
+    padding: 30px 20px;
 }
 
 #header{
@@ -333,12 +341,12 @@ body{
 
 #footer .wrapper{
     box-sizing: border-box;
-    height: 65px;
-    padding: 15px 15px;
+/*    padding: 17px 15px;*/
     width: 1024px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    padding-top: 17px;
 }
 
 #footer .wrapper p{
@@ -437,6 +445,7 @@ body{
     z-index:100;
     position: relative;
     top: 25px;
+    left: 55px;
 }
 
 .nav{
@@ -493,8 +502,7 @@ div#DDmenu li a:hover{
     margin-right: 30px;
     padding-top: 13px;
     padding-bottom: 13px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 10px;   
 }
 
 #header .wrapper .utilNav li:hover{
@@ -514,7 +522,7 @@ div#DDmenu li a:hover{
 
 #footer ul li{
     display: inline;
-    padding:0px 10px;
+    padding:16px 10px;
 }
 
 #footer ul{   
@@ -737,14 +745,13 @@ tfoot tr td{
     -webkit-border-radius: 3px;
     border-radius: 3px;
     background-color: #C5B9AC;
-    border: 1px solid #000000;
     font-size: 15px;
     color: #FFFFFF;
     font-weight: bold;
     font-family: Arial;
     min-width: 175px;
     min-height: 45px;
-    text-align: center;
+    text-align: center;    
 }
 
 .btn:hover{
@@ -767,6 +774,8 @@ tfoot tr td{
     min-height: 45px;
     text-align: center;
     border: initial !important;
+    padding-left: 15px;
+    padding-right: 15px;    
 }
 
 .btn-primary:hover{
@@ -777,7 +786,7 @@ tfoot tr td{
 }
 
 #pageItem .btn-primary{
-    padding-top: 15px;
+    padding-top: 16px;
     min-height: 35px;
 }
 
@@ -1846,7 +1855,7 @@ input#cvv{
 }
 
 .warningText{
-    color: #FC9801;
+    color: #B95946;
     font-weight: bold;
     font-size: 13px;
     text-align: center;
@@ -2041,10 +2050,11 @@ input#cvv{
 .utilNav a{
     color: #fff;
     text-decoration: none;
+    font-size: 15px;
 }
 
 .productCategories{
-    min-width: 240px;
+    /*min-width: 240px;*/
 }
 
 .welcomemsg{
@@ -2057,7 +2067,10 @@ input#cvv{
     float: left;
     cursor: pointer;
     color: #43807A;
-    font-size: 36px !important;
+    font-size: 28px !important;
+    position: relative;
+    padding-left: 17px;
+    padding-top: 4px;
 }
 
 .search input[type="text"]{
@@ -2113,14 +2126,17 @@ input#cvv{
 
 #pageItem h1{
     font-family: "Times New Roman";
-    font-size: 40px;
+    font-size: 32px;
     color: #000000;
     font-weight: 400;
+    letter-spacing: -1px;
 }
 
 .item-secondary{
-    font-size: 15px;
-    font-family: "Times New Roman";    
+    font-size: 14px;
+    font-family: Arial Regular;
+    line-height: 19px;
+    color: #000;  
 }
 
 .address-title{
@@ -2141,4 +2157,21 @@ input#cvv{
 
 #pageLogin .login form{
     text-shadow: initial;
+}
+
+#pageMyAccount a{
+    font-size: 14px;
+}
+
+#recentlyViewed{
+    padding-top: 15px;
+}
+
+.welcome-message p{
+    font-family: Arial Regular;
+    font-size: 15px;
+}
+
+#footer ul li:hover{
+    background-color: #83929D;
 }
