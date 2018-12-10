@@ -326,11 +326,7 @@ body{
     padding: 15px 20px;
 }
 
-#header, .fakeHeader{
-    height: 123px;
-    background-color: #444D55;
-    background: url("../images/header-img.jpg") no-repeat scroll left top transparent;
-    background-size: cover;
+.fakeHeader{
     border: 1px solid transparent;
     -moz-border-image: -moz-linear-gradient(to right, #ffb700 50%, #3da4ea 50%);
     -webkit-border-image: -webkit-linear-gradient(to right, #ffb700 50%, #3da4ea 50%);
@@ -339,6 +335,17 @@ body{
     border-top: 0;
     border-left: 0;
     border-right: 0;
+}
+
+#header, .fakeHeader{
+    height: 123px;
+    background-color: #444D55;
+    background: url("../images/header-img.jpg") no-repeat scroll left top transparent;
+    background-size: cover;
+}
+
+#header{
+    border-bottom: 1px solid #ffb700;
 }
 
 #header .wrapper{
