@@ -2385,7 +2385,11 @@ input#cvv{
     min-height: 35px;
 }
 
-#pageCategoryStatic h1, #pageFAQ h1, #contact h1, #pageMyAccount h1{
+#pageCategoryStatic #content, #pageFAQ #content, #contact #content, #pageMyAccount #content, #pageBasket #content, #pageLogin #content, #pageSearchResults #content{
+    padding: 40px 20px;    
+}
+
+#pageCategoryStatic h1, #pageFAQ h1, #contact h1, #pageMyAccount h1, #pageBasket h1, #pageSearchResults h1{
     font-family: 'Roboto Slab', serif;
     font-size: 32px;
     color: #333;    
