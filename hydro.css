@@ -149,7 +149,7 @@ a{
     text-decoration: none;
     color: #444D55;
     font-family: Arial;
-    font-size: 13px;
+    font-size: 14px;
     text-decoration: underline;
 }
 
@@ -559,7 +559,7 @@ div#DDmenu li a:hover{
     font-size: 28px;
     margin: 5px 0px 0px 0px;
     position: relative;
-    right: 8px;
+    right: 16px;
 }
 
 .summary{
@@ -568,6 +568,7 @@ div#DDmenu li a:hover{
     margin-right: 10px;
     top: 10px;
     position: relative;    
+    right: 10px;
 }
 
 #cart-quantity, #cart-total{
@@ -596,7 +597,7 @@ div#DDmenu li a:hover{
 
 #searchForm input#key{
     border: none;
-    width: 148px;
+    width: 165px;
     float: left;
     padding-left: 2px;
 }
@@ -2077,8 +2078,9 @@ input#cvv{
     color: #43807A;
     font-size: 28px !important;
     position: relative;
-    padding-left: 17px;
+    /*padding-left: 17px;*/
     padding-top: 4px;
+    padding-right: 7px;
 }
 
 .search input[type="text"]{
@@ -2185,6 +2187,6 @@ input#cvv{
     background-color: #83929D;
 }
 
-#pageCategory .icon-plus{
+#pageCategory .icon-plus, #pageSearchResults .icon-plus{
     display: none;
 }
