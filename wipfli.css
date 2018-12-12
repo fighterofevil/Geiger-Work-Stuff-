@@ -2221,12 +2221,6 @@ input#cvv{
     color: #4F5559;
 }
 
-#pageCategory .name a, #pageSearchResults .name a{
-    font-weight: 800;
-    color: #FFB700;
-    font-size: 14px;
-}
-
 #header .logo{
     width: 214px;
     z-index: 1; 
@@ -2395,7 +2389,7 @@ input#cvv{
     padding: 40px 20px;    
 }
 
-#pageCategoryStatic h1, #pageFAQ h1, #contact h1, #pageMyAccount h1, #pageBasket h1, #pageSearchResults h1. #pageWishlist h1{
+#pageCategoryStatic h1, #pageFAQ h1, #contact h1, #pageMyAccount h1, #pageBasket h1, #pageSearchResults h1, #pageWishlist h1{
     font-family: 'Roboto Slab', serif;
     font-size: 32px;
     color: #333;    
@@ -2418,4 +2412,22 @@ input#cvv{
 #recentlyViewed{
     position: relative;
     top: 10px;
+}
+
+.promos{
+    margin-bottom: 30px;
+}
+
+.buttonOff{
+    background-color: #2B2A2C !important;
+}
+
+#pageCategory .name a, #pageSearchResults .name a{
+    font-weight: 800;
+    color: #FFB700;
+    font-size: 14px;
+}
+
+#pageCategory .name a:hover, #pageSearchResults .name a:hover{
+    text-decoration: underline;
 }

@@ -2134,8 +2134,8 @@ input#cvv{
 .storeWelcome{
     width: 485px;
     height: 290px;
-    top: 10px;
-    position: relative;    
+    top: 35px;
+    position: relative;   
 }
 
 .storeWelcome span{
@@ -2230,6 +2230,10 @@ input#cvv{
     font-size: 14px;
 }
 
+#pageCategory .name a:hover, #pageSearchResults .name a:hover{
+    text-decoration: underline;
+}
+
 #header .logo{
     width: 214px;
     z-index: 1; 
@@ -2238,17 +2242,17 @@ input#cvv{
 .spotText{
     font-family: 'Roboto Slab', serif;
     color: #333333;
-    font-size: 85px;
+    font-size: 60px;
     font-weight: 300;
-    line-height: 75px;
-    margin-bottom: 20px    
+    line-height: 60px;
+    margin-bottom: 32px;   
 }
 
 .spotText span{
-    font-size: 65px;
+/*    font-size: 65px;
     bottom: initial;    
     position: relative;
-    line-height: 58px !important;
+    line-height: 58px !important;*/
 }
 
 .shopButtonText{
@@ -2413,3 +2417,12 @@ input#cvv{
     position: relative;
     top: 10px;
 }
+
+.promos{
+    margin-bottom: 30px;
+}
+
+.buttonOff{
+    background-color: #2B2A2C !important;
+}
+
