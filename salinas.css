@@ -832,19 +832,25 @@ tfoot tr td{
 }   
 
 .featured-product-carousel .prev{
-    display:block;
-    width:23px;
-    height:127px;
-    float:left;
+    display: block;
+    width: 28px;
+    height: 28px;
+    float: left;
     background:url("../images/arrow-left.png") no-repeat;
+    position: relative;
+    top: 50px;
+    left: 100px;
 }
 
 .featured-product-carousel .next{
     display:block;
-    width:23px;
-    height:127px;
     float:left;
     background:url("../images/arrow-right.png") no-repeat;
+    width: 28px;
+    height: 28px;
+    position: relative;
+    top: 50px;
+    right: 100px;
 }       
 
 .featured-product-carousel .item{
@@ -853,7 +859,7 @@ tfoot tr td{
     float:left;
     display:table-cell;
     vertical-align:middle;
-    margin-right:5px;
+    margin-right:29px;
 }
 
 .featured-product-carousel .item img{
