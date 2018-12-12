@@ -205,7 +205,7 @@ h1{
 #pageCategory h1{
     font-size: 32px;
     color: #fff;
-    font-weight: 400;
+    font-weight: 800;
 }
 
 h2{ 
@@ -1151,6 +1151,8 @@ td.ar{
 .filter {
     margin-bottom: 15px;
     color: #333;
+    position: relative;
+    top: 15px;    
 }
 
 .item{
@@ -2165,7 +2167,7 @@ input#cvv{
 #pageItem h1{
     font-size: 32px;
     color: #fff;
-    font-weight: 300;
+    font-weight: 800;
     font-family: 'Roboto Slab', serif;
 }
 
@@ -2385,11 +2387,15 @@ input#cvv{
     min-height: 35px;
 }
 
-#pageCategoryStatic #content, #pageFAQ #content, #contact #content, #pageMyAccount #content, #pageBasket #content, #pageLogin #content, #pageSearchResults #content{
+#pageCategory .item a:hover, #pageSearchResults .item a:hover{
+    text-decoration: none;
+}
+
+#pageCategoryStatic #content, #pageFAQ #content, #contact #content, #pageMyAccount #content, #pageBasket #content, #pageLogin #content, #pageSearchResults #content, #pageWishlist #content{
     padding: 40px 20px;    
 }
 
-#pageCategoryStatic h1, #pageFAQ h1, #contact h1, #pageMyAccount h1, #pageBasket h1, #pageSearchResults h1{
+#pageCategoryStatic h1, #pageFAQ h1, #contact h1, #pageMyAccount h1, #pageBasket h1, #pageSearchResults h1. #pageWishlist h1{
     font-family: 'Roboto Slab', serif;
     font-size: 32px;
     color: #333;    
@@ -2407,4 +2413,9 @@ input#cvv{
     font-family: 'Roboto Slab', serif;
     font-size: 24px;
     color: #333;       
+}
+
+#recentlyViewed{
+    position: relative;
+    top: 10px;
 }
