@@ -154,7 +154,7 @@ a{
     font-size: 14px;
     position: relative;
     border-top: 2px solid #0079C2;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     line-height: 35px;
     color: #0079C2;
@@ -165,7 +165,7 @@ a{
 #footer a{
     font-size: 14px;
     position: relative;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     line-height: 35px;
     color: #0079C2;
@@ -177,7 +177,7 @@ a{
     height: 15px;
     width: 263px;
     color: #FFFFFF;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -200,7 +200,7 @@ h1{
 #pageHome h1{
     height: 26px;
     color: #0079C2;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 36px;
     font-weight: bold;
     line-height: 28px;
@@ -791,7 +791,7 @@ tfoot tr td{
 .welcome-message {
     height: 98px;
     color: #555559;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     line-height: 28px;
     text-align: center;
@@ -2016,7 +2016,7 @@ input#cvv{
 .sf-menu a{
     height: 15px;
     color: #FFFFFF !important;
-    font-family: Montserrat !important;
+    font-family: 'Montserrat', sans-serif !important;
     font-size: 16px !important;
     font-weight: bold !important;
     text-align: center;
@@ -2026,10 +2026,14 @@ input#cvv{
     text-transform: uppercase;
 }
 
+.sf-menu ul li a{
+    font-weight: initial !important;
+}
+
 .home-content p{
     margin-bottom: initial;
     color: #555559;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     line-height: 28px;
 }
@@ -2037,7 +2041,7 @@ input#cvv{
 #pageHome h2{
     height: 25px;
     color: #45AA40;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 32px;
     font-weight: bold;
     line-height: 0;
@@ -2058,7 +2062,7 @@ input#cvv{
 
 .utilNav li a{
     color: #555559;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     font-weight: bold;
     padding-left: 20px;
@@ -2078,7 +2082,7 @@ input#cvv{
 #key::placeholder {
     font-size: 14px;
     color: #0079C2;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .miniUL a{
@@ -2087,7 +2091,7 @@ input#cvv{
 
 .welcomemsg{
     color: #555559;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
 }
 
@@ -2096,7 +2100,7 @@ input#cvv{
     float: left;
     text-transform: uppercase;
     font-size: 32px;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     color: #45AA40;
     font-weight: 100;
     top: 70px;
