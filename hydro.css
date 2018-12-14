@@ -2170,7 +2170,7 @@ input#cvv{
 }
 
 #pageMyAccount a{
-    font-size: 14px;
+    /*font-size: 14px;*/
 }
 
 #recentlyViewed{
@@ -2189,4 +2189,8 @@ input#cvv{
 
 #pageCategory .icon-plus, #pageSearchResults .icon-plus{
     display: none;
+}
+
+#shopperGroupSection{
+    min-height: 80px;
 }
