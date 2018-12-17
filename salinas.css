@@ -466,7 +466,7 @@ body{
 #menu{
     z-index:100;
     height: 50px;
-    /*margin-bottom: 15px;*/
+    margin-bottom: 2px;
     background-color: #0079C2;
     padding-left: 193px;
 }
@@ -498,10 +498,9 @@ div#DDmenu{
     min-width: 227px;
 }
 
-li.productCategories:hover div#DDmenu{
-    /*display: block;*/
-    background-color: red;
-}
+/*li.productCategories:hover div#DDmenu{
+
+}*/
 
 div#DDmenu li{
     float:none;
@@ -2034,7 +2033,7 @@ input#cvv{
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
 
-.sf-menu li{
+/*.sf-menu li{
     background: initial !important;
 }
 
@@ -2058,7 +2057,7 @@ input#cvv{
 
 .sf-menu a:hover{
     color: #fff !important;
-}
+}*/
 
 .home-content p{
     margin-bottom: initial;
@@ -2157,7 +2156,7 @@ input#cvv{
     position: relative;
 }
 
-.sf-arrows .sf-with-ul:after{
+/*.sf-arrows .sf-with-ul:after{
     content: initial !important;
 }
 
@@ -2175,8 +2174,8 @@ input#cvv{
     top: 54px !important;   
 
 }
-
-.productCategories ul li a{
+*/
+/*.productCategories ul li a{
     color: #000 !important;
     text-transform: initial !important;
 }
@@ -2187,7 +2186,7 @@ input#cvv{
 
 .productCategories ul li:hover{
     background-color: #005588 !important;
-}
+}*/
 
 .login .btn-primary{
     background-color: #45AA40 !important;
@@ -2209,9 +2208,9 @@ input#cvv{
     padding-right: initial !important;
 }
 
-.sf-menu ul ul{
+/*.sf-menu ul ul{
     top:initial !important;
-}
+}*/
 
 
 #pageFAQ h2{
