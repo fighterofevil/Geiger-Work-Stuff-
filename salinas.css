@@ -749,11 +749,11 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E6E6E6;
-    border: 1px solid #E6E6E6;
+    background-color: #FFF;
+    border: 2px solid #E6E6E6;
     color: #45AA40;
     font-weight: bold;
-    padding: 10px 10px !important;
+    padding: 10px 15px !important;
     cursor: pointer;
     -moz-border-radius:10px !important;
     -webkit-border-radius:10px !important;
@@ -772,7 +772,7 @@ tfoot tr td{
     background-color: #45AA40;
     color:#FFF;
     font-weight: bold;
-    padding: 10px 10px !important;
+    padding: 10px 15px !important;
     cursor: pointer;
     -moz-border-radius:10px !important;
     -webkit-border-radius:10px !important;
@@ -2137,12 +2137,12 @@ input#cvv{
     color: #45AA40;
     font-weight: 100;
     top: 62px;
-    left: 215px;    
+    left: 205px;    
 }
 
 #logoTag{
     position: absolute;
-    left: -35px;
+    left: -63px;
     top: -60px;
     z-index: 9999;   
 }
@@ -2266,4 +2266,8 @@ input#cvv{
 
 #pageTerms p{
     margin-bottom: 20px;
+}
+
+a:hover{
+    color: #0079C2;
 }
