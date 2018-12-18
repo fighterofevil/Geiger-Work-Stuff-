@@ -2136,8 +2136,8 @@ input#cvv{
     font-family: 'Montserrat', sans-serif;
     color: #45AA40;
     font-weight: 100;
-    top: 62px;
-    left: 205px;    
+    top: 60px;
+    left: 180px;    
 }
 
 #logoTag{
@@ -2193,8 +2193,8 @@ input#cvv{
 }
 
 .login .btn{
-    padding-left: 75px !important;
-    padding-right: 75px !important;
+    padding-left: 72px !important;
+    padding-right: 72px !important;
     padding-top: 15px !important;
     padding-bottom: 15px !important;
 }   
