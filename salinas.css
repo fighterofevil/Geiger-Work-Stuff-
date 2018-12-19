@@ -28,6 +28,22 @@
 
 /************ CSS Reset *************/
 
+
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+
+    #pageHome #content{
+        padding: 0px 0px 0px 0px;
+    }
+
+    .miniUL{
+        width: 254px !important;
+    }
+
+}
+
+
 * {
     margin: 0;
 }
@@ -2270,4 +2286,8 @@ input#cvv{
 
 a:hover{
     color: #0079C2;
+}
+
+.address-title{
+    margin-bottom: 35px;
 }
