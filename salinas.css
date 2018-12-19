@@ -34,7 +34,7 @@
    /* IE10+ specific styles go here */  
 
     #pageHome #content{
-        padding: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px !important;
     }
 
     .miniUL{
@@ -886,7 +886,7 @@ tfoot tr td{
 }       
 
 .featured-product-carousel .item{
-    width:135px;
+    width:125px;
     height:125px;
     float:left;
     display:table-cell;
