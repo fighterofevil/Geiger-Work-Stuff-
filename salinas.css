@@ -2291,3 +2291,19 @@ a:hover{
 .address-title{
     margin-bottom: 35px;
 }
+
+#adBanner{
+    height: 50px;
+    background-color: #45AA40;
+    color: #fff;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+#adBanner span{
+    position: relative;
+    top: 15px;    
+}
