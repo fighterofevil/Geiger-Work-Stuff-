@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+<html id="pageCheckoutAddressesMulti">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else #springMessage("navCustomerInfo") (Multiple) - $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+    #parse('libpartcheckoutshippingcssjs.vm')
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        <div id="content" role="main">
+        #parse('libpartcheckoutshippingcontent.vm')
+    ##     </div> <!--//#content-->
+  
+  
+    ##   original block of code commented out due to INSIDE footer breaking  10.16.18 - kevin 
+    ##     #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end
+    ##     #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    ## </div> <!--//#container -->
+    ## #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    ## #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    ## #parse("libMarkupFoot.vm")
+    
+    ## UPDATED code to fix INSIDE footer issue - kevin - 10.16.18
+        ## moved inside footer render above the closing content div - kevin 10.15.18
+        #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent)
+        #end
+    </div>
+    <!--//#content -->
+    
+    ## commented out below since it is not rendering correctly.  moved inside footer rendering above the closing content div. 
+    ## -kevin 10.15.18
+    
+    ## #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush()
+    ## #end
+    
+    ## #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent)
+    ## #end
+</div>
+<!--
+    //#container
+-->
+#if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush()
+#end        
+#if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent)
+#end
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+#parse("libMarkupFoot.vm")    
+
+  </body>
+</html>
