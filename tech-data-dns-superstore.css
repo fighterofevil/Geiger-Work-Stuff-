@@ -2702,3 +2702,7 @@ input#cvv{
 #pageLogin .btn-primary:hover:after{
     border-top: 40px solid #999;
 }
+
+#pageSearchResults #content{
+    min-height: 170px;
+}
