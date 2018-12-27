@@ -152,6 +152,7 @@ a{
 #footer{
     font-size: 12px;
     position: relative;
+    background-color: #e5e5e5;
 }
 
 #footer a{
@@ -309,6 +310,7 @@ body{
 #header{
     width: 1024px;
     height: 140px;
+    margin: 0 auto;
 }
 
 #header .wrapper{
@@ -320,8 +322,11 @@ body{
 
 #footer .wrapper{
     box-sizing: border-box;
-    height: 65px;
-    padding:15px 15px;
+    height: 60px;
+    padding: 20px 15px;
+    margin: 0 auto;
+    width: 1024px;
+
 }
 
 #footer .wrapper p{
@@ -422,8 +427,12 @@ body{
     background: #8E0215;
 }
 
+#menuWrapper{
+    width: 1024px;
+    margin: 0 auto;
+}
+
 .nav{
-    margin: 0;
     width: 1024px;
     height: 45px;
 }
@@ -527,17 +536,20 @@ div#DDmenu li a:hover{
 }
 
 #searchForm div{
-    background-color: #fff;
-    width: 175px;
     border: 1px solid #aaaaaa;
-    height: 24px;
+    background-color: #fff;
+    width: 210px;
+    height: 35px;
+    display: flex;
+    position: relative;   
+
 }
 
 #searchForm input#key{
-border: none;
-width: 148px;
-float: left;
-padding-left: 2px;
+    border: none;
+    width: 148px;
+    float: left;
+    padding-left: 2px;
 }
 
 #searchForm input#searchBtn{
@@ -784,6 +796,14 @@ tfoot tr td{
     float:left;
     background:url("../images/arrowRight.png") no-repeat;
 }       
+
+.keyboardMI{
+    background:initial !important;
+    font-size: 40px !important;
+    height: 50px !important;
+    top: 50px !important;
+    position: relative;
+}
 
 .featured-product-carousel .item{
     width:135px;
@@ -1957,4 +1977,19 @@ input#cvv{
 
 #imageWindow{
     padding-bottom: 15px;
+}
+
+.searchGlass {
+    position: relative;
+    float: left;
+    cursor: pointer;
+    font-size: 30px !important;
+    color: #4F5559;
+    top: 4px;
+    padding-left: 10px;    
+}
+
+.featuredwrap{
+    display: flex;
+    justify-content: space-between;    
 }
