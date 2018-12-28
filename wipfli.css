@@ -120,7 +120,7 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#000;
+    color:#333;
     font-family:    Arial,"Helvetica Neue",Helvetica,sans-serif;
     font-size: 14px;
     line-height: 18px;
@@ -148,7 +148,7 @@ a{
     text-decoration: none;
     color: #3E647E;
     font-family: Arial;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 a:hover{
@@ -195,16 +195,17 @@ h1{
     font-size: 32px;
     font-weight: 400;
     border-bottom: 4px solid #ffb700;
-    width: 140px;
+    width: 145px;
     margin: 0 auto;
     font-family: 'Roboto Slab', serif;
-    margin-bottom: 37px;
+    margin-bottom: 25px;
+    padding-bottom: 8px;
 }
 
 #pageCategory h1{
     font-size: 32px;
     color: #fff;
-    font-weight: 400;
+    font-weight: 800;
 }
 
 h2{ 
@@ -237,7 +238,7 @@ h6{ }
 #pageItem .price {
     font-weight: bold;
     margin: 10px;
-    font-size: 24px;
+    font-size: 21px;
     font-family: Arial;
     color: #5B6770;
 }
@@ -291,9 +292,9 @@ label, .label {
 .subcat-title a:hover,#recentlyViewed a:hover {
     color:#555;
     background-position:2px -48px;
-    text-decoration:none;
+    text-decoration:underline;
     font-size:12px;
-    color:#00acd4;
+    color: #3E647E;
 }
 
 .facettitle.blue {
@@ -557,7 +558,7 @@ div#DDmenu li a:hover{
     top: 20px;
     position: relative;
     border-radius: 5px; 
-    margin-left: 52px;
+    margin-left: 55px;
 }
 
 .mini-cart:hover{
@@ -571,15 +572,17 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 28px;
-    margin: 5px 0px 0px 0px
+    margin: 5px 0px 0px 0px;
+    position: relative;
+    right: 20px;
 }
 
 .summary{
     float: right;
     text-align: left;
-    margin-left: 15px;
     top: 10px;
     position: relative;    
+    right: 15px;
 }
 
 #cart-quantity, #cart-total{
@@ -802,9 +805,10 @@ tfoot tr td{
 }
 
 #pageItem .btn-primary{
-    padding-top: 15px;
+    padding-top: 17px;
     min-height: 35px;
     color: #5B6770;
+    min-width: 160px;
 }
 
 .gift-btn {
@@ -928,7 +932,7 @@ tfoot tr td{
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
     font-family: Arial,Helvetica,sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
@@ -1102,7 +1106,7 @@ td.ar{
 
 #pageCategory .item, #pageSearchResults .item{
     float: left;
-    height: 275px;
+    height: 300px;
     margin-right: 20px;
     width: 151px;
 }
@@ -1120,6 +1124,7 @@ td.ar{
 
 #pageCategory .text, #pageSearchResults .text{
     min-height: 72px;
+    line-height: 17px;
 }
 
 #pageCategory .item {
@@ -1145,6 +1150,9 @@ td.ar{
 
 .filter {
     margin-bottom: 15px;
+    color: #333;
+    position: relative;
+    top: 15px;    
 }
 
 .item{
@@ -1882,7 +1890,7 @@ input#cvv{
 }
 
 .warningText{
-    color: #FC9801;
+    color: #ffb700;
     font-weight: bold;
     font-size: 13px;
     text-align: center;
@@ -2101,12 +2109,14 @@ input#cvv{
     position: relative;
     float: left;
     cursor: pointer;
-    font-size: 36px !important;
+    font-size: 30px !important;
     color: #4F5559;
+    top: 4px;
+    padding-left: 10px;    
 }
 
 .search input[type="text"]{
-    color: #43807A;
+    color: #333;
     font-size: 14px;    
 }
 
@@ -2146,7 +2156,7 @@ input#cvv{
 }
 
 #pageCategory #content, #pageItem #content{
-     padding: 30px 0px;   
+     padding: 15px 0px;   
 }
 
 .bCrumbs span{
@@ -2157,13 +2167,13 @@ input#cvv{
 #pageItem h1{
     font-size: 32px;
     color: #fff;
-    font-weight: 300;
+    font-weight: 800;
     font-family: 'Roboto Slab', serif;
 }
 
 .item-secondary{
-    font-size: 15px; 
-    line-height: 20px;
+    font-size: 14px; 
+    line-height: 19px;
     color: #333333;    
 }
 
@@ -2211,11 +2221,6 @@ input#cvv{
     color: #4F5559;
 }
 
-#pageCategory .name a{
-    font-weight: 800;
-    color: #FFB700;
-}
-
 #header .logo{
     width: 214px;
     z-index: 1; 
@@ -2226,7 +2231,7 @@ input#cvv{
     color: #333333;
     font-size: 85px;
     font-weight: 300;
-    line-height: 70px;    
+    line-height: 58px;    
 }
 
 .spotText span{
@@ -2360,4 +2365,69 @@ input#cvv{
 
 .finAdv #shopButton:hover{
     background-color: #6895B8;
+}
+
+.extraRightPad{
+    padding-right: 2px !important;
+}
+
+#pageCategory .icon-plus, #pageSearchResults .icon-plus{
+    display: none;
+}
+
+#pageCategory .btn, #pageSearchResults .btn.wishlist {
+    min-width: 75px;
+    padding-top: 15px;
+    min-height: 35px;
+}
+
+#pageCategory .item a:hover, #pageSearchResults .item a:hover{
+    text-decoration: none;
+}
+
+#pageCategoryStatic #content, #pageFAQ #content, #contact #content, #pageMyAccount #content, #pageBasket #content, #pageLogin #content, #pageSearchResults #content, #pageWishlist #content{
+    padding: 40px 20px;    
+}
+
+#pageCategoryStatic h1, #pageFAQ h1, #contact h1, #pageMyAccount h1, #pageBasket h1, #pageSearchResults h1, #pageWishlist h1{
+    font-family: 'Roboto Slab', serif;
+    font-size: 32px;
+    color: #333;    
+}
+
+#pageBasket .ac a{
+    font-size: 13px;
+}
+
+#checkoutbtn{
+    min-width: 180px;
+}
+
+#pageMyAccount h2{
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+    color: #333;       
+}
+
+#recentlyViewed{
+    position: relative;
+    top: 10px;
+}
+
+.promos{
+    margin-bottom: 30px;
+}
+
+.buttonOff{
+    background-color: #2B2A2C !important;
+}
+
+#pageCategory .name a, #pageSearchResults .name a{
+    font-weight: 800;
+    color: #FFB700;
+    font-size: 14px;
+}
+
+#pageCategory .name a:hover, #pageSearchResults .name a:hover{
+    text-decoration: underline;
 }

@@ -849,6 +849,7 @@ tfoot tr td{
 }   
 
 .featured-product-carousel .prev{
+<<<<<<< HEAD
     background:url("../images/arrow-left.png") no-repeat;
     display: block;
     width: 29px;
@@ -868,6 +869,27 @@ tfoot tr td{
     top: 50px;
     position: relative;
     right: 100px;    
+=======
+    display: block;
+    width: 28px;
+    height: 28px;
+    float: left;
+    background:url("../images/arrow-left.png") no-repeat;
+    position: relative;
+    top: 50px;
+    left: 100px;
+}
+
+.featured-product-carousel .next{
+    display:block;
+    float:left;
+    background:url("../images/arrow-right.png") no-repeat;
+    width: 28px;
+    height: 28px;
+    position: relative;
+    top: 50px;
+    right: 100px;
+>>>>>>> 1d04c97b47b2b256747c620eb02b16f467dc6732
 }       
 
 .featured-product-carousel .item{
@@ -2046,7 +2068,7 @@ input#cvv{
 .sf-menu a{
     height: 15px;
     color: #FFFFFF !important;
-    font-family: Montserrat !important;
+    font-family: 'Montserrat', sans-serif !important;
     font-size: 16px !important;
     font-weight: bold !important;
     text-align: center;
@@ -2056,8 +2078,13 @@ input#cvv{
     text-transform: uppercase;
 }
 
+<<<<<<< HEAD
 .sf-menu a:hover{
     color: #fff !important;
+=======
+.sf-menu ul li a{
+    font-weight: initial !important;
+>>>>>>> 1d04c97b47b2b256747c620eb02b16f467dc6732
 }
 
 .home-content p{
@@ -2181,7 +2208,7 @@ input#cvv{
     text-transform: initial !important;
 }
 
-.productCategories ul li a:hover{
+.productCategories ul li a:hover {
     color: #fff !important;
 }
 
