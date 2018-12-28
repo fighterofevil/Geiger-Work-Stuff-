@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm') 
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+<html id="pageCheckoutAddresses">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else #springMessage("navCustomerInfo") - $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+    #parse('libpartckoutmultibilltoheadercssjscode.vm')
+    #parse('libpartpresetaddresseshead.vm')
+ 
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        
+      <div id="content" role="main">
+      #parse('libpartckoutmultibilltocontent.vm')
+
+      </div> <!--//#content -->
+      
+        #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end
+        #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    </div> <!--//#container -->
+    #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+
+    #parse('libpartckoutmultibilltojsbottom.vm')
+
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+  </body>
+</html>

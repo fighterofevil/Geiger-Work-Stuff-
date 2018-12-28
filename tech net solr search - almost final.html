@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#################
+
+#set($pageURI = "asearch.html")
+
+#################
+
+
+## Determines if an item is in a category. Doesn't check sub-categories. 
+## @param   _iiic_itemID                Item ID.
+## @param   _iiic_categoryID            Category ID.
+#macro(isItemInCategory $_iiic_itemID, $_iiic_categoryID)#*
+    *##set($_iiic_intClass = $request.class.forName('java.lang.Integer'))#*
+    *##set($_iiic_return = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("itemCategoryLinksDAO").isItemInCategory($_iiic_intClass.parseInt("$_iiic_itemID"), $_iiic_intClass.parseInt("$_iiic_categoryID")))#*
+    *##if($_iiic_return == false || $_iiic_return == true)#*
+        *#$_iiic_return#*
+    *##end#*
+*##end
+
+#################
+
+
+<html id="pageSearchResults">
+    <head>
+        <title>#if($!pagetitle) $pagetitle  #else Search Results - $!{htmlSiteName} - Welcome #end</title>
+        #parse('libMarkupHead.vm')
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+        <div class="unsupportedBrowser">You are using an outdated browser. Please <a href="http://google.com/chrome/">upgrade your browser</a> to one that is supported.</div>
+        <![endif]-->
+        #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        <div id="container">
+            #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+                <div id="content" role="main">
+                    #if($!{isPointStore} == 'TRUE') 
+                        #parse("libpartSearchProductListPoints.vm")
+                    #else
+                        ##  #parse("libpartSearchProductList.vm") 
+                        ##  BEGIN   libpartSearchProductList
+
+                            <h1>Search Results</h1>
+                            #set($itemsDTO = $AdvancedSearchUsingSolr)
+                            #set($itemsPaginationDTO = "AdvancedSearchUsingSolr") 
+                            <div class="clearfix">
+                                <div class="page noFacet">
+                                    #if($itemsDTO.getItems().size() > 0)
+                                        <div class="listing $!itemViewClass">
+                                            ## declared counter variable [ added 03.07.17 ] 
+                                            <script> var counter=0;</script>      
+                                            #foreach($itemIter in $itemsDTO.getItems())
+                                                #set($item = $pageTile.getItemObject($itemsDTO, $itemIter, "i"))
+                                                #set($price = $item.itemPrice)
+                                                ## keeps track of which item is on the page. [ added 03.07.17 ] 
+                                                <script>counter+=1;</script>    
+                                  
+                                                ###################################################
+                                                <!-- search result zz -->
+                                                ## id="searchitem" added below on 03.07.17
+                                                ###################################################            
+
+                                                ## experimental code 
+                                                ## loops through menu1 items to get array of categories 
+                                                #foreach($menu1item in $Menu1DTO.items)
+                                                    #set($categoryX = $pageTile.getItemObject($Menu1DTO, $menu1item, "c"))
+                                                    
+                                                    ## #set($swedaCat4 =  $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", $categoryX.description.toUpperCase() ).getCategoryid())
+                                                    ## validates if customer property matches category OR if has allCat property to view all catgories. 
+                                                    #if( ($request.session.getAttribute("SessionCustomerDTO_${vendorSettingsDTO.vendorId}").getCustomerProperty($categoryX.description).toLowerCase() == "true") || ($request.session.getAttribute("SessionCustomerDTO_${vendorSettingsDTO.vendorId}").getCustomerProperty('allCat').toLowerCase() == "true") )
+                                                        ## defines variable as the categoryID from the categoryX variable- used in checking if item is in a category     
+                                                        #set($swedaCat =  $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", $categoryX.description).getCategoryid()) ## Top-level Product Categories Category ID
+                                                        #set($swedaCheck="#isItemInCategory($item.getItemId(),$swedaCat)")
+                                                        ## if it is true then render out the item 
+                                                        #if($swedaCheck==true)
+                                                        ## end of beginning of experimental code fragment                                                        
+                                                            <div class="item" id="searchitem">
+                                                                <input type="hidden" id="parent-itemid-$item.itemid" value="$item.itemid"/>
+                                                                <input type="hidden" id="parent-code-$item.itemid" value="$item.code"/>
+                                                                <input type="hidden" id="parent-qty-$item.itemid" value="1"/>
+                                                                <input type="hidden" id="parent-process-$item.itemid" name="basketItems[${velocityCount}].itemToProcess" value="false">                                                                         
+                                                                <input type="hidden" id="parent-count-$item.itemid" value="${velocityCount}">
+                                                                <span class="hide"   id="js-item-inv-$item.itemid">0</span>       
+                                                                <span class="hide"   id="js-item-itemid-$item.itemid">$item.itemid</span> 
+                                                                <div  class="hide"   id="js-item-hiddenfields-$item.itemid">&nbsp;</div>          
+                                                                <div class="container">                    
+                                                                    <div class="image">
+                                                                        <a href="#encodeURL($seourl.encodeURL("storeitem.html?vid=$vendorSettingsDTO.vendorId&iid=$item.itemid"))" class="thumbnail">
+                                                                            <div class="badges">
+                                                                                #if($item.storeFeatured)
+                                                                                    <img class="" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/sw-feature.png"/>
+                                                                                #end
+                                                                                #if($item.catFeatured)
+                                                                                    <img class="" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/feature.png"/>
+                                                                                #end
+                                                                                #if($item.newItem)
+                                                                                    <img class="" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/new.png"/>
+                                                                                #end
+                                                                                #if($item.onSale)
+                                                                                    <img class="" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/sale.png"/>
+                                                                                #end
+                                                                            </div>
+                                                                            #if($item.thumbnail !="")
+                                                                                <img id="parent-cimage-$item.itemid" src="store$item.thumbnail">
+                                                                                ## current block of code is to hide an item if there is a broken link and hide it from the search results. added 03.07.17
+                                                                                <script>
+                                                                                    document.getElementById('searchitem').id=("searchitem"+counter); 
+                                                                                    if ( (document.getElementById('parent-cimage-$item.itemid').src).search("store$item.thumbnail") == -1 )
+                                                                                    {
+                                                                                        document.getElementById('searchitem'+counter).style.display="none";
+                                                                                    }
+                                                                                </script>
+                                                                            #else  
+                                                                                <img id="parent-cimage-$item.itemid" src="store/$vendorSettingsDTO.vendorId/assets/items/thumbnails/noimage.jpg"/>
+                                                                            #end
+                                                                        </a>
+                                                                        ## sitewide variable for pricing on/off
+                                                                        #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                                                                            <ul class="price-box">
+                                                                                #if($math.round($price.listPrice) > $math.round($price.price))
+                                                                                    #if($price.price.compare($price.price.doubleValue(),0) == 0)
+                                                                                        <li class="price">
+                                                                                            <span>#springMessage("vm.itemTemplate.freeitem")</span>
+                                                                                        </li>
+                                                                                    #else
+                                                                                        <li class="list-price">
+                                                                                            ##<span>#springMessage("vm.categoryT_itemList.listprice"): </span>
+                                                                                            <em id="parent-listprice-$item.itemid">
+                                                                                            #if($viewStoreCurrency)
+                                                                                                $number.format('currency',$price.listPrice, $viewStoreCurrency.locale)
+                                                                                            #else
+                                                                                                $number.format('currency',$price.listPrice)
+                                                                                            #end</em>
+                                                                                        </li>
+                                                                                        #*
+                                                                                          #if( $math.sub($price.listPrice,$price.price1)>0)
+                                                                                            <li class="you-save">
+                                                                                              #if($viewStoreCurrency)
+                                                                                              #set($saved = $number.format('currency', $math.sub($price.listPrice,$price.price1), $viewStoreCurrency.locale))
+                                                                                              #else
+                                                                                              #set($saved = $number.format('currency', $math.sub($price.listPrice,$price.price1)))
+                                                                                              #end
+                                                                                              #set($savedPercent = "$!math.round($math.mul($math.div($math.sub($price.listPrice,$price.price1),$price.listPrice),100))%")
+                                                                                              #springMessage("vm.searchTemp_itemList.yousave"): <strong><span id="parent-savepercentage-$item.itemid">$!savedPercent</span></strong> (<span id="parent-saveamount-$item.itemid">$!saved</span>)
+                                                                                            </li>
+                                                                                          #end
+                                                                                        *#
+                                                                                        #if($math.sub($price.price1, $price.price) > 0)
+                                                                                            #*<li class="list-price">
+                                                                                                #springMessage("vm.itemTemplate.plus"):&nbsp;<strong><span id="js-item-plus-$item.itemid">$math.round($math.mul($math.div($math.sub($price.price1,$price.price),$price.price1),100))%</span></strong> (<span class="currency">$regExp.currencySymbol($viewStoreCurrency.locale)</span><span id="js-item-saveplus-$item.itemid">$regExp.showPrice($math.roundTo(2, $math.sub($price.price1, $price.price)))</span>)
+                                                                                            </li>*#
+                                                                                        #end 
+                                                                                        #if($price.points > 0)
+                                                                                            <li class="list-price">
+                                                                                                #springMessage("vm.itemTemplate.awardpoint"): <span id="js-item-awardpoint-$item.itemid">$price.points</span>
+                                                                                            </li>
+                                                                                        #end
+                                                                                        <li class="price">
+                                                                                            <span class="currency">$regExp.currencySymbol($viewStoreCurrency.locale)</span>
+                                                                                            <strong id="parent-pricedollar-$item.itemid" class="integer">
+                                                                                                $regExp.currencyInteger($viewStoreCurrency.locale, $price.price)
+                                                                                            </strong>
+                                                                                            <span id="parent-pricecent-$item.itemid" class="decimal">$regExp.currencyFraction($viewStoreCurrency.locale, $price.price)</span>
+                                                                                        </li>    
+                                                                                    #end  
+                                                                                #elseif(!$price.itemCode)
+                                                                                    <li class="price">
+                                                                                        <span id="_price_0" class="no-price">#springMessage("vm.itemTemplate.callprice")</span>  
+                                                                                    </li>
+                                                                                #elseif($price.listPrice.compare($price.listPrice.doubleValue(),0) == 0)  
+                                                                                    <li class="price">
+                                                                                        #if($item.offerprices.size() > 0)
+                                                                                            <span class="no-price">#springMessage("vm.itemTemplate.freeitem")</span>  
+                                                                                        #else
+                                                                                            <span id="_price_0" class="no-price">#springMessage("vm.itemTemplate.callprice")</span>
+                                                                                        #end
+                                                                                    </li>
+                                                                                #else
+                                                                                    <li class="price">                                      
+                                                                                        ## code block updated 01.25.18 for customCurrencySymbol - kevin
+                                                                                        ## <span class="currency">$regExp.currencySymbol($viewStoreCurrency.locale)</span>
+                                                                                        #if($customCurrencySymbol)
+                                                                                            <span class="currency">$customCurrencySymbol</span>
+                                                                                        #else   
+                                                                                            <span class="currency">$regExp.currencySymbol($viewStoreCurrency.locale)</span>
+                                                                                        #end              
+                                                                                        <strong id="parentm-pricedollar-$item.itemid" class="integer">
+                                                                                        $regExp.currencyInteger($viewStoreCurrency.locale, $price.price).</strong><span id="parent-pricecent-$item.itemid" class="decimal">$regExp.currencyFraction($viewStoreCurrency.locale, $price.price)</span>
+                                                                                    </li>
+                                                                                #end
+                                                                            </ul>
+                                                                        #end
+                                                                    </div>
+                                                                    <div class="text">
+                                                                        <div class="name">
+                                                                            <a id="parent-title-$item.itemid" href="#encodeURL($seourl.encodeURL("storeitem.html?vid=$vendorSettingsDTO.vendorId&iid=$item.itemid"))" >$item.title</a>
+                                                                        </div>
+                                                                        #* <ul class="feature-list">
+                                                                            <li>
+                                                                                #if($item.shortdesc.length() <= 100)
+                                                                                    <p>$item.shortdesc</p>
+                                                                                #else
+                                                                                    #set($trimmed = $item.shortdesc.substring(0, 100))
+                                                                                    <p>$trimmed... <a href="#encodeURL("storeitem.html?vid=$vendorSettingsDTO.vendorId&iid=$item.itemid")">Read more</a></p>
+                                                                                #end
+                                                                            </li>
+                                                                        </ul> *#
+                                                                    </div>
+                                                                    #*<input id= "itemQ_$item.itemid" class="quicklook_trigger" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/quick-info_btn.gif" type="image" alt="Quick info"/>*#
+                                                                    ##<button id="itemQ_$item.itemid" class="quicklook_trigger">Quick Info</button>                    
+                                                                    ##<button id="quickselect_$item.itemid" class="quicklook_trigger">Select</button>                                
+                                                                    #if($welcomeMatDTO.loggedIn && $!{displayWishlist} == "YES" && $!{displayWishlistOnCatPg} == "YES")
+                                                                        <a href="action.html?mode=addWishlist&iid=$item.itemid&vid=$vendorSettingsDTO.vendorId&qty=1&url=storeitem.html%3Fiid%3D$item.itemid%26vid%3D$vendorSettingsDTO.vendorId" class="btn btn-small wishlist"><i class="icon-plus"></i> #springMessage('vm.itemTemplate.addtowishlist')</a>
+                                                                    #end                                  
+                                                                    <div id="parent-message-$item.itemid" class="item_feedback_msg">&nbsp;</div>
+                                                                </div> <!-- end of container? -->
+                                                            </div> <!-- end of search item?-- >                
+
+                                                            ###################################################                                                         
+                                                        ## beginning of end experimental code fragment
+                                                        #end
+                                                    #end   
+                                                #end
+                                                ## end experimental code                                                  
+                                            #end <!-- end of forEach-- >
+                                        </div>
+                                        <!-- End item listing -->
+                                        <div class="bottomPagination">
+                                            ##parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/pagination.vm")
+                                        </div>
+                                        #* <div>
+                                            <div id="addtocartbtn" class="addToCartBtn" style="display: block; ">
+                                                <span>add selected to cart</span>
+                                            </div>
+                                            <div id="addtocartLoading" class="hide">
+                                                <p class="ac">Adding Selection to Cart</p> 
+                                                <div class="ac"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/loading.gif" atl="Loading..." /></div>
+                                            </div>
+                                        </div> *#                            
+                                </div>
+                            </div>                            
+                            #else                            
+                              <h3 class="ac">Sorry no items can be found.</h3>
+                            </div>
+                            </div>
+                            
+                            
+                            #end                        
+                        ##  END     libpartSearchProductList
+                    #end
+                </div> <!--//#content -->
+            #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end
+            #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        </div> <!--//#container -->
+        #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+        #parse("libMarkupFoot.vm")
+    </body>
+</html>

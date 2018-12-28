@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+<html id="pageWishlist">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else #springMessage("navWishlist") - $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+<script language="javascript" type="text/javascript">
+var recentlyViewedCategory= function(vid, cid){
+	jQuery.ajax({
+	url: 'getrecentlyviewedcategories.ajx?vid=' + vid + '&cid=${cidMenu1}',
+	dataType: 'json',
+	cache: false,
+	data: {},
+	success: function(response) {
+		var result = response['__Result'],
+		len = result.length,
+		i = 0;
+		if(len > 0){
+			var thenewURL = '';
+    		for(i; i < 1; i+=1){
+    			thenewURL = result[i]['url'];
+    		}
+    	}
+    	else{
+    		thenewURL = 'store.html?vid=${vendorSettingsDTO.vendorId}';
+    	}
+      
+      window.location.href=thenewURL;
+		}
+	 
+	});
+}
+</script>
+
+  </head>
+  <body>
+    #if(${headerPosition} == "OUTSIDE") #displayHeader(${displayCustomHeaderContent}) #end
+    <div id="container">
+        #if(${headerPosition} == "INSIDE") #displayHeader(${displayCustomHeaderContent}) #end
+
+      <div id="content" role="main">
+        
+        <h1>#springMessage("navWishlist")</h1>
+                
+        <p>Select an item by clicking the checkbox on the right.<br/>
+        <strong>Please note that items with options (such as size, color, etc) cannot be added to the cart from the wish list.</strong></p>
+
+        #if(($multiPageViews) && ($wishListVectorDTO))
+          #set($itemMultiPageView = $multiPageViews.get($wishListVectorDTO.getPageTileName()))
+        #end
+
+        #if($itemMultiPageView && $itemMultiPageView.getPreviousUrl())               
+          #set($previousUrl=$itemMultiPageView.getPreviousUrl())
+          <a href="$previousUrl"><img src="store/${vendorSettingsDTO.vendorId}/assets/images/tl.gif" alt="#springMessage("vm.wishlist.lastpage")"/></a>
+        #end
+
+        #if($itemMultiPageView.pagesCount && $itemMultiPageView.pagesCount>1)
+          <span>#springMessage("vm.category_template.page") </span>
+          #foreach($pageItem in $itemMultiPageView.indexList) 
+            #if($itemMultiPageView ) 
+              #if($velocityCount== $itemMultiPageView.currentPageIndex) 
+                <a>$itemMultiPageView.currentPageIndex<a>  
+              #else  
+                #if($velocityCount<$itemMultiPageView.pagesCount+1) 
+                  #set($pageurl=$itemMultiPageView.multiPageURL)  
+                  <a class="navleftlink" href="${pageurl}$velocityCount">$velocityCount</a>  
+                #end
+              #end 
+            #end 
+          #end 
+        #end 
+
+        #if($itemMultiPageView && $itemMultiPageView.getNextUrl())
+          #set($nextUrl=$itemMultiPageView.getNextUrl())
+            <a href="$nextUrl"><img src="store/${vendorSettingsDTO.vendorId}/assets/images/tr.gif" alt="#springMessage("vm.wishlist.nextpage")" border="0" /></a>      
+        #end
+
+        #springBind( "wishListDTO.*" )
+        #if($wishListVectorDTO.items)
+          #foreach($error in $status.errorMessages) 
+            #set($err = 1) 
+          #end
+          #if($err == 1)
+            <div class="warning">#foreach($error in $status.errorMessages) $error<br> #end</div>
+          #end    
+          #if($wishListVectorDTO.items)
+            #if($wishListVectorDTO.items.size()!= 0)
+              #if($wishListDTO.owner)
+                #if(!$wishListDTO.openEmail)
+                  <a href="wishlist.html?vid=$wishListDTO.vendorId&clientId=$wishListDTO.clientId&openEmail=true">#springMessage("wishlist.clickinfor")</a>
+                #end
+              #end
+            #end
+          #end
+        #end
+
+        <form action="wishlist.html" class="horizontal" method="post" name="wishlist">
+          <input type="hidden" id="vid" name="vid" value="$wishListDTO.vendorId">
+          <input type="hidden" name="clientId" value="$wishListDTO.clientId">
+          <input type="hidden" name="openEmail" value="$wishListDTO.openEmail">
+          <input type="hidden" name="emailSubject" value="Wish list">
+          #if($wishListDTO.owner && $wishListDTO.openEmail)
+            <div class="f-row">
+              <label><b>#springMessage("vm.wishlist.email"):</b></label>
+              <div class="f-field"><input type="text" name="emailAddr" value="$wishListDTO.emailAddr"></div>
+            </div>
+            <div class="f-row">
+              <label><b>#springMessage("vm.wishlist.message"):</b>&nbsp;&nbsp;</label>
+              <div class="f-field">
+                <textarea cols="30" rows="3" name="emailText">$wishListDTO.emailText</textarea>
+              </div>
+            </div>
+            <div class="f-buttons">
+              <input class ="btnclass btn" type="submit" name="submitEmail" value="#springMessage("vm.wishlist.send")" onClick='document.wishlist.openEmail.value = "false"; return checkEmailAddr();'>&nbsp;&nbsp;
+              ##<input class ="btnclass btn" type="submit" name="submitEmailCancel" value="#springMessage("vm.wishlist.cancel")" onClick='javascript:document.wishlist.openEmail.value = "false";'>
+            </div>
+          #end
+        </form>
+        
+        <form action="wishlist.html" method="post" name="wishlist">
+          <input id="vid" type="hidden" name="vid" value="$wishListDTO.vendorId">
+          <input type="hidden" name="clientId" value="$wishListDTO.clientId">
+          <table cellspacing="0" width="880px">
+            #if($wishListVectorDTO.items)
+              #if($wishListVectorDTO.items.size()== 0)
+                <tr>
+                  <td colspan="3"><span class="notice"><b>#springMessage("vm.wishlist.info")</b></span></td>
+                </tr> 
+                <tr>
+                  <td align="right">
+                    ##<a href="javascript:history.go(-1)"><img src="store/${vendorSettingsDTO.vendorId}/assets/images/continue.gif" border="0"></a>
+<input type="button" id="continueShopBtn" class="btn" value="#springMessage('vm.basket.toshop')" onclick="recentlyViewedCategory('$vendorSettingsDTO.vendorId','1699'); "/>
+                  </td>
+                </tr>
+              #else
+                <thead>
+                  <tr>
+                    <th>#springMessage("wishlist.items")</th>
+                    <th>#springMessage("vm.wishlist.notes")</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  #foreach($node in $wishListVectorDTO.items)
+                    #set($title = $pageTile.getItemObject($wishListVectorDTO, $node, "title"))
+                    #set($itemid = $pageTile.getItemObject($wishListVectorDTO, $node, "itemid"))
+                    #set($shortdesc = $pageTile.getItemObject($wishListVectorDTO, $node, "shortdesc"))  
+                    #set($longdesc = $pageTile.getItemObject($wishListVectorDTO, $node, "longdesc"))
+                    #set($cimage= $pageTile.getItemObject($wishListVectorDTO, $node, "cimage"))
+                    #set($wishlistid= $pageTile.getItemObject($wishListVectorDTO, $node, "wishlistid"))
+                    #set($notes= $pageTile.getItemObject($wishListVectorDTO, $node, "notes"))
+                    #set($compcode= $pageTile.getItemObject($wishListVectorDTO, $node, "compcode"))
+                    #set($item = $pageTile.getItemObject($wishListVectorDTO, $node, "item"))
+                    
+        #set($price = $item.itemPrice)
+                    #set($attributs = $item.attributes)
+                    
+                    ###set($price= $pageTile.getItemObject($wishListVectorDTO, $node, "price"))
+                    #set($supplier= $pageTile.getItemObject($wishListVectorDTO, $node, "Supplier"))
+                    <tr>
+                      #set($imgsrc="store/$wishListDTO.vendorId/items/images/thumbnail_no_image.gif")
+                      #if($cimage)
+                        #set($imgsrc=$cimage)
+                      #end
+                      <td>
+                        <div id="attribute_section_$compcode.replace('.','-')" style="display:none;">
+						  #if($attributs && $attributs.size()>0)
+						      #set($currentAttrs = $selectedAttrs.get($compcode))
+                              #foreach($attr in $attributs)
+                                  #if($attr && $attr.attype==2)
+								     <input type="hidden" id="attr_${compcode.replace('.','-')}_$velocityCount" value="$attr.attributeid">
+									 #if($attr.options && $attr.options.size()>0)
+                                         #foreach($opt in $attr.options)
+                                            #if($opt && $list.contains($currentAttrs,$opt.code))
+                                                <input type="hidden" id="opt_${compcode.replace('.','-')}_$attr.attributeid" value="$opt.optionid">
+											#end
+										 #end
+									 #end
+								  #end
+							  #end
+						  #end
+						</div>
+                        <div class="item_img">
+                          <a href="$seourl.encodeURL("storeitem.html?iid=$itemid&vid=$wishListDTO.vendorId")">
+                            <img src="store/$imgsrc" alt="$title" onerror="javascript:this.src='store/$vendorSettingsDTO.vendorId/items/thumbnails/na_sm.png'"/>
+                          </a>
+                        </div>
+                        #if($supplier == 'catalog')
+                          <div class="item-desc">
+                            <p class="item-title">
+                              <a href="$seourl.encodeURL("storeitem.html?iid=$itemid&vid=$wishListDTO.vendorId")">
+                                $title
+                              </a>
+                            </p>
+                            <p class="code">
+                              code: $compcode
+                            <p>
+                          </div>
+                          <input type="hidden" id="$compcode.$velocityCount" value="catalog">
+                        #end      
+                      </td>
+                      <td>
+                        #if($wishListDTO.owner)
+                          <textarea cols="60" rows="7" name="notes_$wishlistid">$notes</textarea>
+                          <br />
+                          <div>
+                            <input class="btnclass btn" name="submitSaveNote_$wishlistid" type="submit" value="#springMessage("vm.wishlist.savenote")">
+                          </div>
+                        #else
+                          $notes
+                        #end
+                      </td>     
+                      <td>
+                        <div>
+                          ##springMessage("vm.wishlist.addremove"): 
+                          <input type="checkbox" name="select"  value="$compcode">
+                        </div>
+                        <input type="hidden" id="item_$itemid" name="$compcode" value="false">
+                      </td>
+                    </tr>
+                  #end
+                  <tfoot>
+                    <tr>
+                      <td class="ac empty-cel" colspan="3">
+
+                        <input type="button" class="btn btn-primary" name="submitAddToCart" id="submitAddToCart" value="#springMessage("vm.wishlist.addtocart")">
+
+                        #if($wishListDTO.owner)
+                          <input type="submit" class="btn" name="submitDeleteItems" value="#springMessage("vm.wishlist.remove")">
+                        #end
+
+                        #if($wishListDTO.owner)
+                          <input type="submit" class="btn" name="submitClearWishList" value="#springMessage("vm.wishlist.removeall")">
+                        #end
+
+                      </td>
+                    </tr>
+                  </tfoot>
+                #end
+              </tbody>
+            #end
+          </table>
+          ######
+        </form>
+
+      </div> <!--//#content -->
+      
+      #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end
+
+      #if(${footerPosition} == "INSIDE") #displayFooter(${displayCustomFooterContent}) #end
+    </div> <!--//#container -->
+    #if(${footerPosition} == "OUTSIDE") #displayFooter(${displayCustomFooterContent}) #end
+
+    #if($wishListDTO.owner && $wishListDTO.openEmail)
+      <script>
+        function checkEmail(emailStr) {
+          if (emailStr.length == 0) {
+            return true;
+          }
+          
+          var emailPat=/^(.+)@(.+)$/;
+          var specialChars="\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
+          var validChars="\[^\\s" + specialChars + "\]";
+          var quotedUser="(\"[^\"]*\")";
+          var ipDomainPat=/^(\d{1,3})[.](\d{1,3})[.](\d{1,3})[.](\d{1,3})$/;
+          var atom=validChars + '+';
+          var word="(" + atom + "|" + quotedUser + ")";
+          var userPat=new RegExp("^" + word + "(\\." + word + ")*$");
+          var domainPat=new RegExp("^" + atom + "(\\." + atom + ")*$");
+          var matchArray=emailStr.match(emailPat);
+          
+          if (matchArray == null) {
+            return false;
+          }
+          
+          var user=matchArray[1];
+          var domain=matchArray[2];
+          
+          if (user.match(userPat) == null) {
+            return false;
+          } 
+          
+          var IPArray = domain.match(ipDomainPat);
+          
+          if (IPArray != null) {
+            for (var i = 1; i <= 4; i++) {
+              if (IPArray[i] > 255) {
+                return false;
+              }
+            }
+            return true;
+          }
+          
+          var domainArray=domain.match(domainPat);
+          
+          if (domainArray == null) {
+            return false;
+          }
+          
+          var atomPat=new RegExp(atom,"g");
+          var domArr=domain.match(atomPat);
+          var len=domArr.length;
+        
+          if ((domArr[domArr.length-1].length < 2) ||
+            (domArr[domArr.length-1].length > 3)) {
+            return false;
+          }
+          
+          if (len < 2) {
+            return false;
+          }
+        
+          return true;
+        }
+
+        function checkEmailAddr() {
+
+          if (wishlist.emailAddr.value == "" || !checkEmail(wishlist.emailAddr.value)) {
+            alert("Incorrect email address");
+            return false;
+          }
+          
+          document.wishlist.openEmail.value = 'false';
+          return true;
+        }
+      
+      </script>
+    #end
+    
+    <script language="javascript">
+      function buyItems(els){
+	        var url="action.html?mode=addItems",
+	        vid = $('#vid').val(),
+	        items = '',
+	        param = "&vid="+vid+"&url=basket.html?vid="+vid;
+	        
+	        for(var i = 0; i < els.length; i++){
+	          var code = $(els[i]).val();
+	          items += '&ic' + (i+1) + '=' + code + '&qty' + (i+1) + '=1';
+	          
+	          jQuery('input[id^="attr_'+code.replace('.','-')+'"]').each(function(k){
+	             var attr = jQuery(this).val();
+	             items +='&attrid'+(i+1) +'_'+(k+1)+'='+attr;
+	             var opt = jQuery('#opt_'+code.replace('.','-')+'_'+attr).val();
+	             if(opt && opt!=null)
+	               items +='&attropt'+(i+1) +'_'+(k+1)+'='+opt;
+	          });
+	        }
+	        console.log('items string: '+items);
+	        url += items + param;
+	        console.log('URL: '+url);
+	        window.location.href=url;
+      	}
+
+      jQuery(document).ready(function() {
+        ##$(".filter select").sb(); //jQuery Select Box
+        
+        jQuery('#submitAddToCart').on('click', function(){
+          var els = $('input[type=checkbox]:checked').toArray();
+          console.log('elements to add to cart: ' + els);
+          buyItems(els);
+        });
+      });
+    </script>
+
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+  </body>
+</html>

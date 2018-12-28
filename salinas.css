@@ -28,6 +28,22 @@
 
 /************ CSS Reset *************/
 
+
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+
+    #pageHome #content{
+        padding: 0px 0px 0px 0px !important;
+    }
+
+    .miniUL{
+        width: 254px !important;
+    }
+
+}
+
+
 * {
     margin: 0;
 }
@@ -466,7 +482,7 @@ body{
 #menu{
     z-index:100;
     height: 50px;
-    /*margin-bottom: 15px;*/
+    margin-bottom: 2px;
     background-color: #0079C2;
     padding-left: 193px;
 }
@@ -498,10 +514,16 @@ div#DDmenu{
     min-width: 227px;
 }
 
+<<<<<<< HEAD
 li.productCategories:hover div#DDmenu{
     /*display: block;*/
     background-color: red;
 }
+=======
+/*li.productCategories:hover div#DDmenu{
+
+}*/
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 
 div#DDmenu li{
     float:none;
@@ -750,11 +772,19 @@ tfoot tr td{
 }
 
 .btn {
+<<<<<<< HEAD
     background-color: #E6E6E6;
     border: 1px solid #E6E6E6;
     color: #45AA40;
     font-weight: bold;
     padding: 10px 10px !important;
+=======
+    background-color: #FFF;
+    border: 2px solid #E6E6E6;
+    color: #45AA40;
+    font-weight: bold;
+    padding: 10px 15px !important;
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
     cursor: pointer;
     -moz-border-radius:10px !important;
     -webkit-border-radius:10px !important;
@@ -773,7 +803,11 @@ tfoot tr td{
     background-color: #45AA40;
     color:#FFF;
     font-weight: bold;
+<<<<<<< HEAD
     padding: 10px 10px !important;
+=======
+    padding: 10px 15px !important;
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
     cursor: pointer;
     -moz-border-radius:10px !important;
     -webkit-border-radius:10px !important;
@@ -850,6 +884,7 @@ tfoot tr td{
 
 .featured-product-carousel .prev{
 <<<<<<< HEAD
+<<<<<<< HEAD
     background:url("../images/arrow-left.png") no-repeat;
     display: block;
     width: 29px;
@@ -870,30 +905,36 @@ tfoot tr td{
     position: relative;
     right: 100px;    
 =======
+=======
+    background:url("../images/arrow-left.png") no-repeat;
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
     display: block;
-    width: 28px;
+    width: 29px;
     height: 28px;
     float: left;
-    background:url("../images/arrow-left.png") no-repeat;
+    top: 50px;    
     position: relative;
-    top: 50px;
-    left: 100px;
+    left: 100px;    
 }
 
 .featured-product-carousel .next{
-    display:block;
-    float:left;
     background:url("../images/arrow-right.png") no-repeat;
-    width: 28px;
+    display: block;
+    width: 29px;
     height: 28px;
-    position: relative;
+    float: left;
     top: 50px;
+<<<<<<< HEAD
     right: 100px;
 >>>>>>> 1d04c97b47b2b256747c620eb02b16f467dc6732
+=======
+    position: relative;
+    right: 100px;    
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 }       
 
 .featured-product-carousel .item{
-    width:135px;
+    width:125px;
     height:125px;
     float:left;
     display:table-cell;
@@ -2056,7 +2097,7 @@ input#cvv{
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
 
-.sf-menu li{
+/*.sf-menu li{
     background: initial !important;
 }
 
@@ -2068,7 +2109,7 @@ input#cvv{
 .sf-menu a{
     height: 15px;
     color: #FFFFFF !important;
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: Montserrat !important;
     font-size: 16px !important;
     font-weight: bold !important;
     text-align: center;
@@ -2079,6 +2120,7 @@ input#cvv{
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .sf-menu a:hover{
     color: #fff !important;
 =======
@@ -2086,6 +2128,11 @@ input#cvv{
     font-weight: initial !important;
 >>>>>>> 1d04c97b47b2b256747c620eb02b16f467dc6732
 }
+=======
+.sf-menu a:hover{
+    color: #fff !important;
+}*/
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 
 .home-content p{
     margin-bottom: initial;
@@ -2164,13 +2211,18 @@ input#cvv{
     font-family: 'Montserrat', sans-serif;
     color: #45AA40;
     font-weight: 100;
+<<<<<<< HEAD
     top: 62px;
     left: 215px;    
+=======
+    top: 60px;
+    left: 180px;    
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 }
 
 #logoTag{
     position: absolute;
-    left: -35px;
+    left: -63px;
     top: -60px;
     z-index: 9999;   
 }
@@ -2184,7 +2236,7 @@ input#cvv{
     position: relative;
 }
 
-.sf-arrows .sf-with-ul:after{
+/*.sf-arrows .sf-with-ul:after{
     content: initial !important;
 }
 
@@ -2202,27 +2254,32 @@ input#cvv{
     top: 54px !important;   
 
 }
-
-.productCategories ul li a{
+*/
+/*.productCategories ul li a{
     color: #000 !important;
     text-transform: initial !important;
 }
 
-.productCategories ul li a:hover {
+.productCategories ul li a:hover{
     color: #fff !important;
 }
 
 .productCategories ul li:hover{
     background-color: #005588 !important;
-}
+}*/
 
 .login .btn-primary{
     background-color: #45AA40 !important;
 }
 
 .login .btn{
+<<<<<<< HEAD
     padding-left: 75px !important;
     padding-right: 75px !important;
+=======
+    padding-left: 72px !important;
+    padding-right: 72px !important;
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
     padding-top: 15px !important;
     padding-bottom: 15px !important;
 }   
@@ -2236,9 +2293,9 @@ input#cvv{
     padding-right: initial !important;
 }
 
-.sf-menu ul ul{
+/*.sf-menu ul ul{
     top:initial !important;
-}
+}*/
 
 
 #pageFAQ h2{
@@ -2294,4 +2351,31 @@ input#cvv{
 
 #pageTerms p{
     margin-bottom: 20px;
+<<<<<<< HEAD
+=======
+}
+
+a:hover{
+    color: #0079C2;
+}
+
+.address-title{
+    margin-bottom: 35px;
+}
+
+#adBanner{
+    height: 50px;
+    background-color: #45AA40;
+    color: #fff;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+#adBanner span{
+    position: relative;
+    top: 15px;    
+>>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 }

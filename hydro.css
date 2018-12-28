@@ -28,6 +28,25 @@
 
 /************ CSS Reset *************/
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+    #header .wrapper .utilNav li{
+        padding-left: initial !important;
+        padding-bottom: 4px !important;
+    }
+
+    #cart-icon{
+        right: 0px !important;
+        margin: 8px 20px 0px 0px !important;
+    }
+
+    .mini-cart a{
+        position: relative !important;
+        bottom: 9px !important;
+    }
+}
+
+
 * {
     margin: 0;
 }
@@ -2194,3 +2213,7 @@ input#cvv{
 #shopperGroupSection{
     min-height: 80px;
 }
+
+
+
+
