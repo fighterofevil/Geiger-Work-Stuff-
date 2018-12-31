@@ -2214,6 +2214,8 @@ input#cvv{
     min-height: 80px;
 }
 
-
+#thirdptyft{
+    display: none;
+}
 
 
