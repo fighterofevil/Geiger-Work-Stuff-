@@ -117,11 +117,7 @@
                                                 #set($item = $pageTile.getItemObject($itemsDTO, $itemIter, "i"))
                                                 #set($price = $item.itemPrice)
                                                 ## keeps track of which item is on the page. [ added 03.07.17 ] 
-                                                <script> 
-                                                    counter+=1; 
-                                                    console.log("hey i am in the loop");
-
-                                                </script>    
+                                                <script>counter+=1;</script>    
                                   
                                                 ###################################################
                                                 <!-- search result zz -->
@@ -155,14 +151,11 @@
         ## experimental code 
         #set($swedaCheck="#isItemInCategory($item.getItemId(),$swedaCat)")
         #if($swedaCheck==true)
-            <script>
-                console.log("yes, riverbed");
-                console.log(counter+" is the count");
-            </script>
+           
         #end
     #end   
 #end
-## end experimental code 
+## end experimental code        
 
 
 
@@ -307,8 +300,9 @@
                                                             <a href="action.html?mode=addWishlist&iid=$item.itemid&vid=$vendorSettingsDTO.vendorId&qty=1&url=storeitem.html%3Fiid%3D$item.itemid%26vid%3D$vendorSettingsDTO.vendorId" class="btn btn-small wishlist"><i class="icon-plus"></i> #springMessage('vm.itemTemplate.addtowishlist')</a>
                                                         #end                                  
                                                         <div id="parent-message-$item.itemid" class="item_feedback_msg">&nbsp;</div>
-                                                    </div>
-                                                </div>                            
+                                                    </div> <!-- end of container? -->
+                                                </div> <!-- end of search item?-- >                
+
                                                 ###################################################                                                               
                                             #end
                                         </div>
@@ -326,11 +320,12 @@
                                             </div>
                                         </div> *#                            
                                 </div>
-                            </div>
+                            </div>                            
                             #else                            
                               <h3 class="ac">Sorry no items can be found.</h3>
                             </div>
                             </div>
+                            
                             
                             #end                        
                         ##  END     libpartSearchProductList
