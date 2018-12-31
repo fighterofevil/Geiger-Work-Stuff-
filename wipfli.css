@@ -28,6 +28,7 @@
 
 /************ CSS Reset *************/
 
+
 * {
     margin: 0;
 }
@@ -2431,3 +2432,44 @@ input#cvv{
 #pageCategory .name a:hover, #pageSearchResults .name a:hover{
     text-decoration: underline;
 }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+
+    #pageLanding .spotlightWrapper{
+        background: none;
+    }
+
+    .utilNav{
+        top: 27px;
+        position: relative;
+    }
+
+    #header .wrapper .utilNav li{
+        padding-top: 0px;
+    }
+
+    .mini-cart{
+        top: -10px;
+        width: 187px;
+    }
+
+    #cart-icon{
+        padding: 5px 0px 0px 0px;
+        right: 18px;
+    }
+
+    .summary{
+        right: 9px;
+    }
+
+    .sf-menu a:hover {text-decoration:underline;}
+    .sf-menu a:before,.sf-menu a:after { text-decoration:underline;}
+
+
+   .sf-menu a:before,.sf-menu a:after,
+   .sf-menu a:hover:before,.sf-menu a:hover:after {text-decoration:none;}
+
+
+}
+
