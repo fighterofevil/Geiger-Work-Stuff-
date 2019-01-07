@@ -128,7 +128,7 @@ strong{
 
 body{
     color:#444444;
-    font-family: OpenSans;
+    font-family: 'Open Sans', sans-serif;
     /*font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;*/
     font-size: 14px;
     line-height: 18px;
@@ -175,7 +175,7 @@ a{
     /*text-shadow: 1px 1px 1px #660000;*/
     font-size: 15px;
     color: #111c4e;
-    font-family: OpenSans;
+    font-family: 'Open Sans', sans-serif;
     font-weight: bold;
 
 }
@@ -433,6 +433,7 @@ body{
     /*margin-bottom: 15px;*/
     background: url("../images/") repeat-x scroll left top #fff;
     /*border: 1px solid #666666;*/
+    background-color: #F2F2F2;
 }
 
 .nav{
@@ -467,7 +468,8 @@ div#DDmenu{
     padding-bottom: 20px;
     min-width: 420px;
     max-height: 250px;   
-    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.8);
+    background-color: #F2F2F2;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -503,7 +505,7 @@ div#DDmenu li a:hover{
 }
 
 .utilNav a{
-    font-family: OpenSans;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;    
     color: #fff;
     text-decoration: none;
@@ -715,9 +717,12 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #00afab;
-    border:1px solid #777;
-    color:#FFF;
+    /*background-color: #00afab;*/
+    background-color: #FFFFFF;
+    /*    border:1px solid #777;*/
+    border: 1px solid #E1E1E1;
+    /*color:#FFF;*/
+    color: #1F2555;
     font-weight: bold;
     padding: 5px 10px;
     cursor: pointer;
@@ -727,7 +732,9 @@ tfoot tr td{
 }
 
 .btn:hover{
-    background-color: #111c4e;
+    /*background-color: #111c4e;*/
+    background-color: #EBEBEB;
+    border: 1px solid #E1E1E1;
     text-decoration: none;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -735,9 +742,10 @@ tfoot tr td{
 } 
 
 .btn-primary{
-    background-color: #00afab;
-    border:1px solid #777;
-    color:#FFF;
+    /*background-color: #00afab;*/
+    background-color: #F9CB55;
+    /*color:#FFF;*/
+    color: #1F2555;
     font-weight: bold;
     padding: 5px 10px;
     cursor: pointer;
@@ -747,7 +755,8 @@ tfoot tr td{
 }
 
 .btn-primary:hover{
-    background-color: #111c4e;
+    /*background-color: #111c4e;*/
+    background-color: #FFD367;    
     text-decoration: none;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -1989,9 +1998,8 @@ input#cvv{
     line-height: 1em;
     position: relative;
     top: 30px;
-    font-family: OpenSans;
+    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
-    font-weight: 600;
 }
 
 .masterSpotlight{
@@ -2052,7 +2060,7 @@ input#cvv{
     padding-right: 10px !important;
     padding-left: 5px !important;
     color: #111C4F !important;
-    font-family: OpenSans !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-weight: bold !important;
     text-decoration: none !important;
     font-size: 14px !important;
@@ -2083,7 +2091,7 @@ input#cvv{
 .dropDownSubCol{
     position: relative;
     left: 20px;
-    font-family: OpenSans !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-weight: 100 !important;
     font-size: 14px !important;
     line-height: 1.3em !important;
@@ -2092,7 +2100,7 @@ input#cvv{
 }
 
 .dropDownSubCol a{
-    font-family: OpenSans !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-weight: 100 !important;
     font-size: 14px !important;
 }
@@ -2111,7 +2119,7 @@ input#cvv{
     top: -235px;
     font-size: 14px !important;
     line-height: 1.3em !important;
-    font-family: OpenSans !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-weight: bold !important;
     text-decoration: none !important;    
 }
@@ -2156,7 +2164,7 @@ div#DDmenu li a:hover{
 }
 
 #pageHome h2{
-    font-family: OpenSans;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 700;
     color: #111c4e;
     font-size: 28px;    
@@ -2174,4 +2182,8 @@ div#DDmenu li a:hover{
 
 #pageCategory strong, #pageSearchResults strong{
     font-weight: 100;
+}
+
+.pegaWorld, .pegaWorld a{
+    color: #EB5A28 !important;
 }
