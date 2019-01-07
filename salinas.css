@@ -2379,3 +2379,11 @@ a:hover{
     top: 15px;    
 >>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 }
+
+.custom-input .inputs{
+    display: grid;
+}
+
+.highLightP{
+    color: #45AA40;
+}
