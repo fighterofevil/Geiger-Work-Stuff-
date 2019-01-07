@@ -2472,3 +2472,15 @@ input#cvv{
 
 
 }
+
+#apparelMessages{
+    font-family: 'Roboto Slab', serif;
+    font-size: 15px;
+    color: #444D55;
+    font-weight: 800;
+    line-height: 25px;    
+}
+
+#scriptQuestionDiv{
+    display: none;
+}
