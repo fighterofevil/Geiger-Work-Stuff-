@@ -75,7 +75,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
     line-height: 1;
     color: black;
-    background: white;
+    background: white;    
+    min-width: 1024px;
 }
 
 ol, ul, li {
@@ -153,12 +154,15 @@ p .pageItem{
 }
 
 a{ 
-    /*color:#84010F;*/
-    color: #00afab;
+    color: #5C5D66;
+}
+
+a:hover{
+    color: #0074B3;
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 13px;
     background-color: #f7f7f7;
 }
 
@@ -190,7 +194,6 @@ div#DDmenu a{
 h1{ 
     font-weight: bold;
     font-size: 26px;
-    font-style: italic;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
@@ -237,7 +240,8 @@ h6{ }
 #pageItem .price {
     font-size: 18px;
     font-weight: bold;
-    margin: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 label, .label {
@@ -434,12 +438,17 @@ body{
     background: url("../images/") repeat-x scroll left top #fff;
     /*border: 1px solid #666666;*/
     background-color: #F2F2F2;
+    margin-bottom: 25px;    
+}
+
+#pageHome #menu{
+     margin-bottom: initial;       
 }
 
 .nav{
-    margin: 0;
+/*    margin: 0;
     width: 1024px;
-    height: 45px;
+    height: 45px;*/
 }
 
 .nav li{
@@ -468,7 +477,7 @@ div#DDmenu{
     padding-bottom: 20px;
     min-width: 420px;
     max-height: 250px;   
-    box-shadow: 5px 5px 20px rgba(0,0,0,0.8);
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
     background-color: #F2F2F2;
 }
 
@@ -492,7 +501,7 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .utilNav{
@@ -571,11 +580,12 @@ div#DDmenu li a:hover{
 }
 
 #searchForm input#key{
-border: none;
-width: 174px;
-float: left;
-padding-left: 5px;
-padding-top: 3px;
+    border: none;
+    width: 168px;
+    float: left;
+    padding-top: 3px;
+    position: relative;
+    left: 10px;
 }
 
 #searchForm input#searchBtn{
@@ -586,6 +596,8 @@ padding-top: 3px;
     cursor: pointer;
     float: left;
     text-indent:-20000px;
+    position: relative;
+    left: 5px;    
 }
 
 /*********** Global - Reused Basic Elements: tables, HR, etc; *************/
@@ -1136,10 +1148,6 @@ a.view-all{
 
 #pageItem .imageWindow{
     border:1px solid #ccc;
-}
-
-#pageItem .price {
-    margin: 10px;
 }
 
 #pageItem .actions{
@@ -1967,8 +1975,9 @@ input#cvv{
 }
 
 .innerMenu{
-    margin: 0 auto;
-    width: 700px;
+    display: flex;
+    justify-content: center;
+    height: 45px;
 }
 
 .spotlight{
@@ -2025,7 +2034,7 @@ input#cvv{
 .rightFoot{
     position: relative;
     float: right;
-    width: 220px !important;
+    width: 240px !important;
     top: 5px !important;
 }
 
