@@ -514,16 +514,10 @@ div#DDmenu{
     min-width: 227px;
 }
 
-<<<<<<< HEAD
-li.productCategories:hover div#DDmenu{
-    /*display: block;*/
-    background-color: red;
-}
-=======
 /*li.productCategories:hover div#DDmenu{
 
 }*/
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
+
 
 div#DDmenu li{
     float:none;
@@ -772,19 +766,18 @@ tfoot tr td{
 }
 
 .btn {
-<<<<<<< HEAD
+/*
     background-color: #E6E6E6;
     border: 1px solid #E6E6E6;
     color: #45AA40;
     font-weight: bold;
     padding: 10px 10px !important;
-=======
+*/
     background-color: #FFF;
     border: 2px solid #E6E6E6;
     color: #45AA40;
     font-weight: bold;
     padding: 10px 15px !important;
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
     cursor: pointer;
     -moz-border-radius:10px !important;
     -webkit-border-radius:10px !important;
@@ -803,11 +796,10 @@ tfoot tr td{
     background-color: #45AA40;
     color:#FFF;
     font-weight: bold;
-<<<<<<< HEAD
+/*
     padding: 10px 10px !important;
-=======
+*/
     padding: 10px 15px !important;
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
     cursor: pointer;
     -moz-border-radius:10px !important;
     -webkit-border-radius:10px !important;
@@ -883,8 +875,6 @@ tfoot tr td{
 }   
 
 .featured-product-carousel .prev{
-<<<<<<< HEAD
-<<<<<<< HEAD
     background:url("../images/arrow-left.png") no-repeat;
     display: block;
     width: 29px;
@@ -904,34 +894,8 @@ tfoot tr td{
     top: 50px;
     position: relative;
     right: 100px;    
-=======
-=======
-    background:url("../images/arrow-left.png") no-repeat;
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
-    display: block;
-    width: 29px;
-    height: 28px;
-    float: left;
-    top: 50px;    
-    position: relative;
-    left: 100px;    
-}
-
-.featured-product-carousel .next{
-    background:url("../images/arrow-right.png") no-repeat;
-    display: block;
-    width: 29px;
-    height: 28px;
-    float: left;
-    top: 50px;
-<<<<<<< HEAD
-    right: 100px;
->>>>>>> 1d04c97b47b2b256747c620eb02b16f467dc6732
-=======
-    position: relative;
-    right: 100px;    
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
-}       
+}    
+   
 
 .featured-product-carousel .item{
     width:125px;
@@ -2097,43 +2061,6 @@ input#cvv{
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
 
-/*.sf-menu li{
-    background: initial !important;
-}
-
-.sf-menu li:hover{
-    background-color: #005588 !important;
-}
-
-
-.sf-menu a{
-    height: 15px;
-    color: #FFFFFF !important;
-    font-family: Montserrat !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    text-align: center;
-    border-left: initial !important;
-    border-top: initial !important;
-    border-top: initial !important;
-    text-transform: uppercase;
-}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-.sf-menu a:hover{
-    color: #fff !important;
-=======
-.sf-menu ul li a{
-    font-weight: initial !important;
->>>>>>> 1d04c97b47b2b256747c620eb02b16f467dc6732
-}
-=======
-.sf-menu a:hover{
-    color: #fff !important;
-}*/
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
-
 .home-content p{
     margin-bottom: initial;
     color: #555559;
@@ -2211,13 +2138,12 @@ input#cvv{
     font-family: 'Montserrat', sans-serif;
     color: #45AA40;
     font-weight: 100;
-<<<<<<< HEAD
+/*
     top: 62px;
     left: 215px;    
-=======
+*/
     top: 60px;
     left: 180px;    
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 }
 
 #logoTag{
@@ -2236,50 +2162,13 @@ input#cvv{
     position: relative;
 }
 
-/*.sf-arrows .sf-with-ul:after{
-    content: initial !important;
-}
-
-.sf-menu{
-    margin-bottom: 10px !important;
-}
-
-.sf-menu a {
-    padding-top: 17px !important;   
-}
-
-.sf-menu ul{
-    min-width: 260px !important;
-    background-color: #fff; 
-    top: 54px !important;   
-
-}
-*/
-/*.productCategories ul li a{
-    color: #000 !important;
-    text-transform: initial !important;
-}
-
-.productCategories ul li a:hover{
-    color: #fff !important;
-}
-
-.productCategories ul li:hover{
-    background-color: #005588 !important;
-}*/
-
 .login .btn-primary{
     background-color: #45AA40 !important;
 }
 
 .login .btn{
-<<<<<<< HEAD
-    padding-left: 75px !important;
-    padding-right: 75px !important;
-=======
     padding-left: 72px !important;
     padding-right: 72px !important;
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
     padding-top: 15px !important;
     padding-bottom: 15px !important;
 }   
@@ -2351,8 +2240,6 @@ input#cvv{
 
 #pageTerms p{
     margin-bottom: 20px;
-<<<<<<< HEAD
-=======
 }
 
 a:hover{
@@ -2377,7 +2264,6 @@ a:hover{
 #adBanner span{
     position: relative;
     top: 15px;    
->>>>>>> c1c6e53be7e7f597f81231162e36a5fc727caecb
 }
 
 .custom-input .inputs{
