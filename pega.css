@@ -2196,3 +2196,11 @@ div#DDmenu li a:hover{
 .pegaWorld, .pegaWorld a{
     color: #EB5A28 !important;
 }
+
+.pegaWorldTD{
+    background: #EB5A28 !important;
+}
+
+#thirdptyft{
+    display: none;
+}
