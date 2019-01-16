@@ -2719,6 +2719,33 @@ input#cvv{
     left: 15px;    
 }
 
+#pageForgottenPassword .btn-primary{
+    position: relative;
+    left: 20px;    
+}
+
+#pageForgottenPassword .btn-primary:before{
+    margin-left: -27px;
+    border-bottom: 39px solid #FFBE33;
+}
+
+#pageForgottenPassword .btn-primary:after{
+    bottom: 1px;
+    position: relative;
+    margin-right: -27px;
+}
+
+@-moz-document url-prefix() {
+  
+    #pageForgottenPassword .btn-primary:before{
+        border-bottom: 40px solid #FFBE33;
+    }  
+
+    #pageForgottenPassword .btn-primary:after{
+        bottom: 0px;
+    }
+}
+
 
 
 
