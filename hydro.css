@@ -2218,4 +2218,10 @@ input#cvv{
     display: none;
 }
 
+.ui-dialog-titlebar-close{
+display:none !important;
+}
 
+.ui-dialog .ui-dialog-buttonpane button {
+    margin: .5em 2.5em .5em 0 !important;
+}
