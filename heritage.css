@@ -160,10 +160,13 @@ a{
 }
 
 .nav a{
-    color: #ffffff;
-    font-size: 22px;
+    font-size: 20px;
     text-decoration: none;
     line-height: 45px;
+    font-family: benton-sans-compressed, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #006747;
 }
 
 div#DDmenu a{
@@ -308,16 +311,16 @@ body{
 }
 
 #header{
-    width: 1024px;
+    /*width: 1024px;*/
     height: 140px;
     margin: 0 auto;
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
     text-align: right;
-    margin-top: 15px;
+    height: 100px;
+    background-color: #DDCBA4;
+    margin: 0 auto;
 }
 
 #footer .wrapper{
@@ -383,13 +386,12 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+    background: url("../images/hog-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
+    height: 52px;
     margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;
-    width: 142px;
+    width: 215px;
 }
 
 #header .logo span {
@@ -421,10 +423,13 @@ body{
 /****Main Navigation****/
 
 #menu{
-    z-index:100;
+    z-index: 100;
     height: 45px;
-    /*margin-bottom: 15px;*/
-    background: #8E0215;
+    width: 460px;
+    position: relative;
+    float: left;
+    left: 108px;
+    top: 25px;
 }
 
 #menuWrapper{
@@ -480,7 +485,7 @@ div#DDmenu li a:hover{
 
 /****Utility Nav****/
 
-#header .wrapper .utilNav li{
+#header .wrapper .utilNav li, #header .greenHeader .utilNav li{
     float: left;
     margin-left: 10px;
 }
@@ -506,6 +511,8 @@ div#DDmenu li a:hover{
 
 .mini-cart{
     margin-top: -8px;
+    background-color: #C2E189;    
+    width: 210px;
 }
 
 .cartbutton{
@@ -515,12 +522,16 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 28px;
-    margin: 5px 5px 0px 0px
+    margin: 5px 5px 0px 0px;
+    color: #006747;    
 }
 
 .summary{
     float: right;
     text-align: left;
+    color: #262626;
+    font-family: benton-sans, sans-serif;
+    font-size: 13px;
 }
 
 #cart-quantity, #cart-total{
@@ -1992,4 +2003,27 @@ input#cvv{
 .featuredwrap{
     display: flex;
     justify-content: space-between;    
+}
+
+.greenHeader{
+    background-color: #006747;
+    height: 35px;    
+}
+
+#header .wrapper .utilNav li a, #header .greenHeader .utilNav a{
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: benton-sans, sans-serif;    
+}
+
+.innerSharedWrapper{
+    width: 1024px;
+    margin: 0 auto;    
+}
+
+.miniCartUL{
+    position: relative;
+    float: right;
+    top: 35px;    
 }
