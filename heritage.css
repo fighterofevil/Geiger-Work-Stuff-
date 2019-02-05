@@ -120,10 +120,11 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#444444;
-    font-family:    Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
     font-size: 14px;
     line-height: 18px;
+    font-family: "Benton Sans";
+    color: #404040;
 }
 
 #container{
@@ -149,15 +150,17 @@ a{
     text-decoration: none;
 }
 
-#footer{
+#footer, #footer a{
     font-size: 12px;
     position: relative;
-    background-color: #e5e5e5;
+    background-color: #B9975B;
+    height: 60px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: benton-sans, sans-serif;
 }
 
-#footer a{
-    color:#444;
-}
 
 .nav a{
     font-size: 20px;
@@ -176,15 +179,18 @@ div#DDmenu a{
 }
 
 h1{ 
-    font-weight: bold;
-    font-size: 26px;
     padding: 0;
     margin: 0px 0px 8px 0px;
     line-height: 30px;
+    color: #404040;
+    font-size: 36px;
+    font-weight: bold;
+    font-family: benton-sans-compressed, sans-serif;    
 }
 
 #pageHome h1{
     text-align: center;
+    margin-bottom: 28px;
 }
 
 #pageCategory h1{
@@ -312,7 +318,7 @@ body{
 
 #header{
     /*width: 1024px;*/
-    height: 140px;
+    /*height: 140px;*/
     margin: 0 auto;
 }
 
@@ -329,7 +335,7 @@ body{
     padding: 20px 15px;
     margin: 0 auto;
     width: 1024px;
-
+    text-align: center;
 }
 
 #footer .wrapper p{
@@ -451,8 +457,13 @@ body{
 }
 
 .nav li:hover{
-    background-color: #b12936;
+    /*background-color: #b12936;*/
 }
+
+.nav a:hover{
+    color: #9D2235;
+}
+
 
 div#DDmenu{
     position: absolute;
@@ -487,7 +498,7 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li, #header .greenHeader .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 50px;
 }
 
 .utilNav ul{
@@ -503,8 +514,8 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    width: 380px;
-    float: right;
+/*    width: 380px;
+    float: right;*/
 }
 
 /****Mini Cart****/
@@ -513,6 +524,7 @@ div#DDmenu li a:hover{
     margin-top: -8px;
     background-color: #C2E189;    
     width: 210px;
+    margin-left: initial !important;
 }
 
 .cartbutton{
@@ -524,25 +536,30 @@ div#DDmenu li a:hover{
     font-size: 28px;
     margin: 5px 5px 0px 0px;
     color: #006747;    
+    padding-left: 10px;
 }
 
 .summary{
-    float: right;
+    float: left;
     text-align: left;
     color: #262626;
     font-family: benton-sans, sans-serif;
     font-size: 13px;
+    font-weight: 100;
+    position: relative;
+    top: 8px;
+    left: 5px;
 }
 
 #cart-quantity, #cart-total{
     clear: both;
+    padding-right: 15px;
 }
 
 /**** search ****/
 
 .search {
     clear: right;
-    padding-top: 20px;
     float: right;
 }
 
@@ -760,7 +777,7 @@ tfoot tr td{
 }
 
 .welcome-message{
-
+    line-height: 21px;
 }
 
 .spotlight {
@@ -2010,6 +2027,16 @@ input#cvv{
     height: 35px;    
 }
 
+.firstUtil{
+    position: relative;
+    top: 5px;
+}
+
+.firstUtil li a:hover{
+    text-decoration: underline;
+}
+
+
 #header .wrapper .utilNav li a, #header .greenHeader .utilNav a{
     color: #fff;
     font-size: 14px;
@@ -2022,8 +2049,255 @@ input#cvv{
     margin: 0 auto;    
 }
 
+.homeIcon{
+    font-size: 28px !important;;
+    position: relative;
+    top: 7px;
+}
+
 .miniCartUL{
     position: relative;
     float: right;
     top: 35px;    
+    z-index: 1000;
+}
+
+.welcome-message-Wrapper{
+    margin: 0 auto;
+    width: 700px;
+
+}
+
+.brandStoreRow{
+    position: relative;
+    float: left;
+    display: flex;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.brandStoreRow a{
+    height: 125px;
+    position: relative;
+    top: 38px;
+    left: 38px;    
+}
+
+.brandStoreCol a{
+    width: 256px;
+}
+
+.Row5{
+    border-bottom: initial;
+}
+
+.middleCol{
+    border-left: 1px solid #F2F2F2;
+    border-right: 1px solid #F2F2F2;
+}
+
+.Col1 a{
+    background: url("../images/ep_assist-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+
+.Col2 a{
+    background: url("../images/ep_support-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+
+.Col3 a{
+    background: url("../images/e_senior-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col4 a{
+    background: url("../images/ev_support-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col5 a{
+    background: url("../images/colonial-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col6 a{
+    background: url("../images/h_health-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col7 a{
+    background: url("../images/h_operations-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col8 a{
+    background: url("../images/h_plaza.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col9 a{
+    background: url("../images/burnsides-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col10 a{
+    background: url("../images/castle-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col11 a{
+    background: url("../images/country-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col12 a{
+    background: url("../images/mason-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col13 a{
+    background: url("../images/oddfellow-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col14 a{
+    background: url("../images/regency-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col15 a{
+    background: url("../images/stclaras-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col16 a{
+    background: url("../images/sunny-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col17 a{
+    background: url("../images/villas-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col18 a{
+    background: url("../images/vonderlieth-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col19 a{
+    background: url("../images/greentree-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+}
+
+.Col20 a{
+
+}
+
+.burnsides a{
+    left: 50px;
+    top: 15px;
+}
+
+.stClara a{
+    left: 55px;
+    top: 20px;
+}
+
+.sunny a{
+    top: 25px;
+}
+
+.villas a{
+    left: 70px;
+    top: 20px;
+}
+
+.welcomemsg{
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: benton-sans, sans-serif;
+}
+
+.brandStoreCol:hover{
+    background-color: #F2F2F2;
+}
+
+
+#catStoreBanner{
+    height: 115px;
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.catStoreBannerWrapper{
+    margin: 0 auto;
+    width: 165px;    
+    top: 27px;
+    position: relative;
+}
+
+#navAndSearch{
+    background-color: #F5F5F5;
+    height: 40px;
+}
+
+.navAndSearchWrapper{
+    width: 1024px;
+    margin: 0 auto;    
+    display: flex;
+    justify-content: space-between;    
+}
+
+.customNav{
+ 
+}
+
+.customNav ul{
+    width: 590px;
+    position: relative;
+    top: 11px;    
+}
+
+.customNav ul, .customNav ul li{
+    display: inline !important; 
+    margin-right: 20px;   
+}
+
+.customNav ul li a{
+    font-weight: bold;
+    font-size: 16px;
+    font-family: benton-sans-compressed, sans-serif;
+    color: #404040;
+    text-transform: uppercase;
+}
+
+.sf-menu ul{
+    display: inline !important;    
+}
+
+#pageCategory #content{
+    padding: initial;
 }
