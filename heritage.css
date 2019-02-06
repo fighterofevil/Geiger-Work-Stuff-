@@ -194,7 +194,8 @@ h1{
 }
 
 #pageCategory h1{
-    margin-top: 15px;
+    margin-top: 40px;
+    margin-bottom: 23px;
 }
 
 h2{ 
@@ -352,6 +353,7 @@ body{
 .sidebar {
     float: left;
     width: 222px;
+    display: none;
 }
 
 .page {
@@ -564,10 +566,9 @@ div#DDmenu li a:hover{
 }
 
 #searchForm div{
-    border: 1px solid #aaaaaa;
     background-color: #fff;
     width: 210px;
-    height: 35px;
+    height: 40px;
     display: flex;
     position: relative;   
 
@@ -578,6 +579,7 @@ div#DDmenu li a:hover{
     width: 148px;
     float: left;
     padding-left: 2px;
+    font-family: benton-sans, sans-serif;    
 }
 
 #searchForm input#searchBtn{
@@ -1041,7 +1043,7 @@ td.ar{
 #pageCategory .item, #pageSearchResults .item{
     float: left;
     height: 275px;
-    margin-right: 20px;
+    margin-right: 25px;
     width: 151px;
 }
 
@@ -1125,6 +1127,8 @@ td.ar{
 .sortControl {
     float: right;
     margin-left: 15px;
+    font-size: 14px;
+    font-family: benton-sans, sans-serif;    
 }
 
 .pagination-new li{
@@ -2012,7 +2016,7 @@ input#cvv{
     float: left;
     cursor: pointer;
     font-size: 30px !important;
-    color: #4F5559;
+    color: #006747;
     top: 4px;
     padding-left: 10px;    
 }
@@ -2269,6 +2273,7 @@ input#cvv{
     margin: 0 auto;    
     display: flex;
     justify-content: space-between;    
+    border-bottom: 1px solid #E0E0DE;
 }
 
 .customNav{
@@ -2300,4 +2305,13 @@ input#cvv{
 
 #pageCategory #content{
     padding: initial;
+}
+
+#pageCategory .sidebar{
+    display: none;
+}
+
+#pageCategory .page{
+    width: initial;
+    margin-left: initial;
 }
