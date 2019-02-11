@@ -151,6 +151,10 @@ a{
     font-family: benton-sans, sans-serif;
 }
 
+a:hover{
+    text-decoration: underline;
+}
+
 #footer, #footer a{
     font-size: 12px;
     position: relative;
@@ -160,6 +164,10 @@ a{
     font-size: 14px;
     font-weight: bold;
     font-family: benton-sans, sans-serif;
+}
+
+#footer a:hover{
+    text-decoration: underline;    
 }
 
 
@@ -191,7 +199,7 @@ h1{
 
 #pageHome h1{
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 }
 
 #pageCategory h1{
@@ -317,7 +325,7 @@ body{
 #content{
     z-index: 1;
     clear: both;
-    padding: 30px 20px 50px 20px;
+    padding: 30px 0px 50px 0px;
 }
 
 #header{
@@ -451,6 +459,8 @@ body{
 .nav{
     width: 1024px;
     height: 45px;
+    top: 8px;
+    position: relative;    
 }
 
 .nav li{
@@ -735,7 +745,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    height: 45px;
+    height: 35px;
     width: 190px;    
     display: flex;    
     align-items: center;
@@ -761,7 +771,7 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
-    height: 45px;
+    height: 35px;
     width: 190px;    
     display: flex;    
     align-items: center;
@@ -1242,9 +1252,9 @@ input.qty-input{
 }
 
 .ui-tabs-panel{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: benton-sans, sans-serif;   
     color:#666;
-    font-size:12px;
+    font-size:13px;
     background:#eaebec;
     border:#ccc 1px solid;
     -moz-box-shadow: 0 1px 2px #d1d1d1;
@@ -1252,6 +1262,7 @@ input.qty-input{
     box-shadow: 0 1px 2px #d1d1d1;
     padding: 15px;
     height:100% !important;
+    line-height: 20px;
 }
 
 .ui-corner-bottom{
@@ -1338,7 +1349,7 @@ ul.radios-list li label{
 
 .co-breadcrumb{
   background-image: url("../images/bg/checkout_sprite.png");
-  background-position: 103% 0;
+  background-position: 107% 0;
   background-repeat: no-repeat;
   margin: 30px 0;
 }
@@ -1349,11 +1360,11 @@ ul.radios-list li label{
 }
 
 .co-breadcrumb.step2 {
-    background-position: 86% 0;
+    background-position: 89% 0;
 }
 
 .co-breadcrumb.step3{
-  background-position: 69% 0;
+  background-position: 72% 0;
 }
 
 .co-breadcrumb.step4{
@@ -1703,6 +1714,7 @@ input#cvv{
 .checkoutQuestions {
     float: left;
     margin: 0px !important;
+    display: none;
 }
 
 /*** CVV/CID Security Code Help popup ***/
@@ -2048,7 +2060,7 @@ input#cvv{
 
 .firstUtil{
     position: relative;
-    top: 5px;
+    top: 8px;
 }
 
 .firstUtil li a:hover{
@@ -2077,7 +2089,7 @@ input#cvv{
 .miniCartUL{
     position: relative;
     float: right;
-    top: 35px;    
+    top: 46px;    
     z-index: 1000;
 }
 
@@ -2085,6 +2097,10 @@ input#cvv{
     margin: 0 auto;
     width: 700px;
 
+}
+
+.welcome-message-Wrapper p{
+    margin-bottom: 35px;
 }
 
 .brandStoreRow{
@@ -2261,7 +2277,7 @@ input#cvv{
 }
 
 .brandStoreCol:hover{
-    background-color: #F2F2F2;
+    background-color: #fafafa;
 }
 
 
@@ -2314,6 +2330,12 @@ input#cvv{
     text-transform: uppercase;
 }
 
+.customNav ul li a:hover{
+    text-decoration: none;
+    color: #646464;
+}
+
+
 .sf-menu ul{
     display: inline !important;    
 }
@@ -2354,4 +2376,31 @@ input#cvv{
 
 .ship-to-multiple{
     margin-right: 10px;      
+}
+
+#pageBasket .category-thumb-image{
+    height: 30px;
+    width: auto;
+}
+
+#pageItem #container{
+    margin-top: 10px;
+}
+
+#pageHome .miniCartUL{
+    display: none;
+}
+
+#pageHome #content{
+    padding-top: 57px;
+}
+
+.countryHealth{
+    position: relative;
+    bottom: 10px;
+}
+
+.mason{
+    position: relative;
+    bottom: 10px;
 }
