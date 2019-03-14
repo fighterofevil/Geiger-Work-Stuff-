@@ -39,7 +39,7 @@
 }
 
 #singleAddy {
-	display: inline-block;
+    display: inline-block;
 }
 
 #featured_carousel_new {
@@ -97,12 +97,12 @@
 }
 
 #spotlight {
-	background: url("../images/32X-spot-img.jpg");
-	height: 395px;
-	width: 100%;
-	background-size: cover;
-	margin-top: 2px;
-	margin-bottom: 60px;
+    background: url("../images/32X-spot-img.jpg");
+    height: 395px;
+    width: 100%;
+    background-size: cover;
+    margin-top: 2px;
+    margin-bottom: 60px;
 }
 
 
@@ -407,6 +407,10 @@ h6{ }
 
 .show-estimate-calendar img{
     vertical-align: text-top;
+}
+
+.addToCartBtn_removed {
+    clear: both;
 }
 
 .ui-widget-content.ui-tabs{
@@ -980,16 +984,16 @@ tfoot tr td{
 
 
 .btn {
-	background-color: #F2F2F2;
-	height: 40px;
-	min-width: 175px;
-	color: #01579B;
-	cursor: pointer;
-	font-size: 16px;
-	font-weight: bold;
-	text-align: center;
-	line-height: 38px;
-	border: 0;
+    background-color: #F2F2F2;
+    height: 40px;
+    min-width: 175px;
+    color: #01579B;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 38px;
+    border: 0;
 }
 
 .btn:before{
@@ -2228,7 +2232,9 @@ input#cvv{
 }
 
 .question {
-    display: inline;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
 }
 
 /****Checkout ????????? Review****/
@@ -2746,7 +2752,7 @@ input#cvv{
 
 #pageForgottenPassword .btn-primary:hover:before{
     margin-left: -27px;
-    border-bottom: 39px solid #F3B531;    
+    border-bottom: 40px solid #F3B531;    
 }
 
 
@@ -2766,8 +2772,6 @@ input#cvv{
         bottom: 0px;
     }
 }
-
-
 
 
 
