@@ -1,0 +1,823 @@
+
+## <!DOCTYPE html>
+## #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+## #########################################################################
+## #set($itemRow = $singleItemDTO.getItem(0))
+## #set($item = $pageTile.getItemObject($singleItemDTO, $itemRow , "i"))
+## #set($price = $item.itemPrice)
+## #set($mainItemPrice = $item.itemPrice)
+## #set($printitemid = $pageTile.getItemObject($singleItemDTO, $itemRow , "itemid"))
+
+## #if(!$pageTileDictionaryDTO)
+##   #if($_commandName)
+##     #springBind( "${_commandName}.pageTileDictionaryDTO")
+##     #set ($pageTileDictionaryDTO = ${status.value})
+##   #end
+## #end
+
+## #if($pageTileDictionaryDTO)
+##   #set($childItemsHomeDTO=$pageTileDictionaryDTO.getPageTile("childItemsHomeDTO"))
+##   #set($catDropMenuDTO=$pageTileDictionaryDTO.getPageTile("catDropMenuDTO"))
+## #end
+
+## #set($metadescription= $item.metadescription)
+## #set($keywords= $item.keywords)
+## #set($pagetitle= $item.pagetitle)
+## #########################################################################
+
+
+## ## Determine if the 'Quantity Discounts' tab's paragraph needs to be hidden. This would cause only the table to show under the tab.
+## ## NOTE: $hideQuantityDiscountsMessageSKUsAndCIDs is stored within siteConfig.vm
+## #set($hideQuantityDiscountsMessage = false)
+## #if ($hideQuantityDiscountsMessageSKUsAndCIDs)
+
+## 	## Is this item's categories in the list??
+## 	#foreach($clink in $itemCategoriesDTO.getItems())
+## 		#if($hideQuantityDiscountsMessageSKUsAndCIDs.contains($clink.toString()))
+## 			#set($hideQuantityDiscountsMessage = true)
+## 		#end
+## 	#end
+
+## 	## Is this item's SKU within the list??
+## ## 	#if($hideQuantityDiscountsMessageSKUsAndCIDs.get(0).contains($item.code))
+## #if($hideQuantityDiscountsMessageSKUsAndCIDs.contains($item.code))
+## 		#set($hideQuantityDiscountsMessage = true)
+## 	#end
+
+## #end
+
+
+## <html id="pageItem">
+##   <head>
+##     <title>#if($!pagetitle) $pagetitle  #else $!{item.title} - $!{htmlSiteName} #end</title>
+##     #parse('libMarkupHead.vm')
+##     #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+
+##    #parse('libitempgjavascript.vm')
+
+
+##   </head>
+##   <body>
+##   <script>
+##       ##  used true/false flag to hide a div based on skus  
+##       var itemCheck="false";
+##   </script>
+##  <div id="headerWrap"> #if($!$displayCustomHeaderContent == "YES")
+##         	#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteLayoutHeaderNav.vm")
+##         #else
+##         	#parse("libLayoutHeader1.vm")
+##         	#parse("libLayoutMenu1.vm")
+##         #end
+            
+##         </div>
+##     <div id="container">
+##       <div id="content" role="main">
+##                <div class="messages">
+##           ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div> #end
+##           <div class="message success" id="globmsg" style="display:none;"></div>
+##         </div>
+##     <div class="bCrumbs">
+##           #parse("libpartCategoryBreadcrumbs.vm")
+##     </div>
+##         <div class="clearfix itemContent">
+##           <div class="sidebar">
+##             #parse('libpartItemBadges.vm')
+##             <div id="imageWindow">
+##               <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+##                 <img  src="store$item.largeimage" width="300" />
+##               </a>
+##             </div>
+##             <div id="suggestedItems"><!-- you may also like section --></div>
+##             #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+##           </div>
+##           <div class="page">
+##             <h1 id="js-item-title-${item.itemid}">$!{item.title}</h1>
+##             #springMessage('itemCode'):<span id="itemCodeList"> <span id="js-item-code-${item.itemid}">$item.code</span></span>
+            
+##             ## checks to see if one of two skus are used. if so, then sets itemCheck to true   
+##               <script>
+##                      var testItemCode="$!item.code";
+##                     ##  console.log(testItemCode);
+##                       if ((testItemCode == "TZ8325097GLD000") || (testItemCode == "TZ8325098GLD000"))
+##                       {
+##                         itemCheck="true";
+##                         console.log(itemCheck+" after checking for item skus");
+##                       }
+##               </script>
+
+##             <input type="hidden" id="formName" value="F$item.itemid"> ## What's this?
+##             #parse($item_topDTO.getItems().get(0).get('item_top')) ## What's this?
+            
+
+
+## <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+##   <ul id="tabs-" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+##      <li  class="ui-state-default ui-corner-top ui-tabs-selected" style="cursor:pointer" onClick="switch_nTabs(this,1); ">Description</li>
+##      #if($item.itemPrice.price1 <= $item.itemPrice.price2 || $item.itemPrice.price2==0) 
+##          #else
+##      <li class="ui-state-default ui-corner-top ui-tabs-disabled" style="cursor:pointer" onClick="switch_nTabs(this,2);">     
+##        Quantity Discounts
+##          </li>
+##          #end
+      
+##     #if($!item.longdesc2 != '')
+##     <li  class="ui-state-default ui-corner-top ui-tabs-disabled" style="cursor:pointer" onClick="switch_nTabs(this,3);">#springMessage('itemLongDesc2TabName')</li>
+##     #end
+##   </ul>
+##   <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+##     <div class="item-secondary">
+##       <div class="desc">
+##         $!item.longdesc
+##       </div>
+##     </div>
+##   </div><!--//#tabs-1 -->
+##   <div id="tabs-2" class="ui-tabs-panel" style=" overflow:auto; display:none">
+##     <div id="pricesByInventory">
+##       <table class="tiered" cellspacing="0" style="float:left;">
+##         <thead>
+##           <tr>
+##             <th scope="col">Quantity</th>
+##             <th scope="col">Price</th>
+##           </tr>
+##         </thead>
+##         <tbody id="pricesByInventoryBody">
+##           #if ($item.itemPrice.price2>0)
+##             #set($quantityForDisplay =  $item.itemPrice.qty1 + 1)
+##             <tr><td scope="row"> $quantityForDisplay +</td><td>$ $item.itemPrice.price2 each</td></tr>
+##           #end
+##           #if ($item.itemPrice.price3>0)
+##             #set($quantityForDisplay =  $item.itemPrice.qty2 + 1)
+##             <tr><td scope="row"> $$quantityForDisplay +</td><td>$ $item.itemPrice.price3 each</td></tr>
+##           #end
+##           #if ($item.itemPrice.price4>0)
+##             #set($quantityForDisplay =  $item.itemPrice.qty3 + 1)
+##             <tr><td scope="row"> $$quantityForDisplay +</td><td>$ $item.itemPrice.price4 each</td></tr>
+##           #end
+##           #if ($item.itemPrice.price5>0)
+##             #set($quantityForDisplay =  $item.itemPrice.qty4 + 1)
+##             <tr><td scope="row"> $$quantityForDisplay +</td><td>$ $item.itemPrice.price5 each</td></tr>
+##           #end
+##         </tbody>
+##       </table>
+##       <script>
+##           console.log("this is the hideQuantityDiscountsMessage status : "+ $!hideQuantityDiscountsMessage);
+##       </script>
+##       #if (!$hideQuantityDiscountsMessage || $hideQuantityDiscountsMessage == false)
+##       	<p style="float:right; padding: 20px 0; width:55%;">Applies to sizes XSM-XL only, please select color and size below for big and tall quantity discount pricing.</p>
+##       #end
+##     </div>
+##   </div><!--//#tabs-2-->
+##   #if($!item.longdesc2 != '')
+##     <div id="tabs-3" class="ui-tabs-panel" style=" overflow:auto; display:none">
+##       <div class="desc2">
+##         $!item.longdesc2
+##       </div>
+##     </div>
+##   #end
+## </div><!--//.tabs-interface-->
+## <script language="javascript">
+##      function switch_nTabs(thisObj,Num){
+      
+##         var tabObj = thisObj.parentNode.id;
+##         var tabList = document.getElementById(tabObj).getElementsByTagName("li");
+##         for(i=1; i <=tabList.length; i++)
+##         {
+##           if (i == Num)
+##           {     
+##             tabList[i-1].className = "ui-state-default ui-corner-top ui-tabs-selected"; 
+##             if(document.getElementById(tabObj+i))
+##               document.getElementById(tabObj+i).style.display = "block";
+##           }else{  
+##             tabList[i-1].className = "ui-state-default ui-corner-top ui-tabs-disabled"; 
+##             if(document.getElementById(tabObj+i))
+##               document.getElementById(tabObj+i).style.display = "none";
+##           }
+##         } 
+##     }
+## </script>
+
+
+        
+##             #parse("libpartItemPrice.vm") ## Item Price
+            
+##             <div id="itemCheckDiv" style="display:none">
+##                 Please note: If you are only ordering a name badge(s) shipping charges will be removed from your order once the order is complete. Your credit card will be charged for the name badge(s) only.
+                
+##             </div>
+##             ## hides div if itemCheck is true
+##             <script>
+##                 ## console.log(itemCheck + " before making div visible");
+##                 $( document ).ready(function() {
+##                     if (itemCheck=="true")
+##                         {
+##                             document.getElementById("itemCheckDiv").style.display="initial";
+##                         }
+##                 });
+##             </script>
+##             <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+##             #if($item.itemid)
+##               #set($formName = "F$item.itemid")
+##             #end
+
+##             #*================================
+##               Errors
+##             =================================*#
+##               #springBind( "storeItemDTO.*" )
+##               #if($status.errors.errorCount>0)
+##                 <div class="msg">
+##                   #foreach($error in $status.errorMessages)
+##                     <div class="error">$error</div>
+##                   #end
+##                 </div>   
+##               #end
+
+##             <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+##               <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"> ##TODO: variable for cid
+##               <input type="hidden" id="compCode_0" value="$item.code"/>
+##               #set ($found = 'false')
+
+##             ##  #parse("libpartItemAddAnother.vm")  ## Add Another
+##             <!--Start  libpartItemAddAnother.vm -->
+
+## <div id="itemListTable">
+##   <div id ="add-another-item" class="add-another-item">
+##     <table cellspacing="0">
+##       <tr id="add-another">
+##         <td class="col1">
+##           <div id="js-item-attributes-$item.itemid" class="item-attr-section"></div>
+##         </td>
+##         <td class="col2">
+##           <div class="f-row">
+##             <label for="qty_0">#springMessage("vm.itemTemplate.quantity"):</label> 
+##             <input class="qty-input" type='text' id="js-item-qtybox-$item.itemid" maxlength="4" disabled />
+##           </div>
+##         </td>
+##         <td class="col3">
+##           <div id="js-item-inventory-$item.itemid"></div>  <div id="js-item-minorderqty-$item.itemid"></div>
+##         </td>
+##         <td class="col4">
+##           <div id="remove-item-${item.itemid}" class="removeLink" style="float:right">
+##             <a href="javascript:void(0)">remove</a>
+##           </div>
+##         </td>
+##       </tr>
+##     </table>
+##     <div id="estimateCalendar" class="estimate-calendar"></div>
+##   </div>
+## </div>
+## <div class="actions">
+##   <span id="addAnother">
+##     <a href="javascript:void(0)">Add Another...</a>
+##   </span>
+## </div>
+
+## <!--End  libpartItemAddAnother.vm -->
+
+##              ## #parse("libpartItemCustomization.vm") ## Customization
+
+##             #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/item_customization.vm")
+## 			#renderItemCustomizationForm()
+
+
+
+            
+##               <div id="js-item-hiddenfields-$item.itemid"></div> ## What's this used for? Container for multiple "add another" items?
+
+##               #parse("libpartItemAddToWishlist.vm")  ## Add To Wishlist
+
+##               #*
+##                * RedirectMode = true: navigate to wishlist after add
+##                * RedirectMode = false: stay on page, display message
+##               *#
+##               <input type="hidden" name="redirectMode" value="true">
+
+##                         #foreach($error in $product.errors)
+##                         <div class="error-text-area">
+##                            $error.message
+##                         </div>
+##                         #end
+
+##               #*================================
+##                   Add to Cart Button
+##                 =================================*#
+##               <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();">
+##                 #springMessage('addToCart')
+##               </div>
+##             </form>
+##           </div><!--//.page -->
+##         </div><!--//.clearfix-->
+##       </div> <!--//#content -->
+##         #if($!$displayCustomFooterContent == "YES")
+## 	        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteLayoutFooter.vm")
+##         #else
+##             #parse("libLayoutFooter1.vm")
+##         #end
+##     </div> <!--//#container -->
+
+##     #parse("libpartitempgjsbottom.vm")
+## <script>
+## jQuery(function() {
+##     // only show if LOGO ONLY and LOGO & PERSONALIZATION are options
+##     if(jQuery("option[title=LP]").length + jQuery("option[title=LO]").length == 2) {
+##         var lpsel = jQuery("option[title=LP]").parent();
+##         ctrlCustomizationForm(jQuery("option:selected",lpsel).attr("title") != "LP");
+        
+##         lpsel.bind("change keyup click",function() {
+##             ctrlCustomizationForm(jQuery("option:selected", this).attr("title") != "LP");
+##         });
+        
+##     }
+## });
+## // pass True to disable/hide customization, False to enable/show customization
+## var ctrlCustomizationForm = function(setting) {
+##     jQuery(".customization, .customization *")[setting ? "hide" : "show"]();
+##     jQuery(".customization input").attr("disabled",setting);
+##     jQuery("#customize").prop("checked",!setting);
+## }
+## </script>
+##     #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+##     #parse("libMarkupFoot.vm")
+##   </body>
+## </html>
+
+
+
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+#set($itemRow = $singleItemDTO.getItem(0))
+#set($item = $pageTile.getItemObject($singleItemDTO, $itemRow , "i"))
+#set($price = $item.itemPrice)
+#set($mainItemPrice = $item.itemPrice)
+#set($printitemid = $pageTile.getItemObject($singleItemDTO, $itemRow , "itemid"))
+
+#if(!$pageTileDictionaryDTO)
+  #if($_commandName)
+    #springBind( "${_commandName}.pageTileDictionaryDTO")
+    #set ($pageTileDictionaryDTO = ${status.value})
+  #end
+#end
+
+#if($pageTileDictionaryDTO)
+  #set($childItemsHomeDTO=$pageTileDictionaryDTO.getPageTile("childItemsHomeDTO"))
+  #set($catDropMenuDTO=$pageTileDictionaryDTO.getPageTile("catDropMenuDTO"))
+#end
+
+#set($metadescription= $item.metadescription)
+#set($keywords= $item.keywords)
+#set($pagetitle= $item.pagetitle)
+
+
+## Determines if an item is in a category. Doesn't check sub-categories. 
+## @param   _iiic_itemID                Item ID.
+## @param   _iiic_categoryID            Category ID.
+#macro(isItemInCategory $_iiic_itemID, $_iiic_categoryID)#*
+	*##set($_iiic_intClass = $request.class.forName('java.lang.Integer'))#*
+	*##set($_iiic_return = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("itemCategoryLinksDAO").isItemInCategory($_iiic_intClass.parseInt("$_iiic_itemID"), $_iiic_intClass.parseInt("$_iiic_categoryID")))#*
+	*##if($_iiic_return == false || $_iiic_return == true)#*
+		*#$_iiic_return#*
+	*##end#*
+*##end
+
+#########################################################################
+
+<html id="pageItem">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else $!{item.title} - $!{htmlSiteName} #end</title>
+    ## #parse('libMarkupHead.vm')
+       <!-- Start libMarkupHead.vm -->
+    
+## libMarkupHead
+## 1.0.2
+##
+## Changelog:
+## [1.0.2] - 08/21/2017
+## ### Added
+##  - Support for the new siteConfig.vm variable $requireLoginRedirect, which allows a developer to set the
+##    page a user not logged in gets redirected to.
+## [1.0.1] - 02/10/2017
+## ### Added
+##  - Lithium ion battery warning for items containing the item property LITHIUM_ION.
+## [1.0.0] - 07/11/2016
+## ### Added
+##  - Maintenance mode redirecting implemented.
+
+## TODO: Add NewRelic monitor (head)
+<base href="${baselink}"> ##baselink defined in libGlobalConfig.vm
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+#if($!metadescription!="")<meta name="description" content="$metadescription" />  #end
+#if($metakeywords!="")<meta name="keywords" content="$metakeywords, $!keywords" /> #end
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
+#if ($isPointStore && $isPointStore == 'TRUE')
+<script src="store/20130831827/js/mini_point_basket.js"></script>
+#else
+<script src="store/20130831827/js/common.js"></script>
+#end
+
+
+## Maintenance mode redirect.
+#set($bypassMaintenance = false)
+#set($_maintenanceBypassUsers = [])
+#if(!$maintenanceBypassUsers)
+	#set($maintenanceBypassUsers = ["admin"])
+#end
+#foreach($maintenanceBypassUser in $maintenanceBypassUsers)
+	#set($_temp = $_maintenanceBypassUsers.add($maintenanceBypassUser.toLowerCase()))
+#end
+#if(($request.getParameter("maintbypass") && $request.getParameter("maintbypass") == "yes") ||
+	$_maintenanceBypassUsers.contains($request.session.getAttribute("SessionCustomerDTO_$vendorSettingsDTO.vendorId").getLogin().toLowerCase()))
+	#set($bypassMaintenance = true)
+#end
+#if($welcomeMatDTO && $welcomeMatDTO.loggedIn)
+	#set($maintenanceBypassUser = $request.session.getAttribute("SessionCustomerDTO_${vendorSettingsDTO.vendorId}").getCustomerProperty('MAINTBYPASS').toLowerCase())
+	#if($maintenanceBypassUser && $maintenanceBypassUser == "true")
+		#set($bypassMaintenance = true)
+	#end
+#end
+#if($maintenanceModeRedirect && $maintenanceModeRedirect.toLowerCase() == "yes" && $bypassMaintenance == false)
+
+	## Get Category ID (CID) for the current page.
+	#set($_cidToTest = "")
+	#if($request.getParameter("cid"))
+		#set($_cidToTest = $request.getParameter("cid"))
+	#end
+
+	## No stored maintenance Category ID? Dynamically populate it.
+	#if(!$cidMaintenance)
+		#set($cidMaintenance = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "MAINTENANCE").getCategoryid())
+	#end
+
+	## If a maintenance page CID has been found, redirect to it (if needed).
+    #if(($_cidToTest != $cidMaintenance.toString() || $_cidToTest == "") && $cidMaintenance)
+        <script>
+		    window.location.href = '$seourl.encodeURL("store.html?cid=$cidMaintenance&vid=$vendorSettingsDTO.vendorId")';
+	    </script>
+	    #stop
+    #end
+#end
+
+
+## Check for required login, and redirect if needed. This comes after the maintenance check.
+#if($!{requireLogin} == "YES")
+	#if(!${welcomeMatDTO.loggedIn})
+		#if(!$requireLoginAccessibleTemplates)
+			#set($requireLoginAccessibleTemplates = ["logincustomer.vm", "forgot_password_login.vm"])
+		#end
+		#if(!$pageTileDictionaryDTO || !$requireLoginAccessibleTemplates.contains($pageTileDictionaryDTO.getTemplateName().trim().toLowerCase()))
+			#if(!$requireLoginRedirect)
+				#set($url="/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}")
+			#else
+				#set($url=$requireLoginRedirect)
+			#end
+			<script language="javascript" type="text/javascript">
+				window.location.href="$url";
+			</script>
+			#stop
+		#end
+	#end
+#end
+
+## Lithium ion battery check.
+#if($item && $pageTileDictionaryDTO.getTemplateName().trim().toLowerCase() == "itemtemplate.vm")
+	#if ($item.properties && $item.properties.size() >= 250 && $item.properties.get(250))
+		#if ($item.properties.get(250).propname && $item.properties.get(250).propname == "LITHIUM_ION")
+			<script>
+				jQuery(document).ready(function() {
+					jQuery(".ui-tabs").eq(0).after("<div class='lithium-ion-warning' style='display: block;border-width: 0;padding: 1em 1.4em;background: none;border: 1px solid #D7D7D7;overflow: auto;-moz-box-shadow: 0 1px 2px #d1d1d1;-webkit-box-shadow: 0 1px 2px #d1d1d1;box-shadow: 0 1px 2px #d1d1d1;color: #222222;font-size: 12px;font-family: Arial, Helvetica, sans-serif; margin-top: 15px;'>This item contains <em><strong>Lithium Ion Batteries</strong></em>. Certain freight methods <em><strong>may not be available and longer shipping times may apply</strong></em>. Please contact Customer Support for additional information.</div>");
+				});
+			</script>
+		#end
+	#end
+#end
+
+<!-- End libMarkupHead.vm -->
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+
+
+    #parse('libitempgjavascript.vm')
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        
+        <div id="content" role="main">
+
+
+           ## BEGIN #parse('libpartitempgcontent.vm')
+
+           <div class="messages">
+          ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div> #end
+          <div class="message success" id="globmsg" style="display:none;"></div>
+        </div>
+
+    <div class="bCrumbs">
+          #parse("libpartCategoryBreadcrumbs.vm")
+    </div>
+     <div class="clearfix itemContent"> 
+          <div class="sidebar">
+            #parse('libpartItemBadges.vm')
+            <div id="imageWindow">
+              <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+                <img  src="store$item.largeimage" width="300" />
+              </a>
+            </div>
+            <div id="suggestedItems"><!-- you may also like section --> </div>
+            #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+            
+          </div>
+          <div class="page">
+            <h1 id="js-item-title-${item.itemid}">$!{item.title}</h1>
+            #springMessage('itemCode'):<span id="itemCodeList"> <span id="js-item-code-${item.itemid}">$item.code</span></span>
+            <input type="hidden" id="formName" value="F$item.itemid"> ## What's this?
+            #parse($item_topDTO.getItems().get(0).get('item_top')) ## What's this?
+            #parse("libpartItemTabInfo.vm")  ## Tabs to show description, tiers, longdesc2...
+
+                #if($!{isPointStore} == 'TRUE')
+                    ## sitewide variable for pricing on/off
+                    #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))   
+                        #parse("libpartitempoints.vm") ## Item Price
+                    #end
+                    <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                    #if($item.itemid)
+                      #set($formName = "F$item.itemid")
+                    #end
+                #else
+                    ## original location of pricing on/off if statement
+                    #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))     
+                        #parse("libpartItemPrice.vm") ## Item Price
+                    #end
+                    <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                    #if($item.itemid)
+                      #set($formName = "F$item.itemid")
+                    #end
+                #end
+
+	        ## get the min order qty required out of the above div innerHTML and rewrites minQtyNum used in the tiered pricing table
+            ## minQtyNum and minQtyNumRow are located within libpartItemTabInfo.vm
+            #if($quantityBreakOut && $quantityBreakOut=='y')
+                <script>
+                        $( document ).ready(function() {
+                            var actualMinQtyNum=(document.getElementById("js-item-minorderqty4pitem-${item.itemid}").innerHTML).replace(/[^0-9]/g,'');
+                            if (actualMinQtyNum>0)
+                                document.getElementById("minQtyNum").innerHTML=actualMinQtyNum;
+                            else
+                                document.getElementById("minQtyNumRow").style.display="none";
+                        });   
+                </script> 
+            #end    
+
+            #*================================
+              Errors
+            =================================*#
+              #springBind( "storeItemDTO.*" )
+              #if($status.errors.errorCount>0)
+                <div class="msg">
+                  #foreach($error in $status.errorMessages)
+                    <div class="error">$error</div>
+                  #end
+                </div>   
+              #end
+
+            <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+              <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"> ##TODO: variable for cid
+              <input type="hidden" id="compCode_0" value="$item.code"/>
+              #set ($found = 'false')
+
+              #parse("libpartItemAddAnother.vm")  ## Add Another
+ 
+              ## hides DS message for one particular item. 
+              #if(($item.code=="BZ8325017") || ($item.code=="NFFF-000"))
+              
+                  <script>
+                      $(document).ready(function(){
+                            hideDSMessage();  
+                            $( "select[name*='attribute']" ).change(function() {
+                                hideDSMessage(); 
+                            });
+                        });
+                        
+                        function hideDSMessage(){
+                            var itemDSMessageText=$('#js-item-inventory-$item.itemid').text();
+                            if ((itemDSMessageText=="Available:Item is temporarily out of stock") || (itemDSMessageText.indexOf('Available:Ships on')!==-1) || (itemDSMessageText=="Available:Usually Ships in 6 weeks"))
+                            {
+                                $('#js-item-inventory-$item.itemid').hide();
+                            }                        
+                        }
+                  </script>
+              
+              #end
+
+
+            ##  #parse("libpartItemCustomization.vm") ## Customization
+
+             ## enhanced customization
+             #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/item_customization.vm")
+			 #renderItemCustomizationForm()
+
+              
+              ## forces customization to checked by default and to show imprint options. 
+              ## added 01.03.19 - kevin   
+              #if($forceImprint && $forceImprint == true) 
+                  <script>
+                    $( document ).ready(function() {
+                        $("#customize").prop("checked",true);
+                        $(".custom-input").show();
+                    });                              
+                  </script>
+              #end              
+            
+              <div id="js-item-hiddenfields-$item.itemid"></div> ## What's this used for? Container for multiple "add another" items?
+
+              #parse("libpartItemAddToWishlist.vm")  ## Add To Wishlist
+
+              #*
+               * RedirectMode = true: navigate to wishlist after add
+               * RedirectMode = false: stay on page, display message
+              *#
+              <input type="hidden" name="redirectMode" value="true">
+
+                        #foreach($error in $product.errors)
+                        <div class="error-text-area">
+                           $error.message
+                        </div>
+                        #end
+
+              #*================================
+                  Add to Cart Button
+                =================================*#
+              <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();">
+                #springMessage('addToCart')
+              </div>
+            </form>
+          </div><!--//.page -->
+        </div><!--//.clearfix-->
+        
+        
+        ## code to update the DS messages for SWEDA items only. BEGIN
+        #if($swedaCat)
+            #set($swedaCheck="#isItemInCategory($item.getItemId(),$swedaCat)")
+            #if($swedaCheck==true)
+                <script>
+                    $( document ).ready(function() {
+                         document.getElementsByClassName('DSMessage')[0].innerHTML="$!swedaMsg";
+                    });
+                </script>
+            #end
+        #end
+        
+        
+        ## END #parse('libpartitempgcontent.vm')
+        
+##### experiment begin
+
+<script>
+
+
+    $(document).ready(function () {
+
+        var checkPriceTiers=function(){
+            $.getJSON("/getitems.ajx?vid=${vendorSettingsDTO.vendorId}&itemid=${item.itemid}", function(data){ 
+                /* loop through array */
+                $.each(data, function(index, d){            
+                    console.log("this is the index "+index );
+                    console.log(d);
+                });    
+                
+                console.log("below is just the Result section");
+                console.log(data["__Result"]["0"]["prices"]);
+                
+                ## executes only if there varying prices for different options within the same parent SKU         
+                
+                if(data["__Result"]["0"]["prices"].length>1)
+                {
+                    console.log(data["__Result"]["0"]["prices"].length+" is the size of the array");
+                    
+                    $.each(data["__Result"]["0"]["prices"], function(index2, f){            
+                        console.log("this is the index2 "+index2 );
+                        
+                        ## console.log(JSON.stringify(f));
+                        ## tier pricing starts at the array element 1 not 0. 
+                        
+                        if(index2>0){
+                            var priceLoop;
+                            for (priceLoop = 1; priceLoop <= 5; priceLoop++) { 
+                                var priceVar="price_"+priceLoop;    
+                                if(JSON.stringify(f[priceVar])>"0"){
+                                    if (($('.dollars').text())==(JSON.stringify(f[priceVar]))){
+                                        console.log("YOOOO "+$('.dollars').text()+" is the same as "+priceVar);
+                                        console.log(f.price_2+" is price_2");
+                                        
+                                        var nextPriceVar="price_"+(priceLoop+1);
+                                        
+                                        console.log($('.tiered').find("tr:eq(2)").find("td:eq(1)").html()+" is the table cell value");
+                                        console.log(parseFloat(JSON.stringify(f[nextPriceVar])).toFixed(2)+" is the conversion back to float");
+                                        
+                                        console.log($('.tiered').find("tr:eq(2)").find("td:eq(1)").html()+" is the table cell value");
+                                    
+                                        
+                                        #if($quantityBreakOut && $quantityBreakOut=='y')
+                                            console.log("this is a test of velocity within a javascript function-exists");
+                                            $('.tiered').find("tr:eq(2)").find("td:eq(1)").html("$"+parseFloat(JSON.stringify(f[nextPriceVar])).toFixed(2)+" each");
+                                        #else    
+                                            console.log("this is a test of velocity within a javascript function-NOPE");
+                                            $('.tiered').find("tr:eq(1)").find("td:eq(1)").html("$"+parseFloat(JSON.stringify(f[nextPriceVar])).toFixed(2)+" each");
+                                        #end
+                                        
+                                        
+                                    }
+                                    else{
+                                    
+                                        ## updates the value shown Tiered Pricing to the appropriate row / cell
+                                        
+                                        
+                                        ## var stringPriceVar = JSON.stringify(f[priceVar]);
+                                        ## console.log("This is stringPriceVar = "+stringPriceVar);
+                                        ## console.log(JSON.stringify(f[priceVar])+" is the value of "+priceVar+" and in loop "+priceLoop);
+                                        
+                                            ## $('#pricesByInventoryBody tr:eq('+priceLoop+') td').eq(2);
+                                            ## $("#someTable").find("tbody tr").eq(14).children().first()
+                                        
+                                        ## console.log($('.tiered').find("tr:eq(2)").find("td:eq(1)").html()+" is the table cell value");
+                                        ## $('.tiered').find("tr:eq(2)").find("td:eq(1)").html(JSON.stringify(f[priceVar]));
+                                        
+                                    }
+                                }
+                            }                        
+                                                    
+                        }
+                    });                    
+                }
+            });
+        }
+
+## checkPriceTiers();
+
+
+// Select the node that will be observed for mutations
+var targetNode = document.getElementById('itemPrice');
+
+// Options for the observer (which mutations to observe)
+var config = { attributes: true, childList: true, subtree: true };
+
+// Callback function to execute when mutations are observed
+var callback = function(mutationsList, observer) {
+    for(var mutation of mutationsList) {
+        if (mutation.type == 'childList') {
+            console.log('A child node has been added or removed.');
+            checkPriceTiers();
+            ## console.log($('.dollars').text());
+        }
+        else if (mutation.type == 'attributes') {
+            console.log('The ' + mutation.attributeName + ' attribute was modified.');
+        }
+    }
+};
+
+// Create an observer instance linked to the callback function
+var observer = new MutationObserver(callback);
+
+// Start observing the target node for configured mutations
+observer.observe(targetNode, config);    
+
+
+    });
+</script>
+ 
+##### experiment end
+        
+
+        </div> <!--//#content -->
+        
+        #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end        
+        #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    </div> <!--//#container -->
+    #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    #parse("libpartitempgjsbottom.vm")
+    
+
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+
+
+
+     #if($item.code == 'GE8325026')
+            <script>
+            	$( document ).ready(function() {
+            		$('div[id^="js-item-minorderqty4pitem"]').append("<br> Item must be ordered in increments of 25")
+            	})
+            </script>
+
+      #end
+     
+
+  
+    
+  </body>
+</html>
