@@ -346,7 +346,6 @@ a{
 
     padding-top: 1px;
     margin-top: -1px; 
-
     background-image: /* Bottom jagged */ linear-gradient(135deg, #fff 50%, transparent 50%), linear-gradient(-135deg, #fff 51%, transparent 50%);
     background-position: /* Bottom jagged */ top right, top right;
     background-size: 25px 25px;
