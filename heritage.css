@@ -128,6 +128,7 @@ body{
 
 #container{
     text-align: left;
+    margin-top: 10px !important;
 }
 
 p{ 
@@ -189,7 +190,7 @@ div#DDmenu a{
 
 h1{ 
     padding: 0;
-    margin: 0px 0px 8px 0px;
+    margin: 0px 0px 20px 0px;
     line-height: 30px;
     color: #404040;
     font-size: 36px;
@@ -312,6 +313,7 @@ html{
 
 body{
     background: #FFF;
+    overflow-x: hidden;
 }
 
 #container{
@@ -326,6 +328,7 @@ body{
     z-index: 1;
     clear: both;
     padding: 30px 0px 50px 0px;
+    line-height: 19px;
 }
 
 #header{
@@ -409,7 +412,7 @@ body{
     display: block;
     float: left;
     height: 52px;
-    margin: 15px 0px 0px 20px;
+    margin: 22px 0px 0px 20px;
     width: 215px;
 }
 
@@ -513,7 +516,7 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li, #header .greenHeader .utilNav li{
     float: left;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 .utilNav ul{
@@ -525,7 +528,7 @@ div#DDmenu li a:hover{
 
 #footer ul li{
     display: inline;
-    padding:0px 10px;
+    padding:0px 20px;
 }
 
 #footer ul{
@@ -752,7 +755,8 @@ tfoot tr td{
     justify-content: center;    
     font-size: 16px;
     font-weight: bold;
-
+    font-family: benton-sans, sans-serif;    
+    font-weight: 700;
 }
 
 .btn:hover{
@@ -776,8 +780,9 @@ tfoot tr td{
     display: flex;    
     align-items: center;
     justify-content: center;   
-    font-size: 16px;    
- 
+    font-size: 16px;  
+    font-family: benton-sans, sans-serif;        
+    font-weight: 700; 
 }
 
 .btn-primary:hover{
@@ -2113,8 +2118,8 @@ input#cvv{
 .brandStoreRow a{
     height: 125px;
     position: relative;
-    top: 38px;
-    left: 38px;    
+    top: 20px;
+    left: 30px;    
 }
 
 .brandStoreCol a{
@@ -2190,12 +2195,14 @@ input#cvv{
     background: url("../images/castle-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
+    /*background-position: 0px -10px;*/
 }
 
 .Col11 a{
     background: url("../images/country-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
+    /*background-position: -5px -10px;*/
 }
 
 .Col12 a{
@@ -2214,18 +2221,21 @@ input#cvv{
     background: url("../images/regency-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-}
+/*    background-position: 0px -10px;
+*/}
 
 .Col15 a{
     background: url("../images/stclaras-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
+    /*background-position: -20px -2px;*/
 }
 
 .Col16 a{
     background: url("../images/sunny-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
+    background-position: -15px 0px;
 }
 
 .Col17 a{
@@ -2238,6 +2248,7 @@ input#cvv{
     background: url("../images/vonderlieth-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
+    background-position: 0px -5px;    
 }
 
 .Col19 a{
@@ -2251,22 +2262,22 @@ input#cvv{
 }
 
 .burnsides a{
-    left: 50px;
+    /*left: 50px;*/
     top: 15px;
 }
 
 .stClara a{
-    left: 55px;
-    top: 20px;
+    /*left: 55px;*/
+/*    top: 20px;*/
 }
 
 .sunny a{
-    top: 25px;
+    /*top: 25px;*/
 }
 
 .villas a{
-    left: 70px;
-    top: 20px;
+    /*left: 70px;*/
+    /*top: 20px;*/
 }
 
 .welcomemsg{
@@ -2289,7 +2300,7 @@ input#cvv{
 
 .catStoreBannerWrapper{
     margin: 0 auto;
-    width: 165px;    
+    width: 250px;    
     top: 27px;
     position: relative;
 }
@@ -2383,9 +2394,9 @@ input#cvv{
     width: auto;
 }
 
-#pageItem #container{
+/*#pageItem #container, #pageBasket #container{
     margin-top: 10px;
-}
+}*/
 
 #pageHome .miniCartUL{
     display: none;
@@ -2393,14 +2404,19 @@ input#cvv{
 
 #pageHome #content{
     padding-top: 57px;
+    min-height: 800px;
 }
 
 .countryHealth{
     position: relative;
-    bottom: 10px;
+    /*bottom: 10px;*/
 }
 
 .mason{
     position: relative;
-    bottom: 10px;
+    /*bottom: 10px;*/
+}
+
+#pageLogin #container, #pageSearchResults #container, #pageCategory #container{
+    margin-top: 40px !important; 
 }
