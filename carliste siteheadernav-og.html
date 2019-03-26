@@ -1,0 +1,273 @@
+
+## Page & Quicklook handling. 
+## Not sure what's used in the "Page" scope. Not going to remove -Evan
+<input type="hidden" id="itemid_handler" value="">
+<input type="hidden" id="vendorId" value="${vendorSettingsDTO.vendorId}">
+<input type="hidden" id="js-vid" value="${vendorSettingsDTO.vendorId}"> 
+
+
+## *Note MODAL password code borrowed to put a block on the site to not proceed further.  Removed ability to enter in password so there is no way to proceed further in the site
+
+## Begin import of code needed to display modal login.  
+## *Note - this is a two part process.  Modal login validation is located in siteMarkupHead.vm
+
+##bringing div code for modal login box from C7 site - begin
+
+<div id="modal">
+    <div id="modalshake">
+        <div id="modalshake">
+            <div id="heading">
+                Please Enter the Site Login Password
+            </div>
+            <div id="modalcontent">
+                <div id="fieldbox">
+                    <span class="fieldbox">
+                        <input type="password" name="pwd"/>
+                    </span>
+                </div>
+                <div class="modalbutton1">
+                    <input type="button" class="button purple" value="Okay" border="0" onclick="checkPWValidation();"/>
+                </div>
+                <div class="modalbutton2">
+                    <input type="button" class="button purple" value="Cancel" border="0" onclick="location.href='$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId")';"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## - end import of modal log in box import   
+
+## End import of code needed to display modal login.  
+
+
+## Looks at the URI query string and sets hidden inputs on the page for each key/value.
+## Eg. http://www.site.com?this=that  =>  <input type="hidden" name="foo" value="bar">
+## Not sure why they use this. They probably shouldn't as it could create conflicts -Evan
+#macro (formParameters $param1Name $param2Name)
+    #set($hrefString = "") 
+    #if($request.getParameterMap().size()>0) 
+        #foreach($parName in $request.getParameterNames()) 
+            #set($oriv="") 
+            #foreach($parVal in $request.getParameterValues($parName)) 
+                #if($oriv=='' || $oriv!=$parVal) 
+                    #set($oriv=$parVal ) 
+                    #if(!$parName.equals($param1Name) && !$parName.equals($param2Name))
+                        #set($hrefString = "${hrefString}<input type='hidden' name='${parName}' value='${parVal}'>") 
+                    #end 
+                #end
+            #end
+        #end
+    #end 
+    $hrefString
+#end
+
+## Begin Layout
+<div id="header">
+    ## <div class="logo">
+    ##     <a href="store.html?vid=${vendorSettingsDTO.vendorId}"><span>$!htmlSiteName</span></a>
+    ## </div>
+    <div class="wrapper">
+        <div class="logo">
+            <a href="store.html?vid=${vendorSettingsDTO.vendorId}"><span>$!htmlSiteName</span></a>
+        </div>    
+        <div class="utilNav">
+            <ul>
+                #if($welcomeMatDTO)
+                    #if(${welcomeMatDTO.loggedIn}) 
+                        <li class="welcomemsg">
+                            Welcome ${welcomeMatDTO.firstName}!
+                        </li>
+                            #if($pageTileDictionaryDTO.templateName == "checkout_completed.vm")
+                                <li>
+                                    <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}'>
+                                        #springMessage("log_out")
+                                    </a>
+                                </li>
+                            #else 
+                                <li>
+                                    <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'> #springMessage("log_out") </a>
+                                </li>
+                            #end
+                                
+                    #else
+                        <li> 
+                            <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'>
+                                #springMessage("log_in")
+                            </a>
+                        </li> 
+                    #end
+                #end
+                
+                <li>
+                    <a href="$seourl.encodeURL("myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId")">$!MyAccountNavName</a>
+                </li>
+                ## <li>
+                ##     <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidMyAccount")">Test $!MyAccountNavName</a>
+                ## </li>                
+                <li>
+                    <a href="$seourl.encodeURL("myaccount.html?mode=vieworder&vid=$vendorSettingsDTO.vendorId")">Order History</a>
+                </li>
+                ## <li>
+                ##      <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidOrderHistory")">Test Order History</a>
+                ## </li>                
+        
+                #if($!{displayWishlist} == "YES")
+                    ## <li><a href="wishlist.html?action=add&vid=$vendorSettingsDTO.vendorId">Wish List</a></li>
+                    <li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidWish")">Test Wish List</a>
+
+                #end
+                
+                #if(${welcomeMatDTO.loggedIn} && $BrowserFromPost)
+                    <li>
+                        <form method="POST" action="$BrowserFromPost">
+                            <INPUT TYPE="HIDDEN" NAME="cXML-urlencoded" VALUE="$esc.html("$EmptyPunchoutOrderMessage")">
+                            <INPUT TYPE="SUBMIT" VALUE="Back To Procurement Site">
+                        </form>
+                    </li>    
+                #end
+
+                <li class="mini-cart">
+                    #if($!displayMiniCart == "YES")
+                        ## New mini-cart settings? Use the newer mini-cart structure. The quantity and total will be populated via the minibasketNew() function in common.js.
+                        #if($minicartQuantitySelector && $minicartQuantitySelector != "" && $minicartTotalSelector && $minicartTotalSelector != "")
+                            
+                            <a href="$seourl.encodeURL("basket.html?vid=$vendorSettingsDTO.vendorId")" class="cartbutton">
+                                <i class="material-icons" id="cart-icon">shopping_cart</i>
+                                
+                                <div class="summary">
+                                    <span class="def" id="cart-quantity">
+                                        Items:
+                                        <span id="mini-cart-quantity"></span>
+                                    </span>
+                                    
+                                    ## sitewide variable for pricing on/off
+                                    #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                                        <span class="def" id="cart-total">
+                                            #springMessage("navCartTotal"):
+                                            <span id="mini-cart-total"></span>
+                                        </span>
+                                    #end 
+                                </div>
+                            </a>
+                            
+                        ## Older mini-cart settings; this will be populated through a hard-coded Javascript function.
+                        #else
+                            <div class="summary"></div>
+                            
+                            <a href="$seourl.encodeURL("basket.html?vid=$vendorSettingsDTO.vendorId")">
+                                #springMessage("navViewCart")
+                            </a>
+                        #end
+                    #end
+                    
+                </li>
+            </ul>
+        </div> <!--//.utilNav -->
+
+<div class="menuSearch">
+
+    <div id="menu">
+        <div id="menuWrapper">
+            #if($superFishMenu == 'true')
+                <ul class="sf-menu">
+                    ## <li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId")">Home</a></li>
+                    <li class="productCategories"><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidMenu1")">Product Categories</a>
+                        #parse("flyoutMenu.vm")
+                        #renderFlyoutMenu("sf-menu sf-arrows sf-vertical")
+                    </li>
+                    ## #if($cidCustom != "")<li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$cidCustom")">#springMessage("navCustom")</a></li> #end
+                    <li><a class="FAQ" href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidOrdering")">FAQs</a></li> 
+                    <li class="menulast"><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidContact")">Contact Us</a></li>
+                </ul>
+            #else
+                <ul class="nav">
+                    ## <li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId")">Home</a></li>
+                    <li class="productCategories"><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=581702")">Products</a>
+                        <div id="DDmenu">
+                            <ul class="category-items">
+                                #foreach($menu1item in $Menu1DTO.items)
+                                    #set($category = $pageTile.getItemObject($Menu1DTO, $menu1item, "c"))
+                                    <li class="#if($velocityCount == 1) first #elseif($velocityCount == $Menu1DTO.items.size()) last #end">
+                                        <a href="$seourl.encodeURL("store.html?cid=$category.categoryid&vid=$vendorSettingsDTO.vendorId")">$category.description</a>
+                                    </li>
+                                #end
+                            </ul>
+                        </div>
+                    </li>
+                    ## #if($cidCustom != "")<li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$cidCustom")">#springMessage("navCustom")</a></li> #end
+                    <li><a class="FAQ" href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidOrdering")">FAQs</a></li> 
+                    <li class="menulast"><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidContact")">Contact Us</a></li>
+                </ul>
+            #end
+        </div>
+    </div>     
+
+    <div class="search">
+        <form action="asearch.html" onsubmit="checkKey();" id="searchForm">
+            #set($key="") 
+            #set($brand_param="")
+            #set($cname="")
+            #if($advancedSolrSearchCommand)
+                #if($advancedSolrSearchCommand.searchParameters.key)
+                    #set($key=$advancedSolrSearchCommand.searchParameters.key)
+                #end
+                #if($advancedSolrSearchCommand.searchParameters.brand)
+                    #set($brand_param=$advancedSolrSearchCommand.searchParameters.brand)
+                #end
+                #if($advancedSolrSearchCommand.searchParameters.cname) 
+                    #set($cname=$advancedSolrSearchCommand.searchParameters.cname)
+                #end 
+                #if($brand_param && $brand_param.length() > 2) 
+                    #set($brand_length = $math.sub($brand_param.length(),1))
+                    #set($brand_param = $brand_param.substring(1,$brand_length))
+                #end
+            #end 
+            <input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId">
+            <div>
+                <!--<input type="text" name="key" value="$key" id="key" placeholder="Product Search...">-->
+                <i class="material-icons searchGlass" onclick="checkKey(); jQuery('#key').val(jQuery('#key').val().toUpperCase()); document.forms['searchForm'].submit();">search</i>
+                <input type="text" name="keyword" id="key" placeholder="Product Search">
+                ## <input type="button" id="searchBtn" class="btn small" value="" onclick="checkKey(); jQuery('#key').val(jQuery('#key').val().toUpperCase()); document.forms['searchForm'].submit();">
+            </div>
+        </form>
+    </div><!-- //.search-->
+
+</div>
+        
+       
+
+    </div> <!--//.wrapper -->
+    
+
+    
+</div> <!--//#header -->
+
+
+
+
+<div class="liveChat">
+<!-- BoldChat Visitor Monitor HTML v5.00 (Website=*69W Carlisle ESP Rewards,Ruleset=My Invite Ruleset,Floating Chat=My Chat Button -->
+<script type="text/javascript">
+  window._bcvma = window._bcvma || [];
+  _bcvma.push(["setAccountID", "448279438470883650"]);
+  _bcvma.push(["setParameter", "WebsiteID", "446003351699718223"]);
+  _bcvma.push(["setParameter", "InvitationID", "445273867572763920"]);
+  _bcvma.push(["addFloat", {type: "chat", id: "445273867345707538"}]);
+  _bcvma.push(["pageViewed", document.location.href, document.referrer]);
+  var bcLoad = function(){
+    if(window.bcLoaded) return; window.bcLoaded = true;
+    var vms = document.createElement("script"); vms.type = "text/javascript"; vms.async = true;
+    vms.src = ('https:'==document.location.protocol?'https://':'http://') + "vmss.boldchat.com/aid/448279438470883650/bc.vms4/vms.js";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(vms, s);
+  };
+  if(window.pageViewer && pageViewer.load) pageViewer.load();
+  else if(document.readyState=="complete") bcLoad();
+  else if(window.addEventListener) window.addEventListener('load', bcLoad, false);
+  else window.attachEvent('onload', bcLoad);
+</script>
+<noscript>
+<a href="http://www.boldchat.com" title="Live Chat" target="_blank"><img alt="Live Chat" src="https://vms.boldchat.com/aid/448279438470883650/bc.vmi?&amp;wdid=446003351699718223" border="0" width="1" height="1" /></a>
+</noscript>
+<!-- /BoldChat Visitor Monitor HTML v5.00 -->    
+</div>
