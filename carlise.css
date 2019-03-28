@@ -195,6 +195,7 @@ h1{
     font-size: 36px;
     font-weight: bold;
     color: #29323C;
+    margin: 0px 0px 25px 0px;
 }
 
 #pageCategory h1{
@@ -553,7 +554,7 @@ div#DDmenu li a:hover{
     top: 8px;
     position: relative;
     position: relative;
-    /*right: 42px;*/
+    /*right: 42px;*/    
 }
 
 #cart-quantity, #cart-total{
@@ -565,7 +566,7 @@ div#DDmenu li a:hover{
 .search {
     clear: right;
     float: right;
-    z-index: 99999;
+    z-index: 100;
 }
 
 .search ::placeholder {
@@ -2094,7 +2095,7 @@ input#cvv{
 }
 
 #pageHome #content{
-    padding: 30px 0px 0px 0px;
+    padding: 50px 0px 0px 0px;
     min-height: 480px;
     margin-bottom: 75px;
 }
@@ -2277,3 +2278,10 @@ input#cvv{
         }
 
 /*****  modal login box - end   *******/
+
+
+/*this is a test */
+
+
+
+
