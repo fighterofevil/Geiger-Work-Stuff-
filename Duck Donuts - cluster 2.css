@@ -2569,7 +2569,7 @@ input#cvv{
     text-align: left;
     position: relative;
     bottom: 15px;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .landingPageNav .material-icons{
