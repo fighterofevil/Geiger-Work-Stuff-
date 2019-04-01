@@ -2503,6 +2503,8 @@ input#cvv{
     justify-content: space-between;
     position: relative;
     top: 24px;    
+    width: 1024px;
+    flex-direction: row;
 }
 
 .duckStore{
@@ -2535,6 +2537,7 @@ input#cvv{
     width: 165px;     
     position: relative;
     top: 33px;    
+    right: 10px;
 }
 
 .storeName2{
@@ -2544,6 +2547,7 @@ input#cvv{
     position: relative;
     top: 83px;
     left: 21px;
+    right: 10px;
 }
 
 .storeImage2{
@@ -2556,10 +2560,11 @@ input#cvv{
 
 .duckStoreText{
     position: relative;
-    top: 35px;   
-    left: 45px;    
+    top: 40px;
+    left: 33px;
     width: 435px;
-    font-size: 18px;    
+    font-size: 18px;
+    line-height: 19px;  
 }
 
 .landingPageNav{
@@ -2576,3 +2581,14 @@ input#cvv{
     font-size: 32px;
     color: #F7CE3C;
 }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+
+    #pageLanding #content{
+        padding: 0px !important;
+    }
+
+
+}
+
+
