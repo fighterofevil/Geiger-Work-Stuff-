@@ -2126,7 +2126,7 @@ input#cvv{
     width: 256px;
 }
 
-.Row5{
+.Row6{
     border-bottom: initial;
 }
 
@@ -2258,8 +2258,21 @@ input#cvv{
 }
 
 .Col20 a{
-
+    background: url("../images/restore-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
 }
+
+.Col21{
+    border-right: 1px solid #F2F2F2;
+}
+
+.Col21 a{
+    background: url("../images/heritage-health-restore-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;   
+}
+
 
 .burnsides a{
     /*left: 50px;*/
@@ -2404,7 +2417,7 @@ input#cvv{
 
 #pageHome #content{
     padding-top: 57px;
-    min-height: 800px;
+    min-height: 900px;
 }
 
 .countryHealth{
@@ -2419,4 +2432,13 @@ input#cvv{
 
 #pageLogin #container, #pageSearchResults #container, #pageCategory #container{
     margin-top: 40px !important; 
+}
+
+#pageCategoryStatic ul{
+    position: relative;
+    left: 50px;
+}
+
+#pageCategoryStatic ul, #pageCategoryStatic li{
+    list-style: initial !important;
 }
