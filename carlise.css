@@ -445,7 +445,7 @@ body{
 }
 
 #menuWrapper{
-    width: 1024px;
+    /*width: 1024px;*/
     margin: 0 auto;
 }
 
@@ -455,7 +455,7 @@ body{
 }
 
 .nav{
-    width: 1024px;
+    /*width: 1024px;*/
     height: 45px;
 }
 
@@ -566,7 +566,7 @@ div#DDmenu li a:hover{
 .search {
     clear: right;
     float: right;
-    z-index: 100;
+    /*z-index: 100;*/
 }
 
 .search ::placeholder {
@@ -787,10 +787,12 @@ tfoot tr td{
 .welcome-message{
     color: #29323C;
     font-size: 16px;
-    line-height: 26px;
+    line-height: 24px;
     width: 755px;
     margin: 0 auto;   
     font-family: 'Muli', sans-serif; 
+    font-weight: bold;
+    text-align: center;
 }
 
 .spotlight {
@@ -856,8 +858,8 @@ tfoot tr td{
     float:left;
     display:table-cell;
     vertical-align:middle;
-    margin-right:30px;
-    margin-left:30px;
+    margin-right:25px;
+    margin-left:25px;
 }
 
 .featured-product-carousel .item img{
@@ -2056,14 +2058,14 @@ input#cvv{
 
 .menuSearch{
     display: flex;
-    width: 720px;
+    /*width: 720px;*/
     justify-content: flex-end;
     position: relative;
     float: right;
 }
 
 .spotlightImage{
-    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;
+    background: url("../images/spot-img-update.jpg") no-repeat scroll left top transparent;
     display: block;    
     height: 500px;
     background-size: cover;
@@ -2090,8 +2092,14 @@ input#cvv{
     border: 2px solid white;
     width: 165px;
     margin: 0 auto;    
-    top: 35px;
+    top: 64px;
     position: relative;
+}
+
+.spotlightSiteName{
+    font-weight: bold;
+    font-size: 75px;
+    text-transform: uppercase;
 }
 
 #pageHome #content{
@@ -2280,7 +2288,6 @@ input#cvv{
 /*****  modal login box - end   *******/
 
 
-/*this is a test */
 
 
 
