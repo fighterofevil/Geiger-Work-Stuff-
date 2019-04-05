@@ -165,6 +165,10 @@ a:hover{
     color:#fff;
 }
 
+#footer a:hover{
+    color: #A5C1DE;
+}
+
 .nav a{
     color: #ffffff;
     font-size: 16px;
@@ -183,7 +187,7 @@ h1{
     font-weight: bold;
     font-size: 30px;
     padding: 0;
-    margin: 0px 0px 8px 0px;
+    margin: 0px 0px 15px 0px;
     line-height: 30px;
     font-family: 'PT Sans', sans-serif;
     color: #29323C;
@@ -322,10 +326,10 @@ body{
 }
 
 #header{
-    height: 113px;
+    height: 100px;
     margin: 0 auto;
     color: #1F344C;
-    border-bottom: 5px solid #064DA3;
+    border-bottom: 1px solid #064DA3;
 }
 
 #header .wrapper{
@@ -404,7 +408,7 @@ body{
     display: block;
     float: left;
     height: 66px;
-    margin: 15px 0px 0px 20px;
+    /*margin: 15px 0px 0px 20px;*/
     padding: 10px 8px 0px 0px;
     width: 250px;
 }
@@ -452,6 +456,10 @@ body{
 #menu a{
     color: #1F344C;    
     font-weight: bold;
+}
+
+#menu a:hover{
+    color: #064DA3;
 }
 
 .nav{
@@ -510,7 +518,7 @@ div#DDmenu li a:hover{
 
 .utilNav ul{
     float: right;
-    margin-bottom: 13px;
+    /*margin-bottom: 13px;*/
 }
 
 .utilNav ul li a{
@@ -551,7 +559,7 @@ div#DDmenu li a:hover{
 .summary{
     float: right;
     text-align: left;
-    top: 8px;
+    top: 9px;
     position: relative;
     position: relative;
     /*right: 42px;*/    
@@ -732,16 +740,19 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
     padding: 5px 10px;
     cursor: pointer;
     min-width: 150px;
     text-align: center;   
     background-color: #FFFFFF;
-    border: 2px solid #064DA3;
+    border: 0px solid #064DA3;
     color: #064DA3;
     font-weight: bold;
     font-size: 16px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
 }
 
 .btn:hover{
@@ -751,7 +762,7 @@ tfoot tr td{
 
 .btn-primary{
     background-color: #064DA3;
-    border:1px solid #777;
+    border: 0px solid #777;
     color:#FFF;
     font-weight: bold;
     padding: 5px 10px;
@@ -760,6 +771,10 @@ tfoot tr td{
     text-align: center;
     font-size: 16px;
     font-weight: bold;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
 }
 
 .btn-primary:hover{
@@ -1150,7 +1165,7 @@ td.ar{
 .pagination-new li{
     float: left;
     margin-right: 10px;
-    margin-top: 3px;
+    /*margin-top: 3px;*/
 }
 
 .pagination-new ul{
@@ -2037,7 +2052,7 @@ input#cvv{
     font-size: 30px !important;
     color: #1F344C;
     top: 4px;
-    padding-left: 10px;    
+    padding-left: 8px;    
 }
 
 .featuredwrap{
@@ -2094,12 +2109,18 @@ input#cvv{
     margin: 0 auto;    
     top: 64px;
     position: relative;
+    max-height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .spotlightSiteName{
     font-weight: bold;
     font-size: 75px;
     text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 #pageHome #content{
@@ -2136,6 +2157,10 @@ input#cvv{
 
 #thirdptyft{
     display: none;
+}
+
+#pageCategory .name a, .show-estimate-calendar, #addAnother a{
+    text-decoration: underline;
 }
 
 
