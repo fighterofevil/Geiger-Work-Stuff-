@@ -442,7 +442,7 @@ body{
 /****Main Navigation****/
 
 #menu{
-    z-index:100;
+    z-index:0;
     height: 45px;
     width: 365px;
     position: relative; 
@@ -744,7 +744,7 @@ tfoot tr td{
 }
 
 .btn {
-    padding: 5px 10px;
+    padding: 0px 10px;
     cursor: pointer;
     min-width: 150px;
     text-align: center;   
@@ -753,7 +753,7 @@ tfoot tr td{
     color: #064DA3;
     font-weight: bold;
     font-size: 16px;
-    height: 40px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;    
@@ -1430,9 +1430,13 @@ ul.radios-list li label{
 }
 
 .address-options {
-text-align: right;
-margin: -5px 0 8px;
-float: right;
+    text-align: right;
+    margin: -5px 0 8px;
+    float: right;
+    max-width: 400px;
+    min-width: 365px;
+    display: flex;
+    justify-content: space-between;
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
@@ -2134,7 +2138,7 @@ input#cvv{
 }
 
 #pageHome #container{
-    min-height: initial !important;
+    min-height: 54vh !important;
 }
 
 .FAQ{
@@ -2167,6 +2171,9 @@ input#cvv{
     text-decoration: underline;
 }
 
+.address-title{
+    padding-bottom: 10px;
+}
 
 
 /*****  modal login box  - begin   *******/
