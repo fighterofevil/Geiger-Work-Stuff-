@@ -2411,7 +2411,7 @@ input#cvv{
     margin-top: 10px;
 }*/
 
-#pageHome .miniCartUL{
+#pageHome .miniCartUL,#pageCategoryStatic .miniCartUL, #pageFAQ .miniCartUL, #contact .miniCartUL{
     display: none;
 }
 
@@ -2435,10 +2435,10 @@ input#cvv{
 }
 
 #pageCategoryStatic ul{
-    position: relative;
-    left: 50px;
+/*    position: relative;
+    left: 50px;*/
 }
 
 #pageCategoryStatic ul, #pageCategoryStatic li{
-    list-style: initial !important;
+    /*list-style: initial !important;*/
 }
