@@ -1345,7 +1345,7 @@ ul.radios-list li label{
 
 .co-breadcrumb{
   background-image: url("../images/bg/checkout_sprite.png");
-  background-position: 103% 0;
+  background-position: 107% 0;
   background-repeat: no-repeat;
   margin: 30px 0;
 }
@@ -1356,11 +1356,11 @@ ul.radios-list li label{
 }
 
 .co-breadcrumb.step2 {
-    background-position: 86% 0;
+    background-position: 89% 0;
 }
 
 .co-breadcrumb.step3{
-  background-position: 69% 0;
+  background-position: 72% 0;
 }
 
 .co-breadcrumb.step4{

@@ -444,7 +444,7 @@ body{
 #menu{
     z-index:0;
     height: 45px;
-    width: 365px;
+    /*width: 365px;*/
     position: relative; 
 }
 
