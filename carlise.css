@@ -2175,6 +2175,45 @@ input#cvv{
     padding-bottom: 10px;
 }
 
+#pagePoints table {
+    border: initial;
+    width: 350px;
+}
+
+#pagePoints table td{
+    background: #eaebec;    
+    border: initial;
+}
+
+.dpcol1{
+    color: #666;
+    font-weight: bold;
+}
+
+.pointBtn{
+    position: relative;
+    float: left;
+}
+
+.pointBtn-primary{
+    display: inline;
+    position: relative;
+    float: right;
+    /*margin-right: 18px;*/
+}
+
+.startover{
+    font-weight: bold;
+}
+
+.pointsButtons{
+/*    width: 350px;
+    display: flex;
+    justify-content: space-evenly;
+    padding-left: 0;
+    padding-right: 0;*/
+}
+
 
 /*****  modal login box  - begin   *******/
 
