@@ -1112,7 +1112,7 @@ td.ar{
 .pagination-new li{
     float: left;
     margin-right: 10px;
-    margin-top: 3px;
+    /*margin-top: 3px;*/
 }
 
 .pagination-new ul{
@@ -1330,12 +1330,12 @@ ul.radios-list li label{
 }
 
 .co-breadcrumb li {
-	color: #aeaeae;
-	display: inline-block;
-	padding-top: 27px;
-	width: 98px;
-	text-align: left;
-	/* background: red; */
+    color: #aeaeae;
+    display: inline-block;
+    padding-top: 27px;
+    width: 98px;
+    text-align: left;
+    /* background: red; */
 }
 
 .co-breadcrumb li strong{
