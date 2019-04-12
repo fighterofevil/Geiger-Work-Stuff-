@@ -827,7 +827,7 @@ tfoot tr td{
     float:left;
     width:600px;
     padding-left:10px;
-    height: 132px;
+    height: 150px;
 }   
 
 .featured-product-carousel .prev{
@@ -841,7 +841,7 @@ tfoot tr td{
     color: #fff;
     text-align: center;
     position: relative;
-    top: 30px;    
+    top: 45px;    
 }
 
 .featured-product-carousel .next{
@@ -855,7 +855,7 @@ tfoot tr td{
     color:#fff;
     text-align: center;
     position: relative;
-    top: 30px;    
+    top: 45px;    
 }       
 
 .featured-product-carousel .item{
