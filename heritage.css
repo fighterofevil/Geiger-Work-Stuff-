@@ -1185,6 +1185,7 @@ a.view-all{
 
 #itemForm > div {
     margin-bottom: 15px;
+    display: flex;
 }
 
 #pageItem .sidebar{
@@ -2387,6 +2388,7 @@ input#cvv{
 
 #pageItem .btn-primary{
     width: 150px;
+
 }
 
 .address-title{
@@ -2411,7 +2413,7 @@ input#cvv{
     margin-top: 10px;
 }*/
 
-#pageHome .miniCartUL,#pageCategoryStatic .miniCartUL, #pageFAQ .miniCartUL, #contact .miniCartUL{
+#pageHome .miniCartUL,#pageCategoryStatic .miniCartUL, #pageFAQ .miniCartUL, #contact .miniCartUL, #pageMyAccount .miniCartUL{
     display: none;
 }
 
@@ -2434,11 +2436,9 @@ input#cvv{
     margin-top: 40px !important; 
 }
 
-#pageCategoryStatic ul{
-/*    position: relative;
-    left: 50px;*/
+#pageCategoryStatic ul .showBullet, #pageCategoryStatic li .showBullet{
+    list-style: initial !important;
+    position: relative;
+    left: 50px;
 }
 
-#pageCategoryStatic ul, #pageCategoryStatic li{
-    /*list-style: initial !important;*/
-}
