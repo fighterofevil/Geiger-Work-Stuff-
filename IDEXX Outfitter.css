@@ -1190,6 +1190,9 @@ a.view-all{
 .btn.wishlist{
     display: block;
     margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /****Item Page****/
