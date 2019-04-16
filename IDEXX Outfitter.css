@@ -67,7 +67,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 body {
     line-height: 1;
-    color: black;
+    color: #333;
     background: white;
 }
 
@@ -120,7 +120,6 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#444444;
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     line-height: 18px;
@@ -145,12 +144,16 @@ p .pageItem{
 }
 
 a{ 
-    color:#84010F;
+    color: #00A7B5;
     text-decoration: none;
 }
 
+a:hover{
+    text-decoration: underline;
+}
+
 #footer{
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
     background-color: #97999B;
     color: #FFFFFF;
@@ -168,6 +171,10 @@ a{
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     font-size: 16px; 
+}
+
+.nav a:hover{
+    text-decoration: none;
 }
 
 div#DDmenu a{
@@ -197,10 +204,15 @@ h1{
     font-weight: 300;
     font-size: 36px;
     font-family: 'Open Sans', sans-serif;
+    margin:0;
 }
 
-#pageCategory h1{
-    margin-top: 15px;
+#pageCategory h1, #pageItem h1{
+    margin-top: 21px;
+    margin-bottom: 17px;
+    color: #D8292F;
+    font-weight: 300;
+    font-size: 36px;
 }
 
 h2{ 
@@ -216,12 +228,13 @@ h5{ }
 h6{ }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    font-size: 14px;
+    color: #333;
 }
 
 .image .price-box{
     color:#fff;
+    font-weight: bold;
 }
 
 .pagination-new li.active a{
@@ -240,7 +253,7 @@ h6{ }
 }
 
 #itemCodeList {
-    font-style: italic;
+    /*font-style: italic;*/
 }
 
 .show-estimate-calendar img{
@@ -278,7 +291,7 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#555;
+    color:#333;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
     font-size:12px
@@ -341,7 +354,7 @@ body{
     margin: 0 auto;
     width: 1024px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 
 }
 
@@ -398,13 +411,19 @@ body{
 * Place site styles here for things used on multiple pages like:
 * navigation, header, footer, etc */
 
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
 #header .logo a, #menu .logo a{
     background: url("../images/idexx-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 28px;
-    margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;
+/*    margin: 15px 0px 0px 20px;
+    padding: 10px 8px 0px 0px;*/
     width: 151px;
 }
 
@@ -505,7 +524,7 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 .utilNav ul{
@@ -722,40 +741,47 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    /*border:1px solid #777;*/
-    color:#000;
+    color: #000;
     padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #CCCCCC;
+    background-color: #F7F7F7;
+    color: #00A7B5;
+    height: 40px;
+    min-width: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .btn:hover{
-    background-color: #fff;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #E5F6F7;
 } 
 
 .btn-primary{
-    background-color: #84010F;
-    border:1px solid #777;
-    color:#FFF;
+    color: #FFF;
     font-weight: bold;
-    padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #00A7B5;
+    border: 1px solid #008F9C;
+    height: 40px;
+    min-width: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #008F9C;
 }
 
 .gift-btn {
@@ -783,6 +809,9 @@ tfoot tr td{
     font-family: 'Open Sans', sans-serif;
     width: 877px;
     margin: 0 auto;
+    font-weight: 300;
+    margin-top: 29px;
+    margin-bottom: 79px;
 
 }
 
@@ -1082,6 +1111,9 @@ td.ar{
     padding: 3px 5px;
     border: 1px solid #ccc;
     margin: 10px 0px 20px 0px;
+    height: 36px;
+    display: flex;
+    align-items: center;    
 }
 
 .active-filters{
@@ -1114,7 +1146,7 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #444;
+    background: #333;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
@@ -1123,7 +1155,8 @@ td.ar{
 
 .pagination-new {
     float: left;
-    width: 700px;
+    width: 775px;
+    padding-left: 10px;
 }
 
 .view-all {
@@ -1138,7 +1171,11 @@ td.ar{
 .pagination-new li{
     float: left;
     margin-right: 10px;
-    margin-top: 3px;
+    /*margin-top: 3px;*/
+}
+
+.pagination-new li a{
+    text-decoration: underline;
 }
 
 .pagination-new ul{
@@ -1147,6 +1184,7 @@ td.ar{
 
 a.view-all{
     margin-right: 10px;
+    text-decoration: underline;
 }
 
 .btn.wishlist{
@@ -1169,7 +1207,7 @@ a.view-all{
 }
 
 #pageItem .itemContent{
-    margin-top: 10px;
+    margin-top: 28px;
 }
 
 #pageItem .imageWindow{
@@ -1186,6 +1224,7 @@ a.view-all{
 
 .estimate-calendar {
     margin-top: 5px;
+    font-size: 16px;
 }
 
 .add-another-item  table {
@@ -2084,6 +2123,7 @@ div#DDmenu a::after{
     float: left;
     height: 20px;
     width: 107px;
+    padding-right: 20px;
 }
 
 #footer .logo span {
@@ -2095,4 +2135,43 @@ div#DDmenu a::after{
     display: flex;
     min-width: 280px;
     justify-content: space-between;    
+}
+
+.spotlightSlider{
+    max-height: 500px;
+}
+
+.spotlightSliderImg{
+    height: 500px;   
+    background-size: cover !important; 
+}
+
+.spotlightSliderImg1{
+    background: url("../images/spot-img1.jpg") no-repeat scroll left top transparent;
+}
+
+.spotlightSliderImg2{
+    background: url("../images/spot-img2.jpg") no-repeat scroll left top transparent;
+}
+
+.spotlightSliderImg3{
+    background: url("../images/spot-img3.jpg") no-repeat scroll left top transparent;
+}
+
+.spotlightSliderImg4{
+    background: url("../images/spot-img4.jpg") no-repeat scroll left top transparent;
+}
+
+
+#pageHome #content{
+    padding: 40px 20px 50px 20px;
+}
+
+
+.ui-widget-content{
+    color: #333 !important;
+}
+
+.utilNav a:hover, #footer a:hover{
+    text-decoration: underline;
 }
