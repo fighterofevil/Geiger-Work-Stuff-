@@ -1165,7 +1165,7 @@ td.ar{
 .pagination-new li{
     float: left;
     margin-right: 10px;
-    margin-top: 3px;
+    /*margin-top: 3px;*/
 }
 
 .pagination-new ul{
@@ -1185,12 +1185,12 @@ a.view-all{
 
 #itemForm > div {
     margin-bottom: 15px;
-    display: flex;
+    /*display: flex;*/
 }
 
 #pageItem .sidebar{
     width: 322px; 
-    display: initial !important;  
+    display: inline;
 }
 
 #pageItem .page{
