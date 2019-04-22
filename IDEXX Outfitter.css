@@ -304,15 +304,15 @@ label, .label {
     font-size:12px
 }
 
-#recentlyViewed a:hover {
+/*#recentlyViewed a:hover {
     color:#555;
     background-position:2px -48px;
     text-decoration:none;
     font-size:12px;
     color:#00acd4;
-}
+}*/
 
-.subcat-title a:hover{
+.subcat-title a:hover, #recentlyViewed a:hover{
     text-decoration: underline;
 }
 
@@ -775,13 +775,15 @@ tfoot tr td{
     border: 1px solid #CCCCCC;
     background-color: #F7F7F7;
     color: #00A7B5;
-    height: 40px;
+    height: 28px;
     min-width: 135px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
     font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;    
 }
 
 .btn:hover{
@@ -797,12 +799,14 @@ tfoot tr td{
     border-radius: 10px;
     background-color: #00A7B5;
     border: 1px solid #008F9C;
-    height: 40px;
+    height: 28px;
     min-width: 135px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .btn-primary:hover{
@@ -927,9 +931,9 @@ tfoot tr td{
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
-    color: #666666;
+    color: #333;
     font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
@@ -2216,6 +2220,36 @@ div#DDmenu a::after{
    /* IE10+ specific styles go here */  
     .login .btn{
         padding:0px !important;
+    }
+
+    div#DDmenu{
+        left: 0px;
+    }
+
+    div#DDmenu li:hover{
+        background-color: #97999B;
+    }
+
+    div#DDmenu li a:hover{
+        text-decoration: underline;
+    }    
+
+    div#DDmenu li{
+        float:none;
+        height: initial;
+        justify-content: left ;
+    }    
+
+    .nav li{
+        justify-content: flex-start;
+    }
+
+    .mini-cart{
+        justify-content: flex-start;
+    }
+
+    #cart-icon{
+        margin: 5px 0px 0px 10px;
     }
 
 }
