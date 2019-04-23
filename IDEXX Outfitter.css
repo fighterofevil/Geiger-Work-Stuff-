@@ -1904,7 +1904,11 @@ input#cvv{
     color: #FC9801;
     text-shadow: none;
     font-weight: bold;
+}
 
+#addwishlistdiv{
+    position: relative;
+    float: right;
 }
 
 .warningText{
@@ -2252,4 +2256,18 @@ div#DDmenu a::after{
         margin: 5px 0px 0px 10px;
     }
 
+}
+
+.wishBtn{
+    position: relative;
+    float: left;
+    margin-right: 15px;    
+}
+
+#pageForgottenPassword #login{
+    margin-bottom: 15px;
+}
+
+#pageBasket .btn{
+    margin-top: 15px;
 }
