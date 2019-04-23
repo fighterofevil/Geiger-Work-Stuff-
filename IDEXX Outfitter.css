@@ -2236,7 +2236,7 @@ div#DDmenu a::after{
 
     div#DDmenu li{
         float:none;
-        height: initial;
+        height: 42px;
         justify-content: left ;
     }    
 
