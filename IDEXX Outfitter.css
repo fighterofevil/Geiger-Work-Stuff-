@@ -2220,6 +2220,34 @@ div#DDmenu a::after{
 }
 
 
+.wishBtn{
+    position: relative;
+    float: left;
+    margin-right: 15px;    
+}
+
+#pageForgottenPassword #login{
+    margin-bottom: 15px;
+}
+
+#pageBasket .btn{
+    margin-top: 15px;
+}
+
+.ship-to-multiple{
+    margin-right: 10px !important;
+}
+
+.checkoutFlex{
+    display: flex;
+    justify-content: space-between;
+}
+
+#singleAddy{
+    height: initial;
+    margin-right: 10px;
+}
+
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
    /* IE10+ specific styles go here */  
@@ -2259,20 +2287,3 @@ div#DDmenu a::after{
 
 }
 
-.wishBtn{
-    position: relative;
-    float: left;
-    margin-right: 15px;    
-}
-
-#pageForgottenPassword #login{
-    margin-bottom: 15px;
-}
-
-#pageBasket .btn{
-    margin-top: 15px;
-}
-
-.ship-to-multiple{
-    margin-right: 10px !important;
-}
