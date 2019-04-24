@@ -1920,7 +1920,7 @@ ul.radios-list li label{
 
 #new-address-modal {
     width:600px;
-    height: 550px;
+    height: 562px;
     padding: 0px 20px;
     background-color:#FFF;
     overflow:auto;  /* safe scroll for all browsers */
@@ -4824,6 +4824,6 @@ input#cvv{
     margin-left: 15px;
 }
 
-#singleAddy{
+#singleAddy, .ship-to-multiple{
     margin-right: 10px;
 }
