@@ -2157,3 +2157,7 @@ input#cvv{
     font-size: 28px;
     padding-right: 10px;
 }
+
+.welcomemsg{
+    margin-left: initial !important;
+}
