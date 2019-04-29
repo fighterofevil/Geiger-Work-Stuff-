@@ -150,17 +150,18 @@ a{
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
-    background-color: #e5e5e5;
+    color: #fff;
+    background-color: #004477;
 }
 
 #footer a{
-    color:#444;
+    color:#fff;
 }
 
 .nav a{
-    color: #ffffff;
+    color: #333333;
     font-size: 22px;
     text-decoration: none;
     line-height: 45px;
@@ -308,16 +309,19 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    height: 50px;
     margin: 0 auto;
+    background-color: #0061AA;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
+    width: 1024px;
     text-align: right;
-    margin-top: 15px;
+    margin: 0 auto;
 }
 
 #footer .wrapper{
@@ -382,17 +386,17 @@ body{
 * Place site styles here for things used on multiple pages like:
 * navigation, header, footer, etc */
 
-#header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+#header .logo a, #menu .logo a{
+    background: url("../images/ww-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
-    margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;
-    width: 142px;
+     height: 43px;
+    /* margin: 15px 0px 0px 20px; */
+    /* padding: 10px 8px 0px 0px; */
+    width: 225px;
 }
 
-#header .logo span {
+#header .logo span, #menu .logo span {
     display: none;
 }
 
@@ -422,9 +426,13 @@ body{
 
 #menu{
     z-index:100;
-    height: 45px;
+    height: 84px;
     /*margin-bottom: 15px;*/
-    background: #8E0215;
+    /*    background: #8E0215;*/
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
 }
 
 #menuWrapper{
@@ -482,11 +490,20 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    padding-left: 17px;
+    padding-right: 17px;    
 }
 
 .utilNav ul{
     float: right;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -498,7 +515,7 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    width: 380px;
+    /*width: 380px;*/
     float: right;
 }
 
@@ -531,13 +548,13 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
+    /*padding-top: 20px;*/
     float: right;
 }
 
 #searchForm div{
-    border: 1px solid #aaaaaa;
-    background-color: #fff;
+    border: 1px solid #ccc;
+    background-color: #F2F2F2;
     width: 210px;
     height: 35px;
     display: flex;
@@ -550,6 +567,7 @@ div#DDmenu li a:hover{
     width: 148px;
     float: left;
     padding-left: 2px;
+    background-color: #F2F2F2;
 }
 
 #searchForm input#searchBtn{
@@ -753,9 +771,9 @@ tfoot tr td{
 }
 
 .spotlight {
- /*   background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
-    width: 1024px;
-    height: 576px;*/
+    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;
+    height: 500px;
+    background-size: cover;
 }
 
 /*Featured Products Carousel*/
@@ -1987,7 +2005,7 @@ input#cvv{
     float: left;
     cursor: pointer;
     font-size: 30px !important;
-    color: #4F5559;
+    color: #F9BF0C;
     top: 4px;
     padding-left: 10px;    
 }
@@ -1995,4 +2013,26 @@ input#cvv{
 .featuredwrap{
     display: flex;
     justify-content: space-between;    
+}
+
+#header .wrapper .utilNav li a{
+    color: #fff;
+}
+
+.welcomemsg{
+    color: #fff;
+}
+
+#header .wrapper .utilNav li.welcomemsg:hover{
+    background-color: initial !important;
+}
+
+.utilNav li:hover{
+    background-color: #004477;
+}
+
+.mini-cart a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
