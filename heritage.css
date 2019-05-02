@@ -541,7 +541,7 @@ div#DDmenu li a:hover{
 .mini-cart{
     margin-top: -8px;
     background-color: #C2E189;    
-    width: 210px;
+    min-width: 210px;
     margin-left: initial !important;
 }
 
@@ -2441,4 +2441,3 @@ input#cvv{
     position: relative;
     left: 50px;
 }
-
