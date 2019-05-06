@@ -733,7 +733,7 @@ tfoot tr td{
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 178px;
+    min-width: 135px;
     color: #333333;
     font-weight: bold;
 }
@@ -2126,4 +2126,19 @@ input#cvv{
     color: #185B8F;
     font-size: 12px;
     font-weight: bold;
+}
+
+.welcomemsg strong{
+    font-weight: 300;
+    margin-right: 10px;
+}
+
+.pointBtn {
+    position: relative;
+    float: left;
+}
+
+.pointBtn-primary{
+    position: relative;
+    float: right;   
 }
