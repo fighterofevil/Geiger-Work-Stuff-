@@ -749,9 +749,9 @@ tfoot tr td{
     -webkit-border-radius:3px;
     border-radius:3px;
     height: 35px;
-    width: 190px;    
+    min-width: 190px;    
     display: flex;    
-    align-items: center;
+    /*align-items: center;*/
     justify-content: center;    
     font-size: 16px;
     font-weight: bold;
@@ -778,7 +778,7 @@ tfoot tr td{
     height: 35px;
     width: 190px;    
     display: flex;    
-    align-items: center;
+    /*align-items: center;*/
     justify-content: center;   
     font-size: 16px;  
     font-family: benton-sans, sans-serif;        
