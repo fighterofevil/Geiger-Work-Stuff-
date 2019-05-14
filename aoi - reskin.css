@@ -29,7 +29,7 @@
 /************ CSS Reset *************/
 
 .checkoutQuestions {
-	width: 265px !important;
+	/*width: 265px !important;*/
 }
 
 html{
@@ -63,7 +63,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 ol, ul, li {
     list-style: none;
-    line-height: 20px;
 }
 
 /* tables still need 'cellspacing="0"' in the markup */
@@ -133,7 +132,10 @@ p .pageItem{
 }
 
 a{ 
-    color:  #0066B2;
+    color: #1D355E;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
 }
 
 #footer{
@@ -151,16 +153,23 @@ a{
     text-decoration: none;
 }
 
+#footer a:hover{
+    text-decoration: underline;
+}
+
 div#DDmenu a{
 }
 
 h1{
     font-size: 28px;
-    font-weight: 700;
+    margin-bottom: 20px;
 }
 #pageCategory h1{
     margin-top: 15px;
-    color: #4478ad;      font-size: 24px;      font-weight: normal;      line-height: 26px;      margin-bottom: 5px;
+    font-size: 30px;     
+    font-weight: normal;      
+    line-height: 26px;      
+    margin-bottom: 10px;
 }
 
 h2{
@@ -174,8 +183,8 @@ h5{ }
 h6{ }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    font-size: 14px;
+    color:#333;
 }
 
 .image .price-box{
@@ -207,10 +216,13 @@ label, .label {
 } 
 
 .sidebar .title{
-font-weight: bold;
-font-size: 20px;
-margin-top:10px;
-margin-bottom: 10px;}
+    font-weight: bold;
+    font-size: 14px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    color: #333;
+    text-transform: uppercase;
+}
 
 /*********** Global - Structure *************
 Place style here that define the global stturctre. Wrapper divs, one coloumn, two column definitions, etc*/
@@ -239,6 +251,7 @@ body{
     text-align: left;
     width: 1024px;
     /*min-height: 787px;*/
+    margin-top: 30px;
 }
 
 #content{
@@ -248,6 +261,7 @@ body{
     display: block;
     text-align: left;
     background-color: #fff;
+    margin-bottom: 20px;    
 }
 
 #header{
@@ -410,14 +424,25 @@ body{
     min-width: 200px;
 }
 
+.productCategories::after{
+    content: '\e313';
+    position: relative;
+    height: 0;
+    width: 0;
+    font-family: Material Icons;
+    font-size: 30px;
+    bottom: 20px;
+    color: #fff;
+}
+
 div#DDmenu{
     position: absolute;
     z-index: 100;
     display: none;
-    min-height: 475px; /* was 430 */
-    background: #176ab3;
+    min-height: 445px; /* was 430 */
+    /*background: #176ab3;*/
     margin-top: 262px;
-    background: 
+/*    background: 
     -moz-linear-gradient(top, #176ab3 0%, #176ab3 42%, #173155 100%);
     background: 
     -webkit-gradient(left top, left bottom, color-stop(0%, #176ab3), color-stop(42%, #176ab3), color-stop(100%, #173155));
@@ -428,7 +453,11 @@ div#DDmenu{
     background: 
     -ms-linear-gradient(top, #176ab3 0%, #176ab3 42%, #173155 100%);
     background: linear-gradient(to bottom, #176ab3 0%, #176ab3 42%, #173155 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#176ab3', endColorstr='#173155', GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#176ab3', endColorstr='#173155', GradientType=0 );*/
+    background-color: #000000;
+    opacity: 0.85;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -440,14 +469,25 @@ div#DDmenu li{
     background: none !important;
     height: 18px;
     margin: 0px 7px 2px;
+    justify-content: initial;
+    text-align: left;
+    margin-left: 17px;    
 }
 
 div#DDmenu li a{
-text-transform: none;font-weight: normal;color: #dbdbdb;background: none !important;padding: 0px !important;line-height: 23px;}
+    text-transform: none;
+    font-weight: normal;
+    color: #dbdbdb;
+    background: none !important;
+    padding: 0px !important;
+    line-height: 23px;
+    min-width: 170px;
+}
 
 div#DDmenu li a:hover{
     text-decoration: none;
     color: #fff;
+    color: #11AAEE;
 }
 
 /****Utility Nav****/
@@ -513,6 +553,7 @@ div#DDmenu li a:hover{
 .search {
     clear: right;
     float: right;
+    padding-left: 50px;
 }
 
 .searchGlass{
@@ -676,14 +717,19 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    border:1px solid #777;
+    /*background-color: #E7E7E7;*/
+    /*border:1px solid #777;*/
     color:#000;
     padding: 5px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    height: 40px;
+    color: #22CCFF;
+    border: 1px solid #22CCFF;
+    text-transform: uppercase;
+    font-weight: bold;    
 }
 
 .btn:hover{
@@ -692,10 +738,12 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    background-color: #22CCFF;
+    text-decoration: none;
+    color: #fff;
 } 
 
 .btn-primary{
-    background-color: #00A358;
     border:1px solid #777;
     color:#FFF;
     font-weight: bold;
@@ -704,14 +752,18 @@ tfoot tr td{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    background-color: #11AAEE;
+    height: 40px;
+    text-transform: uppercase;    
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
+    background-color: #22CCFF;
     /* text-decoration: underline; */
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+    text-decoration: none;
 }
 
 /*********** Page Experience Specific Styles *************
@@ -974,9 +1026,13 @@ td.ar{
 
 .sortView{
     background-color: #eaebec;
-    padding: 3px 5px;
-    border: 1px solid #ccc;
-    margin: 10px 0px 20px 0px;
+    /*padding: 3px 5px;*/
+    /*border: 1px solid #ccc;*/
+    margin: 20px 0px 20px 0px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;    
 }
 
 .active-filters{
@@ -999,8 +1055,8 @@ td.ar{
 
 .item .image img{
     border:1px solid #ccc;
-    padding: 12px;
-    width: 125px;
+/*    padding: 12px;*/
+    width: 150px;
 }
 
 .item .badges img{
@@ -1031,21 +1087,23 @@ td.ar{
 .pagination-new {
     float: left;
     width: 700px;
+    right: 40px;
+    position: relative; 
 }
-
 .view-all {
     float: left;
 }
 
 .sortControl {
     float: right;
-    margin-left: 15px;
+    /*margin-left: 15px;*/
+    left: 45px;
+    position: relative;
 }
 
 .pagination-new li{
     float: left;
     margin-right: 10px;
-    margin-top: 3px;
 }
 
 .pagination-new ul{
@@ -1096,7 +1154,7 @@ a.view-all{
 }
 
 #pageItem .page{
-    width: 600px;   
+    /*width: 600px;   */
 }
 
 #pageItem .itemContent{
@@ -1258,7 +1316,7 @@ ul.radios-list li label{
 
 .co-breadcrumb{
   background-image: url("../images/bg/checkout_sprite.png");
-  background-position: 103% 0;
+  background-position: 107% 0;
   background-repeat: no-repeat;
   margin: 30px 0;
 }
@@ -1269,11 +1327,11 @@ ul.radios-list li label{
 }
 
 .co-breadcrumb.step2 {
-    background-position: 85% 0;
+    background-position: 89% 0;
 }
 
 .co-breadcrumb.step3{
-  background-position: 69% 0;
+  background-position: 72% 0;
 }
 
 .co-breadcrumb.step4{
@@ -1415,7 +1473,7 @@ float: right;
     #new-address-modal label {display:block;margin-top:10px; font-weight:bold;text-align: left;}
     #new-address-modal label span {font-weight:normal; color:#999; padding:0 4px; font-size:11px}
     #new-address-modal .half {float:left;margin-right:20px}
-    #new-address-modal input {display:block; margin:2px 0; width:220px}
+    #new-address-modal input {display:block; margin:2px 0; width:210px}
     #new-address-modal .default {margin:10px 0;}
     #new-address-modal .default label, #new-address-modal .default input {display:inline;width:auto;}
     #new-address-modal .default label {font-weight:normal;position:relative;top:2px;left:4px;}
@@ -1641,8 +1699,9 @@ input#cvv{
 }
 
 .question {
-    /* display: inline; */
+    display: flex;
     margin-bottom: 8px;
+    justify-content: space-between;
 }
 
 /****Checkout ????????? Review****/
@@ -1952,6 +2011,10 @@ input#cvv{
     text-decoration: none;
     color: #000000;
     font-size: 15px;
+}
+
+#header .wrapper .utilNav li a:hover{
+    text-decoration: underline;
 }
 
 .mini-cart a {
@@ -2380,4 +2443,45 @@ display:none;
 
 .infoBoxMI{
     font-size: 48px !important;
+    margin-bottom: 11px;
+}
+
+.infoBoxDiv{
+    width: 200px;
+    line-height: 21px;
+}
+
+#recentlyViewed a{
+    color: #333;
+    font-weight: 300;
+}
+
+.pagination-new a{
+    font-weight: 300;
+    text-decoration: underline;
+}
+
+.price strong{
+    font-weight: 300;
+}
+
+#pageItem h1{
+    margin-bottom: 20px;
+}
+
+.ui-widget-content.ui-tabs{
+    margin-top: 15px;
+}
+
+.address-title{
+    margin-bottom: 30px;
+}
+
+.address-options a{
+    padding-top: 11px;
+    padding-bottom: 9px;    
+}
+
+#recentlyViewed li{
+    margin-bottom: 10px;
 }
