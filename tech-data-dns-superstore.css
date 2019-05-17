@@ -2773,5 +2773,6 @@ input#cvv{
     }
 }
 
-
-
+.checkoutQuestions input{
+    min-width: 127px;
+}
