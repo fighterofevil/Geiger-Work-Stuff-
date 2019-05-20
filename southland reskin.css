@@ -57,7 +57,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 body {
     line-height: 1;
-    color: black;
+    color: #3D3935;
     background: white;
 }
 ol, ul, li {
@@ -103,7 +103,7 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 body{
     color:#444444;
-    font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+    font-family: sofia-pro, sans-serif;
     font-size: 14px;
     line-height: 18px;
 }
@@ -127,6 +127,10 @@ p .pageItem{
 
 a{ 
     color: #ff4e04;
+}
+
+a:hover{
+    color: #F47A58;
 }
 #footer{
     font-size: 12px;
@@ -166,7 +170,7 @@ h1{
     font-weight: bold;
     font-size: 26px;
     padding: 0;
-    margin: 0px 0px 15px 0px;
+    margin: 0px 0px 20px 0px;
     line-height: 30px;
 }
 #pageHome h1{
@@ -174,6 +178,9 @@ h1{
 }
 #pageCategory h1{
     margin-top: 15px;
+    color: #F05023;
+    font-size: 30px;
+    font-weight: 300;
 }
 h2{ 
     font-size:22px;
@@ -193,8 +200,11 @@ h4{ }
 h5{ }
 h6{ }
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    text-decoration: none;
+    color: #3D3935;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 20px;    
 }
 .image .price-box{
     color:#fff;
@@ -213,6 +223,7 @@ h6{ }
     font-size: 18px;
     font-weight: bold;
     margin: 10px;
+    color: #333;
 }
 label, .label {
     font-weight: bold;
@@ -223,12 +234,28 @@ label, .label {
     font-weight: bold;
 } 
 
-.sidebar .title{
-font-weight: bold;
-font-size: 20px;
-margin-top:10px;
+.sidebar .title, .facettitle{
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #F2F2F2;
+    margin-bottom: 7px;
 }
 
+.facettitle{
+    border-bottom: initial;    
+}
+
+.subcat-title a, #recentlyViewed a{
+    font-size: 13px;
+    color: #3D3935;
+    text-decoration: none;
+    padding:3px 2px 3px 33px;
+    display:block;
+    background:url(../images/arrow-menu.png) 2px 1px no-repeat;
+}
 
 /*********** Global - Structure *************
 Place style here that define the global stturctre. Wrapper divs, one coloumn, two column definitions, etc*/
@@ -247,11 +274,12 @@ body{
     /*width: 960px;*/
     min-height: 787px;
 }
-#content{
-   
+#content{   
     z-index: 1;
     clear: both;
-    padding: 15px 20px;
+    padding: 29px 20px;
+    width: 1024px;
+    margin: 0 auto;    
 }
 #header{
     height: 215px;
@@ -281,9 +309,11 @@ body{
 }
 
 .repInfo {
-    float: left;
-    padding-right: 15px;
-    width: 285px;
+    margin: 0 auto;
+    width: 250px;
+    position: relative;
+    top: 20px;
+    font-weight: 900;
 }
 
 .sidebar {
@@ -367,6 +397,7 @@ body{
     height: 50px;
     /* margin: 50px 0px 5px; */
     clear: both;
+    border-bottom: 1px solid #E6E6E6;    
 }
 
 #menuWrapper{
@@ -481,18 +512,13 @@ div#DDmenu li a:hover{
 }
 
 .mini-cart a{
-/*    display: block;
-    float: left;
-    font-size: 12px;
-    font-weight: normal;
-    line-height: 18px;
-    text-decoration: none;
-    padding: 0;
-    text-transform: uppercase;
-    width: 50px;*/
+/*    height: 26px !important;
+    width: 160px;
+    margin: initial;
+    display: inline-block;
     background: url(../images/cart-icon.png) no-repeat scroll left top transparent;
-    width: 33px;
-    height: 25px;    
+    text-decoration: none;
+    text-align: right;*/
 }
 
 .mini-cart a:hover{
@@ -564,7 +590,7 @@ table a:hover {
     text-decoration:underline;
 }
 table {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:sofia-pro, sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -658,38 +684,38 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    border:1px solid #777;
-    color:#000;
-    padding: 5px 10px;
+    color: #3D3935;
+    font-weight: 900;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #E6E6E6;
+    height: 40px;
+    min-width: 155px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 .btn:hover{
-    background-color: #fff;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #F2F2F2;
 } 
 
 .btn-primary{
-    background-color: #FF4E04;
-    border:1px solid #777;
-    color:#FFF;
-    font-weight: bold;
-    padding: 5px 10px;
+    color: #FFF;
+    font-weight: 900;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #F05023;
+    height: 40px;
+    min-width: 155px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
+
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #F16139;
 }
 
 /*********** Page Experience Specific Styles *************
@@ -702,11 +728,18 @@ tfoot tr td{
     background-color: #E6E1DD;
 }
 
-.spotlightWrapper{
-    background: url("../images/spot-img.jpg") transparent no-repeat;    
+.spotlightWrapper, .spotlightWrapperCustom{
     height: 450px;
     width: 1024px;
     margin: 0 auto;    
+}
+
+.spotlightWrapper{
+    background: url("../images/spot-img.jpg") transparent no-repeat;    
+}
+
+.spotlightWrapperCustom{
+    background: url("../images/custom-items.png") transparent no-repeat;    
 }
 
 .welcome-message{
@@ -784,7 +817,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: sofia-pro, sans-serif;
     font-size: 12px;
     margin: 0px;
     padding: 15px;
@@ -812,7 +845,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: sofia-pro, sans-serif;
     font-size: 12px;
     margin: 20px 0 20px 0;
     padding: 15px;
@@ -822,7 +855,7 @@ tfoot tr td{
 
 /****Login****/
 .login form{
-        font-family:Arial, Helvetica, sans-serif;
+    font-family:sofia-pro, sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -858,7 +891,7 @@ a.forgotPassword{
 
 
 #registration form#registerForm{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:sofia-pro, sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -902,7 +935,7 @@ a.forgotPassword{
 }
 
 #pageMyAccount form.myAccountForm{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:sofia-pro, sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -963,7 +996,7 @@ display:none;
 }
 .sortView{
     background-color: #eaebec;
-    padding: 3px 5px;
+    padding: 4px 13px;
     border: 1px solid #ccc;
     margin: 10px 0px 20px 0px;
 }
@@ -1016,7 +1049,7 @@ display:none;
 .pagination-new li{
     float: left;
     margin-right: 10px;
-    margin-top: 3px;
+    /*margin-top: 3px;*/
 }
 
 .pagination-new ul{
@@ -1039,17 +1072,14 @@ a.view-all{
     width: 300px;   
 }
 #pageItem .page{
-    width: 600px;   
+    width: 600px; 
+    font-size: 16px;  
 }
 #pageItem .itemContent{
     margin-top: 15px;
 }
 #pageItem .imageWindow{
     border:1px solid #ccc;
-}
-
-#pageItem .price {
-    margin: 10px;
 }
 
 #pageItem .actions{
@@ -1097,7 +1127,7 @@ input.qty-input{
 
 
 .ui-tabs-panel{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:sofia-pro, sans-serif;
     color:#666;
     font-size:12px;
     background:#eaebec;
@@ -1106,7 +1136,8 @@ input.qty-input{
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
     box-shadow: 0 1px 2px #d1d1d1;
     padding: 15px;
-    height:150px !important;
+    height:100% !important;
+    /*height:150px !important;*/
 }
 
 .ui-corner-bottom{
@@ -1191,7 +1222,7 @@ ul.radios-list li label{
 /**** Checkout General ****/
 .co-breadcrumb{
   background-image: url(../images/bg/checkout_sprite.png);
-  background-position: 96% 0;
+  background-position: 108% 0;
   background-repeat: no-repeat;
   margin: 30px 0;
 }
@@ -1201,10 +1232,10 @@ ul.radios-list li label{
 }
 
 .co-breadcrumb.step2 {
-    background-position: 80% 0;
+    background-position: 90% 0;
 }
 .co-breadcrumb.step3{
-  background-position: 64% 0;
+  background-position: 72% 0;
 }
 .co-breadcrumb.step4{
   background-position: 51% 0;
@@ -1246,9 +1277,10 @@ ul.radios-list li label{
   margin-left: 60px;
 }
 .address-options {
-text-align: right;
-margin: -5px 0 8px;
-float: right;
+    text-align: right;
+    margin: -5px 0 8px;
+    float: right;
+    display: flex;
 }
 
 
@@ -1377,7 +1409,7 @@ float: right;
 }
 .tabs .tab {
 
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:sofia-pro, sans-serif;
     color:#666;
     font-size:12px;
     background:#FFFFFF;
@@ -1507,7 +1539,7 @@ input#cvv{
     text-align: center;
     font-size: 19px;
     line-height: 20px;
-    font-family: arial;
+    font-family: sofia-pro, sans-serif;
     color: #FFF;
     text-shadow: 0px 0px 2px #000;
     box-shadow: 0px 1px 1px 0px #aaa;
@@ -1524,7 +1556,7 @@ input#cvv{
 
 /****Checkout ????????? Review****/
 .location{
-        font-family:Arial, Helvetica, sans-serif;
+        font-family:sofia-pro, sans-serif;
         color:#666;
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
@@ -1772,7 +1804,7 @@ input#cvv{
 }
 
 #payment_gift_card a {
-    text-decoration: none;
+/*    text-decoration: none;
     color: rgb(255, 255, 255);
     padding: 6px;
     border-top-right-radius: 4px;
@@ -1787,11 +1819,23 @@ input#cvv{
     border: 1px solid #777;
     display: block;
     width: 180px;
-    text-align: center;
+    text-align: center;*/
+    color: #FFF;
+    font-weight: 900;
+    cursor: pointer;
+    background-color: #F05023;
+    height: 40px;
+    width: 165px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;    
+    text-decoration: none;
 }
 
 #payment_gift_card a:hover  {
-    background: #84C44A;
+    background-color: #F16139;
 }
 
 table.no-border {
@@ -1857,11 +1901,11 @@ table.no-border tr, table.no-border td {
 }
 
 .home-content{
-    width: 1024px;
-    margin: 0 auto;
+/*    width: 1024px;
+    margin: 0 auto;*/
 }
 
-.trendNew{
+.trendNew,.connectShop{
     color: #F05023;
     font-size: 30px;
     display: flex;
@@ -1893,11 +1937,28 @@ table.no-border tr, table.no-border td {
     height: 215px;
 }
 
+.shopNow{
+    display: flex;
+}
+
+.newItems, .shopNow, .letsConnect{
+   margin-top: 20px !important;
+}
+
 .newItems{
     background: url("../images/new-img.png") transparent;       
     width: 425px;
     height: 175px;
-    margin-top: 20px;
+}
+
+.shopNow, .letsConnect{
+    background-color: #F2F2F2;
+    width: 460px;
+    height: 120px;
+    font-size: 17px;
+    color: #3D3935;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .sf-menu a:hover{
@@ -1912,16 +1973,119 @@ table.no-border tr, table.no-border td {
 
 .searchGlass {
     position: relative; 
-    /* float: left; */
-    /* cursor: pointer; */
-    /* font-size: 30px !important; */
-    /* color: #4F5559; */
-    /* top: 4px; */
-    /* padding-left: 10px; */
     background: url(../images/search-icon.png) transparent no-repeat;
     height: 28px;
     width: 32px;
     border: initial;
     left: 9px;
     top: 1px;
+}
+
+.cartImg{
+    margin-right: 11px;
+    position: relative;
+    bottom: 4px;
+}
+
+.def strong{
+    font-weight: 300;
+}
+
+#recentlyViewed{
+    margin-top: 31px;
+}
+
+#pageItem h1{
+    color: #F05023;
+    font-size: 30px;
+    text-transform: initial;
+    font-weight: 300;
+}
+
+
+.estimate-calendar a, #addAnother a{
+    text-decoration: none;
+}
+
+.address-title{
+    margin-bottom: 30px;
+}
+
+#singleAddy{
+    width: 190px;
+}
+
+#pageCheckoutSplitAddress .f-buttons{
+    display: flex;
+}
+
+#pageMyAccount .btn-primary{
+    min-width: 170px;
+}
+
+.letsConnectIcon{
+    color: #F05023;
+    font-size: 24px;
+    margin-right: 13px;
+}
+
+.repInfoData{
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px; 
+}
+
+.shopInfo{
+    width: 280px;
+}
+.laptop{
+    width: 200px;
+    height: 116px;
+    background: url(../images/shop-laptop.png) transparent no-repeat;
+}
+
+.shopGeiger{
+    display: flex;
+    justify-content: space-between;
+    top: 22px;
+    position: relative;
+}
+
+.Geiger{
+    background: url(../images/geiger-logo.png) transparent no-repeat;
+    width: 108px;
+    height:40px;
+}
+
+
+.shopButton{
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 16px;
+    background-color: #DA291C;
+    padding: 10px 28px;
+    border-radius: 5px; 
+}
+
+.shopButton:hover{
+    color: #fff;
+}
+
+.spotlightWrapperCustomText{
+    color: #3D3935;
+    font-size: 25px;
+    font-weight: 900;
+    position: relative;
+    /*top: 410px;*/
+    width: 1024px;
+    display: flex;
+    justify-content: space-evenly;
+    letter-spacing: 1px;    
+}
+
+.spotlightWrapperCustomBox{
+    background-color: #3D3935;
+    opacity: 0.5;
+    width: 549px;
+    height: 120px;
 }
