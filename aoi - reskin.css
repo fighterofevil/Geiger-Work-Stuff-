@@ -115,7 +115,7 @@ strong{
 
 p{
     margin-bottom: 15px;
-    line-height: 17px;
+    line-height: 18px;
 }
 
 p .pageItem{
@@ -135,7 +135,11 @@ a{
     color: #1D355E;
     font-weight: bold;
     font-size: 14px;
-    text-decoration: none;
+    text-decoration: underline;
+}
+
+a:hover{
+    color: #2F456B;
 }
 
 #footer{
@@ -151,6 +155,7 @@ a{
 #footer a{
     color: #fff;
     text-decoration: none;
+    font-weight: 400;
 }
 
 #footer a:hover{
@@ -177,7 +182,9 @@ h2{
     margin-bottom: 15px;
 }
 
-h3{ }
+h3{ 
+    margin-bottom: 10px;
+}
 h4{ }
 h5{ }
 h6{ }
@@ -217,7 +224,7 @@ label, .label {
 
 .sidebar .title{
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     margin-top:10px;
     margin-bottom: 10px;
     color: #333;
@@ -234,7 +241,7 @@ html{
 
 body{
     font-family: 'Quicksand', sans-serif;
-    color: #1D355E;   
+    color: #333;   
     text-align: center;      
     /*background: url("../images/bkg.jpg") repeat-x center top #04397a;      */
     font-size: 14px;
@@ -261,11 +268,13 @@ body{
     display: block;
     text-align: left;
     background-color: #fff;
-    margin-bottom: 20px;    
+    margin-bottom: 50px;    
+    padding-left: 20px;
 }
 
 #header{
     height: 100px;
+    background-color: #e7e7e8;
 }
 
 #header .wrapper{
@@ -414,6 +423,7 @@ body{
     /*background: url('../images/navbullet.png') center left no-repeat;*/
     padding-left: 14px;
     font-size: 16px;
+    font-weight: 400;
 }
 
 .nav .menulast a {
@@ -458,6 +468,8 @@ div#DDmenu{
     opacity: 0.85;
     padding-top: 15px;
     padding-bottom: 15px;
+    min-width: 200px;
+    left: 30px;    
 }
 
 li.productCategories:hover div#DDmenu{
@@ -543,7 +555,7 @@ div#DDmenu li a:hover{
 
 #cart-icon{
     float: left;
-    font-size: 28px;
+    font-size: 24px;
     margin: 5px 5px 0px 0px;    
     color: #5FCAFA;
 }
@@ -560,7 +572,7 @@ div#DDmenu li a:hover{
     position: relative;
     float: left;
     cursor: pointer;
-    font-size: 30px !important;
+    font-size: 24px !important;
     color: #fff;
     top: 4px;
     padding-left: 10px;    
@@ -581,6 +593,7 @@ div#DDmenu li a:hover{
     float: left;
     padding-left: 2px;
     background-color: initial;
+    color: #fff;
 }
 
 #searchForm input#searchBtn{
@@ -597,7 +610,7 @@ Feel free to change as needed*/
 
 table a:link {
     font-weight: bold;
-    text-decoration:none;
+    text-decoration:underline;
 }
 
 table a:visited {
@@ -608,13 +621,13 @@ table a:visited {
 
 table a:active,
 table a:hover {
-    color: #bd5a35;
+    color: #2F456B;
     text-decoration:underline;
 }
 
 table {
     font-family: 'Quicksand', sans-serif;
-    color:#666;
+    color:#333;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
@@ -626,7 +639,7 @@ table {
     -moz-box-shadow: 0 1px 2px #d1d1d1;
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
     box-shadow: 0 1px 2px #d1d1d1;
-    width: 95%;
+    width: 100%;
 }
 
 table th {
@@ -730,6 +743,11 @@ tfoot tr td{
     border: 1px solid #22CCFF;
     text-transform: uppercase;
     font-weight: bold;    
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    padding: 10px 10px;
 }
 
 .btn:hover{
@@ -744,10 +762,9 @@ tfoot tr td{
 } 
 
 .btn-primary{
-    border:1px solid #777;
     color:#FFF;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 10px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -755,6 +772,10 @@ tfoot tr td{
     background-color: #11AAEE;
     height: 40px;
     text-transform: uppercase;    
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    font-size: 16px;    
 }
 
 .btn-primary:hover{
@@ -774,9 +795,9 @@ tfoot tr td{
 /*Featured Products Carousel*/
 
 .featured-product-carousel{
-    padding-top: 54px;
+    padding-top: 40px;
     text-align: center;
-    margin-bottom: 52px;
+    margin-bottom: 55px;
 }
 
 .featured-product-carousel .title{
@@ -824,8 +845,8 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item img{
-    height:200px;
-    width:200px;
+    height:175px;
+    width:175px;
     background: #fff;
 }
 
@@ -846,13 +867,14 @@ tfoot tr td{
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
-    color: #666666;
+    color: #1d355e;
     font-family: 'Quicksand', sans-serif;
     font-size: 12px;
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
     width: 660px;
+    font-weight: 700;    
 }
 
 #pageFAQ h2:hover{
@@ -878,7 +900,7 @@ tfoot tr td{
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
-    color: #666666;
+    color: #333;
     font-family: 'Quicksand', sans-serif;
     font-size: 12px;
     margin: 20px 0 20px 0;
@@ -891,7 +913,7 @@ tfoot tr td{
 
 .login form{
     font-family: 'Quicksand', sans-serif;
-    color:#666;
+    color:#333;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
@@ -925,7 +947,7 @@ a.forgotPassword{
 
 #registration form#registerForm{
     font-family: 'Quicksand', sans-serif;
-    color:#666;
+    color:#333;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
@@ -968,7 +990,7 @@ a.forgotPassword{
 
 #pageMyAccount form.myAccountForm{
     font-family: 'Quicksand', sans-serif;
-    color:#666;
+    color:#333;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
@@ -1032,7 +1054,7 @@ td.ar{
     height: 36px;
     display: flex;
     align-items: center;
-    justify-content: space-around;    
+    justify-content: flex-end;    
 }
 
 .active-filters{
@@ -1086,8 +1108,8 @@ td.ar{
 
 .pagination-new {
     float: left;
-    width: 700px;
-    right: 40px;
+    width: 810px;
+    /* right: 40px; */
     position: relative; 
 }
 .view-all {
@@ -1095,10 +1117,11 @@ td.ar{
 }
 
 .sortControl {
-    float: right;
+/*    float: right;*/
     /*margin-left: 15px;*/
-    left: 45px;
-    position: relative;
+/*    left: 45px;
+    position: relative;*/
+    margin-right: 10px;
 }
 
 .pagination-new li{
@@ -1120,9 +1143,12 @@ a.view-all{
 }
 
 .itemNote {
-    border-bottom: 2px dotted red;
-    width: 690px;
-    margin: 0 auto 30px;
+    width: 640px;
+    margin: 0 auto;
+    background-color: #E0E0DF;
+    height: 160px;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .itemNote p {
@@ -1139,9 +1165,10 @@ a.view-all{
     font-size: 24px;
     line-height: 48px;
     color: red;
-    width: 690px;
-    margin: 0 auto 10px;
-    border-bottom: 2px dotted;
+    width: 376px;
+    margin: 0 auto;
+    border-bottom: 1px solid;
+    text-align: center;
 }
 /****Item Page****/
 
@@ -1179,7 +1206,7 @@ a.view-all{
 
 .add-another-item  table {
     margin: 0;
-    width: 600px;
+    /*width: 600px;*/
 }
 
 input.qty-input{
@@ -1222,7 +1249,7 @@ input.qty-input{
 
 .ui-tabs-panel{
     font-family: 'Quicksand', sans-serif;
-    color:#666;
+    color:#333;
     font-size:12px;
     background:#eaebec;
     border:#ccc 1px solid;
@@ -1272,7 +1299,7 @@ background-image: none !important;
 /* Customized Imprints */
 
 .customization {
-    width: 575px;
+    /*width: 575px;*/
     background-color: #fafafa;
     border: 1px solid #DDD;
     box-shadow: 0px 0px 3px 0px #DDD;
@@ -1323,7 +1350,7 @@ ul.radios-list li label{
 
 .co-breadcrumb li.active{
     font-weight: bold;
-    color:#666;
+    color:#333;
 }
 
 .co-breadcrumb.step2 {
@@ -1531,7 +1558,7 @@ float: right;
 
 .tabs .tab {
     font-family: 'Quicksand', sans-serif;
-    color:#666;
+    color:#333;
     font-size:12px;
     background:#FFFFFF;
     border:#ccc 1px solid;
@@ -1708,7 +1735,7 @@ input#cvv{
 
 .location{
         font-family:'Quicksand', sans-serif;
-        color:#666;
+        color:#333;
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
         background:#eaebec;
@@ -1781,8 +1808,9 @@ input#cvv{
 }
 
 .warningText{
-    color: #FC9801;
+    color: red;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .message.success{
@@ -2011,6 +2039,8 @@ input#cvv{
     text-decoration: none;
     color: #000000;
     font-size: 15px;
+    font-weight: 400;
+
 }
 
 #header .wrapper .utilNav li a:hover{
@@ -2066,7 +2096,8 @@ input#cvv{
 }
 
 .home-content .welcome-message a {
-    color: #00A358;
+    /*color: #00A358;*/
+    font-weight: 400;
 }
 
 .spotlightImage {
@@ -2105,7 +2136,7 @@ input#cvv{
     height: 70px;
     background: url("../images/promotesafe.jpg") no-repeat;
     margin: 95px 0 0;
-    box-shadow: 0px 0px 4px #666666;
+    box-shadow: 0px 0px 4px #333;
    /*  background: url("../images/stretch.png") no-repeat; */
     /* float: left; */
 }
@@ -2115,7 +2146,7 @@ input#cvv{
     width: 262px;
     height: 70px;
     background: url("../images/currentFlyers.jpg") no-repeat;
-    box-shadow: 0px 0px 4px #666666;
+    box-shadow: 0px 0px 4px #333;
     /* background: url("../images/flyers_forms.png") no-repeat; */
     /* float: left; */
 }
@@ -2175,33 +2206,44 @@ div#DDmenu a:hover {
 
 .subcat-title a {
     text-decoration: none;
-    color: #ffffff;
     width: 100%;
     display: block;
+    font-weight: bold;
 }
 
-.subcat-container div {
-    width: 430px;
+.subcat-container div, #pageLogin h1 {
+    width: 436px;
     float: left;
     margin: 10px 10px;
-    background-color: #009a49;
-    border: solid 3px #fff;
-    outline: solid 3px #009a49;
-    padding: 5px 0;
+    background-color: #E0E0DF;
+    color: #2F456B;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
 }
 
-.subcat-container div:hover {
-    background-color: #2ab46c;
-    border: solid 3px #fff;
-    outline: solid 3px #2ab46c;
+#pageLogin h1{
+    height: 85px !important;
+    width: 1024px !important;;
+    font-size: 24px;
+    font-weight: bold;    
+}
+
+.subcat-container div:hover, #pageLogin h1:hover {
+    background-color: #EFEFEE;
 }
 
 .page-subcat {
+    width: 915px;
+    margin: 0 auto;
 }
 
 #pageHome #content {
     padding-top: initial;
-    padding-top: 47px;
+    padding-top: 15px;
+    margin-bottom: initial;
 }
 
 .nav a:hover{
@@ -2232,7 +2274,15 @@ li.welcomemsg {
 }
 
 .promos .f-field{
-display:inline;
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+}
+
+.promos .f-field input{
+    height: 18px;
+    position: relative;
+    top: 10px;    
 }
 
 .f-buttons {
@@ -2264,7 +2314,7 @@ display:inline;
 
 .exactReprint p {
     display: block;
-    width: 195px;
+    width: 238px;
     font-size: 16px;
     margin-bottom: 5px;
     text-align: center;
@@ -2408,7 +2458,7 @@ display:none;
     height: 253px;
     line-height: 55px;
     text-align: left;
-    top: 175px;
+    top: 165px;
     position: relative;    
 }
 
@@ -2420,17 +2470,20 @@ display:none;
 
 #pageHome h1{
     line-height: 28px;
+    font-size: 21px;
+    font-weight: 700;
 }
 
 .welcome-message-p1{
-    padding-top: 42px;
+    padding-top: 10px;
     font-size: 16px;
+    line-height: 21px;
 }
 
 .welcome-message-p2{
     font-size: 13px;
     font-weight: 700;
-    padding-top: 30px;    
+    padding-top: 15px;    
 }
 
 .infoBoxWrapper{
@@ -2451,9 +2504,26 @@ display:none;
     line-height: 21px;
 }
 
+.infoBoxDiv p{
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;    
+}
+
+.pSafe{
+    height: initial !important;
+    margin-bottom: initial;
+    display: inherit !important;
+    font-weight: bold;    
+}
+
 #recentlyViewed a{
     color: #333;
     font-weight: 300;
+    font-size: 12px;
+    margin-bottom: 5px    
 }
 
 .pagination-new a{
@@ -2485,3 +2555,85 @@ display:none;
 #recentlyViewed li{
     margin-bottom: 10px;
 }
+
+.info_needed{
+    color: #333;
+    margin-bottom: 15px;    
+}
+
+.changepass{
+    color: #333;
+}
+
+#pageFAQ h1{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#pageFAQ p{
+    margin-bottom: 30px;
+    color: #333;
+    line-height: 18px;
+}
+
+.ui-tabs .ui-tabs-panel{
+    font-size: 13px;
+}
+
+#pageItem #content{
+    padding-left: initial;
+}
+
+.promo-button{
+    height: initial !important;;
+    top: initial !important;;    
+}
+
+
+@-moz-document url-prefix() {
+    div#DDmenu{
+        margin-top: 525px;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+
+    div#DDmenu{
+        margin-top: 25px;
+    }
+
+    .infoBox{
+        height: auto;
+    }
+
+    .infoBox .pSafe{
+        height: auto;
+    }
+
+    #footer .wrapper{
+        justify-content: space-between;
+        margin: 0px;
+    }
+
+    #pageHome #container{
+        min-height: auto;
+    }
+
+    .search ::placeholder {
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .search input[type=text]{
+        background-color: transparent;
+    }
+
+    #searchForm input#key{
+        position: relative;
+        bottom: 5px;
+    }
+
+
+}
+
