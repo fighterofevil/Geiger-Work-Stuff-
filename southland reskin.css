@@ -2076,7 +2076,7 @@ table.no-border tr, table.no-border td {
     font-size: 25px;
     font-weight: 900;
     position: relative;
-    /*top: 410px;*/
+    top: 280px;
     width: 1024px;
     display: flex;
     justify-content: space-evenly;
@@ -2088,4 +2088,28 @@ table.no-border tr, table.no-border td {
     opacity: 0.5;
     width: 549px;
     height: 120px;
+    top: 247px;
+    position: relative;    
+}
+
+.spotlightWrapperCustomBigText{
+    color: #fff;
+    font-size: 65px;
+    position: absolute;
+    top: 490px;
+    padding-left: 14px;    
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);    
+}
+
+.spotlightWrapperCustomBigTextSmall{
+    color: #fff;
+    font-size: 30px;
+    position: absolute;
+    top: 540px;
+    padding-left: 20px;    
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);    
+}
+
+.productCategories a:hover{
+    cursor: pointer;
 }
