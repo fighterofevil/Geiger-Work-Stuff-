@@ -1177,7 +1177,7 @@ td.ar{
 .image .price-box{
     position: absolute;
     background: #333;
-    right: 0;
+    left: 0;
     bottom: 5px;
     padding: 5px 6px;
 
