@@ -2598,7 +2598,6 @@ display:none;
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
    /* IE10+ specific styles go here */  
-
     div#DDmenu{
         margin-top: 25px;
     }
@@ -2633,6 +2632,4 @@ display:none;
         position: relative;
         bottom: 5px;
     }
-
-
 }
