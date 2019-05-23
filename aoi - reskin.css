@@ -167,7 +167,8 @@ div#DDmenu a{
 
 h1{
     font-size: 28px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: #1D355E;
 }
 #pageCategory h1{
     margin-top: 15px;
@@ -179,7 +180,8 @@ h1{
 
 h2{
     font-size: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    color: #1D335E;
 }
 
 h3{ 
@@ -283,6 +285,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100px;
 }
 
 #footer .wrapper{ /* For IE8 and earlier */
@@ -354,7 +357,7 @@ body{
     display: block;
     height: 65px;
     width: 175px;
-    margin-top: 17px;    
+    /*margin-top: 17px;    */
 }
 
 #header .logo span {
@@ -421,7 +424,7 @@ body{
     text-decoration: none;
     display: block;
     /*background: url('../images/navbullet.png') center left no-repeat;*/
-    padding-left: 14px;
+    padding-left: 28px;
     font-size: 16px;
     font-weight: 400;
 }
@@ -431,7 +434,7 @@ body{
 }
 
 .productCategories {
-    min-width: 200px;
+    min-width: 230px;
 }
 
 .productCategories::after{
@@ -443,6 +446,7 @@ body{
     font-size: 30px;
     bottom: 20px;
     color: #fff;
+    right: 15px;
 }
 
 div#DDmenu{
@@ -468,8 +472,8 @@ div#DDmenu{
     opacity: 0.85;
     padding-top: 15px;
     padding-bottom: 15px;
-    min-width: 200px;
-    left: 30px;    
+    min-width: 230px;
+    left: 0px;    
 }
 
 li.productCategories:hover div#DDmenu{
@@ -492,8 +496,10 @@ div#DDmenu li a{
     color: #dbdbdb;
     background: none !important;
     padding: 0px !important;
-    line-height: 23px;
+    line-height: 23px; 
     min-width: 170px;
+    left: 20px;
+    position: relative;    
 }
 
 div#DDmenu li a:hover{
@@ -575,7 +581,8 @@ div#DDmenu li a:hover{
     font-size: 24px !important;
     color: #fff;
     top: 4px;
-    padding-left: 10px;    
+    padding-left: 10px;
+    margin-right: 5px;    
 }
 
 #searchForm div{
@@ -730,17 +737,14 @@ tfoot tr td{
 }
 
 .btn {
-    /*background-color: #E7E7E7;*/
-    /*border:1px solid #777;*/
     color:#000;
-    padding: 5px 10px;
+    padding: 0px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
     height: 40px;
     color: #22CCFF;
-    border: 1px solid #22CCFF;
     text-transform: uppercase;
     font-weight: bold;    
     font-size: 16px;
@@ -748,6 +752,7 @@ tfoot tr td{
     align-items: center;
     justify-content: center;    
     padding: 10px 10px;
+    background-color: #fff;
 }
 
 .btn:hover{
@@ -764,7 +769,7 @@ tfoot tr td{
 .btn-primary{
     color:#FFF;
     font-weight: bold;
-    padding: 10px 10px;
+    padding: 0px 10px;
     cursor: pointer;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -1147,8 +1152,8 @@ a.view-all{
     margin: 0 auto;
     background-color: #E0E0DF;
     height: 160px;
-    padding: 20px;
     border-radius: 10px;
+    margin-bottom: 30px;
 }
 
 .itemNote p {
@@ -1156,11 +1161,10 @@ a.view-all{
     font-weight: bold;
     font-size: 16px;
     line-height: 24px;
-    color: #000;
+    color: #333;
 }
 
 .itemNote h1 {
-    text-align: center;
     font-weight: bold;
     font-size: 24px;
     line-height: 48px;
@@ -1299,11 +1303,12 @@ background-image: none !important;
 /* Customized Imprints */
 
 .customization {
-    /*width: 575px;*/
     background-color: #fafafa;
     border: 1px solid #DDD;
     box-shadow: 0px 0px 3px 0px #DDD;
     padding: 12px;
+    margin-top: 30px;
+    margin-bottom: 30px !important;
 }
 
 /*You May Also Like */
@@ -1811,6 +1816,7 @@ input#cvv{
     color: red;
     font-weight: bold;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .message.success{
@@ -2181,6 +2187,7 @@ input#cvv{
 
 .nav li:hover {
     /*background: url('../images/hoverbkg.jpg')repeat-x top left;*/
+    background-color: #50ABBA;
 }
 
 .nav .menulast:hover {
@@ -2492,6 +2499,7 @@ display:none;
     width: 1024px;
     margin: 0 auto;  
     padding-top: 37px;  
+    color: #1d355e;
 }
 
 .infoBoxMI{
@@ -2505,7 +2513,7 @@ display:none;
 }
 
 .infoBoxDiv p{
-    height: 80px;
+    height: initial;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2536,7 +2544,7 @@ display:none;
 }
 
 #pageItem h1{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .ui-widget-content.ui-tabs{
@@ -2553,7 +2561,7 @@ display:none;
 }
 
 #recentlyViewed li{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .info_needed{
@@ -2589,6 +2597,31 @@ display:none;
     top: initial !important;;    
 }
 
+.imprintMsg{
+    font-weight: 700;
+    text-align: center;
+}
+
+.basketMsg{
+    margin-top: 20px;
+}
+
+.desc{
+    color: #333;
+}
+
+#pageCategory table td{
+    width: 50%;
+}
+
+.welcome-message-p1 a{
+    font-size: 16px;
+}
+
+.prodCatlink{
+    right: 23px;
+    position: relative;    
+}
 
 @-moz-document url-prefix() {
     div#DDmenu{
@@ -2632,4 +2665,9 @@ display:none;
         position: relative;
         bottom: 5px;
     }
+
+    #pageItem .page{
+        width: 690px;
+    }
 }
+
