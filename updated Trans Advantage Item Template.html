@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+#set($itemRow = $singleItemDTO.getItem(0))
+#set($item = $pageTile.getItemObject($singleItemDTO, $itemRow , "i"))
+#set($price = $item.itemPrice)
+#set($mainItemPrice = $item.itemPrice)
+#set($printitemid = $pageTile.getItemObject($singleItemDTO, $itemRow , "itemid"))
+
+#if(!$pageTileDictionaryDTO)
+  #if($_commandName)
+    #springBind( "${_commandName}.pageTileDictionaryDTO")
+    #set ($pageTileDictionaryDTO = ${status.value})
+  #end
+#end
+
+#if($pageTileDictionaryDTO)
+  #set($childItemsHomeDTO=$pageTileDictionaryDTO.getPageTile("childItemsHomeDTO"))
+  #set($catDropMenuDTO=$pageTileDictionaryDTO.getPageTile("catDropMenuDTO"))
+#end
+
+#set($metadescription= $item.metadescription)
+#set($keywords= $item.keywords)
+#set($pagetitle= $item.pagetitle)
+
+## Determines if an item is in a category. Doesn't check sub-categories. 
+## @param   _iiic_itemID                Item ID.
+## @param   _iiic_categoryID            Category ID.
+#macro(isItemInCategory $_iiic_itemID, $_iiic_categoryID)#*
+    *##set($_iiic_intClass = $request.class.forName('java.lang.Integer'))#*
+    *##set($_iiic_return = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("itemCategoryLinksDAO").isItemInCategory($_iiic_intClass.parseInt("$_iiic_itemID"), $_iiic_intClass.parseInt("$_iiic_categoryID")))#*
+    *##if($_iiic_return == false || $_iiic_return == true)#*
+        *#$_iiic_return#*
+    *##end#*
+*##end
+
+#########################################################################
+
+<html id="pageItem">
+    <head>
+        <title>#if($!pagetitle) $pagetitle  #else $!{item.title} - $!{htmlSiteName} #end</title>
+        #parse('libMarkupHead.vm')
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+
+        ##INSERTED line from original Trans Advantage Item Template - kevin 05.24.19
+        <script>var pageRole = "Viewer"</script>
+        #parse('libitempgjavascript.vm')
+    </head>
+    <body>
+        #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        <div id="container">
+            #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+            
+            ## NOTE - original Trans Advantage item template div content has class="itemPage hidden". why???? this class causes a rendering problem with the rollover. need to investigate - kevin 05.24.19
+            <div id="content" role="main">
+
+                ## original Trans Advantage item template has the following local forbidden parse included  - kevin 05.24.19
+                #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/page_access_forbidden.vm")
+
+                ## original Trans Advantage item template has sidebar located at this location - kevin 05.24.19
+                <div class="sidebar">
+
+                    ## original Trans Advantage item template has this next block of code commented out - kevin 05.24.19
+                    ## #parse('libpartItemBadges.vm')
+                    ## <div id="imageWindow">
+                    ##     <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+                    ##         <img  src="store$item.largeimage" width="300"/>
+                    ##     </a>
+                    ## </div>
+
+                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/flyoutMenuTAA.vm")                
+                    ## added 07.10 renderFlyoutMenuTAA - kevin 
+                    #renderFlyoutMenuTAA("sf-menu sf-arrows sf-vertical")                        
+                    ##  ## original Trans Advantage item template has in line style="clear:left" for id="suggestedItems"
+                    <div id="suggestedItems" style="clear:left"><!-- you may also like section  --></div>
+                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+                     ## original Trans Advantage item template has locally parsed in sidebar ad - kevin 05.24.19
+                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/sidebar_ad.vm")
+                </div>
+
+                <div class="page clearfix"> ## inserted kevin - 05.24.19    
+                    ## original Trans Advantage item template appears to have libpartitempgcontent locally parsed in with various customizations
+                    ## #parse('libpartitempgcontent.vm')
+                    ## BEGIN libpartitempgcontent                    
+                        <div class="messages">
+                            ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div>#end
+                        <div class="message success" id="globmsg" style="display:none;">
+                        </div>
+                        </div>
+                        <div class="bCrumbs">
+                            ## original Trans Advantage item template has a customized Bread Crumb code. implanting that into here instead of MTL Bread Crumbs - kevin 05.24.19
+                            ## #parse("libpartCategoryBreadcrumbs.vm")
+                            ## BEGIN
+                                #set($bcMax = $categoryPathDTO.size())
+                                #foreach($clink in $categoryPathDTO)
+                                    #if($velocityCount == 1)
+                                        <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId"))">#springMessage("navHome")</a>
+                                    #elseif($velocityCount != $bcMax)
+                                        #if($velocityCount>1)
+                                            <span>/</span>
+                                            <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$clink.cid"))">$clink.getName()</a>
+                                        #end
+                                    #else
+                                        <span>/</span>
+                                        <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$clink.cid"))">$clink.getName()</a>
+                                    #end
+                                #end                         
+                            ## END
+                        </div>
+
+                            ## original Trans Advantage item template has the sidebar located earlier in the template - kevin 05.24.19
+
+                            ## <div class="sidebar">
+                            ##     #parse('libpartItemBadges.vm')
+                            ##     <div id="imageWindow">
+                            ##         <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+                            ##             <img  src="store$item.largeimage" width="300"/>
+                            ##         </a>
+                            ##     </div>
+                            ##     <div id="suggestedItems">
+                            ##         <!-- you may also like section  -->
+                            ##     </div>
+                            ##     #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+                            ## </div>
+
+                            ## original Trans Advantage item template has the next two lines inserted above <div class="page"> - kevin 05.24.19
+                            <div class="clearfix itemContent">
+                            <div class="">                        
+                            
+                            <div class="page">
+                                <h1 id="js-item-title-${item.itemid}">
+                                    $!{item.title}
+                                </h1>
+                                #springMessage('itemCode'):
+                                <span id="itemCodeList">
+                                    <span id="js-item-code-${item.itemid}">
+                                        $item.code
+                                    </span>
+                                </span>
+                                <input type="hidden" id="formName" value="F$item.itemid"/>        ## What's this?
+
+                                ## original Trans Advantage item template has the item images aka id="imageWindow" in this location - kevin 05.24.19
+                                <div id="imageWindow">
+                                    <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+                                        <img  src="store$item.largeimage" width="300"/>
+                                    </a>
+                                </div>
+
+                                #parse($item_topDTO.getItems().get(0).get('item_top'))            ## What's this?
+                                ## #parse("libpartItemTabInfo.vm")                                ## Tabs to show description, tiers, longdesc2...
+                                
+
+                                ## original Trans Advantage item template has div itemText with encapsulated code shown - kevin 05.24.19
+                                <div class="itemText">
+                                    #parse("libpartItemTabInfo.vm")  ## Tabs to show description, tiers, longdesc2...
+
+                                     #if($prop65Warnings[$item.code])
+                                        <div class="propWarning" style="text-align: center; margin-top: 10px; padding: 2px;">
+
+                                            <p style="font-size: 12px;">$prop65Warnings['messages'].heading</p>
+                                            <h2 style="font-size: 12px;">  <img style="height: 20px;" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/warning.png">
+                                               <b>WARNING:</b> $prop65Warnings[$item.code]</h2>
+                                            <p>For more information go to <a href="https://www.P65Warnings.ca.gov"> www.P65Warnings.ca.gov </a></p>
+                                        </div>
+                                     #end
+                                </div>
+
+                                #if($!{isPointStore} == 'TRUE')
+                                    ## sitewide variable for pricing on/off
+                                    #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                                        #parse("libpartitempoints.vm")                            ## Item Price
+                                    #end
+                                    <div id="js-item-minorderqty4pitem-${item.itemid}">
+                                    </div>
+                                    #if($item.itemid)
+                                        #set($formName = "F$item.itemid")
+                                    #end
+                                #else
+                                    ## original location of pricing on/off if statement
+                                    #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                                        #parse("libpartItemPrice.vm")                             ## Item Price
+                                    #end
+                                    <div id="js-item-minorderqty4pitem-${item.itemid}">
+                                    </div>
+                                    #if($item.itemid)
+                                        #set($formName = "F$item.itemid")
+                                    #end
+                                #end
+                                ## get the min order qty required out of the above div innerHTML and rewrites minQtyNum used in the tiered pricing table
+                                ## minQtyNum and minQtyNumRow are located within libpartItemTabInfo.vm
+                                #if($quantityBreakOut && $quantityBreakOut=='y')
+                                    <script>
+                                            $( document ).ready(function() {
+                                                var actualMinQtyNum=(document.getElementById("js-item-minorderqty4pitem-${item.itemid}").innerHTML).replace(/[^0-9]/g,'');
+                                                if (actualMinQtyNum>0)
+                                                    document.getElementById("minQtyNum").innerHTML=actualMinQtyNum;
+                                                else
+                                                    document.getElementById("minQtyNumRow").style.display="none";
+                                            });   
+                                    </script>
+                                #end
+                                #*================================
+                                Errors
+                                =================================*#
+                                #springBind( "storeItemDTO.*" )
+                                #if($status.errors.errorCount>
+                                    0)
+                                    <div class="msg">
+                                        #foreach($error in $status.errorMessages)
+                                            <div class="error">
+                                                $error
+                                            </div>
+                                        #end
+                                    </div>
+                                #end
+                                <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+                                    <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"/>            ##TODO: variable for cid
+                                    <input type="hidden" id="compCode_0" value="$item.code"/>
+                                    #set ($found = 'false')
+                                    ## original Trans Advantage item template locally imports libpartItemAddAnother and had customized code - kevin 05.24.19
+                                    
+                                    ## #parse("libpartItemAddAnother.vm")            ## Add Another
+                                    ## BEGIN libpartItemAddAnother
+                                        <div id="itemListTable">
+                                            <div id ="add-another-item" class="add-another-item">
+                                                <table cellspacing="0">
+                                                    <tr id="add-another">
+                                                        <td class="col1">
+                                                            <div id="js-item-attributes-$item.itemid" class="item-attr-section">
+                                                            </div>
+                                                        </td>
+                                                        <td class="col2">
+                                                            <div class="f-row">
+                                                                <label for="qty_0">
+                                                                    #springMessage("vm.itemTemplate.quantity"):
+                                                                </label>
+                                                                <input class="qty-input" type='text' id="js-item-qtybox-$item.itemid" maxlength="4" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col3">
+                                                            ## original Trans Advantage item template has customized code for col3 section 
+
+                                                            ## <div id="js-item-inventory-$item.itemid">
+                                                            ## </div>
+                                                            ## <div id="js-item-minorderqty-$item.itemid">
+                                                            ## </div>
+                                                            #if($categoryPathDTO.size()>1 && 'directory pre-orders' == $categoryPathDTO.get(1).getName().toLowerCase())                                            
+                                                                <div><p>Items will be shipping out in early December</p></div><div></div>  
+                                                            #else
+                                                                <div id="js-item-inventory-$item.itemid"></div>  <div id="js-item-minorderqty-$item.itemid"></div>
+                                                                <script>
+                                                                    $(document).ready(function(){
+                                                                        var col3Text=$('#js-item-inventory-$item.itemid').text();
+                                                                        if (col3Text.indexOf('This item is produced on')!==-1)
+                                                                        {
+                                                                            //$('#js-item-inventory-$item.itemid').hide();
+                                                                            col3Text="This item is produced on-demand and takes longer to ship. Please refer to the &#34;Estimated In-Hands Date&#34; calendar below. <br/><br/><div id=item2ndpara>On-demand items are customized and therefore not returnable. See our FAQ page for more information.</div>";
+                                                                            //document.getElementById("js-item-inventory-$item.itemid").innerHTML = col3Text;
+                                                                            $('#js-item-inventory-$item.itemid').html(col3Text);
+                                                                        }
+                                                                    });
+                                                                </script>
+                                                            #end                                                                                                                           
+                                                        </td>
+                                                        <td class="col4">
+                                                            <div id="remove-item-${item.itemid}" class="removeLink" style="float:right">
+                                                                <a href="javascript:void(0)">
+                                                                    remove
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                ## original Trans Advantage item template has if else conditions for estimated calendar - kevin 05.24.19
+                                                #if($categoryPathDTO.size()>1 && 'directory pre-orders' == $categoryPathDTO.get(1).getName().toLowerCase())            
+                                                    <div></div>  
+                                                #else   
+                                                    <div id="estimateCalendar" class="estimate-calendar"></div>
+                                                #end   
+
+                                            </div>
+                                        </div>
+                                        <div id="js-item-uploadplugin">
+                                        </div>
+
+                                        ## note - following if stated for storePropertyHelper is not present in original item template for Trans Advantage - this is a part of updated base stoee item template - kevin 05.24.19
+                                        ## Check to see if the store properties for logo upload is present and if not empty.
+                                        #if($storePropertyHelper.getCustomUploadFilePath($vendorSettingsDTO.vendorId) != "" && $storePropertyHelper.getCustomUploadFileSize($vendorSettingsDTO.vendorId) != "" && $storePropertyHelper.getCustomUploadFileType($vendorSettingsDTO.vendorId) != "")
+                                            #foreach($property in $item.properties)
+                                                #set($propertyName = $property.propname)
+                                                #set($propertyValue = $property.propvalue)
+                                                ## Check for the necessary item properties
+                                                #if($propertyName == "Sys_Uploaders")
+                                                    <div id="item-uploadplugin-message">
+                                                        ## Divides by 1000 to get the Mb value of file size limit
+                                                        #set($uploadFileSize = $math.div($storePropertyHelper.getCustomUploadFileSize($vendorSettingsDTO.vendorId), 1000))
+                                                        ## Raw string from the store property, will look something like image/jpg,image/png,image/gif
+                                                        #set($uploadRawFileTypes = $storePropertyHelper.getCustomUploadFileType($vendorSettingsDTO.vendorId))
+                                                        <p id="item-uploadplugin-types">
+                                                            Accepted file types: (
+                                                            ## Split each file type into an indvidual string (enters an array).
+                                                            #set($splitUploadString = $uploadRawFileTypes.split(","))
+                                                            #foreach($uploadString in $splitUploadString)
+                                                                ## Starts each string at the "/" essentially removing the file type (image, application)
+                                                                #set($stringRemoveSlash = $uploadString.indexOf("/"))
+                                                                #set($uploadStringSub = $uploadString.substring($stringRemoveSlash))
+                                                                ## Replaces the "/" with a "." for proper file extension format
+                                                                $uploadStringSub.replace("/", ".")
+                                                            #end )
+                                                        </p>
+                                                        <p id="item-uploadplugin-size">
+                                                            File size limit: $uploadFileSize Mb
+                                                        </p>
+                                                    </div>
+                                                #end
+                                            #end
+                                        #end
+
+                                        <div class="actions">
+                                            <span id="addAnother">
+                                                <a href="javascript:void(0)">
+                                                    Add Another...
+                                                </a>
+                                            </span>
+                                        </div>                                    
+                                    ## END   libpartItemAddAnother
+
+
+                                    ## original Trans Advantage item template had following cmmented out section for Business Cards
+                                    #*
+                                    ## Business Cards Email Link
+                                    ## Uncomment to show a link that'll generate an email with a body with custom fields to-be-filled by the user.
+
+                                    #set($businessCardSKUs = [])
+                                    #set($_temp = $businessCardSKUs.addAll($ULURBusinessCards))
+                                    #set($_temp = $businessCardSKUs.addAll($ULURLetterheads))
+                                    #set($_temp = $businessCardSKUs.addAll($MayflowerLetterheads))
+                                    #set($_temp = $businessCardSKUs.addAll($MayflowerEnvelopes))
+                                    #if($businessCardSKUs.contains($item.code)) ## Print Items (business cards, etc)
+                                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/print_item.vm")
+                                    #end
+                                    *#
+
+                                    
+                                    ## ## original Trans Advantage item template does not use MTL libpartItemCustomization.  
+                                    ## instead has customized customization code imported below the MTL line of code - kevin 05.24.19
+                                    ## #parse("libpartItemCustomization.vm")         ## Customization
+
+                                    #####################
+                                    ## Item Customization
+
+                                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/customization_validator.vm")
+                                    #renderItemCustomizationForm()
+
+                                    #####################                                    
+
+
+                                    ## note - forceimprint is from the base store item template - kevin 05.24.19
+                                    ## forces customization to checked by default and to show imprint options.
+                                    ## added 01.03.19 - kevin
+                                    #if($forceImprint && $forceImprint == true)
+                                        <script>
+                                          $( document ).ready(function() {
+                                              $("#customize").prop("checked",true);
+                                              $(".custom-input").show();
+                                          });                              
+                                        </script>
+                                    #end
+                                    <div id="js-item-hiddenfields-$item.itemid">
+                                    </div>
+                                    
+                                    ## What's this used for? Container for multiple "add another" items?
+                                    #parse("libpartItemAddToWishlist.vm")          ## Add To Wishlist
+                                    #*
+                                    * RedirectMode = true: navigate to wishlist after add
+                                    * RedirectMode = false: stay on page, display message
+                                    *#
+                                    <input type="hidden" name="redirectMode" value="true"/>
+                                    #foreach($error in $product.errors)
+                                        <div class="error-text-area">
+                                            $error.message
+                                        </div>
+                                    #end
+
+
+                                    ## original Trans Advantage item template has the following code block imported for Drop Ship Item Custom Messages - kevin 05.24.19
+                                    #####################################
+                                    ## Drop-ship Items Custom Messages
+
+                                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/availability_message.vm")
+                                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/dropship_message.vm")
+
+                                    #########################################
+                                    ## End Drop-ship Items Custom Messages
+
+
+                                    #*================================
+                                    Add to Cart Button
+                                    =================================*#
+
+                                    ## original Trans Advantage item template had standard div class="addToCartBtn" customized with the code block imported below - kevin 05.24.19                                
+                                    ## <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();">
+                                    ##     #springMessage('addToCart')
+                                    ## </div>
+
+                                    #if($customizationInfo)
+                                        ## Customized item; let's check the imprint fields before continuing.
+                                        <div class="addToCartBtn_removed btn-primary right cartButton hidden" id="js-item-addtocartbtn-$item.itemid">
+                                            #springMessage('addToCart')
+                                        </div>
+                                    #else
+                                        #set($isCustomItem = false)            
+                                        #foreach($property in $item.properties)
+                                            #if ($property.propname=='isCustomItem')
+                                                #if($property.propvalue == 'TRUE')
+                                                    #set($isCustomItem = true)
+                                                #end
+                                            #end
+                                        #end              
+                                        <div class="addToCartBtn_removed btn-primary right cartButton hidden" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();">
+                                            #if($isCustomItem)
+                                                Customize Item
+                                            #else
+                                                #springMessage('addToCart')
+                                            #end
+                                        </div>
+                                    #end
+                                          
+                                </form>
+                            </div><!-- //.page  -->
+                        </div><!-- //.clearfix -->
+
+                        ## note - swedaCat code is from base store item template - kevin 05.24.19
+                        ## code to update the DS messages for SWEDA items only. BEGIN
+                        #if($swedaCat)
+                            #set($swedaCheck="#isItemInCategory($item.getItemId(),$swedaCat)")
+                            #if($swedaCheck==true)
+                                <script>
+                                    $( document ).ready(function() {
+                                         document.getElementsByClassName('DSMessage')[0].innerHTML="$!swedaMsg";
+                                    });
+                                </script>
+                            #end
+                        #end
+                        ## END
+
+                    ## END   libpartitempgcontent 
+                
+                    ## this script is set to change the wishlist button class.  Defined in template for newer stores. 
+                    ## not changed in MTL as to not affect all stores
+                    <script>
+                        $( document ).ready(function() {
+                            $('*[id*="wishlistbtn"]').each(function() {
+                                $(this).removeClass("btn-primary");
+                                $(this).addClass("btn");
+                            });                            
+                        });
+                    </script>
+                </div> <!--// page clearfix --> ## inserted kevin - 05.24.19             
+            </div> <!--//#content -->
+            #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end        
+            #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        </div> <!--//#container -->
+        #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        
+        ## NOTE -original Trans Advantage Item template had libpartitempgjsbottom locally parsed and the last <script></script> section omitted. unsure why. 
+        ## leaving MTL parse intact - kevin 05.24.19
+        #parse("libpartitempgjsbottom.vm")
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/dynamic_item_images.vm")
+        #renderDynamicItemImagesScript()
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+        #parse("libMarkupFoot.vm")
+
+        ## original Trans Advantage item template had the below script included. does not seem needed at this time. commented out for the time being - kevin 05.24.19
+        ## <script>
+        ##     // Chrome bug workaround
+        ##     jQuery(function() {
+        ##         MagicZoomPlus.refresh();
+        ##         jQuery('#imageWindow, .MagicZoomBigImageCont, .page').bind('mouseover',function() {
+        ##             MagicZoomPlus.refresh();
+        ##         });
+        ##     });
+        ## </script>        
+    </body>
+</html>
