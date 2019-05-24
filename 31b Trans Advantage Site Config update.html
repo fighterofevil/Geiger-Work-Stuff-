@@ -1,0 +1,313 @@
+## Site Configuration Variables. These variables control the display of elements on the site as well as the text reused on the site. 
+
+##To Be Added: 
+## $displayAllowance ## Values: Allowance, budget, Points, blank
+
+
+## Include global variables and logic from the Template Library
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMacros.vm") ## Local site macros
+
+
+#set($maintenanceModeRedirect = 'NO')          ## YES: This will redirect all pages to the maintenance category page. $cidMaintenance can be set to use a custom maintenance page CID. Otherwise, the category with the name "MAINTENANCE" will be used.
+
+
+##Varaibles that contain wording to be used on the site
+#set($htmlSiteName = 'Trans Advantage Online Store')
+#set($htmlCompanyName = 'Trans Advantage')
+#set($htmlRepName = 'Wendy Franklin')
+#set($htmlRepEmail = 'wfranklin@geiger.com')
+#set($htmlRepPhone = '1-800-366-9048 Ext2469')
+#set($htmlRepPhotoURL = '') ##Used like: <img src="$!{htmlRepPhotoURL}">
+#set($htmlRepPronoun = 'She') ## He/She/They
+#set($htmlCSRPhone = '1-800-938-5668')
+#set($MyAccountNavName = 'My Account')
+#set($billingAddressHeader = "My Information") ##Used in My Account and Checkout
+#set($UsernameLabel = "Username") ##Used in the login form
+
+
+##Category IDs, these are used in the links to these pages. 
+#set($cidContact = '159983') ##Contact Us Category ID
+#set($cidOrdering = '160109') ## FAQ Category ID
+#set($cidCustom = '160132') ## Custom Orders  Category ID
+#set($cidTerms = '160022') ##terms of service / Privacy Policy
+#set($cidMenu1 = '160107') ##this is the category page that lists all the product categories in Menu1
+#set($loginError = '160063') ##Category ID of failed login page
+#set($cidCatalogsPDFs = '160119') ## Catalogs + PDFs Category ID
+#set($cidAdminInventory = '183345') ## Admin Inventory Category ID
+#set($cidHome = '159985') ## Home page CID
+#set($cidClearance = '160127') ## Clearance Category ID
+
+
+##Varaibles to control the display of functionality  on the site. 
+#set($allowRegistration = 'NO')
+#set($defaultOrderType = 'B') ##If set, this will hide the order type question on the basket and default the value to the value of this variable. Values: P = Personal, B = Business, blank = Ask / display radio options
+#set($requireLogin = "NO")
+
+#set($isPointStore ='FALSE') ## Default: 'FALSE' Changes all pricing on site from dollars to points when equal to TRUE.
+
+#set($g_showGiftCert = "YES") ## change to YES to show Gift Cert/Coupon
+#set($giftCertGateways = ["PLP", "INV", "BUD", "PNT"])   ## Determines what payment type should show gift certificates. Simpy remove payment type to hid gift certificates on that page. Default: "PLP","INV", "BUD", "PNT"
+
+#set($displayMiniCart = 'YES')   ## Mini Cart found in libLayoutHeader1.vm by default. Values: YES, NO
+#set($displaySalesRepInfo = 'NO') ##this is the sales rep info that displays on the homepage.  Values: YES, NO
+#set($displayWishlist = 'NO') ##This controls weather the wishlist is displayed on category pages, item pages, and a link to it in the header.  Values: YES, NO
+#set($displayWishlistOnCatPg = 'NO') ##This controls weather the add to wishklist button is displayed on category pages Values: YES, NO
+#set($displayCouponCode = 'NO') ## This controls the display of the gift certificate/coupon input fields. The Default = NO. Values: YES, No
+#set($displayOfferCode = 'YES') ## This controls the display of the offer code/promo code input fields. The Default = NO. Values: YES, No                                                                       
+#set($googleAnalyticsCode = 'NO') ##If set to YES, the Google Analytics code will show. By default, all C8 code will use the same analytics and will have a filter on the profile to make the profile  only show this site. Value: YES, NO
+#set($AnalyticsID = 'UA-54265716-18') ##This is the Google Analytics Account ID - This will change depending on the analytics account this site's "view" is created under. 
+
+#set($displayByPriceCategoryFacet = 'NO') ## This is a default C8 feature that shows faceted navigation by price. 
+										  ## We cannot control the price facets. Lets keep this to NO unless needed. 
+#set($displaySaveCart = 'NO') ##This controls the display of the save cart feature. This feature needs to be more thoroughly tested before use. Default = NO
+#set($displayEmailQuote = 'NO')  ##keep this NO for now unless asked for. The current functionality is a mix of email quote and order approval, but is not fully baked. 
+
+
+#set($displayLoginPopup = 'NO') ## Login pop-up for migrated sites, when customer data is migrated from an older platform and passwords are reset.
+
+## Header and Footer customization:
+#set($displayCustomHeaderContent = 'YES') ## used to determine if the header (logo header, nav , etc) should come from the master library, or a local template. Values: YES, NO
+#set($displayCustomFooterContent = 'YES') ## used to determine if the footer should come from the master library, or a local template. Values: YES, NO
+#set($headerPosition = 'INSIDE') ## Display header either 'INSIDE' or 'OUTSIDE' the main content div.
+#set($footerPosition = 'INSIDE') ## Display footer either 'INSIDE' or 'OUTSIDE' the main content div.
+
+## Actual shipping (S&H)
+#set($displayCustomActualShippingText = 'YES')  ## Default: 'YES'.  Displays custom text instead of $0.00 if Shipping Cost = 0
+#set($actualShippingDropdownText = '') ## Default: blank.  Text to display in the dropdown instead of the price (if price = $0.00)
+#set($actualShippingInfoText = '<div id="shipInfotxt"><p>All orders ship from the US and shipping charges will be applied. For orders invoicing on open account or shipping internationally, charges will appear as -0- below, however actual charges will be billed. International fees (export, duties, taxes) will be added where applicable.</p>
+<p>To obtain a shipping estimate prior to placing your order, contact Geiger Customer Service via email at <a href="mailto:cs@geiger.com">cs@geiger.com</a>. Include your shipping address, items and quantities you would like to order.</p></div>')   ## Text to display to inform users what S&H/Actual Shipping means, when shipping price is $0.00
+
+## OPTIONAL SETTINGS - UNCOMMENT IF NEEDED
+## #set($commerceshop_item_dropshipmsg = 'Write your custom message here.') ## Changes the dropship message for on-demand items (displays in item_template.vm)
+
+#set($ccNoShippingMethodText = 'Due to the size/weight of this order, a shipping quote cannot be provided online. After your items are selected, please contact the Geiger Customer Service Department at 1-800-938-5668 and they will assist you with a shipping quote. Once the shipping charges are determined, we will request authorization on your card. For details regarding card authorization, please refer to the How To Order section of FAQs. Customer service representatives are available Monday through Friday 8:00 A.M u2013 8:00 P.M. Eastern time.')
+#set($ncNoShippingMethodText = 'Due to the size /weight of this order, a shipping quote cannot be provided online. After your order is submitted, a Geiger representative will contact you with a shipping estimate for your approval before proceeding. Customer service representatives are available from 8:00 A.M. u2013 8:00 P.M. Eastern time Monday through Friday at 1-800-938-5668.')
+
+## Customization Labels.
+## Add SKUs/CIDs (will include sub-categories) to this list as well as their corresponding labels.
+## Each element =
+##	[
+##		[
+##			"SKU/CID", "SKU/CID", "SKU/CID"...
+##		],
+##		[
+##			[ "o/r (optional/required)", "Field Name" ],
+##			[ "o/r (optional/required)", "Field Name" ],
+##			[ "o/r (optional/required)", "Field Name" ]
+##		],
+##		"Options (pipe-delimited) (auto-display: show fields automatically, 
+##                                 empty=<string>: automatically fills empty fields with string)"
+##	]
+#set($customizationLabels = [
+	[
+		[
+			"1111A-BC",	"1111-BC",	"9999-BC",
+			"9999A-BC",	"3333",		"3333B",
+			"3333C",	"2222",		"2222B",
+			"2222C"
+		],
+		[
+			[ "o", "Name" ],
+			[ "o", "Title or Dept." ],
+			[ "o", "Agency Name" ],
+			[ "o", "Address" ],
+			[ "o", "City" ],
+			[ "o", "State (2 letters)" ],
+			[ "o", "Zip" ],
+			[ "o", "Phone" ],
+			[ "o", "Fax" ],
+			[ "o", "Cell" ],
+			[ "o", "Business Phone" ],
+			[ "o", "Toll Free" ],
+			[ "o", "Email" ],
+			[ "o", "Website"]
+		],
+		"auto-display|empty=-"
+	],
+	[
+		[
+			"9999-BC",		"3333A",		"2222A",
+			"1111A-BC-2",	"1111-BC-2",	"9999A-BC-2",
+			"9999-BC-2",	"3333A-2",		"3333C-2",
+			"2222A-2",		"2222C-2",		"3333B-2",
+			"2222B-2"
+		],
+		[
+			[ "o", "Name" ],
+			[ "o", "Title or Dept." ],
+			[ "o", "Agency Name" ],
+			[ "o", "Address" ],
+			[ "o", "City" ],
+			[ "o", "State (2 letters)&nbsp;&nbsp;Zip" ],
+			[ "o", "Phone" ],
+			[ "o", "Fax" ],
+			[ "o", "Cell" ],
+			[ "o", "Business Phone" ],
+			[ "o", "Toll Free" ],
+			[ "o", "Email" ],
+			[ "o", "Website"],
+			[ "o", "Awards/Affiliations"]
+		],
+		"auto-display|empty=-"
+	],
+	[
+		[
+			"7777",		"8888",	"1111",
+			"1111A",	"9999",	"9999A"
+		],
+		[
+			[ "o", "Company Name" ],
+			[ "o", "Address" ],
+			[ "o", "City" ],
+			[ "o", "State (2 letters)" ],
+			[ "o", "Zip" ],
+			[ "o", "Phone" ],
+			[ "o", "Fax" ],
+			[ "o", "Cell" ]
+		],
+		"auto-display|empty=-"
+	],
+	[
+		[
+			"7777WINDOWENVELOPE",	"8888WINDOWENVELOPE",	"8888ENVELOPE",
+			"7777ENVELOPE"
+		],
+		[
+			[ "o", "Company Name" ],
+			[ "o", "Address" ],
+			[ "o", "City" ],
+			[ "o", "State (2 letters)" ],
+			[ "o", "Zip" ]
+		],
+		"auto-display|empty=-"
+	],
+	[
+		[
+			"181086"
+		],
+		[
+			[ "o", "To" ],
+			[ "o", "From" ]
+		],
+		"auto-display|id=gift-cert-customization"
+	]
+])
+
+
+## Add SKUs to this list for items to hide the thumbnail price tag from on the standard category template.
+#set($hiddenThumbnailPriceSKUs = ["60SAF-06", "60AR18-4", "54MSA-22", "60SA-22", "581285"])
+
+
+## Hidden Item Availability
+## Hides the "Available:" label and following text.
+##
+## Each element = "SKU/CID"
+#set($hideItemAvailability = [
+	"181086"
+])
+
+
+## Dynamic Item Images
+## Add SKUs or CIDs to this list as well as required item options.
+## * Each required item option is pipe delimited.
+## * Required options should be equal to the label text above the option dropdown (case insensitive).
+## * Item images will not change unless all required options are present.
+## * A default value for a required option can be set with the following syntax:
+##     "<option title1>(=default_value|*)|<option title2>(=default_value|*)"
+## * If the wildcard (*) is provided as a default value, the first value from the dropdown is assumed.
+## * The new image name syntax will use all of the required options in the order they appear in the
+##   pipe-delimited list, as follows:
+##     /assets/items/largeimages/pi_<SKU><option1><option2><...>_l.JPG
+## 
+## Each element = [
+##    [ "SKU/CID", "SKU/CID", ... ],
+##    "option title(=default_value|*)|option(=default_value|*)"
+## ]
+#set($dynamicItemImagesCIDsAndSKUs = [
+	[
+	    ["VJM006-","VJU006-","VJM007-", "VJM008-", "VJU008-", "VJM011-", "VJU011-", "VSM003-", "VSU003-", "VSM004-", "VSU004-","VJM008-", "VPM018-", "VPM019-", "VPM020-", "VPM021-", "VPU018-", "VPU019-", "VPU020-", "VPU021-","VPM012-","VPM013-","VPU013-","VPM016-","VPU016-","VPM017-","VPU017-","VPU012-","VDM016-"],
+	    "color"
+	],
+	[ 
+		["159982"],
+		"color|thread color"
+	],
+	[
+		["VDU001-"],
+		"color=BLK-|thread color=U"
+	],
+	[
+	    ["VDU016-", "VJM012-", "VJU012-", "VJM013-", "VJU013-", "VJM014-", "VJU014-", "VJM015-", "VJU015-"],
+	    "color=*"
+	],
+	[
+		["VJM009-", "VJU009-", "VJM010-", "VJU010-","VDM012-","VDM013-","VDU012-","VDU013-","VDM014-","VDU014-","VDM015-","VDU015-"],
+		"color=*|thread color=*"
+	]		
+])
+
+## Custom Dropship Item messages.
+## Add SKUs or CIDs to this along with desired DS messages.
+## This message typically appears next to the item's Quantity textbox on the item page.
+##
+## Each element = [
+##    [ "SKU/CID", "SKU/CID", ... ],
+##    "Plain-text/HTML message."
+## ]
+#set($customDSItemMessagesSKUsAndCIDs = [
+	[
+		[ "160077", "160091", "160089", "160092" ],
+		"This item is produced on-demand and takes longer to ship.
+		 Please refer to the ""Estimated In-Hands Date"" calendar below."
+	]
+])
+
+
+## Category messages.
+## These messages will appear at the top of a given Category ID (CID).
+## Each element = [
+##	  ["Category ID", "Category ID", ...],
+##	  "Message",
+##	  Apply to sub-categories?
+##	]
+#set($categoryMessages = [
+	[
+		["159996", "160049"],
+		"<div class='category-message'>
+	        <div class='catalogpdf'>
+	            <p>Mayflower Custom <br/> Long Sleeve T-Shirt<br />Order Form</p>
+	            <a href='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/catalogspdfs/Mayflower_Custom_Long_Sleeve_T-Shirt_Order_Form_2019.pdf' download><img src='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/Mayflower-Custom-Long-Sleeve-T-Shirt-Order-Form-2019.jpg' alt='Mayflower T-Shirt Order Form PDF'></a>
+	             <p>Mayflower Custom <br/> Short Sleeve T-Shirt<br />Order Form</p>
+	            <a href='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/catalogspdfs/Mayflower_Custom_Short_Sleeve_T-Shirt_Order_Form_2019.pdf' download><img src='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/Mayflower-Custom-Short-Sleeve-T-Shirt-Order-Form-2019.jpg' alt='Mayflower T-Shirt Order Form PDF'></a>
+	        </div>
+
+	        <div class='catalogpdf'>
+	            <p>United Custom <br/> Long Sleeve T-Shirt<br/>Order Form</p>
+	            <a href='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/catalogspdfs/United_Custom_Long_Sleeve_T-Shirt_Order_Form_2019.pdf' download><img src='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/United-Custom-Long-Sleeve-T-Shirt-Order-Form-2019.jpg' alt='United T-Shirt Order Form PDF'></a>
+	            <p>United Custom <br/> Short Sleeve T-Shirt<br/>Order Form</p>
+	            <a href='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/catalogspdfs/United_Custom_Short_Sleeve_T-Shirt_Order_Form_2019.pdf' download><img src='store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/United-Custom-Short-Sleeve-T-Shirt-Order-Form-2019.jpg' alt='United T-Shirt Order Form PDF'></a>
+	        </div>
+		</div>",
+		false
+	]
+])
+
+## Flyout Menu customized links 
+## Customizable <a> attributes for category links.
+## Each element = ["Category ID", "attrib_name|attrib_value", "attrib_name|attrib_value", ...]
+#set($flyoutMenuCustomLinks = [
+	["160043", "href|http://wendyfranklin.geiger.com", "target|_blank"],
+	["160127", "class|category-clearance"]
+])
+
+#set($prop65Warnings = {
+
+	'messages' : {
+		'heading' : 'The state of California requires the following notification regarding the above product. The same notification will also appear on the actual product or product package.'
+	},
+    
+    'VPN003MLT' : 'Cancer and Reproductive Harm.',
+    'VPN004SLV' : 'This product can expose you to chemicals including DEHP, which is known to the State of California to cause birth defects and/or other reproductive harm.'
+
+})
