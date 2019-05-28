@@ -424,9 +424,11 @@ body{
     text-decoration: none;
     display: block;
     /*background: url('../images/navbullet.png') center left no-repeat;*/
-    padding-left: 28px;
+/*    padding-left: 28px;*/
     font-size: 16px;
     font-weight: 400;
+    padding-left: 14px;
+    padding-right: 14px;
 }
 
 .nav .menulast a {
@@ -453,9 +455,9 @@ div#DDmenu{
     position: absolute;
     z-index: 100;
     display: none;
-    min-height: 445px; /* was 430 */
+    min-height: 305px; /* was 430 */
     /*background: #176ab3;*/
-    margin-top: 262px;
+    margin-top: 192px;
 /*    background: 
     -moz-linear-gradient(top, #176ab3 0%, #176ab3 42%, #173155 100%);
     background: 
@@ -488,6 +490,7 @@ div#DDmenu li{
     justify-content: initial;
     text-align: left;
     margin-left: 17px;    
+    min-width: 206px;
 }
 
 div#DDmenu li a{
@@ -753,6 +756,7 @@ tfoot tr td{
     justify-content: center;    
     padding: 10px 10px;
     background-color: #fff;
+    border: 1px solid #22ccff;
 }
 
 .btn:hover{
@@ -781,11 +785,11 @@ tfoot tr td{
     align-items: center;
     justify-content: center;    
     font-size: 16px;    
+    border: initial;
 }
 
 .btn-primary:hover{
     background-color: #22CCFF;
-    /* text-decoration: underline; */
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -1151,7 +1155,7 @@ a.view-all{
     width: 640px;
     margin: 0 auto;
     background-color: #E0E0DF;
-    height: 160px;
+    height: 170px;
     border-radius: 10px;
     margin-bottom: 30px;
 }
@@ -1173,6 +1177,7 @@ a.view-all{
     margin: 0 auto;
     border-bottom: 1px solid;
     text-align: center;
+    padding-top: 10px;
 }
 /****Item Page****/
 
@@ -2188,6 +2193,7 @@ input#cvv{
 .nav li:hover {
     /*background: url('../images/hoverbkg.jpg')repeat-x top left;*/
     background-color: #50ABBA;
+    /*background-color: red;*/
 }
 
 .nav .menulast:hover {
@@ -2254,7 +2260,7 @@ div#DDmenu a:hover {
 }
 
 .nav a:hover{
-    color: #fff;
+    color: #d1dadf;
 }
 
 div#sitelogin {
@@ -2422,6 +2428,7 @@ div#sitelogin {
 
 .discount-disclaimer-container {
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .discount-disclaimer {
@@ -2544,7 +2551,7 @@ display:none;
 }
 
 #pageItem h1{
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .ui-widget-content.ui-tabs{
@@ -2625,7 +2632,7 @@ display:none;
 
 @-moz-document url-prefix() {
     div#DDmenu{
-        margin-top: 525px;
+        margin-top: 384px;
     }
 }
 
@@ -2669,5 +2676,12 @@ display:none;
     #pageItem .page{
         width: 690px;
     }
+
+    .promos .f-field input{
+        height: 40px;
+        position: relative;
+        top: 10px;    
+    }
+
 }
 
