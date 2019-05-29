@@ -2192,7 +2192,7 @@ input#cvv{
 
 .nav li:hover {
     /*background: url('../images/hoverbkg.jpg')repeat-x top left;*/
-    background-color: #50ABBA;
+    /*background-color: #50ABBA;*/
     /*background-color: red;*/
 }
 
