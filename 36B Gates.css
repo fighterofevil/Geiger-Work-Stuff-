@@ -2361,3 +2361,71 @@ input#cvv{
     display: flex;
     justify-content: space-around;    
 }
+
+.landing-background{
+    background: url(../images/landingspot-img.jpg);
+    background-size: cover;
+    height: 100vh;    
+}
+
+.landing-content{
+    width: 1024px;
+    margin: 0 auto;
+    color: #fff;
+    top: 214px;
+    position: relative;
+}
+
+.redRec{
+    background-color: #BF2026;
+    width: 105px;
+    height: 4px;
+    margin: 0 auto;
+    margin-bottom: 31px;
+}
+
+.welcome{
+    color: #fff;
+    font-size: 60px;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-family: franklin-gothic-urw-comp, sans-serif;
+    width: 670px;
+    line-height: 55px;
+    text-align: center;
+    display: flex; 
+    margin: 0 auto;
+    margin-bottom: 52px;    
+}
+
+.landing-message{
+    font-family: franklin-gothic-urw-comp, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    width: 828px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 24px;  
+    margin-bottom: 60px;
+}
+
+.navButtonDiv{
+    display: flex;
+    text-transform: uppercase;
+    width: 530px;
+    justify-content: space-between;
+    margin: 0 auto; 
+}
+
+.navButtons{
+    background-color: #BF2026;
+    height: 40px;
+    width: 230px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+
