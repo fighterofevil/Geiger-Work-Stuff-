@@ -2428,4 +2428,37 @@ input#cvv{
     margin: 0 auto;
 }
 
+.fundButtonsDiv{
+    /*display: flex;*/
+    align-items: center;
+    position: relative;
+    left: 145px;
+    display: none;
 
+}
+
+.fundButtonsLink{
+    font-weight: 500;
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.fundButtonsLink:hover{
+    color: #BF2026;
+}
+
+.fundButtonsBTN{
+    background-color: #DADADA;
+    min-width: 97px;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;   
+}
+
+.fundButtonsBTN:hover{
+    background-color: #EBEBEB;
+}
