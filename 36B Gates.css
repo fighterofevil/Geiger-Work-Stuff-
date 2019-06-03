@@ -188,9 +188,12 @@ a:hover {
 }
 
 div#DDmenu a{
-    font-size: 18px;
+    font-size: 14px;
     line-height: 28px;
     display: block;
+    font-weight: 500;
+    color: #000;
+    text-transform: initial;
 }
 
 h1{ 
@@ -501,7 +504,7 @@ body{
     font-size: 18px;
     position: absolute;
     margin-left: 114px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     margin-bottom: auto;
     font-weight: 900;
 }
@@ -549,6 +552,8 @@ body{
     background: url("../images/nav-traction.png") repeat-x;
     height: 20px;
     width: 100%;
+    top: -5px;
+    position: relative;    
 }
 
 .nav{
@@ -569,9 +574,12 @@ body{
 }
 
 .nav-left {
-    width: auto;
-    height: 45px;
-    display: inline-flex;
+    height: 65px;
+    z-index: 9999;
+    position: absolute;
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .nav li{
@@ -595,11 +603,12 @@ body{
 
 div#DDmenu{
     position: absolute;
-    background-color: #b12936;
+    background-color: #fff;
     display: none;
     z-index: 100;
     padding-bottom: 20px;
     min-width: 227px;
+    top: 66px;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -612,10 +621,16 @@ div#DDmenu li{
 
 div#DDmenu li a{
     padding:3px 20px;
+    text-decoration: none;
 }
 
 div#DDmenu li a:hover{
-    text-decoration: underline;
+    text-decoration: none;
+    color: #BF2026;
+}
+
+div#DDmenu li:hover{
+    background-color: #EFEFEF;
 }
 
 .liveChat{
@@ -2429,11 +2444,11 @@ input#cvv{
 }
 
 .fundButtonsDiv{
-    /*display: flex;*/
+    display: flex;
     align-items: center;
     position: relative;
     left: 145px;
-    display: none;
+    /*display: none;*/
 
 }
 
@@ -2461,4 +2476,14 @@ input#cvv{
 
 .fundButtonsBTN:hover{
     background-color: #EBEBEB;
+}
+
+.prodCatlink::after{
+    content: '\e313';
+    position: absolute;
+    height: 0;
+    width: 0;
+    font-family: Material Icons;
+    font-size: 30px;
+    color: #BF2026; 
 }
