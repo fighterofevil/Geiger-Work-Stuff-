@@ -2363,6 +2363,16 @@ input#cvv{
 }
 
 .empStoreLink{
+    color: #000;
+    text-decoration: none;
+}
+
+.empStoreLink:hover{
+    text-decoration: none;
+    color: initial;
+}
+
+.empStoreLinkDiv{
     background-color: #DADADA;
     height: 30px;
     width: 245px;
@@ -2371,6 +2381,10 @@ input#cvv{
     display: flex;
     align-items: center;
     justify-content: center;    
+}
+
+.empStoreLinkDiv:hover{
+    background-color: #EBEBEB;
 }
 
 .empStoreLinkBold{
