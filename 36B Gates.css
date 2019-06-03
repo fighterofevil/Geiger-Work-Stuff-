@@ -2421,7 +2421,7 @@ input#cvv{
     background-color: #BF2026;
     height: 40px;
     width: 230px;
-    border-radius: 15px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
