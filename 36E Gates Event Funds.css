@@ -626,14 +626,14 @@ div#DDmenu li a:hover{
 
 #header-top .wrapper .utilNav li{
     float: left;
-    margin-left: 19px;
+    margin-left: 12px;
 }
 
 .utilNav {
     font-size: 12px;
     margin: 6px 0 auto auto;
     text-transform: uppercase;
-    width: auto;
+    width: 760px;
 }
 
 .utilNav ul{
@@ -641,6 +641,9 @@ div#DDmenu li a:hover{
     font-size: 12px;
     font-weight: 500;
     color: #fff;
+    width: 780px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .utilNav ul li a {
