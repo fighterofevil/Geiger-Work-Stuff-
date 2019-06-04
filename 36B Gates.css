@@ -552,7 +552,7 @@ body{
     background: url("../images/nav-traction.png") repeat-x;
     height: 20px;
     width: 100%;
-    top: -5px;
+    top: 0px;
     position: relative;    
 }
 
@@ -606,7 +606,7 @@ div#DDmenu{
     background-color: #fff;
     display: none;
     z-index: 100;
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     min-width: 227px;
     top: 66px;
 }
@@ -2458,6 +2458,7 @@ input#cvv{
     color: #000000;
     text-decoration: none;
     margin-right: 10px;
+    display: flex;
 }
 
 .fundButtonsLink:hover{
