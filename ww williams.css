@@ -1412,9 +1412,10 @@ ul.radios-list li label{
 }
 
 .address-options {
-text-align: right;
-margin: -5px 0 8px;
-float: right;
+    text-align: right;
+    margin: -5px 0 8px;
+    float: right;
+    display: flex;
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
