@@ -2432,6 +2432,16 @@ input#cvv{
     margin: 0 auto; 
 }
 
+.navButtonDiv a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.navButtonDiv a:hover{
+    color: #fff;
+    text-decoration: none;
+}
+
 .navButtons{
     background-color: #BF2026;
     height: 40px;
