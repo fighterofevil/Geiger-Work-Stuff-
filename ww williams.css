@@ -2150,3 +2150,7 @@ input#cvv{
 #pagePoints .bCrumbs, .bCrumbs a{
     display: none;
 }
+
+#singleAddy{
+    min-width: 180px;
+}
