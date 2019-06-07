@@ -55,11 +55,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 :focus {
     outline: 0;
 }
-body {
-    line-height: 1;
-    color: #3D3935;
-    background: white;
-}
 ol, ul, li {
     list-style: none;
 }
@@ -102,10 +97,11 @@ strong{
 
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 body{
-    color:#444444;
     font-family: sofia-pro, sans-serif;
     font-size: 14px;
     line-height: 18px;
+    color: #3D3935;
+    background: white;    
 }
 #container{
     text-align: left;
@@ -120,7 +116,7 @@ p .pageItem{
     line-height: 18px !important;  
 }
 #footer p{
-    margin-bottom: 0px;
+    bottom: 10px;
     position: relative;
     float: right;    
 }
@@ -167,11 +163,12 @@ div#DDmenu a{
 
 
 h1{ 
-    font-weight: bold;
-    font-size: 26px;
+    font-weight: 400;
+    font-size: 28px;
     padding: 0;
     margin: 0px 0px 20px 0px;
-    line-height: 30px;
+    line-height: 28px;
+    color: #F05023;
 }
 #pageHome h1{
     text-align: center;
@@ -183,9 +180,9 @@ h1{
     font-weight: 300;
 }
 h2{ 
-    font-size:22px;
-    color:#424242;
-    font-weight:bold;
+    font-size: 20px;
+    color: #101820;
+    font-weight: 700;
     margin-bottom: 15px;
 }
 
@@ -220,8 +217,8 @@ h6{ }
 }
 
 #pageItem .price {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 900;
     margin: 10px;
     color: #333;
 }
@@ -235,13 +232,12 @@ label, .label {
 } 
 
 .sidebar .title, .facettitle{
-    font-weight: bold;
+    font-weight: 400;
     font-size: 14px;
     margin-top: 10px;
     text-transform: uppercase;
-    padding-bottom: 11px;
     border-bottom: 1px solid #F2F2F2;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
 }
 
 .facettitle{
@@ -299,10 +295,12 @@ body{
 
 #footer .wrapper{ /* For IE8 and earlier */
     color: #fff;
-    height: 100px;
+    height: 66px;
     width: 1024px;
     margin: 0 auto;
     padding-top: 55px;
+    font-size: 14px;
+    font-weight: 700;
 }
 #footer .wrapper p{
     /*color: #666666;*/
@@ -475,6 +473,8 @@ div#DDmenu li a:hover{
 #header .wrapper .utilNav li{
     float: left;
     margin-left: 10px;
+    top: 4px;
+    position: relative;    
 }
 
 #header .wrapper .utilNav li:first-child{
@@ -489,7 +489,7 @@ div#DDmenu li a:hover{
 /****footer nav****/
 #footer ul li{
     display: inline;
-    padding-left: 10px;
+    padding-left: 15px;
 }
 #footer ul{
     /* margin: 0 auto; */
@@ -555,7 +555,7 @@ div#DDmenu li a:hover{
     float: left;
     padding-right: 4px;
     height: 30px;
-    color: #ADA8A2;
+    color: #101820;
     font-size: 12px;
 }
 #searchForm input#searchBtn{
@@ -586,12 +586,12 @@ table a:visited {
 }
 table a:active,
 table a:hover {
-    color: #bd5a35;
+    color: #F47A58;
     text-decoration:underline;
 }
 table {
     font-family:sofia-pro, sans-serif;
-    color:#666;
+    color:#3D3935;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
@@ -693,8 +693,13 @@ tfoot tr td{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 0px;
+    margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-size: 16px;
 }
 .btn:hover{
     background-color: #F2F2F2;
@@ -710,8 +715,12 @@ tfoot tr td{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 0px;
+    margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .btn-primary:hover{
@@ -732,6 +741,10 @@ tfoot tr td{
     height: 450px;
     width: 1024px;
     margin: 0 auto;    
+}
+
+.spotlightWrapperCustom{
+    margin-top: 10px;
 }
 
 .spotlightWrapper{
@@ -818,7 +831,7 @@ tfoot tr td{
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
     font-family: sofia-pro, sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
@@ -948,7 +961,7 @@ a.forgotPassword{
     width: 425px;
 }
 #pageMyAccount form.myAccountForm label{
-    width: 100px;
+    width: 120px;
     display: block;
     float: left;
 
@@ -1401,7 +1414,7 @@ ul.radios-list li label{
     }
 
 #pageCheckoutPayment .js-click{
-    color:#84010F;
+    color: #ff4e04;
 }
 
 .tabs.clearfix > ul {
@@ -1626,8 +1639,10 @@ input#cvv{
 }
 
 .warningText{
-    color: #FC9801;
+    color: red;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
 }
 .message.success{
     padding: 5px 10px;
@@ -1979,10 +1994,12 @@ table.no-border tr, table.no-border td {
     border: initial;
     left: 9px;
     top: 1px;
+    margin-right: 5px;
 }
 
 .cartImg{
     margin-right: 11px;
+    margin-right: 10px;
     position: relative;
     bottom: 4px;
 }
@@ -1997,9 +2014,10 @@ table.no-border tr, table.no-border td {
 
 #pageItem h1{
     color: #F05023;
-    font-size: 30px;
+    font-size: 28px;
     text-transform: initial;
-    font-weight: 300;
+    font-weight: 400;
+    line-height: 28px;
 }
 
 
@@ -2065,10 +2083,12 @@ table.no-border tr, table.no-border td {
     background-color: #DA291C;
     padding: 10px 28px;
     border-radius: 5px; 
+    font-weight: 900;
 }
 
 .shopButton:hover{
     color: #fff;
+    background-color: #961C13;    
 }
 
 .spotlightWrapperCustomText{
@@ -2086,7 +2106,7 @@ table.no-border tr, table.no-border td {
 .spotlightWrapperCustomBox{
     background-color: #3D3935;
     opacity: 0.5;
-    width: 549px;
+    width: 525x;
     height: 120px;
     top: 247px;
     position: relative;    
@@ -2098,7 +2118,8 @@ table.no-border tr, table.no-border td {
     position: absolute;
     top: 490px;
     padding-left: 14px;    
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);    
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);  
+    font-weight: 900;  
 }
 
 .spotlightWrapperCustomBigTextSmall{
@@ -2112,4 +2133,36 @@ table.no-border tr, table.no-border td {
 
 .productCategories a:hover{
     cursor: pointer;
+}
+
+#pageCheckoutPayment #container. #pageTerm #container{
+    padding-bottom: 100px;
+}
+
+#info_needed{
+    margin-bottom: 15px;
+}
+
+#pageTerm h1{
+    margin-bottom: 15px;
+}
+
+#pageTerm p{
+    margin-bottom: 30px;
+}
+
+.ui-tabs .ui-tabs-panel{
+    font-size: 13px;
+}
+
+.cross-sell h3{
+    margin-top: 15px;
+}
+
+#pageCategory .name{
+    line-height: 17px;
+}
+
+#pageHome #content{
+    padding-top: 16px;
 }
