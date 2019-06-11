@@ -1991,7 +1991,7 @@ table.no-border tr, table.no-border td {
     background: url(../images/search-icon.png) transparent no-repeat;
     height: 28px;
     width: 32px;
-    border: initial;
+    border: 0px;
     left: 9px;
     top: 1px;
     margin-right: 5px;
