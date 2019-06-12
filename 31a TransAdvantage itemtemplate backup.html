@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+#set($itemRow = $singleItemDTO.getItem(0))
+#set($item = $pageTile.getItemObject($singleItemDTO, $itemRow , "i"))
+#set($price = $item.itemPrice)
+#set($mainItemPrice = $item.itemPrice)
+#set($printitemid = $pageTile.getItemObject($singleItemDTO, $itemRow , "itemid"))
+
+#if(!$pageTileDictionaryDTO)
+  #if($_commandName)
+    #springBind( "${_commandName}.pageTileDictionaryDTO")
+    #set ($pageTileDictionaryDTO = ${status.value})
+  #end
+#end
+
+#if($pageTileDictionaryDTO)
+  #set($childItemsHomeDTO=$pageTileDictionaryDTO.getPageTile("childItemsHomeDTO"))
+  #set($catDropMenuDTO=$pageTileDictionaryDTO.getPageTile("catDropMenuDTO"))
+#end
+
+#set($metadescription= $item.metadescription)
+#set($keywords= $item.keywords)
+#set($pagetitle= $item.pagetitle)
+#########################################################################
+
+<html id="pageItem">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else $!{item.title} - $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+
+
+    #parse('libitempgjavascript.vm')
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        
+        <div id="content" role="main">
+            <div class="sidebar">
+                #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/flyoutMenuTAP.vm")
+                
+                ## added 07.10 renderFlyoutMenuTAP - kevin 
+                #renderFlyoutMenuTAP("sf-menu sf-arrows sf-vertical")
+        
+                <div id="suggestedItems" style="clear:left"><!-- you may also like section --></div>
+                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+            </div>
+        <div class="page clearfix">
+            
+<div class="messages">
+          ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div> #end
+          <div class="message success" id="globmsg" style="display:none;"></div>
+        </div>
+
+    <div class="bCrumbs">
+        ##   #parse("libpartCategoryBreadcrumbs.vm")
+  #set($bcMax = $categoryPathDTO.size())
+  #foreach($clink in $categoryPathDTO)
+    #if($velocityCount == 1)
+      <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId"))">#springMessage("navHome")</a>
+    #elseif($velocityCount != $bcMax)
+      #if($velocityCount>1)
+      <span>/ </span><a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$clink.cid"))">$clink.getName()</a>
+      #end
+    #else
+      <span>/ </span><a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$clink.cid"))">$clink.getName()</a>
+    #end
+  #end
+  
+    </div>
+        <div class="clearfix itemContent">
+          <div class="">
+          <div class="page">
+         <div><h1 id="js-item-title-${item.itemid}">$!{item.title}</h1>
+         #springMessage('itemCode'):<span id="itemCodeList"> <span id="js-item-code-${item.itemid}">$item.code</span></span>
+         </div>
+            <input type="hidden" id="formName" value="F$item.itemid"> ## What's this?
+            <div id="imageWindow" >
+              <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+                <img  src="store$item.largeimage" width="300" />
+              </a>
+              
+            </div>
+            
+            #parse($item_topDTO.getItems().get(0).get('item_top')) ## What's this?
+            <div class="itemText">
+             #parse("libpartItemTabInfo.vm")  ## Tabs to show description, tiers, longdesc2...
+
+
+
+				 #if($prop65Warnings[$item.code])
+					<div class="propWarning" style="text-align: center; margin-top: 10px; padding: 2px;">
+
+					    <p style="font-size: 12px;">$prop65Warnings['messages'].heading</p>
+						<h2 style="font-size: 12px;">  <img style="height: 20px;" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/warning.png">
+						   <b>WARNING:</b> $prop65Warnings[$item.code]</h2>
+						<p>For more information go to <a href="https://www.P65Warnings.ca.gov"> www.P65Warnings.ca.gov </a></p>
+					</div>
+				 #end
+          
+            </div>
+            
+          
+        
+            #if($!{isPointStore} == 'TRUE')
+                #parse("libpartitempoints.vm") ## Item Price
+
+                <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                #if($item.itemid)
+                  #set($formName = "F$item.itemid")
+                #end
+            
+            
+            #else
+                #parse("libpartItemPrice.vm") ## Item Price
+
+
+
+                <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                #if($item.itemid)
+                  #set($formName = "F$item.itemid")
+                #end
+            #end
+
+
+
+            #*================================
+              Errors
+            =================================*#
+              #springBind( "storeItemDTO.*" )
+              #if($status.errors.errorCount>0)
+                <div class="msg">
+                  #foreach($error in $status.errorMessages)
+                    <div class="error">$error</div>
+                  #end
+                </div>   
+              #end
+
+            <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+              <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"> ##TODO: variable for cid
+              <input type="hidden" id="compCode_0" value="$item.code"/>
+              #set ($found = 'false')
+
+              ##parse("libpartItemAddAnother.vm")  ## Add Another
+              ##begin libpartItemAddAnother
+                <div id="itemListTable">
+                  <div id ="add-another-item" class="add-another-item">
+                    <table cellspacing="0">
+                      <tr id="add-another">
+                        <td class="col1">
+                          <div id="js-item-attributes-$item.itemid" class="item-attr-section"></div>
+                        </td>
+                        <td class="col2">
+                          <div class="f-row">
+                            <label for="qty_0">#springMessage("vm.itemTemplate.quantity"):</label> 
+                            <input class="qty-input" type='text' id="js-item-qtybox-$item.itemid" maxlength="3" disabled />
+                          </div>
+                        </td>
+                        <td class="col3">
+                          <div id="js-item-inventory-$item.itemid"></div>  <div id="js-item-minorderqty-$item.itemid"></div>
+                        </td>
+                        <td class="col4">
+                          <div id="remove-item-${item.itemid}" class="removeLink" style="float:right">
+                            <a href="javascript:void(0)">remove</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <div id="estimateCalendar" class="estimate-calendar"></div>
+                  </div>
+                </div>
+                <div class="actions">
+                  <span id="addAnother">
+                    <a href="javascript:void(0)">Add Another...</a>
+                  </span>
+                </div>
+              
+              ##end libpartItemAddAnother
+
+              #parse("libpartItemCustomization.vm") ## Customization
+            
+              <div id="js-item-hiddenfields-$item.itemid"></div> ## What's this used for? Container for multiple "add another" items?
+
+              #parse("libpartItemAddToWishlist.vm")  ## Add To Wishlist
+
+              #*
+               * RedirectMode = true: navigate to wishlist after add
+               * RedirectMode = false: stay on page, display message
+              *#
+              <input type="hidden" name="redirectMode" value="true">
+
+                        #foreach($error in $product.errors)
+                        <div class="error-text-area">
+                           $error.message
+                        </div>
+                        #end
+
+
+			  ##############################################################
+			  ## Rollover - Change image to required options, if selected
+			  
+  			  #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/dynamic_item_images.vm")
+			  #renderDynamicItemImagesScript()
+
+			  
+			  ## #if ($rolloverCIDsAndSKUs)
+				 ##  #set($_useRollover = false)
+				 ##  #foreach($clink in $categoryPathDTO)
+					## #foreach($rolloverEntry in $rolloverCIDsAndSKUs)
+					##   #if($rolloverEntry.get(0) == $clink.cid.toString() || $rolloverEntry.get(0) == $item.code)
+					## 	#set($_useRollover = true)
+					## 	#set($_rolloverOptionLabels = $rolloverEntry.get(1))
+					##   #end
+					## #end
+				 ##  #end
+				 ##  #if ($_useRollover == true)
+					## <script language="Javascript">
+					## 	console.log("Item image rollover detected.");
+					## 	jQuery( function() {
+					## 		var itemBaseCode = jQuery("[id^=js-item-code]").text();         // Get base item code.  If it has a color option listed, set that as default.
+					## 		var baseUrl = "/store/${vendorSettingsDTO.vendorId}";
+					## 		var loadingImgSrc = baseUrl + '/images/loading-image.gif';		// Loading image.
+					## 		var dropDownVals = new Array();									// Stored item options, refreshed on option change.
+
+					## 		var a = "${_rolloverOptionLabels}".split("|");					// Setup associative array that stores current option values.
+					## 		for (i = 0; i < a.length; i++) {
+					## 			var ddvals = a[i].split("=");
+					## 			var ddkey = ddvals[0].toLowerCase().trim();
+					## 			dropDownVals[ddkey] = Array();
+					## 			dropDownVals[ddkey][0] = "";
+					## 			dropDownVals[ddkey][1] = "";
+					## 			if (ddvals.length > 1)
+					## 				dropDownVals[ddkey][1] = ddvals[1];
+					## 		}
+
+					## 		jQuery('<img/>')[0].src = loadingImgSrc;						// Pre-load loading image.
+
+					## 		//Event to handle whenever an item option has been changed.
+					## 		jQuery(".item-attr-section select").on('keyup change', (function() {
+								
+					## 			//An item option has been changed. Refresh stored item options.
+					## 			var jqLabels = jQuery(".item-attr-section label span")
+					## 			var jqOptionAttrs = jQuery('.item-attr-section select option:selected');
+					## 			for (j = 0; j < jqOptionAttrs.length; j++) {
+					## 				var dropDownKey = jqLabels.eq(j).text().toLowerCase().trim();
+					## 				var dropDownVal = jqOptionAttrs.eq(j).attr("title");
+					## 				if (dropDownVals[dropDownKey] != undefined) {
+					## 					if (dropDownVal == undefined) {
+					## 						if (dropDownVals[dropDownKey][1] == "")
+					## 							dropDownVals[dropDownKey][0] = "";								// No default. Needed option is not present.
+					## 						else
+					## 							dropDownVals[dropDownKey][0] = dropDownVals[dropDownKey][1];	// Use default option.
+					## 					} else {
+					## 						dropDownVals[dropDownKey][0] = dropDownVal;
+					## 					}
+					## 				}
+					## 			}
+
+					## 			//All needed options present?
+					## 			var useCustom = true;
+					## 			var newImgSrc = itemBaseCode;
+					## 			for (key in dropDownVals) {
+					## 				if (dropDownVals[key][0] == "")
+					## 					useCustom = false;
+					## 				else
+					## 					newImgSrc = newImgSrc + dropDownVals[key][0]
+					## 			}
+
+					## 			//Change the image if all the needed options are present. Otherwise, change to default.
+					## 			var jqImg = jQuery('#imageWindow img, .MagicThumb-expanded img, .MagicZoomBigImageCont div img');
+					## 			var jqAnchor = jQuery("#imageWindow a.product-image-zoom");
+					## 			var defaultImgSrc = "store/${vendorSettingsDTO.vendorId}/assets/items/largeimages/pi_"+itemBaseCode+"_l.JPG";
+					## 			var errFunc = function(){
+					## 				console.log("WARNING: couldn't find image " + baseUrl + "/assets/items/largeimages/pi_" + newImgSrc + "_l.JPG");
+					## 				if (jqImg.attr("src") != defaultImgSrc) {
+					## 					jqImg.attr( "src", defaultImgSrc);
+					## 					jqAnchor.attr( "href", defaultImgSrc);
+					## 				} else {
+					## 					console.log ("WARNING: couldn't find DEFAULT image of " + defaultImgSrc);
+					## 				}
+					## 			};
+					## 			if (useCustom) {
+					## 				// Use customized image reflecting options.
+					## 				jqImg.attr("src", loadingImgSrc).error(errFunc);
+					## 				jqAnchor.attr( "href", baseUrl + "/assets/items/largeimages/pi_" + newImgSrc + "_l.JPG");
+					## 				jqImg.attr( "src", baseUrl + "/assets/items/largeimages/pi_" + newImgSrc + "_l.JPG").error(errFunc);
+					## 			} else {
+					## 				// Use default image.
+					## 				jqImg.attr("src", loadingImgSrc).error(errFunc);
+					## 				jqAnchor.attr( "href", defaultImgSrc).error(errFunc);
+					## 				jqImg.attr( "src", defaultImgSrc).error(errFunc);
+					## 			}
+
+					## 		})).change();
+					## 	});
+						
+					## </script>
+
+				 ##  #end 
+			  ## #end 
+
+			  #######################
+			  ## End Rollover code 
+
+
+                        
+
+              #*================================
+                  Add to Cart Button
+                =================================*#
+              <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();">
+                #springMessage('addToCart')
+              </div>
+            </form>
+          </div><!--//.page -->
+        </div><!--//.clearfix-->
+        </div></div>
+        <div class="clearBoth">&nbsp;</div>
+        </div> <!--//#content -->
+        #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    </div> <!--//#container -->
+    #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    #parse("libpartitempgjsbottom.vm")
+    
+
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+    
+    <script>
+        // Chrome bug workaround
+        jQuery(function() {
+            MagicZoomPlus.refresh();
+            jQuery('#imageWindow, .MagicZoomBigImageCont, .page').bind('mouseover',function() {
+                MagicZoomPlus.refresh();
+            });
+         });
+    </script>
+
+  <script>
+     $(document).ready(function(){
+          var test=$('#js-item-inventory-$item.itemid').text();
+          //console.log(test);
+          if (test.indexOf('This item is produced on')!==-1)
+          {
+           //$('#js-item-inventory-$item.itemid').hide();
+           //test="poop";
+           var test="This item is produced on-demand and takes longer to ship. Please refer to the &#34;Estimated In-Hands Date&#34; calendar below. <br/><br/><div id='item2ndpara'>On-demand items are customized and therefore not returnable. See our FAQ page for more information.</div>";
+           //console.log(test);
+           //console.log("hello world");
+            $('#js-item-inventory-$item.itemid').html(test);
+            console.log("hello world again");
+            console.log($('#js-item-inventory-$item.itemid').text());
+          }
+          
+        });
+  </script>
+    
+  </body>
+</html>

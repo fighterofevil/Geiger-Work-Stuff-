@@ -167,16 +167,8 @@
     "costCenter": "2400-71",
     "property": "Mexico"
   },
-   {
-    "costCenter": "2399-30",
-    "property": "Magera"
-  },
-   {
-    "costCenter": "1100-70",
-    "property": "Stocker"
-  },
-   {
-    "costCenter": "1100-70",
-    "property": "Heath"
+  {
+    "costCenter": "1111-11",
+    "property": "viewOnly"
   }
-]
+  ]
