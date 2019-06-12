@@ -2154,3 +2154,7 @@ input#cvv{
 #singleAddy{
     min-width: 180px;
 }
+
+.thirdptyft{
+    display: none;
+}
