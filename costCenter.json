@@ -166,5 +166,9 @@
   {
     "costCenter": "2400-71",
     "property": "Mexico"
+  },
+  {
+    "costCenter": "1111-11",
+    "property": "viewOnly"
   }
-]
+  ]
