@@ -180,30 +180,30 @@ div#DDmenu a{
 
 h1{ 
     font-weight: bold;
-    font-size: 36px;
+    font-size: 28px;
     padding: 0;
-    margin: 0px 0px 8px 0px;
-    line-height: 30px;
+    margin: 0px 0px 15px 0px;
+    line-height: 28px;
     color: #004477;
     font-weight: 300;    
 }
 
 #pageHome h1{
     text-align: center;
-    font-size: 36px;
+    /*font-size: 36px;*/
     color: #004477;
     font-weight: 300;    
-    margin: 0px 0px 19px 0px;
+    margin: 0px 0px 10px 0px;
 }
 
 #pageCategory h1{
-    margin-top: 35px;
+    margin-bottom: 20px;
 }
 
 h2{ 
-    font-size: 24px;
+    font-size: 23px;
     margin-bottom: 15px;
-    color: #004477;
+    color: #333;
     font-weight: 300;
 }
 
@@ -215,6 +215,7 @@ h6{ }
 .bCrumbs, .bCrumbs a{
     font-size: 14px;
     color: #333333;
+    margin-bottom: 20px;
 }
 
 .image .price-box{
@@ -282,7 +283,8 @@ label, .label {
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
-    color:#555;
+    /*color:#555;*/
+    text-decoration: underline;
     background-position:2px -48px;
     text-decoration:none;
     font-size:12px;
@@ -325,14 +327,13 @@ body{
     background-color: #0061AA;
     display: flex;
     align-items: center;
-    justify-content: center;    
-
+    justify-content: center;     
 }
 
 #header .wrapper{
     width: 1024px;
     text-align: right;
-    margin: 0 auto;
+    margin: 0 auto;   
 }
 
 #footer .wrapper{
@@ -505,8 +506,8 @@ div#DDmenu li a:hover{
     display: flex;
     align-items: center;
     justify-content: center;    
-    padding-left: 17px;
-    padding-right: 17px;    
+    padding-left: 13px;
+    padding-right: 13px;    
 }
 
 .utilNav ul{
@@ -542,13 +543,15 @@ div#DDmenu li a:hover{
 
 #cart-icon{
     float: left;
-    font-size: 28px;
+    font-size: 24px;
     margin: 5px 5px 0px 0px
 }
 
 .summary{
     float: right;
     text-align: left;
+    top: 3px;
+    position: relative;
 }
 
 #cart-quantity, #cart-total{
@@ -725,9 +728,9 @@ tfoot tr td{
 
 .btn {
     cursor: pointer;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
     background-color: #ECEDF0;
     min-height: 40px;
     display: flex;
@@ -736,6 +739,10 @@ tfoot tr td{
     min-width: 135px;
     color: #333333;
     font-weight: bold;
+    font-size: 16px;
+    padding-left: 12px;
+    padding-right: 12px; 
+    border: 0px;       
 }
 
 .btn:hover{
@@ -747,17 +754,20 @@ tfoot tr td{
     color: #FFF;
     font-weight: bold;
     cursor: pointer;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
     background-color: #0061AA;
     min-width: 135px;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 40px;
-    font-weight: 16px;
-
+    font-weight: bold;
+    font-size: 16px;    
+    padding-left: 12px;
+    padding-right: 12px;
+    border: 0px;       
 }
 
 .btn-primary:hover{
@@ -785,7 +795,7 @@ tfoot tr td{
 
 .welcome-message{
     color: #757575;
-    font-size: 17px;
+    font-size: 15px;
     line-height: 23px;
     width: 768px;
     margin: 0 auto;
@@ -883,7 +893,8 @@ tfoot tr td{
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
     font-family: trade-gothic-next, sans-serif;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 700;    
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
@@ -1167,6 +1178,10 @@ a.view-all{
     justify-content: center;    
 }
 
+.btn.wishlist:hover{
+    text-decoration: none;
+}
+
 /****Item Page****/
 
 #itemForm > div {
@@ -1343,7 +1358,7 @@ ul.radios-list li label{
   background-image: url("../images/bg/checkout_sprite.png");
   background-position: 103% 0;
   background-repeat: no-repeat;
-  margin: 30px 0;
+  margin: 50px 0;
 }
 
 .co-breadcrumb li.active{
@@ -1580,7 +1595,7 @@ ul.radios-list li label{
 }
 
 #pageCheckoutPayment .js-click{
-    color:#84010F;
+    color:#004477;
 }
 
 .payment-section{
@@ -2026,6 +2041,7 @@ input#cvv{
 #submitClearWishList{
     position: relative;
     float: right;
+    right: 180px;    
 }
 
 #imageWindow{
@@ -2036,7 +2052,7 @@ input#cvv{
     position: relative;
     float: left;
     cursor: pointer;
-    font-size: 30px !important;
+    font-size: 24px !important;
     color: #F9BF0C;
     top: 4px;
     padding-left: 10px;    
@@ -2084,6 +2100,10 @@ input#cvv{
     font-weight: 300;
 }
 
+.featured-product-carousel h1{
+    text-align: initial !important;
+}
+
 .spotlightWrapper{
     width: 1024px;
     margin: 0 auto;
@@ -2120,21 +2140,23 @@ input#cvv{
 
 .featItemTitle{
     color: #333333;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     min-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;    
 }
 
 .featItemPrice{
     color: #185B8F;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
 }
 
 .welcomemsg strong{
     font-weight: 300;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .pointBtn {
@@ -2147,7 +2169,7 @@ input#cvv{
     float: right;   
 }
 
-#pagePoints .bCrumbs, .bCrumbs a{
+#pagePoints .bCrumbs, #pagePoints .bCrumbs a{
     display: none;
 }
 
@@ -2155,6 +2177,65 @@ input#cvv{
     min-width: 180px;
 }
 
-.thirdptyft{
+#thirdptyft{
     display: none;
+}
+
+.desc{
+    font-size: 13px;    
+}
+
+.basket-item-desc b{
+    font-weight: 400;
+}
+
+#continueShopBtn{
+    margin-top: 10px;
+}
+
+#pageWishlist table td{
+    vertical-align: top;
+}
+
+#pageWishlist img{
+    width: 125px;
+    height: 125px;    
+}
+
+.wishlistbuttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+#pagePoints .page{
+    margin-left: 0px;
+}
+
+.loginNote{
+    font-weight: 700;
+}
+
+.productCategories{
+    min-width: 204px;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+    .summary{
+        top: 0px;
+    }
+    ,cart-button{
+        margin-top: 8px;
+    }
+
+    #header{
+        display: auto !important;
+        align-items: auto !important;
+        justify-content: auto !important;    
+    }
+
+    #header .wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;          
+    }
 }
