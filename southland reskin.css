@@ -176,7 +176,6 @@ h1{
 #pageCategory h1{
     margin-top: 15px;
     color: #F05023;
-    font-size: 30px;
     font-weight: 300;
 }
 h2{ 
@@ -232,12 +231,13 @@ label, .label {
 } 
 
 .sidebar .title, .facettitle{
-    font-weight: 400;
+    font-weight: 700;
     font-size: 14px;
     margin-top: 10px;
     text-transform: uppercase;
     border-bottom: 1px solid #F2F2F2;
     margin-bottom: 5px;
+    padding-bottom: 3px;
 }
 
 .facettitle{
@@ -251,6 +251,10 @@ label, .label {
     padding:3px 2px 3px 33px;
     display:block;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
+}
+
+#recentlyViewed a:hover{
+    text-decoration: underline;
 }
 
 /*********** Global - Structure *************
@@ -556,7 +560,7 @@ div#DDmenu li a:hover{
     padding-right: 4px;
     height: 30px;
     color: #101820;
-    font-size: 12px;
+    font-size: 14px;
 }
 #searchForm input#searchBtn{
     width: 35px;
@@ -721,6 +725,7 @@ tfoot tr td{
     margin-top: 10px;
     padding-left: 25px;
     padding-right: 25px;
+    font-size: 16px;
 }
 
 .btn-primary:hover{
@@ -743,16 +748,13 @@ tfoot tr td{
     margin: 0 auto;    
 }
 
-.spotlightWrapperCustom{
-    margin-top: 10px;
-}
-
 .spotlightWrapper{
     background: url("../images/spot-img.jpg") transparent no-repeat;    
 }
 
 .spotlightWrapperCustom{
     background: url("../images/custom-items.png") transparent no-repeat;    
+    background-position: 0px 10px;
 }
 
 .welcome-message{
@@ -1043,7 +1045,7 @@ display:none;
     position: absolute;
     background: #444;
     right: 0;
-    bottom: 5px;
+    bottom: 4px;
     padding: 5px 6px;
 
 }
@@ -1237,7 +1239,7 @@ ul.radios-list li label{
   background-image: url(../images/bg/checkout_sprite.png);
   background-position: 108% 0;
   background-repeat: no-repeat;
-  margin: 30px 0;
+  margin: 50px 0;
 }
 .co-breadcrumb li.active{
     font-weight: bold;
@@ -1313,7 +1315,7 @@ ul.radios-list li label{
     position:relative;
     margin-top:-1px;
     display:block;
-    color:#444;
+    color:#3D3935;
     border:1px solid #CDCDCD;
 }
 
@@ -1423,7 +1425,7 @@ ul.radios-list li label{
 .tabs .tab {
 
     font-family:sofia-pro, sans-serif;
-    color:#666;
+    color:#3D3935;
     font-size:12px;
     background:#FFFFFF;
     border:#ccc 1px solid;
@@ -1994,7 +1996,7 @@ table.no-border tr, table.no-border td {
     border: 0px;
     left: 9px;
     top: 1px;
-    margin-right: 5px;
+    margin-right: 12px;
 }
 
 .cartImg{
@@ -2106,7 +2108,7 @@ table.no-border tr, table.no-border td {
 .spotlightWrapperCustomBox{
     background-color: #3D3935;
     opacity: 0.5;
-    width: 525x;
+    width: 530px;
     height: 120px;
     top: 247px;
     position: relative;    
@@ -2116,7 +2118,7 @@ table.no-border tr, table.no-border td {
     color: #fff;
     font-size: 65px;
     position: absolute;
-    top: 490px;
+    top: 499px;
     padding-left: 14px;    
     text-shadow: 0 0 5px rgba(0,0,0,0.5);  
     font-weight: 900;  
@@ -2126,7 +2128,7 @@ table.no-border tr, table.no-border td {
     color: #fff;
     font-size: 30px;
     position: absolute;
-    top: 540px;
+    top: 552px;
     padding-left: 20px;    
     text-shadow: 0 0 5px rgba(0,0,0,0.5);    
 }
@@ -2135,11 +2137,11 @@ table.no-border tr, table.no-border td {
     cursor: pointer;
 }
 
-#pageCheckoutPayment #container. #pageTerm #container{
-    padding-bottom: 100px;
+#pageCheckoutPayment #container, #pageTerm #container{
+    padding-bottom: 100px !important;
 }
 
-#info_needed{
+.info_needed{
     margin-bottom: 15px;
 }
 
@@ -2165,4 +2167,8 @@ table.no-border tr, table.no-border td {
 
 #pageHome #content{
     padding-top: 16px;
+}
+
+#pageSearchResults .text{
+    line-height: 17px;
 }
