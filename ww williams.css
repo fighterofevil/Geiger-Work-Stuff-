@@ -45,6 +45,10 @@
         height: 39px;
     }
     
+    #header .wrapper .utilNav li.welcomemsg:hover{
+        background-color: #0061AA;
+    }
+    
 }
 
 
@@ -2239,6 +2243,8 @@ input#cvv{
     min-width: 204px;
 }
 
-
+#select-single-billing .edit-address-link{
+    display: none;
+}
 
 
