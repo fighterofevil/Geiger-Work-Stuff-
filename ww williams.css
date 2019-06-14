@@ -1455,6 +1455,8 @@ ul.radios-list li label{
     margin: -5px 0 8px;
     float: right;
     display: flex;
+    justify-content: space-between;
+    min-width: 380px;    
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
@@ -2243,8 +2245,7 @@ input#cvv{
     min-width: 204px;
 }
 
-/*#select-single-billing .edit-address-link{
+.billingAddyEditLink{
     display: none;
 }
-*/
 
