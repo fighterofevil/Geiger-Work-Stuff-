@@ -2287,3 +2287,19 @@ div#DDmenu a::after{
 
 }
 
+.fedExShipMsg{
+    text-shadow: initial;
+    position: relative;
+    float: right;
+    top: 20px;
+    left: 2px;
+    cursor: initial;  
+    padding-left: 5px;
+    padding-right: 5px;    
+}
+
+.note{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
