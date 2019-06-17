@@ -2249,3 +2249,12 @@ input#cvv{
     display: none;
 }
 
+.comingSoon{
+    width: 920px;
+    margin-bottom: 20px;
+    cursor: initial;
+}
+
+.comingSoon:hover{
+    background-color: #0061AA;
+}
