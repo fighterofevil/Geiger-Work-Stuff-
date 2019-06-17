@@ -2086,6 +2086,7 @@ table.no-border tr, table.no-border td {
     padding: 10px 28px;
     border-radius: 5px; 
     font-weight: 900;
+    text-decoration: none;
 }
 
 .shopButton:hover{
