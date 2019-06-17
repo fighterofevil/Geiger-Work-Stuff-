@@ -173,7 +173,7 @@ h1{
 #pageHome h1{
     text-align: center;
 }
-#pageCategory h1{
+#pageCategory, #pageTradeshow h1{
     margin-top: 15px;
     color: #F05023;
     font-weight: 300;
@@ -997,13 +997,13 @@ td.ar{
 
 /****Category and search results****/
 
-#pageCategory .item, #pageSearchResults .item{
+#pageCategory .item, #pageSearchResults .item, #pageTradeshow .item{
     float: left;
     height: 275px;
     margin-right: 20px;
     width: 150px;
 }
-#pageCategory .badges, #pageSearchResults .badges{
+#pageCategory .badges, #pageSearchResults .badges, #pageTradeshow .badges{
     position: absolute;
     top: 1px;
     left: 1px;
@@ -2162,7 +2162,7 @@ table.no-border tr, table.no-border td {
     margin-top: 15px;
 }
 
-#pageCategory .name{
+#pageCategory .name, #pageTradeshow .name{
     line-height: 17px;
 }
 
@@ -2172,4 +2172,8 @@ table.no-border tr, table.no-border td {
 
 #pageSearchResults .text{
     line-height: 17px;
+}
+
+#pageTradeshow .price-box{
+    display: none;
 }
