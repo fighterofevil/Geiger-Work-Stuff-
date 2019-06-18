@@ -2193,7 +2193,7 @@ input#cvv{
 .pointBtn-primary{
     position: relative;
     float: right;   
-}
+} P
 
 #pagePoints .bCrumbs, #pagePoints .bCrumbs a{
     display: none;
@@ -2250,7 +2250,8 @@ input#cvv{
 }
 
 .comingSoon{
-    width: 920px;
+    width: 97%;
+    min-height: 500px;
     margin-bottom: 20px;
     cursor: initial;
 }
