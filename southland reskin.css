@@ -2177,3 +2177,9 @@ table.no-border tr, table.no-border td {
 #pageTradeshow .price-box{
     display: none;
 }
+
+.commonNameAndMessages{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
