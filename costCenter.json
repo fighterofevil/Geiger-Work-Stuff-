@@ -1,174 +1,221 @@
 [
   {
     "costCenter": "2590-30",
-    "property": "Akron"
-  },
-  {
-    "costCenter": "2607-30",
-    "property": "Southeast Region"
+    "property": "Akron",
+    "location": "Akron"
   },
   {
     "costCenter": "2650-30",
-    "property": "Atlanta"
+    "property": "Atlanta",
+    "location": "Atlanta"
   },
   {
     "costCenter": "2720-30",
-    "property": "Birmingham"
+    "property": "Birmingham",
+    "location": "Birmingham"
   },
   {
     "costCenter": "2585-30",
-    "property": "Bluffton"
+    "property": "Bluffton",
+    "location": "Bluffton"
   },
   {
     "costCenter": "2507-30",
-    "property": "Power Gen Svc"
+    "property": "Power Gen Svc",
+    "location": "Power Gen Svc"
   },
   {
     "costCenter": "2507-30",
-    "property": "Indianapolis"
+    "property": "Indianapolis",
+    "location": "Indianapolis"
   },
   {
     "costCenter": "2520-30",
-    "property": "Cleveland"
-  },
-  {
-    "costCenter": "2500-70",
-    "property": "Midwest Region"
-  },
- {
-    "costCenter": "2500-70",
-    "property": "Midwest Sales"
+    "property": "Cleveland",
+    "location": "Cleveland"
   },
   {
     "costCenter": "2580-30",
-    "property": "Grand Rapids"
+    "property": "Grand Rapids",
+    "location": "Grand Rapids"
   },
   {
     "costCenter": "8860-30",
-    "property": "North Atlanta"
+    "property": "North Atlanta",
+    "location": "North Atlanta"
   },
   {
     "costCenter": "2612-30",
-    "property": "Charleston"
+    "property": "Charleston",
+    "location": "Charleston"
   },
   {
     "costCenter": "2587-30",
-    "property": "Louisville"
+    "property": "Louisville",
+    "location": "Louisville"
   },
   {
     "costCenter": "2540-30",
-    "property": "GTS"
+    "property": "GTS",
+    "location": "GTS"
   },
   {
     "costCenter": "2670-30",
-    "property": "Columbia"
+    "property": "Columbia",
+    "location": "Columbia"
   },
   {
     "costCenter": "3310-30",
-    "property": "Carrier Columbus"
+    "property": "Carrier Columbus",
+    "location": "Carrier Columbus"
   },
   {
     "costCenter": "2560-30",
-    "property": "Dearborn"
+    "property": "Dearborn",
+    "location": "Dearborn"
   },
   {
-    "costCenter": "1100-70",
-    "property": "Marketing"
-  },
-  {
-    "costCenter": "7100-30",
-    "property": "Logistics Region"
-  },
-  {
-    "costCenter": "3300-30",
-    "property": "Carrier Region"
+    "costCenter": "1100-30",
+    "property": "Marketing",
+    "location": "Marketing"
   },
   {
     "costCenter": "3330-30",
-    "property": "Carrier Cincinnati"
+    "property": "Carrier Cincinnati",
+    "location": "Carrier Cincinnati"
   },
   {
     "costCenter": "2680-30",
-    "property": "Greer"
+    "property": "Greer",
+    "location": "Greer"
   },
   {
     "costCenter": "2510-30",
-    "property": "Hilliard"
+    "property": "Hilliard",
+    "location": "Hilliard"
   },
   {
-    "costCenter": "2390-30",
-    "property": "Power Gen Sales"
+    "costCenter": "2399-30",
+    "property": "Power Gen Sales",
+    "location": "Power Gen Sales"
+  },
+  {
+    "costCenter": "2399-30",
+    "property": "Power Products",
+    "location": "Power Products"
   },
   {
     "costCenter": "2550-30",
-    "property": "Hubbard"
+    "property": "Hubbard",
+    "location": "Hubbard"
   },
   {
     "costCenter": "3360-30",
-    "property": "Carrier Louisville"
+    "property": "Carrier Louisville",
+    "location": "Carrier Louisville"
   },
   {
     "costCenter": "2722-30",
-    "property": "Montgomery"
+    "property": "Montgomery",
+    "location": "Montgomery"
   },
   {
     "costCenter": "2460-30",
-    "property": "Las Vegas"
+    "property": "Las Vegas",
+    "location": "Las Vegas"
   },
   {
     "costCenter": "2730-30",
-    "property": "Nashville"
+    "property": "Nashville",
+    "location": "Nashville"
   },
-  {
-    "costCenter": "7150-30",
-    "property": "LogisticsTX"
-  },
-  {
+   {
     "costCenter": "2530-30",
-    "property": "Toledo"
+    "property": "Toledo",
+    "location": "Toledo"
   },
   {
     "costCenter": "2410-30",
-    "property": "Phoenix"
-  },
-  {
-    "costCenter": "2400-70",
-    "property": "Southwest Sales"
-  },
-  {
-    "costCenter": "2400-70",
-    "property": "Southwest Region"
+    "property": "Phoenix",
+    "location": "Phoenix"
   },
   {
     "costCenter": "2440-30",
-    "property": "Desert Fleet Serv"
+    "property": "Desert Fleet Serv",
+    "location": "Desert Fleet Serv"
   },
   {
     "costCenter": "3340-30",
-    "property": "Carrier Cleveland"
-  },
-  {
-    "costCenter": "7157-30",
-    "property": "LogisticsIL"
+    "property": "Carrier Cleveland",
+    "location": "Carrier Cleveland"
   },
   {
     "costCenter": "2570-30",
-    "property": "Saginaw"
+    "property": "Saginaw",
+    "location": "Saginaw"
   },
   {
     "costCenter": "2610-30",
-    "property": "Savannah"
+    "property": "Savannah",
+    "location": "Savannah"
   },
   {
     "costCenter": "2420-30",
-    "property": "Tucson"
+    "property": "Tucson",
+    "location": "Tucson"
   },
   {
     "costCenter": "2400-71",
-    "property": "Mexico"
+    "property": "Mexico",
+    "location": "Mexico"
   },
   {
-    "costCenter": "1111-11",
-    "property": "viewOnly"
+    "costCenter": "2400-71",
+    "property": "SW Division",
+    "location": "SW Division"
+  },
+  {
+    "costCenter": "2500-70",
+    "property": "MW Division",
+    "location": "MW Division"
+  },
+  {
+    "costCenter": "1100-76",
+    "property": "Human Resources",
+    "location": "HR"
+  },
+  {
+    "costCenter": "1100-70",
+    "property": "Corporate Admin",
+    "location": "Corporate Admin"
+  },
+  {
+    "costCenter": "3300-71",
+    "property": "Carrier Division",
+    "location": "Carrier Division"
+  },
+  {
+    "costCenter": "2600-71",
+    "property": "SE Division",
+    "location": "SE Division"
+  },
+  {
+    "costCenter": "2407-30",
+    "property": "SW Division Power Gen",
+    "location": "SW Division Power Gen"
+  },
+  {
+    "costCenter": "2607-30",
+    "property": "SE Division Power Gen",
+    "location": "SE Division Power Gen"
+  },
+  {
+    "costCenter": "2507-30",
+    "property": "MW Division Power Gen",
+    "location": "MW Division Power Gen"
+  },
+  {"costCenter": "1111-11",
+    "property": "viewOnly",
+    "location": "viewOnly"
   }
-  ]
+]
