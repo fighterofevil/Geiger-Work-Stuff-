@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+#set($itemRow = $singleItemDTO.getItem(0))
+#set($item = $pageTile.getItemObject($singleItemDTO, $itemRow , "i"))
+#set($price = $item.itemPrice)
+#set($mainItemPrice = $item.itemPrice)
+#set($printitemid = $pageTile.getItemObject($singleItemDTO, $itemRow , "itemid"))
+
+#if(!$pageTileDictionaryDTO)
+  #if($_commandName)
+    #springBind( "${_commandName}.pageTileDictionaryDTO")
+    #set ($pageTileDictionaryDTO = ${status.value})
+  #end
+#end
+
+#if($pageTileDictionaryDTO)
+  #set($childItemsHomeDTO=$pageTileDictionaryDTO.getPageTile("childItemsHomeDTO"))
+  #set($catDropMenuDTO=$pageTileDictionaryDTO.getPageTile("catDropMenuDTO"))
+#end
+
+#set($metadescription= $item.metadescription)
+#set($keywords= $item.keywords)
+#set($pagetitle= $item.pagetitle)
+
+## Determines if an item is in a category. Doesn't check sub-categories. 
+## @param   _iiic_itemID                Item ID.
+## @param   _iiic_categoryID            Category ID.
+#macro(isItemInCategory $_iiic_itemID, $_iiic_categoryID)#*
+	*##set($_iiic_intClass = $request.class.forName('java.lang.Integer'))#*
+	*##set($_iiic_return = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("itemCategoryLinksDAO").isItemInCategory($_iiic_intClass.parseInt("$_iiic_itemID"), $_iiic_intClass.parseInt("$_iiic_categoryID")))#*
+	*##if($_iiic_return == false || $_iiic_return == true)#*
+		*#$_iiic_return#*
+	*##end#*
+*##end
+
+#########################################################################
+
+<html id="pageItem">
+    <head>
+        <title>#if($!pagetitle) $pagetitle  #else $!{item.title} - $!{htmlSiteName} #end</title>
+        #parse('libMarkupHead.vm')
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+        #parse('libitempgjavascript.vm')
+    </head>
+    <body>
+        #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        <div id="container">
+            #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+            <div id="content" role="main">
+                ## #parse('libpartitempgcontent.vm')
+                ## BEGIN libpartitempgcontent
+
+                    ## original itemtemplate as sidebar section in this area. 
+                    <div class="sidebar">
+                        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/flyoutMenuTAP.vm")                
+                        ## added 07.10 renderFlyoutMenuTAP - kevin 
+                        #renderFlyoutMenuTAP("sf-menu sf-arrows sf-vertical")        
+                        <div id="suggestedItems" style="clear:left"><!-- you may also like section --></div>
+                        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+                    </div>
+
+                    <div class="messages">
+                        ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div> #end
+                        <div class="message success" id="globmsg" style="display:none;"></div>
+                    </div>
+                    <div class="bCrumbs">
+                        ## #parse("libpartCategoryBreadcrumbs.vm")
+                        ## BEGIN libpartCategoryBreadcrumbs
+
+                            ## commented block out - original item template does not have this. 
+                            ## #set($bcSeparator = "/") ## Breadcrumbs separator
+                            ## #if($useFacet)
+                            ##     #set($idx =0)
+                            ##     #foreach($clink in $categoryPathDTO) 
+                            ##         #if($idx > 1)
+                            ##             <span>$bcSeparator</span>
+                            ##         #end
+                            ##         #if ($idx==0)
+                            ##             <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId"))">#springMessage("navHome")</a>
+                            ##         #elseif($idx > 1)
+                            ##             #if($velocityCount==$categoryPathDTO.size())
+                            ##                 <span><strong>$clink.getName()</strong></span>
+                            ##             #else
+                            ##                 <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$clink.cid"))">$clink.getName()</a>
+                            ##             #end
+                            ##         #end
+                            ##         #set($idx=$idx+1)
+                            ##     #end
+                            ## #else
+
+                                #set($bcMax = $categoryPathDTO.size())
+                                #foreach($clink in $categoryPathDTO)
+                                    #if($velocityCount == 1)
+                                        <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId"))">#springMessage("navHome")</a>
+                                    #elseif($velocityCount != $bcMax)
+                                        #if($velocityCount>1) ## original item template has this as >1 vs mtl of >2
+                                            ## <span>/ </span><span>$clink.getName()</span>
+                                            <span>/ </span><a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$clink.cid"))">$clink.getName()</a> ## original item template has this
+                                        #end
+                                    #else
+                                        ## <span>/ </span><em>$clink.getName()</em>
+                                         <span>/ </span><a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$clink.cid"))">$clink.getName()</a> ## original item template has this
+                                    #end
+                                #end
+
+                            ## commented block out [ continued from above ] - original item template does not have this.     
+                            ## #end
+
+                            ## commented out - original item template does not have this. 
+                            ## <script language="javascript" type="text/javascript">
+                            ##     var commerceshop_item_dropshipmsg = '$!commerceshop_item_dropshipmsg';
+                            ## </script>
+
+                        ## END   libpartCategoryBreadcrumbs
+                    </div>
+                    <div class="clearfix itemContent">
+
+                        ##  original sidebar section. commented out. original item template as this in an earlier location. 
+                        ## <div class="sidebar">
+                        ##     #parse('libpartItemBadges.vm')
+                        ##     <div id="imageWindow">
+                        ##         <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+                        ##             <img  src="store$item.largeimage" width="300" />
+                        ##         </a>
+                        ##     </div>
+                        ##     <div id="suggestedItems"><!-- you may also like section --> </div>
+                        ##     #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")                        
+                        ## </div>                      
+
+                      <div class=""> ## original item template has this
+                      <div class="page">
+                            <div> ## original item template has this div declaration - code within is item template base code 
+                                <h1 id="js-item-title-${item.itemid}">$!{item.title}</h1>
+                                #springMessage('itemCode'):<span id="itemCodeList"> <span id="js-item-code-${item.itemid}">$item.code</span></span>
+                            </div>   
+                            <input type="hidden" id="formName" value="F$item.itemid"> ## What's this?
+
+                            ## original templated has imageWindow in this location
+                            <div id="imageWindow">
+                                <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner">
+                                    <img  src="store$item.largeimage" width="300" />
+                                </a>
+                            </div>
+
+                            #parse($item_topDTO.getItems().get(0).get('item_top')) ## What's this?
+                            
+                            <div class="itemText">  ## original item template has this div declaration 
+                                #parse("libpartItemTabInfo.vm")  ## Tabs to show description, tiers, longdesc2...                    
+                            
+                                ## original item template has this prop65Warnings if statement 
+                                #if($prop65Warnings[$item.code])
+                                    <div class="propWarning" style="text-align: center; margin-top: 10px; padding: 2px;">
+                                        <p style="font-size: 12px;">$prop65Warnings['messages'].heading</p>
+                                        <h2 style="font-size: 12px;">  <img style="height: 20px;" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/warning.png">
+                                        <b>WARNING:</b> $prop65Warnings[$item.code]</h2>
+                                        <p>For more information go to <a href="https://www.P65Warnings.ca.gov"> www.P65Warnings.ca.gov </a></p>
+                                    </div>
+                                #end
+
+                            </div>
+                            
+                            #if($!{isPointStore} == 'TRUE')
+                                #parse("libpartitempoints.vm") ## Item Price
+                                <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                                #if($item.itemid)
+                                    #set($formName = "F$item.itemid")
+                                #end                      
+                            #else
+                                #parse("libpartItemPrice.vm") ## Item Price
+                                <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                                    #if($item.itemid)
+                                        #set($formName = "F$item.itemid")
+                                    #end
+                            #end
+                            ## get the min order qty required out of the above div innerHTML and rewrites minQtyNum used in the tiered pricing table
+                            ## minQtyNum and minQtyNumRow are located within libpartItemTabInfo.vm
+                            #if($quantityBreakOut && $quantityBreakOut=='y')
+                                <script>
+                                        $( document ).ready(function() {
+                                            var actualMinQtyNum=(document.getElementById("js-item-minorderqty4pitem-${item.itemid}").innerHTML).replace(/[^0-9]/g,'');
+                                            if (actualMinQtyNum>0)
+                                                document.getElementById("minQtyNum").innerHTML=actualMinQtyNum;
+                                            else
+                                                document.getElementById("minQtyNumRow").style.display="none";
+                                        });   
+                                </script> 
+                            #end    
+
+                            #*================================
+                              Errors
+                            =================================*#
+                            #springBind( "storeItemDTO.*" )
+                            #if($status.errors.errorCount>0)
+                                <div class="msg">
+                                    #foreach($error in $status.errorMessages)
+                                        <div class="error">$error</div>
+                                    #end
+                                </div>   
+                            #end
+                            <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+                                <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"> ##TODO: variable for cid
+                                <input type="hidden" id="compCode_0" value="$item.code"/>
+                                #set ($found = 'false')
+                                
+                                ## parse commented out and parsed in locally per original item template
+                                ## #parse("libpartItemAddAnother.vm")  ## Add Another\
+                                ## BEGIN libpartItemAddAnother
+                                    <div id="itemListTable">
+                                        <div id ="add-another-item" class="add-another-item">
+                                            <table cellspacing="0">
+                                                <tr id="add-another">
+                                                    <td class="col1">
+                                                        <div id="js-item-attributes-$item.itemid" class="item-attr-section"></div>
+                                                    </td>
+                                                    <td class="col2">
+                                                        <div class="f-row">
+                                                            <label for="qty_0">#springMessage("vm.itemTemplate.quantity"):</label> 
+                                                            <input class="qty-input" type='text' id="js-item-qtybox-$item.itemid" maxlength="3" disabled />
+                                                        </div>
+                                                    </td>
+                                                    <td class="col3">
+                                                        <div id="js-item-inventory-$item.itemid"></div>  <div id="js-item-minorderqty-$item.itemid"></div>
+                                                    </td>
+                                                    <td class="col4">
+                                                        <div id="remove-item-${item.itemid}" class="removeLink" style="float:right">
+                                                            <a href="javascript:void(0)">remove</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div id="estimateCalendar" class="estimate-calendar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="actions">
+                                        <span id="addAnother">
+                                            <a href="javascript:void(0)">Add Another...</a>
+                                        </span>
+                                    </div>                                
+                                ## END   libpartItemAddAnother 
+                                #parse("libpartItemCustomization.vm") ## Customization                        
+                                
+                                <div id="js-item-hiddenfields-$item.itemid"></div> ## What's this used for? Container for multiple "add another" items?
+
+                                #parse("libpartItemAddToWishlist.vm")  ## Add To Wishlist
+
+                                #*
+                                   * RedirectMode = true: navigate to wishlist after add
+                                   * RedirectMode = false: stay on page, display message
+                                *#
+                                <input type="hidden" name="redirectMode" value="true">
+
+                                #foreach($error in $product.errors)
+                                    <div class="error-text-area">
+                                       $error.message
+                                    </div>
+                                #end
+
+                                #*================================
+                                    Add to Cart Button
+                                =================================*#
+                                <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();">
+                                    #springMessage('addToCart')
+                                </div>
+                            </form>
+                      </div><!--//.page -->
+                    </div><!--//.clearfix-->                
+
+                ## END   libpartitempgcontent
+            
+                ## this script is set to change the wishlist button class.  Defined in template for newer stores. 
+                ## not changed in MTL as to not affect all stores - kevin 12.21.18
+                <script>
+                    $( document ).ready(function() {
+                        $('*[id*="wishlistbtn"]').each(function() {
+                            $(this).removeClass("btn-primary");
+                            $(this).addClass("btn");
+                        });                            
+                    });
+                </script>
+
+            </div> <!--//#content -->
+            #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end        
+            #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        </div> <!--//#container -->
+        #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        #parse("libpartitempgjsbottom.vm")
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/dynamic_item_images.vm")
+        #renderDynamicItemImagesScript()
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+        #parse("libMarkupFoot.vm")
+
+        ## in original item template for Trans Advantage but does not seem to be necessary - commented out
+        ## <script>
+        ##     // Chrome bug workaround
+        ##     jQuery(function() {
+        ##         MagicZoomPlus.refresh();
+        ##         jQuery('#imageWindow, .MagicZoomBigImageCont, .page').bind('mouseover',function() {
+        ##             MagicZoomPlus.refresh();
+        ##         });
+        ##      });
+        ## </script>
+
+        ## included script from original Trans Advantage item template 
+        <script>
+            $(document).ready(function(){
+                var test=$('#js-item-inventory-$item.itemid').text();
+                //console.log(test);
+                if (test.indexOf('This item is produced on')!==-1)
+                {
+                    //$('#js-item-inventory-$item.itemid').hide();
+                    var test="This item is produced on-demand and takes longer to ship. Please refer to the &#34;Estimated In-Hands Date&#34; calendar below. <br/><br/><div id='item2ndpara'>On-demand items are customized and therefore not returnable. See our FAQ page for more information.</div>";
+                    $('#js-item-inventory-$item.itemid').html(test);
+                    // console.log("hello world again");
+                    // console.log($('#js-item-inventory-$item.itemid').text());
+                }              
+            });
+        </script>
+
+    </body>
+</html>
