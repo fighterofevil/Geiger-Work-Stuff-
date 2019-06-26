@@ -1856,12 +1856,12 @@ input#cvv{
 }
 
 table.no-border {
-	margin: 0;
-	width: inherit;
+    margin: 0;
+    width: inherit;
 }
 table.no-border tr, table.no-border td {
-	border: medium none;
-	padding: 5px 10px 0;
+    border: medium none;
+    padding: 5px 10px 0;
 }
 
 .logoWrap{
@@ -2182,4 +2182,10 @@ table.no-border tr, table.no-border td {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+#pageFAQ li.onlyThis {
+    list-style-type: decimal !important;
+    position: relative;
+    left: 15px;
 }
