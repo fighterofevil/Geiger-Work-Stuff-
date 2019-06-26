@@ -214,6 +214,16 @@
     "property": "MW Division Power Gen",
     "location": "MW Division Power Gen"
   },
+  {
+    "costCenter": "7100-70",
+    "property": "Logistics Region",
+    "location": "Logistics Region"
+  },
+  {
+    "costCenter": "7150-30",
+    "property": "Logistics",
+    "location": "Logistics"
+  },
   {"costCenter": "1111-11",
     "property": "viewOnly",
     "location": "viewOnly"
