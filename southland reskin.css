@@ -2189,3 +2189,8 @@ table.no-border tr, table.no-border td {
     position: relative;
     left: 15px;
 }
+
+.desc{
+    font-size: 15px;
+    line-height: 20px;
+}
