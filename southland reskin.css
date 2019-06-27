@@ -2194,3 +2194,14 @@ table.no-border tr, table.no-border td {
     font-size: 15px;
     line-height: 20px;
 }
+
+.xClose{
+    display: flex !important;
+    justify-content: center;
+    font-size: 24px !important;
+    color: #3D3935;    
+}
+
+.xCloseA:hover{
+    text-decoration: none;
+}
