@@ -823,17 +823,18 @@ tfoot tr td{
 /****Home****/
 
 .homeBox1 {
-    width: 230px;
+    /*width: 230px;*/
     height: 255px;
     float: left;
     box-shadow: 3px 3px 3px #999;
     border-radius: 6px 6px 0px 0px;
     -moz-border-radius: 6px 6px 0px 0px;
     -webkit-border-radius: 6px 6px 0px 0px;
+    display: none;
 }
 
 .homeBox2 {
-    width: 740px;
+    /*width: 740px;*/
     height: 255px;
     float: right;
     margin: 0 0 20px 0;
@@ -844,7 +845,7 @@ tfoot tr td{
 }
 
 .homeBox3 {
-    width: 740px;
+    /*width: 740px;*/
     height: 210px;
     position: relative;
     padding-bottom: 5px;
@@ -856,7 +857,7 @@ tfoot tr td{
 }
 
 .homeBox4 {
-    width: 230px;
+    /*width: 230px;*/
     height: 215px;
     margin-top: 20px;
     text-align: center;
@@ -865,6 +866,7 @@ tfoot tr td{
     border-radius: 6px 6px 0px 0px;
     -moz-border-radius: 6px 6px 0px 0px;
     -webkit-border-radius: 6px 6px 0px 0px;
+    display: none;
 }
 
 .homeBox1 h1 {
@@ -923,6 +925,7 @@ tfoot tr td{
 
 .featured-product-carousel{
     position:relative;
+    width: 984px;
 }
 
 .featured-product-carousel .title{
@@ -949,6 +952,8 @@ tfoot tr td{
     float:left;
     background:url("../images/arrowLeft.png") no-repeat;
     margin: 42px 0 0 30px;
+    position: relative;
+    left: 80px;    
 }
 
 .featured-product-carousel .next{
@@ -958,6 +963,8 @@ tfoot tr td{
     float:left;
     margin: 42px 0 0 0px;
     background:url("../images/arrowRight.png") no-repeat;
+    position: relative;
+    right: 80px;    
 }       
 
 .featured-product-carousel .item{
@@ -2087,3 +2094,24 @@ input#cvv{
 .icon-filter {background-position: -408px -144px;}
 .icon-briefcase {background-position: -432px -144px;}
 .icon-fullscreen {background-position: -456px -144px;}
+
+
+.home-content{
+    width: 984px;
+}
+
+.featuredwrap{
+    width: 984px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#salesStar{
+    background: url(../images/saleStarburst.png) no-repeat;
+    width: 215px;
+    height: 142px;
+    float: right;
+    margin: -80px 0 0 790px;
+    position: absolute;
+    z-index: 24;
+}
