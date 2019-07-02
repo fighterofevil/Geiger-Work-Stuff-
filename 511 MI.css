@@ -2104,3 +2104,46 @@ input#cvv{
 .checkoutQuestions {
     width: 25%;
 }
+
+.row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.rowcol{
+    width: 400px;
+    height: 90px;    
+    margin-bottom: 25px;
+}
+
+.apparel{
+    background: transparent url("../images/apparel.jpg") no-repeat scroll left top;
+}
+
+.headwear{
+    background: transparent url("../images/headwear.jpg") no-repeat scroll left top;
+}
+
+.tech{
+    background: transparent url("../images/tech.jpg") no-repeat scroll left top;
+}
+
+.promo{
+    background: transparent url("../images/promo.jpg") no-repeat scroll left top;
+}
+
+.bags{
+    background: transparent url("../images/bags.jpg") no-repeat scroll left top;
+}
+
+.viewall{
+    background: transparent url("../images/viewall.jpg") no-repeat scroll left top;
+}
+
+.giftcert{
+    background: transparent url("../images/gc.jpg") no-repeat scroll left top;
+}
+
+.clearance{
+    background: transparent url("../images/clearance.jpg") no-repeat scroll left top;
+}
