@@ -2147,3 +2147,8 @@ input#cvv{
 .clearance{
     background: transparent url("../images/clearance.jpg") no-repeat scroll left top;
 }
+
+.productCategoryMenu{
+    width: 850px;
+    margin: 0 auto;
+}
