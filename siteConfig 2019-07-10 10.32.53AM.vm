@@ -1,0 +1,190 @@
+################################
+## Site Configuration Variables
+
+## These variables control the display of elements on the site as well as the text reused on the site. 
+
+
+## #parse('libGlobalConfig.vm')                      ## Include global variables and logic from the Template Library
+## libGlobalConfig is parsed out in ordet to allow parsing in siteConfig into email templates. 
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMacros.vm") ## Local site macros
+
+
+#set($maintenanceModeRedirect = 'NO')             ## YES: This will redirect all pages to the maintenance category page. $cidMaintenance can be set to use a custom maintenance page CID. Otherwise, the category with the name "MAINTENANCE" will be used.
+
+
+### Hard-coded verbiage ###
+#set($htmlSiteName =            'Base Store Shop')
+#set($htmlCompanyName =         'Base Store')
+#set($htmlRepName =             'Georgianna Smith')
+#set($htmlRepEmail =            'gsmith@geiger.com')
+#set($htmlRepWebsite =          '')               ## Used in Custom Orders
+#set($htmlRepPhone =            '662-345-6222')
+#set($htmlRepPhoneExt =         '')               ## Used for rep phone number extension. Enter number value only.
+#set($htmlRepPhotoURL =         '')               ## Used like: <img src="$!{htmlRepPhotoURL}">
+#set($htmlRepPronoun =          'She')            ## He/She/They
+#set($htmlCSRPhone =            '1-866-488-4971')
+#set($MyAccountNavName =        'My Account')
+#set($billingAddressHeader =    "My Address")     ## Used in My Account and Checkout
+#set($UsernameLabel =           "Email")          ## Used in the login form
+#set($actualShippingDropdownText = '')            ## Default: blank.  Text to display in the dropdown instead of the price (if price = $0.00)
+#set($actualShippingInfoText =  '<div id="shipInfotxt" class="shipInfotxt"><p>All orders ship from the US and shipping charges will be applied. For orders invoicing on open account or shipping internationally, charges will appear as -0- below, however actual charges will be billed. International fees (export, duties, taxes) will be added where applicable.</p></div>') ## Text to display to inform users what S&H/Actual Shipping means, when shipping price is $0.00
+#set($customCurrencySymbol =    '$')              ## Default is $. Used to change currency symbol site wide. Does not do currency conversion.
+## #set($commerceshop_item_dropshipmsg = 'Write your custom message here.') ## Changes the dropship message for on-demand items (displays in item_template.vm)
+
+
+### Category IDs ###
+## NOTE: Category IDs are now filled in dynamically based on their name.
+##       Filling in a static value is no longer required.
+#set($cidContact =              $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "Contact Us").getCategoryid()) ## Contact Us Category ID
+#set($cidOrdering =             $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "Ordering Information").getCategoryid()) ## FAQ Category ID
+#set($cidCustom =               $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "Custom Orders").getCategoryid()) ## Custom Orders  Category ID
+#set($cidTerms =                $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "Terms of Use").getCategoryid()) ## Terms of Service / Privacy Policy Category ID
+#set($cidMenu1 =                $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "menu1").getCategoryid()) ## Top-level Product Categories Category ID
+
+#set($cidWish =                $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "Wishlist").getCategoryid()) ## Top-level Product Categories Category ID
+#set($cidOrderHistory =        $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "OrderHistory").getCategoryid()) ## Top-level Product Categories Category ID
+#set($cidMyAccount =           $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "MyAccount").getCategoryid()) ## Top-level Product Categories Category ID
+#set($cidShippingAddress =     $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "ShippingAddress").getCategoryid()) ## Top-level Product Categories Category ID
+#set($cidChangePassword =      $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "ChangePassword").getCategoryid()) ## Top-level Product Categories Category ID
+
+#set($cidEmptyBasket =          $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "EMPTYBASKET").getCategoryid()) ## Top-level Product Categories Category ID
+
+### Login ###
+#set($allowRegistration =       'YES')
+#set($requireLogin =            "NO")             ## YES: Requires the user to login and will only allow guests to access templates within $requireLoginAccessibleTemplates
+#set($requireLoginAccessibleTemplates = ["logincustomer.vm", "forgot_password_login.vm","register.vm","landingpage.vm"]) ## A list of templates that are accessible to guests on a required-login site. These must be all lowercase and contain no spaces.
+#set($requireLoginRedirect =    "/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}") ## URL to redirect to if user isn't logged in
+
+
+### Checkout ###
+#set($defaultOrderType =        '')               ## If set, this will hide the order type question on the basket and default the value to the value of this variable. Values: P = Personal, B = Business, blank = Ask / display radio options
+#set($defaultOrderCheckbox =    '')               ## If set, this will allow you to set which payment option (B = invoice or P = CC) is checked by default.
+#set($isPointStore =            'FALSE')          ## Default: 'FALSE' Changes all pricing on site from dollars to points when equal to TRUE.
+#set($giftCertGateways =        ["PLP","INV", "BUD", "PNT"]) ## Determines what payment type should show gift certificates. Simpy remove payment type to hid gift certificates on that page. Default: "PLP","INV", "BUD", "PNT"
+#set($usePresetAddresses =      'NO')             ## YES: preset addresses, parsed in from site-level template preset_addresses.vm, are included on the addresses screen during checkout.
+#set($totalCodes =              '3')              ## Used to set how many coupon fields show show on a page. -1 = infinite codes, else will set amount of coupoon codes to number defined. *note, default value is 1
+## #set($curbstonePaymentTabShowPONumber = true)				## Display the PO script question under the second column in the PLP payment tab.
+## #set($curbstonePaymentTabShowScriptQuestions = true)			## Display script questions under the second column in PLP payment tab. Excludes PO Number script question.
+## #set($curbstonePaymentTabShowAsBudgetColumnTwo = true)		## Only render the columnTwo section as well as an additional budget script. colmunOne is omitted.
+## #set($hidePaymentScriptQuestionsBottomSection = true)		## Doesn't render the script questions in the bottom section.
+## #set($showScriptQuestionsColumnOne = true)                   ## Display script questions under column one in the Invoice payment tab.
+
+
+### Header and Footer ###
+#set($displayCustomHeaderContent = 'YES')         ## Used to determine if the header (logo header, nav , etc) should come from the master library, or a local template. Values: YES, NO
+#set($displayCustomFooterContent = 'YES')          ## Used to determine if the footer should come from the master library, or a local template. Values: YES, NO
+#set($superFishMenu =           false)             ## True: uses Superfish plugin to display header menu.
+#set($headerPosition =          'OUTSIDE')         ## Display header either 'INSIDE' or 'OUTSIDE' the main content div.
+#set($footerPosition =          'OUTSIDE')        ## Display footer either 'INSIDE' or 'OUTSIDE' the main content div.
+#set($displayStickyFooter =     'TRUE')           ## Sticky footer: Used to push footer automatically to the bottom of the page.  **Footer Position Must Be Set To 'OUTSIDE'
+#set($pushValue =               '60px')           ## Stick footer: '.push' must be the same height as 'footer'
+
+
+### Display toggles ###
+#set($displaySalesRepInfo =     'NO')            ## This is the sales rep info that displays on the homepage.  Values: YES, NO
+#set($displayWishlist =         'YES')            ## This controls weather the wishlist is displayed on category pages, item pages, and a link to it in the header.  Values: YES, NO
+#set($displayWishlistOnCatPg =  'YES')             ## This controls weather the add to wishklist button is displayed on category pages Values: YES, NO
+#set($displayCouponCode =       'NO')             ## This controls the display of the gift certificate/coupon input fields. The Default = NO. Values: YES, No
+#set($displayOfferCode =        'NO')             ## This controls the display of the offer code/promo code input fields. The Default = NO. Values: YES, No
+#set($priceOnOff =              '1')              ## Turns pricing on or off site wide.  1 keeps pricing on. Any other integer turns it off.
+#set($displayByPriceCategoryFacet = 'NO')         ## This is a default C8 feature that shows faceted navigation by price.
+                                                  ## We cannot control the price facets. Lets keep this to NO unless needed.
+#set($displaySaveCart =         'NO')             ## This controls the display of the save cart feature. This feature needs to be more thoroughly tested before use. Default = NO
+#set($displayEmailQuote =       'NO')             ## Keep this NO for now unless asked for. The current functionality is a mix of email quote and order approval, but is not fully baked.
+#set($g_showGiftCert =          "YES")            ## Change to YES to show Gift Cert/Coupon
+#set($displayCustomActualShippingText = 'YES')    ## Default: 'YES'.  Displays custom text instead of $0.00 if Shipping Cost = 0
+#set($fancyUserForms =          "YES")
+#set($orderApprovalModSwitch=   'NO')             ## Toggles some functionality on for Order Approval Module.  Default is No.       
+
+### Mini-cart ###
+#set($displayMiniCart =         'YES')            ## Mini Cart found in libLayoutHeader1.vm by default. Values: YES, NO
+#set($minicartQuantitySelector = '#mini-cart-quantity') ## The jQuery selector to use when populating the mini-cart's quantity. Requires $minicartTotalSelector to be set too.
+#set($minicartTotalSelector =   '#mini-cart-total') ## The jQuery selector to use when populating the mini-cart's total. Requires $minicartQuantitySelector to be set too.
+
+### Google Analytics ###
+#set($googleAnalyticsCode =     'NO')             ## If set to YES, the Google Analytics code will show. By default, all C8 code will use the same analytics and will have a filter on the profile to make the profile  only show this site. Value: YES, NO
+#set($AnalyticsID =             'UA-54265716-1') ## This is the Google Analytics Account ID [ Currently Geiger CP C8 ] - This will change depending on the analytics account this site's "view" is created under.
+
+### Misc ###
+#set($quantityBreakOut =        'n')              ## Used to move quantity tier pricing out of a tab and place it below the item description box. Default is n.  Change to y.
+#set($enableImageUpload =       'TRUE')
+#set($shipViaMethod=            'FALSE')           ## Used to show ship methodology within MTL for view orders section of myAccount. Default value is FALSE
+
+#set($swedaCat =  $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", "DSSWEDA").getCategoryid()) ## Top-level Product Categories Category ID
+#set($swedaMsg = "This is an on-demand item but it will ship 24 hours after order is processed. Please add up to 5 business days for transit.<br><br>Please review the sizing chart (if applicable) before ordering as on-demand items may not be returned unless defective. See our FAQ's page for more information.")
+
+#set($constrainedEmailReg = 'N') ## used in open registration sites that need to be constrained to a particular domain.  default value is N. updated to something like example.com to enable option
+
+#set($baseRefresh ='YES')                       ## used to trigger updates for in MTL for updated base store refresh for newer site design language. Default is YES
+#set($forceImprint = true)                      ## forces imprint customization to be checked by default and for imprint lines to be shown.    
+
+### Email ###
+#set($emailBrandColor = '#000000')                ## Used to change the color of email tables to match the clients branding 
+#set($emailDisplayQuestions = 'FALSE')              ## Used to display the script question table in the email.
+
+### Custom Modal Pop-ups ###
+## This uses the given structure:
+## {
+## 	"templateName.vm": {                                  ## The name of the template to apply this pop-up to.
+## 		"title":                  "Test Title",           ## Title of the pop-up
+## 		"message":                "<p>Message.</p>",      ## Message of the pop-up
+## 		"class":                  "simplemodal-data",     ## Class attribute of surrounding pop-up DIV tag.
+## 		"style":                  "text-align: center;",  ## Style attribute of surrounding pop-up DIV tag.
+## 		"id":                     "",                     ## ID attribute of surrounding pop-up DIV tag.
+##		"startsDate":             "12/06/2017",           ## Date to begin showing pop-up. Leave blank/exclude if not needed.
+##		"expiresDate":            "01/07/2018",           ## Date to end showing pop-up. Leave blank/exclude if not needed.
+## 		"minutesBetweenDisplay":  1,                      ## Minimum number of minutes between pop-up display.
+## 		"displayToGuests":        true,                   ## True: doesn't require a login to display pop-up.
+## 		"oncePerLogin":           false                   ## True: will only display once per login.
+## 	},
+##  ...
+## }
+## 
+
+#set($customModalPopups = {
+	"logincustomer.vm": {
+		"title":                  "This site is in Development!",
+		"message":                "<p>This site is currently in development. Please note that any errors on the site will be fixed before final release of the site.</p>",
+		"class":                  "simplemodal-data",
+		"style":                  "padding:20px; width:400px;",
+		"id":                     "developement-modal",
+		"startsDate":             "",
+		"expiresDate":            "",
+		"minutesBetweenDisplay":  3600,
+		"displayToGuests":        true,
+		"oncePerLogin":           false
+	}
+})
+
+
+## Migration modal.
+## "logincustomer.vm": {
+## 	"title":                  "Welcome to the updated ${htmlSiteName}!",
+## 	"message":                "<p>If this is your first time logging into the newly updated website, your password has been changed. Please use the Forgot Password link to reset your password.</p><p>You may need to check your spam/junk folder to retrieve the email containing your temporary password.</p><p>If you need additional assistance, you may call customer service at ${htmlCSRPhone} or email <a href='mailto:cs@geiger.com'>cs@geiger.com</a>.</p>",
+## 	"class":                  "simplemodal-data",
+## 	"style":                  "padding:20px; width:400px;",
+## 	"id":                     "developement-modal",
+## 	"minutesBetweenDisplay":  3600,
+## 	"displayToGuests":        true,
+## 	"oncePerLogin":           false
+## }
+
+## used for roll over images.  uncomment variable and define as needed for catgories / skus and the respective style skus
+## #set($dynamicItemImagesCIDsAndSKUs = [
+## 	[
+## 	    ["SKU"],
+## 	    "STYLE"
+## 	]	
+## ])
+
+
+#set($modalBlock = 'false')                                      ## Used to lock down site with a modal block and message. Default is 'false', change to 'true' to show
+#set($modalBlockMessageTitle = 'this is the message title')     ## title shown of the message block
+#set($modalBlockMessageBody = 'this is the message body')       ## title shown of the message block
+#set($modalBlockPW = 'false')                                   ## $modalBlock must be true first.  switches on password option within the modal block. default is 'false'. if there is a password defined, then it will switch on  
+#set($modalBlockPW_md5Hash= $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("md5Signature").encryptSignature("$modalBlockPW")) ## generates the md5 hash
+
+
+## this is a test to see if saving the file to the local project will work along with the dev environment. 
+## this is a test of updating from a different repo to push up to see it will save when in the new dev environment.
+## this is a new test from fux 2 
