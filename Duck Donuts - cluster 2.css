@@ -46,6 +46,7 @@ input {
 
 #welcome-splash img {
     margin-top: 14px;
+    margin-bottom: 15px;
 }
 
 .nav #bar-top {
@@ -599,6 +600,7 @@ body{
     margin-top: 18px;
     display: flex;
     justify-content: space-between;    
+
 }
 
 #footer .wrapper {
@@ -665,13 +667,15 @@ body{
 * navigation, header, footer, etc */
 
 #menu .logo a{
-    background: url("../images/dd-logo.png") no-repeat;
+    background: url("../images/new-dd-logo.png") no-repeat;
     display: block;
     float: left;
-    height: 63px;
+    height: 100px;
     /*! margin: 15px 0px 0px 20px; */
-    padding: 10px 8px 0px 0px;
+    padding: 0px 8px 0px 0px;
     width: 226px;
+    bottom: 15px;
+    position: relative;
 }
 
 #header .logo span {
@@ -2582,6 +2586,10 @@ input#cvv{
     color: #F7CE3C;
 }
 
+#pageLanding .menuLogo{
+    pointer-events: none;
+}
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
 
     #pageLanding #content{
@@ -2590,5 +2598,3 @@ input#cvv{
 
 
 }
-
-
