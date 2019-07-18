@@ -207,5 +207,34 @@
     "city": "NEW BOSTON",
     "state": "TX",
     "fexEx": "316366058"
-  }
- ]
+  },
+   {
+    "name": "SalesMarketing",
+    "city": "Houston",
+    "state": "TX",
+    "fexEx": "101666166"
+  },
+   {
+    "name": "LogisticsTX",
+    "city": "New Boston",
+    "state": "TX",
+    "fexEx": "101666166"
+  },
+    {
+    "name": "LogisticsIL",
+    "city": "Rock Island",
+    "state": "IL",
+    "fexEx": "101666166"
+  },
+    {
+    "name": "LogisticsTXMcCoy",
+    "city": "New Boston",
+    "state": "TX",
+    "fexEx": "101666166"
+  },
+  {
+    "name": "LogisticsSC",
+    "city": "Hanahan",
+    "state": "SC",
+    "fexEx": "101666166"
+  }]
