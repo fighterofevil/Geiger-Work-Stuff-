@@ -224,6 +224,31 @@
     "property": "Logistics",
     "location": "Logistics"
   },
+   {
+    "costCenter": "1100-30",
+    "property": "SalesMarketing",
+    "location": "SalesMarketing"
+  },
+   {
+    "costCenter": "7152-30",
+    "property": "LogisticsTX",
+    "location": "LogisticsTX"
+  },
+   {
+    "costCenter": "7157-30",
+    "property": "LogisticsIL",
+    "location": "LogisticsIL"
+  },
+     {
+    "costCenter": "7165-30",
+    "property": "LogisticsSC",
+    "location": "LogisticsSC"
+  },
+    {
+    "costCenter": "7153-30",
+    "property": "LogisticsTXMcCoy",
+    "location": "LogisticsTXMcCoy"
+  },
   {
     "costCenter": "1111-11",
     "property": "viewOnly",
