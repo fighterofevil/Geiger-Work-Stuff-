@@ -1556,8 +1556,13 @@ ul.radios-list li label{
     float: right;
     width: 540px;
     padding: 15px 15px 1px;
-    background: #DDDDDD;
+    background: #DDCBA4 !important;
     margin: 5px 0 0 0;
+}
+
+#sh-shipping-info p {
+    color: #006747;
+    text-shadow: none;
 }
 
     .shipping-methods-section address span{
@@ -1599,14 +1604,6 @@ ul.radios-list li label{
 
 .payment-section{
     margin-bottom: 30px;
-}
-
-.shipInfotxt {
-    float: right;
-    width: 540px;
-    padding: 15px 15px 1px;
-    background: #DDDDDD;
-    margin: 5px 0 0 0;
 }
 
 .tabs.clearfix > ul {
@@ -2264,12 +2261,24 @@ input#cvv{
     float: left;
 }
 
-.Col21{
+.Col21, .Col22, .Col23{
     border-right: 1px solid #F2F2F2;
 }
 
 .Col21 a{
     background: url("../images/heritage-health-restore-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;   
+}
+
+.Col22 a{
+    background: url("../images/cotillion-logo.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;   
+}
+
+.Col23 a{
+    background: url("../images/jennings-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;   
 }
