@@ -1,0 +1,2009 @@
+
+<!DOCTYPE html>
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+
+## Identify payment gateway codes that should not authorize or charge a credit card in C8
+#set( $pgcodenocc = ["NCC","GL","PP","IB","NOCHEX","UFS","DPS","ALIGNET","PCI2NONE","PCI2CC",""] )
+
+#########################################################################
+#macro ( showPriceOnCheckout $price)
+#if($isPointStore && $isPointStore=='TRUE')
+$regExp.currencyInteger($viewStoreCurrency.locale,  $price) #if ( $price==0) Point #else Points #end
+#else
+$number.format('currency', $price, $viewStoreCurrency.locale)
+#end
+#end
+
+#macro ( showPriceOnCheckout2 $price)
+#if($isPointStore && $isPointStore=='TRUE')
+$regExp.currencyInteger($viewStoreCurrency.locale,  $price) 
+#else
+$number.format('currency', $price, $viewStoreCurrency.locale)
+#end
+#end
+
+#########################################################################
+## javascript library used to sort 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
+<script>
+    function verifyQuestions(){
+        var poNum = jQuery('input[name^=customerInput]');
+        var errortxt="";
+        
+        if (poNum.val()== ''){
+            errortxt = 'Please select your Warehouse Location. \n';
+        }
+        
+        if(errortxt == '') {
+            return true;
+            //document.frm.submit();
+        }
+        
+        else {
+            alert(errortxt);
+            return false;
+        }
+    }
+    
+</script>
+
+
+<html id="pageCheckoutPayment">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else #springMessage("navPayment") - $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+    #parse('libpartcheckoutpaymentcssjs.vm ')
+
+    ## BEGIN code library calls for select2
+    <link href="store/$checkoutViewDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="store/$checkoutViewDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/plugins/select2/dist/js/select2.min.js"></script>
+    ## END code library calls for select2
+    
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        
+      <div id="content" role="main">
+    
+     #if($!{isPointStore}== 'TRUE')
+      #parse('libpartcheckoutpaymentcontentpoints.vm')
+     
+    #else
+      
+<h1>#springMessage("navPayment")</h1>
+        #*================================
+          Checkout Progress
+        =================================*#
+        <ul class="co-breadcrumb step2">
+          <li class="yi"><a href="multibilltoaddr.html?vid=$vendorSettingsDTO.vendorId">Addresses</a></li>
+          <li class="py active">Payment</li>
+          <li class="rv">Review</li>
+<li class="ty">Order Confirmation</li>
+        </ul>
+
+
+        <form name="frm" action="payment.html" method="POST">
+          #springBind( "checkoutViewDTO.*" )         
+          #if($status.errors.errorCount > 0)
+            <div class="warning">
+              <p>#springMessage("vm.checkout_payment.warn"):</p>
+              #if($status.errorMessages)
+                <ul>
+                  #foreach($error in $status.errorMessages)
+                    <li>$error</li>
+                  #end 
+                </ul>
+              #end
+            </div>
+          #end
+          <input type="hidden" name="t">
+          <input type="hidden" name="productidx" value="0">
+          <input type="hidden" name="addressidx" value="0">
+          <input type="hidden" name="shipaddressid" value="0">
+          <input type="hidden" name="mid" id="mid" value="demo">
+          
+    ## <div class="oosAlert">
+    ##     <p><span>IT is working on correcting a system problem.</span><br /> Please disregard if you receive a message informing items are out of stock. Everything is available and will ship within 48 hours.</p>
+    ## </div>
+
+## SHIPPING OPTIONS SECTION #####################################################
+          <h2>#springMessage("vm.checkout_payment.title2")</h2>
+          #set($groupidx = 0)
+          <div class="shipping-methods-section">
+            #foreach($productgroup in $checkoutViewDTO.details.shippinggroup)
+              #set($shippingAdress = $productgroup.address.address)
+              <div class="location clearfix">
+                <div class="location-items">
+                  #if($productgroup.address.addressid && $productgroup.address.addressid>0)
+                    <address>
+                     <span>$shippingAdress.firstname $shippingAdress.lastname </span><br/> 
+                     #if($shippingAdress.company && $shippingAdress.company!='')$shippingAdress.company <br/>#end  
+                     $shippingAdress.address1 <br/>
+                     #if($shippingAdress.address2 && $shippingAdress.address2!='')$shippingAdress.address2 <br/>#end  
+                     $!shippingAdress.city $!productgroup.address.province.a3, $!productgroup.address.country.a3  $!shippingAdress.postal 
+                   </address>
+                  #end
+                  <div class="js-click" onclick="show($groupidx);">#springMessage("vm.checkout_payment.veiwItem")</div>
+                  <div id="$groupidx" class="items" style="display: none;">
+                    <ul>
+                      #foreach($productitem in $productgroup.shipItems)
+                        #set($product =$productitem.product)
+                        <li>
+                          ($productitem.shipaddr.qty)
+                          <b>$product.title</b>
+                          #foreach($attribute in $product.attribute)
+                            | <em>attribute</em>  
+                          #end                 
+                        </li>
+                      #end
+                    </ul>
+                  </div>
+                </div>
+                <div class="options">
+                  #if($productgroup.shipmethods.size()>0)
+                    <select name="SHIPTYP_${groupidx}" id="SHIPTYP_${groupidx}"  onchange="document.frm.submit()">
+                      #foreach($shipmethod in ${productgroup.shipmethods}) 
+                        #if( ${productgroup.shipmethod.shippingmethod.id} == ${shipmethod.shippingmethod.id})
+                          <option value="${shipmethod.shippingmethod.id}" selected>
+                            ${shipmethod.shippingmethod.description} 
+                            ## Check if option is 'actual' (S&H or 3PB)
+                            #if(${shipmethod.shippingRateDTO.totalcharges} == 0 && $displayCustomActualShippingText == "YES")
+                                #set($CustomShippingText = 1) ## Only show the custom text if it is relevant for the selected option.
+                                $actualShippingDropdownText
+                            #else
+                                - $number.format('currency',$checkoutViewDTO.formatter.currency(${shipmethod.shippingRateDTO.totalcharges}),$viewStoreCurrency.locale)
+                            #end
+                          </option>
+                        #else
+                          <option value="${shipmethod.shippingmethod.id}">
+                            ${shipmethod.shippingmethod.description}
+                            ## Check if option is 'actual' (S&H or 3PB)
+                            #if(${shipmethod.shippingRateDTO.totalcharges} == 0 && $displayCustomActualShippingText == "YES")
+                                $actualShippingDropdownText
+                            #else
+                                - $number.format('currency',$checkoutViewDTO.formatter.currency(${shipmethod.shippingRateDTO.totalcharges}),$viewStoreCurrency.locale)
+                            #end
+                          </option>
+                        #end 
+                      #end
+                    </select>
+                                        
+                    <!-- Third Party Freight Account -->
+#if($productgroup.shipmethod.shippinggroup.couriercode == "3PF")
+<div id="thirdptyft">
+  #if($productgroup.shipmethod.shippinggroup.option1 =="YES")  ##need input
+    #springBind("checkoutViewDTO.freightAccountNumberMap[${checkoutViewDTO.keyPrefix}${groupidx}]")
+    $productgroup.shipmethod.shippinggroup.option2:<input type="text" name="$status.expression" value="$!status.value">
+  #else
+   #springBind("checkoutViewDTO.freightAccountNumberMap[${checkoutViewDTO.keyPrefix}${groupidx}]")
+    <input type="hidden" name="$status.expression" value="$productgroup.shipmethod.shippinggroup.option3">
+  #end
+  </div>
+
+#end
+
+
+<!-- End 3PF Account -->
+                    
+                  #end
+                </div>
+                #if($CustomShippingText == 1)
+                    <div id="sh-shipping-info">$actualShippingInfoText</div>
+                #end
+              </div> <!--//.location -->
+              #set($groupidx = $groupidx+1)
+            #end
+          </div><!--//.shipping-methods-section-->
+## END SHIPPING OPTIONS SECTION ####################################################
+
+          <h2>#springMessage("vm.checkout_payment.title1")</h2>
+          <div class="payment-section">
+            <div class="tabs clearfix">
+              <ul>
+                #if($checkoutViewDTO.details.noAllowanceRecord)
+                  #springBind("checkoutViewDTO.radioButtonId")
+                  <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_radioid">  
+                  #springBind("checkoutViewDTO.inputFieldId")
+                  <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_inputid">
+                  #springBind("checkoutViewDTO.selectedPaymentGatewayId")
+                  <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_pgid">
+                  #springBind("checkoutViewDTO.selectedPaymentGatewayCode")
+                  <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_pgcode">
+
+                  #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways})          
+                    <li  #if($velocityCount == 1) class="active" #end style="float:left" id="payment-list-tab-$!paymentgateway.code" >
+                      <a href="javascript:void(0)" onclick="showtab2('$!paymentgateway.code','$paymentgateway.paymentgatewayid','radio_$velocityCount','input_$velocityCount');">$!paymentgateway.displayname</a>
+                    </li>
+                  #end
+                #else
+                  <li class="active" style="float:left">
+                    <a href="#tabl1" onclick="showtab(1);">#springMessage("vm.checkout_payment.budgetTab")</a>
+                  </li> 
+                  #*
+                  <li class="active" style="float:left">
+                     <a href="#tabl2" onclick="showtab(2);">#springMessage("vm.checkout_payment.QstTab")</a>
+                  </li> 
+                  *#
+                #end
+              </ul>
+              #if($checkoutViewDTO.details.noAllowanceRecord)
+                #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways})
+                  #if($velocityCount == 1)
+                    <script>
+                      var first_tab_id = '$paymentgateway.code' ;
+                    </script>
+                  #end
+                  <div id="tab_$paymentgateway.code" class="tab clearfix" style="display:none">
+
+                  #*================================
+                    PAYMENT GATEWAY: NONE
+                  =================================*#
+
+                  #if($paymentgateway.code == 'NONE')             
+                    <div class="columnOne">
+                      <div class="billing-address-section section">
+                        <h4>#springMessage("vm.checkout_payment.address")</h4>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                        <input type="hidden" name="$status.expression" value="$!status.value" />
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                          <div class="half">
+                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                            <input id="first-name" class="$paymentgateway.code" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                          <div class="half">
+                            <label for="last-name">#springMessage("vm.checkout_payment.lastname")</label>
+                            <input class="$paymentgateway.code" id="last-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                          </div>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                        <div>
+                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                          <select name="$status.expression" id="country_NONE" class="chzn-select NONE" style="width:220px;" data-placeholder="Select a Country..."  disabled >
+                            #foreach($country in $billingCountriesInUse)
+                              <option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                            #end
+                          </select>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                        <div id="province" class="chzn-container chzn-container-sigle" style="width:405px;">
+                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                            <select name="$status.expression" id="chznprovince_NONE" class="chzn-select NONE" style="width:220px;" data-placeholder="Select a Province..."  disabled >
+                              #foreach($country in $billingCountriesInUse)
+                                #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                  #foreach($prov in $country.provinces)
+                                    <option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                  #end
+                                #end
+                              #end              
+                            </select>
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                          <div>
+                            <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                            <input class="$paymentgateway.code" id="address1" type="text" maxlength="50" name="$status.expression" value="$!status.value"  disabled />
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                          <div>
+                            <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                            <input  class="$paymentgateway.code" id="address2" type="text" maxlength=30 name="$status.expression" value="$!status.value" disabled />
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                          <div>
+                            <input class="$paymentgateway.code" id="address3" type="text" maxlength=30  name="$status.expression" value="$!status.value"  disabled />
+                          </div>          
+                          <div class="clearfix">
+                            #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                            <div class="half">
+                              <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                              <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" disabled  />
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                          <div class="half">
+                              <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                              <input class="$paymentgateway.code" id="city" type="text" maxlength=40 name="$status.expression" value="$!status.value"  disabled />
+                          </div>
+                        </div>
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                          <div class="half">
+                            <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                            <input class="$paymentgateway.code" id="zip" type="text" maxlength="12"  name="$status.expression" value="$!status.value" disabled />
+                          </div>
+                          <div class="half">
+                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                            <input class="$paymentgateway.code" id="phone" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled />
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--//.column-->
+
+                    <div class="columnTwo">
+                      <div class="credit-card-section section">
+                        <h4>Credit Card Information</h4>
+                    <div class="row">
+                          #springBind ("checkoutViewDTO.creditCard.ccType")
+                          <label for="$status.expression">#springMessage('vm.register.cctype')</label>
+                          <div class="f-field" >      
+                            <select name="$status.expression" id="$status.expression">
+                              <option value="0" selected>#springMessage('vm.register.selectcard')</option>
+                              #set ($cardtypekeys = $checkoutViewDTO.creditCard.ccTypes.keySet())
+                              #foreach ($cardtypekey in $cardtypekeys)
+                                #if ( $cardtypekey == 3 || $cardtypekey == 5 || $cardtypekey==6 || $cardtypekey==7)
+                                  #if ($cardtypekey == $status.value)
+                                    <option value="$cardtypekey" selected>$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                  #else
+                                    <option value="$cardtypekey">$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                  #end  
+                                #end
+                              #end
+                            </select>
+                          </div>
+                        </div> <!--//.row -->
+                        <div class="first-row">
+                          <label for="CARDNO" >#springMessage("vm.register.creditcard")</label>
+                          <div class="f-field vat" >
+                          #springBind ("checkoutViewDTO.creditCard.ccNumber")
+                            #if($checkoutViewDTO.creditCard.startYear == 1)
+                            <input type="text" name="$status.expression" id="CARDNO" value="$checkoutViewDTO.creditCard.ccSecureNumber"  autocomplete="off"/>
+                            #else
+                            <input type="text" name="$status.expression" id="CARDNO" value="$status.value"  autocomplete="off"/>
+                            #end
+                            <div class="info_needed">#springMessage("vm.register.msg5")</div>
+                          </div>
+                        </div><!--//.first-row-->
+                        <div class="row">
+                          <script language="javascript" type="text/javascript">
+                            function checkKey() {
+                              var keyword = document.getElementById('keyword');
+                              var key = document.getElementById('key');
+
+                              keyword.value = key.value;
+                              if (keyword.value.length==0)
+                                keyword.value = $vendorSettingsDTO.vendorId;
+                              }
+                          </script>    
+                          <label for="cvv">#springMessage('vm.register.securitycode')</label>
+                          <div class="f-field" >
+                            #springBind ("checkoutViewDTO.creditCard.level2Code")
+                            #if($checkoutViewDTO.creditCard.startYear == 1)
+                            <input type="text" name="$status.expression" id="cvv" value="***"  autocomplete="off"/>
+                            #else
+                            <input type="text" name="$status.expression" id="cvv" value="$status.value" maxlength="4" size="4"  autocomplete="off"/>
+                            #end
+                            <span class="info_needed whatsthis" id="securityCode_help">#springMessage('vm.register.msg6')</span>
+                            
+                            <div id="cvv-help-popup">
+                                <div id="cvv-help-close">x</div>
+                                <p><b>For Visa, MasterCard, and Discover Credit Cards:</b> The Security Code (or CVV) can be found on the back of the card. It is the last 3 digits to the right of the signature panel.</p>
+                                <p><b>For American Express Credit Cards:</b> The 4-digit Card Identification Number (CID) is located on the front of the card, to the right and just above the 15-digit account number.</p>
+                            </div>
+                            
+                          </div>
+                        </div><!--//row-->
+    
+                        <div class="row">
+                          #springBind ("checkoutViewDTO.creditCard.expMonth")
+                          <label for="$status.expression">#springMessage('vm.register.expirydate')</label>
+                          <div class="f-field">
+                            #springBind ("checkoutViewDTO.creditCard.expMonth")
+                            <select id="card-expiration-month" name="$status.expression">
+                              <option value="1" #if($status.value && $status.value == 1) selected #end>01 - January</option>
+                              <option value="2" #if($status.value && $status.value == 2) selected #end>02 - February</option>
+                              <option value="3" #if($status.value && $status.value == 3) selected #end>03 - March</option>
+                              <option value="4" #if($status.value && $status.value == 4) selected #end>04 - April</option>
+                              <option value="5" #if($status.value && $status.value == 5) selected #end>05 - May</option>
+                              <option value="6" #if($status.value && $status.value == 6) selected #end>06 - June</option>
+                              <option value="7" #if($status.value && $status.value == 7) selected #end>07 - July</option>
+                              <option value="8" #if($status.value && $status.value == 8) selected #end>08 - August</option>
+                              <option value="9" #if($status.value && $status.value == 9) selected #end>09 - September</option>
+                              <option value="10" #if($status.value && $status.value == 10) selected #end>10 - October</option>
+                              <option value="11" #if($status.value && $status.value == 11) selected #end>11 - November</option>
+                              <option value="12" #if($status.value && $status.value == 12) selected #end>12 - December</option>
+                            </select>
+                            #springBind ("checkoutViewDTO.creditCard.expYear")
+                            <select name="$status.expression">
+                              #foreach( $step in [0..10] )
+                                <option value="$math.add($date.getYear(),$step)" #if( $status.value && $status.value == $math.add($date.getYear(),$step)) selected #end> $math.add($date.getYear(),$step) </option>
+                              #end
+                            </select>
+                          </div>
+                        </div><!--//.row-->
+                        <div class="last-row">
+                          <label for="nameoncard" class="f-field">#springMessage('vm.register.nameoncard')</label>
+                          <div class ="f-field">
+                            #springBind ("checkoutViewDTO.creditCard.ccHolderName")
+                            <input type="text" name="$status.expression" id="nameoncard" value="$status.value" maxlength="50" size="20" />
+                          </div>
+                        </div><!--//.last-row-->
+                      </div><!--//.credit-card-section -->
+                    </div><!--//.column-->
+                  #end  ## end $paymentgateway.code == 'NONE'
+
+                  #*================================
+                    PAYMENT GATEWAY: PCI2CC
+                  =================================*#
+
+                  #if($paymentgateway.code == 'PCI2CC')
+                    <div class="columnOne">
+                      <div class="billing-address-section section">
+                        <h4>#springMessage("vm.checkout_payment.address")</h4>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                        <input type="hidden" name="$status.expression" value="$!status.value" />
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                          <div class="half">
+                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                            <input id="first-name" class="$paymentgateway.code" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                          <div class="half">
+                            <label for="last-name">#springMessage("vm.checkout_payment.lastname")</label>
+                            <input class="$paymentgateway.code" id="last-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                          </div>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                        <div>
+                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                          <select name="$status.expression" id="country_PCI2CC"    class="chzn-select" style="width:220px;" data-placeholder="Select a Country..."  disabled >
+                            #foreach($country in $billingCountriesInUse)
+                              <option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                            #end                                 
+                          </select>
+                        </div>   
+                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                        <div id="province" class="chzn-container chzn-container-sigle" style="width:405px;">
+                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                          <select name="$status.expression" id="chznprovince_PCI2CC" class="chzn-select" style="width:220px;" data-placeholder="Select a Province..."  disabled >
+                            #foreach($country in $billingCountriesInUse)
+                               #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                  #foreach($prov in $country.provinces)
+                                    <option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                #end
+                               #end
+                            #end              
+                          </select>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                        <div>
+                          <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                          <input class="$paymentgateway.code" id="address1" type="text" maxlength="30"   name="$status.expression" value="$!status.value"  disabled />
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                        <div>
+                          <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                          <input  class="$paymentgateway.code" id="address2" type="text" maxlength=30 name="$status.expression" value="$!status.value" disabled />
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                        <div>
+                          <input class="$paymentgateway.code" id="address3" type="text" maxlength=30  name="$status.expression" value="$!status.value"  disabled />
+                        </div>          
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                          <div class="half">
+                            <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                            <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" disabled  />
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                          <div class="half">
+                            <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                            <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value"  disabled />
+                          </div>
+                        </div>
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                          <div class="half">
+                              <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                              <input class="$paymentgateway.code" id="zip" type="text" maxlength="12"  name="$status.expression" value="$!status.value" disabled />
+                          </div>
+                          <div class="half">
+                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                            <input class="$paymentgateway.code" id="phone" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled />
+                          </div>
+                        </div>
+                      </div><!--//.billing-address-section -->
+                    </div><!--//column-->
+
+                    <div class="columnTwo">
+                      <div class="cc-note-about-pci">
+                        <div>We accept...</div>
+                        <ul>
+                          <li class="visa"><span>Visa</span></li>
+                          <li class="mastercard"><span>Mastercard</span></li>
+                          <li class="amex"><span>American Express</span></li>
+                          <li class="discover"><span>Discover</span></li>
+                        </ul>
+                        <div>Upon placing your order, you will be asked for your credit card through our secure PCI-DSS compliant gateway.</div>
+                      </div><!--//.cc-note-about-pci-->
+                    </div><!--//.column-->
+                  #end ## end pci2cc
+
+                  #*================================
+                    PAYMENT GATEWAY: INVOICE
+                  =================================*#
+                  #if($paymentgateway.code =='NCC-ACCOUNT')
+                    <div class="columnOne">
+                      <div class="order-number-section section">
+                        #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+                         #foreach($question in $popage.questions)
+                          #if($question.code =='purchaseOrder')
+                            #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/$question.template")
+                          #end
+                         #end 
+                        #end
+                      </div> 
+                    </div>
+                    <div class="columnTwo">
+                      <div class="credit-card-section section">
+                        <h4>Buyer Address</h4>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                          <div class="half">
+                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                            $!status.value
+                            <input  class="$paymentgateway.code"  type="hidden" maxlength="28"  name="$status.expression" value="$!status.value"  disabled >
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                          <div class="half">
+                            <label for="first-name">#springMessage("vm.checkout_payment.lastname")</label>
+                            $!status.value
+                            <input class="$paymentgateway.code" type="hidden" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                          </div>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                        <div>
+                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                          ##<select name="$status.expression" id="country_NCC-ACCOUNT" class="chzn-select $status.expression" style="width:220px;" data-placeholder="Select a Country..." disabled >
+                            #foreach($country in $billingCountriesInUse)
+                              ##<option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                              #if($status.value==$country.country.id)
+                                $country.country.name
+                                <input name="$status.expression" type = "hidden" id="country_NCC-ACCOUNT" class="chzn-select $status.expression" style="width:220px;" value="$country.country.id" disabled >
+                              #end
+                            #end
+                          ##</select>
+                        </div>      
+                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                        <div id="province" class="chzn-container chzn-container-sigle" style="width:405px;">
+                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                          ##<select name="$status.expression" id="chznprovince_NCC-ACCOUNT" class="$status.expression chzn-select" style="width:220px;" data-placeholder="Select a Province..." disabled >
+                            #foreach($country in $billingCountriesInUse)
+                              #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                #foreach($prov in $country.provinces)
+                                  #if($status.value==$prov.province.id)
+                                    $prov.province.name
+                                    <input name="$status.expression" id="chznprovince_NCC-ACCOUNT" value="$prov.province.id" type="hidden" class="$status.expression chzn-select" style="width:220px;" disabled >
+                                  #end
+                                  ##<option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                #end
+                              #end
+                            #end              
+                          ##</select>
+                        </div><!--//#province-->
+                        #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                        <div>
+                          <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                          $!status.value
+                          <input class="$paymentgateway.code" id="address1" type="hidden" maxlength="30"   name="$status.expression" value="$!status.value" disabled />
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                        <div>
+                          <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                          $!status.value
+                          <input class="$paymentgateway.code" id="address2" type="hidden" maxlength=30 name="$status.expression" value="$!status.value" disabled />
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                        <div>
+                          $!status.value
+                          <input class="$paymentgateway.code" id="address3" type="hidden" maxlength=30  name="$status.expression" value="$!status.value"  disabled />
+                        </div>
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                          <div class="half">
+                            <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                            $!status.value
+                            <input class="$paymentgateway.code" id="city" type="hidden" maxlength=28 name="$status.expression" value="$!status.value" disabled  />
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                          <div class="half">
+                            <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                            $!status.value
+                            <input class="$paymentgateway.code" id="city" type="hidden" maxlength=28 name="$status.expression" value="$!status.value"  disabled />
+                          </div>
+                        </div>
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                          <div class="half">
+                            <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                            $!status.value
+                            <input class="$paymentgateway.code" id="zip" type="hidden" maxlength="12"  name="$status.expression" value="$!status.value" disabled />
+                          </div>
+                          <div class="half">
+                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                            $!status.value
+                            <input class="$paymentgateway.code" id="phone" type="hidden" maxlength="28"  name="$status.expression" value="$!status.value" disabled />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  #end  ## END INVOICE
+				</div>  <!-- end of payment gateway tab -->
+                #end ## END PAYMENT GATEWAYS
+              #else ## // $checkoutViewDTO.details.noAllowanceRecord
+                #*================================
+                  ACCOUNT HAS ALLOWANCE
+                =================================*#
+
+                <div id="tab1" class="tab clearfix">
+                  <div class="columnOne"> 
+                    <div class="budget-section section">
+                      <h4>#springMessage("vm.checkout_payment.budgetTab")</h4>
+                      <p>
+                        #springMessage("vm.checkout_payment.budgetInfo") $number.format('currency',$checkoutViewDTO.formatter.currency(${checkoutViewDTO.details.allowances}), $viewStoreCurrency.locale) 
+                      </p>
+                    </div>
+                    #set($left =$checkoutViewDTO.details.billTotal - $checkoutViewDTO.details.allowances)
+                    #if($left > 0)
+                      <div class="section warn">
+                        <strong>#springMessage("vm.checkout_payment.warningInfo1a") $number.format('currency',$checkoutViewDTO.formatter.currency(${checkoutViewDTO.details.billTotal}), $viewStoreCurrency.locale) #springMessage("vm.checkout_payment.warningInfo1b")</strong>
+                        <p>#springMessage("vm.checkout_payment.warningInfo2a")  $number.format('currency',$checkoutViewDTO.formatter.currency($left), $viewStoreCurrency.locale)  #springMessage("vm.checkout_payment.warningInfo2b")</p>
+                        <p>#springMessage("vm.chechout_payment.warningInfoc")</p>
+                      </div>
+
+                      <div class="billing-address-section section">
+                        <h4>Buyer Address</h4>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                        <input type="hidden" name="$status.expression" value="$!status.value" />
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                          <div class="half">
+                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                            <input id="first-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value">
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                          <div class="half">
+                            <label for="first-name">#springMessage("vm.checkout_payment.lastname")</label>
+                            <input id="last-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value">
+                          </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                        <div>
+                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                          <select name="$status.expression" id="country" class="chzn-select" data-placeholder="Select a Country...">
+                            #foreach($country in $billingCountriesInUse)
+                              <option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                            #end                                 
+                          </select>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                        <div id="province" class="chzn-container chzn-container-sigle" >
+                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                          <select name="$status.expression" id="chznprovince" class="chzn-select" data-placeholder="Select a Province...">
+                            #foreach($country in $billingCountriesInUse)
+                              #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                #foreach($prov in $country.provinces)
+                                  <option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                #end
+                              #end
+                            #end              
+                          </select>
+                        </div><!--//#province-->
+                        #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                        <div>
+                          <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                          <input id="address1" type="text" maxlength="30"   name="$status.expression" value="$!status.value"/>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                        <div>
+                          <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                          <input id="address2" type="text" maxlength=30 name="$status.expression" value="$!status.value"/>
+                        </div>
+                        #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                        <div>
+                          <input id="address3" type="text" maxlength=30  name="$status.expression" value="$!status.value" />
+                        </div>          
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                          <div class="half">
+                            <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                            <input id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" />
+                          </div>
+                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                          <div class="half">
+                            <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                            <input id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" />
+                          </div>
+                        </div>
+                        <div class="clearfix">
+                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                          <div class="half">
+                            <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                            <input id="zip" type="text" maxlength="12"  name="$status.expression" value="$!status.value"/>
+                          </div>
+                          <div class="half">
+                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                            <input id="phone" type="text" maxlength="28"  name="$status.expression" value="$!status.value"/>
+                          </div>
+                        </div>
+                      </div><!--//.billing-address-section-->
+                    #end
+                  </div> <!--//.col.first-->
+                  <div class="columnTwo">
+                    <div id="paymentGateway" class="credit-card-section section">
+                      <input type="hidden" name="selectedPaymentGatewayCode" value="PCI2CC"/>
+                      #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways}) 
+                        #if($paymentgateway.code == "PCICC" || $paymentgateway.code == "PCINONE") 
+                          <!-- PCI Secure Form -->
+                          <div id="cc">
+                            <div class="horizontal custom-lbl-width">
+                              <div class="title">
+                                <div class="heading2">
+                                  #springMessage("vm.checkout_payment.creditcardinfo")
+                                </div>
+                              </div>
+                              <fieldset>
+                                <legend class="outer">*#springMessage("vm.checkout_payment.creditcard")</legend>
+                                <input id="reviewAndPay-cardType-visa" name="reviewAndPay-cardType" type="radio" class="radio" value="visa"/>
+                                <label class="visa" for="reviewAndPay-cardType-visa"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/visa.gif" alt="Visa"/></label>
+                                <input id="reviewAndPay-cardType-masterCard" name="reviewAndPay-cardType" type="radio" class="radio" value="masterCard"/>
+                                <label class="masterCard" for="reviewAndPay-cardType-masterCard"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/master_card.gif" alt="Master Card"/></label>
+                                <input id="reviewAndPay-cardType-discover" name="reviewAndPay-cardType" type="radio" class="radio" value="discover"/>
+                                <label class="discover" for="reviewAndPay-cardType-discover"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/discover.gif" alt="Discover"/></label>
+                              </fieldset>
+                              <div class="f-row">
+                                <label for="reviewAndPay-cardNumber">*Card Number</label>
+                                <input id="reviewAndPay-cardNumber" name="reviewAndPay-cardNumber" type="text" class="text"/>
+                              </div>
+                              #if($paymentgateway.code == "PCICC")
+                                <div class="f-row">
+                                  <label for="reviewAndPay-level2Code">*#springMessage('vm.register.securitycode')</label>
+                                  <div class="f-field">
+                                    <input id="reviewAndPay-level2Code" name="creditCard.level2Code" type="text" class="text"/>
+                                    <a href="#" onclick="return false;">What's this?</a>
+                                  </div>
+                                </div>
+                              #else 
+                                <input type="hidden" name="creditCard.level2Code" id="cvv" value="1234" autocomplete="off"/>
+                              #end 
+                              <input type="hidden" id="currencyCode" value="$paymentgateway.option9">
+                              <input type="hidden" id="authamt" value="$!checkoutViewDTO.authamt"/>
+                              <input type="hidden" id="saleamt" value="$!checkoutViewDTO.saleamt"/>
+                              <input type="hidden" id="zip" value="$!checkoutViewDTO.addresses.billingAddress.postal"/>
+                              <input type="hidden" id="regioncode" value="$!checkoutViewDTO.addresses.billingAddress.provinceCode"/>
+                              <input type="hidden" id="countrycode" value="$!checkoutViewDTO.addresses.billingAddress.countryCode"/>
+                              <input type="hidden" id="city" value="$!checkoutViewDTO.addresses.billingAddress.city"/>
+                              <input type="hidden" id="street" value="$!checkoutViewDTO.addresses.billingAddress.address1"/>
+                              <input type="hidden" id="firstName" value="$!checkoutViewDTO.addresses.billingAddress.firstName"/>
+                              <input type="hidden" id="middleName" value="$!checkoutViewDTO.addresses.billingAddress.middleName"/>
+                              <input type="hidden" id="lastName" value="$!checkoutViewDTO.addresses.billingAddress.lastName"/>
+                              <input type="hidden" id="address1" value="$!checkoutViewDTO.addresses.billingAddress.address1"/>
+                              <input type="hidden" id="address2" value="$!checkoutViewDTO.addresses.billingAddress.address2"/>
+                              <input type="hidden" id="phone" value="$!checkoutViewDTO.addresses.billingAddress.dphone"/>
+                              <input type="hidden" id="billingemail" value="$!checkoutViewDTO.addresses.billingAddress.email"/>
+                              <input type="hidden" name="email" value="$!checkoutViewDTO.addresses.billingAddress.email"/>
+                              <div class="f-row">
+                                <label for="reviewAndPay-expMonth">*Expiration Date</label>
+                                <div class="f-field">
+                                  <select class="month" id="reviewAndPay-expMonth" name="reviewAndPay-expMonth">
+                                    <option value="0">-Month-</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                  </select>
+                                  <select class="year" id="reviewAndPay-expYear" name="reviewAndPay-expYear">
+                                    <option value="0">-Year-</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="f-row">
+                                <label for="creditCard.ccHolderName">* #springMessage('vm.register.nameoncard')</label>
+                                #if($checkoutViewDTO.addresses.billingAddress.firstName && $checkoutViewDTO.addresses.billingAddress.firstName!="" && $checkoutViewDTO.addresses.billingAddress.lastName && $checkoutViewDTO.addresses.billingAddress.lastName!="") 
+                                  <input type="text" name="creditCard.ccHolderName" id="creditCard.ccHolderName" value="$!checkoutViewDTO.addresses.billingAddress.firstName $!checkoutViewDTO.addresses.billingAddress.lastName"/>
+                                #else 
+                                  <input type="text" name="creditCard.ccHolderName" id="creditCard.ccHolderName" value=""/>
+                                #end
+                              </div><!-- /end .f-row -->
+                            </div><!-- /end .horizontal custom-lbl-width-->
+                          </div>
+                          <!-- /end .cc -->
+                          <div class="secure" id="ccsubmitted">
+                            <div class="f-form horizontal custom-lbl-width">
+                              <div class="title">
+                                <div class="heading2">
+                                  Your Credit Card Information
+                                </div>
+                                <div class="legend">
+                                  *Required
+                                </div>
+                              </div>
+                              <div class="f-row">
+                                <label class="outer">*Credit Card</label>
+                                <div class="f-field">
+                                  <span class="visa">VISA</span>
+                                </div>
+                              </div>
+                              <div class="f-row">
+                                <input type="hidden" name="transactionid" id="transactionid" value=""/>
+                                <input type="hidden" id="pciorderid" value="$checkoutViewDTO.ccIdentifier"/>
+                                <input type="hidden" name="creditCard.ccNumber" id="CARDNO" value="" autocomplete="off"/>
+                                <input type="hidden" id="creditCard.ccType" name="creditCard.ccType" value="3"/>
+                                <input type="hidden" id="creditCard.expMonth" name="creditCard.expMonth" value="1"/>
+                                <input type="hidden" name="creditCard.expYear" value="2010"/>
+                                <label for="reviewAndPay-cardNumber">*Card Number</label>
+                                <div class="f-field">
+                                  <span>XXXX-XXXX-XXXX-</span><span id="last4cc"></span><a onclick="javascript:$('#ccsubmitted').css('display','none');$('#cc').css('display','block');" class="editCC">Edit Credit Card</a>
+                                </div>
+                              </div><!-- /end .f-row -->
+                              <div class="f-row">
+                                <label for="reviewAndPay-expMonth">*Expiration Date</label>
+                                <div style="float:left">
+                                  <span id="expDate"></span>
+                                </div>
+                              </div><!-- /end .f-row -->
+                            </div><!-- /end .f-form horizonal custom-lbl-width -->
+                          </div><!--//#ccsubmitted-->
+
+                        #elseif($paymentgateway.code.indexOf("NCC") == -1 && !$pgcodenocc.contains($paymentgateway.code) &&$paymentgateway.code != "ACH") 
+                          <!-- Credit Card Form -->
+                          <div id="payment_method" style="display:none">
+                            <div class="f-row">
+                              <label for="CARDNO">#springMessage("vm.register.creditcard")</label>
+                              <div class="f-field vat">
+                                #springBind ("checkoutViewDTO.creditCard.ccNumber") 
+                                #if($checkoutViewDTO.creditCard.startYear == 1) 
+                                  <input type="text" name="$status.expression" id="CARDNO" value="$checkoutViewDTO.creditCard.ccSecureNumber" autocomplete="off"/>
+                                #else 
+                                  <input type="text" name="$status.expression" id="CARDNO" value="$status.value" autocomplete="off"/>
+                                #end
+                                <div class="info_needed">
+                                  #springMessage("vm.register.msg5")
+                                </div>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              <script language="javascript" type="text/javascript">
+                                function checkKey() {
+                                var keyword = document.getElementById('keyword');
+                                var key = document.getElementById('key');
+                                keyword.value = key.value;
+                                if (keyword.value.length==0)
+                                  keyword.value = $vendorSettingsDTO.vendorId;
+                                }
+                              </script>
+                              <label for="cvv">#springMessage('vm.register.securitycode')</label>
+                              <div class="f-field">
+                                 #springBind ("checkoutViewDTO.creditCard.level2Code") 
+                                 #if($checkoutViewDTO.creditCard.startYear == 1) 
+                                  <input type="text" name="$status.expression" id="cvv" value="***" autocomplete="off"/>
+                                #else 
+                                  <input type="text" name="$status.expression" id="cvv" value="$status.value" maxlength="4" size="4" autocomplete="off"/>
+                                #end 
+                                <span class="info_needed whatsthis" id="securityCode_help">#springMessage('vm.register.msg6')</span>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              #springBind ("checkoutViewDTO.creditCard.ccType") <label for="$status.expression">#springMessage('vm.register.cctype')</label>
+                              <div class="f-field">
+                                <select name="$status.expression" id="$status.expression">
+                                  <option value="0" selected>#springMessage('vm.register.selectcard')</option>
+                                  #set ($cardtypekeys = $checkoutViewDTO.creditCard.ccTypes.keySet()) 
+                                  #foreach ($cardtypekey in $cardtypekeys) 
+                                    #if ( $cardtypekey == 3 || $cardtypekey == 5 || $cardtypekey==6 || $cardtypekey==7) 
+                                      #if ($cardtypekey == $status.value)
+                                        <option value="$cardtypekey" selected>$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                      #else
+                                        <option value="$cardtypekey">$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                      #end 
+                                    #end
+                                  #end
+                                </select>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              #springBind("checkoutViewDTO.creditCard.expMonth") <label for="$status.expression">#springMessage('vm.register.expirydate')</label>
+                              <div class="f-field">
+                                #springBind("checkoutViewDTO.creditCard.expMonth")
+                                <select id="card-expiration-month" name="$status.expression">
+                                  <option value="1" #if($status.value && $status.value == 1) selected #end>01 - January</option>
+                                  <option value="2" #if($status.value && $status.value == 2) selected #end>02 - February</option>
+                                  <option value="3" #if($status.value && $status.value == 3) selected #end>03 - March</option>
+                                  <option value="4" #if($status.value && $status.value == 4) selected #end>04 - April</option>
+                                  <option value="5" #if($status.value && $status.value == 5) selected #end>05 - May</option>
+                                  <option value="6" #if($status.value && $status.value == 6) selected #end>06 - June</option>
+                                  <option value="7" #if($status.value && $status.value == 7) selected #end>07 - July</option>
+                                  <option value="8" #if($status.value && $status.value == 8) selected #end>08 - August</option>
+                                  <option value="9" #if($status.value && $status.value == 9) selected #end>09 - September</option>
+                                  <option value="10" #if($status.value && $status.value == 10) selected #end>10 - October</option>
+                                  <option value="11" #if($status.value && $status.value == 11) selected #end>11 - November</option>
+                                  <option value="12" #if($status.value && $status.value == 12) selected #end>12 - December</option>
+                                </select>
+                                #springBind("checkoutViewDTO.creditCard.expYear")
+                                <select name="$status.expression">
+                                  #foreach( $step in [0..10] )
+                                    <option value="$math.add($date.getYear(),$step)" #if( $status.value && $status.value == $math.add($date.getYear(),$step)) selected #end> $math.add($date.getYear(),$step) </option>
+                                  #end
+                                </select>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              <label for="nameoncard" class="f-field">#springMessage('vm.register.nameoncard')</label>
+                              <div class "f-field">
+                                 #springBind ("checkoutViewDTO.creditCard.ccHolderName") <input type="text" name="$status.expression" id="nameoncard" value="$status.value" maxlength="50" size="20"/>
+                              </div>
+                            </div>
+                          </div><!--//#payment_method-->
+
+                        #elseif($paymentgateway.code == "ACH" )
+                          <div id="payment_method_ach" style="display:none">
+                            <div class="f-row">
+                              <label for="bakname">#springMessage("vm.register.bankname")</label>
+                              <div class="f-field vat">
+                                 #springBind ("checkoutViewDTO.echecknet.bank_Name") <input type="text" name="$status.expression" id="bankname" value="$status.value"/>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              <label for="bakaccount">#springMessage("vm.register.bankaccount")</label>
+                              <div class="f-field vat">
+                                 #springBind ("checkoutViewDTO.echecknet.account_Name") <input type="text" name="$status.expression" id="account_name" value="$status.value"/>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              <label for="bankacctype">#springMessage("vm.register.bankacctype")</label>
+                              <div class="f-field vat">
+                                #springBind ("checkoutViewDTO.echecknet.bank_Account_Type")
+                                <select name="$status.expression" id="bank_acctype" value="$status.value">
+                                  <option value="CHECKING">Checking</option>
+                                  <option value="BUSINESSCHECKING">Business Checking</option>
+                                  <option value="SAVINGS">Savings</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              <label for="bankaccnum">#springMessage("vm.register.bankaccnum")</label>
+                              <div class="f-field vat">
+                                 #springBind ("checkoutViewDTO.echecknet.bank_Account_Num") <input type="text" name="$status.expression" id="bank_account_num" value="$status.value"/>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              <label for="bankabacode">#springMessage("vm.register.bankabacode")</label>
+                              <div class="f-field vat">
+                                 #springBind ("checkoutViewDTO.echecknet.aba_Routing_Code") <input type="text" name="$status.expression" id="aba_routing_code" value="$status.value"/>
+                              </div>
+                            </div>
+                          </div><!--//#payment_method_ach-->
+                        #end
+                      #end  ## end foreach ($paymentgateway)
+                    </div><!--#paymentGateway-->
+                  </div><!--//.col.last-->
+                </div><!--//#tab1-->
+              #end  ## // $checkoutViewDTO.details.noAllowanceRecord
+            </div><!--//.tabs-->
+            
+     
+          </div><!--//.payment-section-->
+          
+          #*================================
+            SUBTOTALS
+          =================================*#
+          <div class="cart-subtotals">
+            <div class="subtotal-line clearfix">
+              <b class="name">#springMessage("vm.checkout_payment.subtotal")</b>
+              <span class="value">$number.format('currency', $checkoutViewDTO.details.total, $viewStoreCurrency.locale)</span>
+            </div>
+
+            #if($math.round($checkoutViewDTO.details.allowances)> 0 && ($checkoutViewDTO.details.enableOrderAllowance =='ALLOWANCE' || $checkoutViewDTO.details.enableOrderAllowance =='POINT'))
+              <div class="subtotal-line clearfix">
+                <b class="name">#springMessage("vm.checkout_review.budget"):</b>
+                <span class="value">- $number.format('currency', $checkoutViewDTO.details.allowances, $viewStoreCurrency.locale)</span>
+              </div>
+            #end
+            
+            <div class="subtotal-line clearfix">
+              <b class="name">#springMessage("vm.checkout_payment.shipping")</b>
+              <span class="value">$number.format('currency',$checkoutViewDTO.details.shipTotal,$viewStoreCurrency.getLocale())</span>
+            </div>
+            
+            #if($checkoutViewDTO.details.perShippingDiscount>0)
+              <div class="subtotal-line clearfix">
+                <b class="name">#springMessage("vm.basket.shippingdiscount"):</b>
+                <span class="value">$number.format('currency', $checkoutViewDTO.details.perShippingDiscount,$viewStoreCurrency.locale)</span>
+            #end
+
+            <div class="subtotal-line clearfix">
+              <b class="name">#springMessage("vm.checkout_payment.tax")</b>
+              <span class="value">$number.format('currency', $checkoutViewDTO.details.taxTotal, $viewStoreCurrency.locale)</span>
+            </div>
+
+            #set($tempgiftcert=0)
+            #if($checkoutViewDTO.giftCertificate.giftCertificates && $checkoutViewDTO.giftCertificate.giftCertificates.size() > 0 )
+              <div class="subtotal-line clearfix">
+                <b class="name">#springMessage("vm.register.giftapplied"):</b>
+                <span class="value">$number.format('currency', $checkoutViewDTO.giftCertificate.totalAvailable, $viewStoreCurrency.locale)</span>
+              </div>
+              #set($tempgiftcert=$checkoutViewDTO.giftCertificate.totalAvailable)
+            #end
+            
+            #set($totalwithdis=$math.sub($checkoutViewDTO.details.total,$checkoutViewDTO.details.totalDiscount))
+            <div class="subtotal-line total clearfix">
+              <b class="name">#springMessage("vm.checkout_payment.total")</b>
+              <span class="value"> 
+                #if($math.round($checkoutViewDTO.details.allowances)> 0 && ($checkoutViewDTO.details.enableOrderAllowance =='ALLOWANCE' || $checkoutViewDTO.details.enableOrderAllowance =='POINT')) <!-- permit to pay by allowance-->
+                  #set($total =$math.sub($math.sub($math.sub($math.add($math.add(${totalwithdis},${checkoutViewDTO.details.taxTotal}),${checkoutViewDTO.details.shipTotal}),${tempgiftcert}),$checkoutViewDTO.details.perShippingDiscount),$checkoutViewDTO.details.allowances))
+
+                  #if($total>0)
+                    $number.format('currency',$total, $viewStoreCurrency.locale)
+                    <span class="message">#springMessage("vm.checkout_review.amountinfo1"): $number.format('currency',0.00, $viewStoreCurrency.locale)</span>
+                  #else 
+                    $number.format('currency',0.00, $viewStoreCurrency.locale)
+                    <span class="message" id="1">#springMessage("vm.checkout_review.amountinfo2"): $number.format('currency',$math.abs($total),$viewStoreCurrency.locale)</span>
+                  #end
+                #else <!--forbidden pay by allowance -->
+                  #set($total =$math.sub($math.sub($math.add($math.add(${totalwithdis},${checkoutViewDTO.details.taxTotal}),${checkoutViewDTO.details.shipTotal}),${tempgiftcert}),$checkoutViewDTO.details.perShippingDiscount)) 
+                  $number.format('currency',$total, $viewStoreCurrency.locale)
+                #end
+              </span>
+            </div>
+          </div><!--//.cart-subtotals-->
+
+
+
+          #*================================
+            ORDER (SCRIPT) QUESTIONS
+          =================================*#
+         #set($hasQuestion = 'false')
+            #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+              #foreach($question in $popage.questions)
+                #if($question.code !='purchaseOrder')
+                  #set($hasQuestion = 'true')
+                #end
+              #end 
+            #end
+        #if ( $hasQuestion == 'true')
+          <h2>Order Questions</h2>
+          <div class="location clearfix checkoutQuestions">
+            <input type="hidden" name="mode" value="answerQuestion"/>
+            #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+              #foreach($question in $popage.questions)
+                #if($question.code !='purchaseOrder')
+                  <div class="question">
+                    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/$question.template")
+                  </div>
+                #end
+              #end 
+            #end
+          </div>
+      #end
+      
+        <h2>Warehouse Location</h2>
+        <div class="location clearfix checkoutQuestions">
+            <div class="question">
+                <span>(required)</span>
+    ##             <script type="text/javascript">
+    ##                 $(document).ready(function() {
+    ##                   $(".cdsWarehouse").select2();
+    ##                 });
+    ##             </script>
+    ##             <select id="wareHouse" class="cdsWarehouse">
+    ##                 <option value="">WAREHOUSE LOCATION...</option>
+    ##                 <option value="21">BA-Danville, CA #21</option>
+    ##                 <option value="25">BA-Reno, NV #25</option>
+    ##                 <option value="29">BA-Roseville, CA #29</option>
+    ##                 <option value="31">BA-Fresno, CA #31</option>
+    ##                 <option value="38">BA-Stockton, CA #38</option>
+    ##                 <option value="41">BA-Santa Rosa, CA #41</option>
+    ##                 <option value="125">BA-Eureka, CA #125</option>
+    ##                 <option value="118">BA-San Leandro, CA #118</option>
+    ##                 <option value="127">BA-Carson City, NV #127</option>
+    ##                 <option value="129">BA-Santa Clara, CA #129</option>
+    ##                 <option value="131">BA-Sand City, CA #131</option>
+    ##                 <option value="132">BA-Vallejo, CA #132</option>
+    ##                 <option value="133">BA-Redding, CA #133</option>
+    ##                 <option value="135">BA-Clovis, CA #135</option>
+    ##                 <option value="141">BA-Novato, CA #141</option>
+    ##                 <option value="142">BA-Merced, CA #142</option>
+    ##                 <option value="143">BA-Mt. View, CA #143</option>
+    ##                 <option value="144">BA-San Francisco, CA #144</option>
+    ##                 <option value="146">BA-Livermore, CA #146</option>
+    ##                 <option value="147">BA-Foster City, CA #147</option>
+    ##                 <option value="148">BA-San Jose, CA #148</option>
+    ##                 <option value="149">BA-Santa Cruz, CA #149</option>
+    ##                 <option value="422">BA-South San Francisco, CA #422</option>
+    ##                 <option value="423">BA-Sunnyvale, CA #423</option>
+    ##                 <option value="438">BA-Rancho Cordova, CA #438</option>
+    ##                 <option value="453">BA-Fairfield, CA #453</option>
+    ##                 <option value="464">BA-Sacramento, CA #464</option>
+    ##                 <option value="470">BA-San Jose Almaden, CA #470</option>
+    ##                 <option value="471">BA-Cal Expo, CA #471</option>
+    ##                 <option value="472">BA-Salinas, CA #472</option>
+    ##                 <option value="475">BA-El Camino Real, CA #475</option>
+    ##                 <option value="482">BA-Richmond, CA #482</option>
+    ##                 <option value="646">BA-Sparks, NV #646</option>
+    ##                 <option value="657">BA-North Fresno, CA #657</option>
+    ##                 <option value="658">BA-Tracy, CA #658</option>
+    ##                 <option value="659">BA-Rohnert Park, CA #659</option>
+    ##                 <option value="661">BA-Modesto II, CA #661</option>
+    ##                 <option value="663">BA-Concord, CA #663</option>
+    ##                 <option value="694">BA-Vacaville, CA #694</option>
+    ##                 <option value="760">BA-Gilroy, CA #760</option>
+    ##                 <option value="765">BA-Folsom, CA #765</option>
+    ##                 <option value="771">BA-Citrus Heights, CA #771</option>
+    ##                 <option value="778">BA-Fremont, CA #778</option>
+    ##                 <option value="782">BA-Turlock, CA #782</option>
+    ##                 <option value="1002">BA-Antioch, CA #1002</option>
+    ##                 <option value="1003">BA-Woodland, CA #1003</option>
+    ##                 <option value="1004">BA-NE San Jose, CA #1004</option>
+    ##                 <option value="1011">BA-Chico, CA #1011</option>
+    ##                 <option value="1017">BA-Visalia, CA #1017</option>
+    ##                 <option value="1031">BA-Manteca, CA #1031</option>
+    ##                 <option value="1042">BA-Redwood City, CA #1042</option>
+    ##                 <option value="1061">BA-Hayward, CA #1061</option>
+    ##                 <option value="1091">BA-Lodi, CA #1091</option>
+    ##                 <option value="1244">BA-Handford, CA #1244</option>
+    ##                 <option value="1274">BA-ELK GROVE, CA #1274</option>
+    ##                 <option value="1297">BA-Ukiah, CA 9548 #1297</option>
+                    
+    ##                 <option value="115">BD-NW-Lynnwood, WA #115</option>
+    ##                 <option value="563">BD-Las Vegas Business Center, NV #563</option>
+    ##                 <option value="564">BD-LA-Hawthorne, CA #564</option>
+    ##                 <option value="569">BD-LA-Commerce, CA #569</option>
+    ##                 <option value="578">BD-San Diego Business Center, CA #578</option>
+    ##                 <option value="579">BD-Morrow Business Center, GA #579</option>
+    ##                 <option value="653">BD-LA - North Hollywood, CA #653</option>
+    ##                 <option value="767">BD-NW-Fife, WA #767</option>
+    ##                 <option value="823">BD-BA-Hayward, CA #823</option>
+    ##                 <option value="827">BD-Phoenix Business Center, AZ #827</option>
+
+    ##                 <option value="119">HI-KAHULUI, #119</option>
+    ##                 <option value="120">HI-HONOLULU #120</option>
+    ##                 <option value="140">HI-KAILUA KONA, #140</option>
+    ##                 <option value="485">HI-WAIPAHU, #485</option>
+    ##                 <option value="640">HI-LIHUE #640</option>
+    ##                 <option value="687">HI-IWILEI #687</option>
+    ##                 <option value="1038">HI-KAPOLEI #1038</option>
+                    
+    ##                 <option value="24">LA-Santa Maria, CA #24</option>
+    ##                 <option value="28">LA-Laguna Niguel, CA #28</option>
+    ##                 <option value="44">LA-Canoga Park, CA #44</option>
+    ##                 <option value="48">LA-Van Nuys, CA #48</option>
+    ##                 <option value="117">LA-Westlake, CA #117</option>
+    ##                 <option value="119">LA-Maui, HI #119</option>
+    ##                 <option value="120">LA-Hawaii Kai, HI #120</option>
+    ##                 <option value="122">LA-Tustin, CA #122</option>
+    ##                 <option value="126">LA-Garden Grove, CA #126</option>
+    ##                 <option value="128">LA-Simi Valley, CA #128</option>
+    ##                 <option value="130">LA-Los Feliz, CA #130</option>
+    ##                 <option value="140">LA-Kona, HI #140</option>
+    ##                 <option value="410">LA-Norwalk, CA #410</option>
+    ##                 <option value="411">LA-Fountain Valley, CA #411</option>
+    ##                 <option value="412">LA-Azusa, CA #412</option>
+    ##                 <option value="418">LA-Fullerton, CA #418</option>
+    ##                 <option value="420">LA-Oxnard, CA #420</option>
+    ##                 <option value="424">LA-Signal Hill, CA #424</option>
+    ##                 <option value="428">LA-Alhambra, CA #428</option>
+    ##                 <option value="429">LA-San Juan Capistrano, CA #429</option>
+    ##                 <option value="432">LA-Corona, CA #432</option>
+    ##                 <option value="437">LA-Northridge, CA #437</option>
+    ##                 <option value="441">LA-Coachella Valley, CA #441</option>
+    ##                 <option value="445">LA-Yorba Linda, CA #445</option>
+    ##                 <option value="447">LA-Santa Clarita, CA #447</option>
+    ##                 <option value="454">LA-Irvine, CA #454</option>
+    ##                 <option value="455">LA-Moreno Valley, CA #455</option>
+    ##                 <option value="459">LA-Montebello, CA #459</option>
+    ##                 <option value="473">LA-Chino Hills, CA #473</option>
+    ##                 <option value="474">LA-Goleta, CA #474</option>
+    ##                 <option value="476">LA-Torrance, CA #476</option>
+    ##                 <option value="478">LA-San Bernardino, CA #478</option>
+    ##                 <option value="479">LA-Culver City, CA #479</option>
+    ##                 <option value="485">LA-Waipio, HI #485</option>
+    ##                 <option value="627">LA-Fontana, CA #627</option>
+    ##                 <option value="638">LA-La Quinta, CA #638</option>
+    ##                 <option value="640">LA-Kauai, HI #640</option>
+    ##                 <option value="643">LA-SW Bakersfield, CA #643</option>
+    ##                 <option value="671">LA-Hawthorne, CA #671</option>
+    ##                 <option value="677">LA-Burbank, CA #677</option>
+    ##                 <option value="678">LA-Rancho Cucamonga, CA #678</option>
+    ##                 <option value="679">LA-City of Industry, CA #679</option>
+    ##                 <option value="686">LA-Montclair, CA #686</option>
+    ##                 <option value="687">LA-Iwilei, HI #687</option>
+    ##                 <option value="688">LA-Bakersfield, CA #688</option>
+    ##                 <option value="690">LA-Laguna Marketplace, CA #690</option>
+    ##                 <option value="741">LA-San Luis Obispo, CA #741</option>
+    ##                 <option value="748">LA-Cypress, CA #748</option>
+    ##                 <option value="762">LA-Lancaster, CA #762</option>
+    ##                 <option value="769">LA-Inglewood, CA #769</option>
+    ##                 <option value="777">LA-La Habra, CA #777</option>
+    ##                 <option value="1001">LA-Tustin II, CA #1001</option>
+    ##                 <option value="1010">LA-Victorville, CA #1010</option>
+    ##                 <option value="1015">LA-San Dimas, CA #1015</option>
+    ##                 <option value="1038">LA-Kapolei, HI #1038</option>
+    ##                 <option value="1050">LA-Lakewood, CA #1050</option>
+    ##                 <option value="1071">LA-Pacoima, CA #1071</option>
+    ##                 <option value="1110">LA-Huntington Beach, CA #1110</option>
+    ##                 <option value="1267">LA-San Jose, CA #1267</option>
+    ##                 <option value="1275">LA-Santa Maria, CA #1275</option>
+    ##                 <option value="1278">NW-Bonney Lake, WA #1278</option>
+    ##                 <option value="1202">LA-Torrance, CA #1202</option>
+    ##                 <option value="1318">LA-Monterey Park, CA #1318</option>
+                    
+    ##                 <option value="1211">MA-Allentown, PA 1211</option>
+    ##                 <option value="1236">MA-Flemington, NJ 1236</option>
+                    
+    ##                 <option value="341">MW-Commerce, MI #341</option>
+    ##                 <option value="342">MW-Naperville, IL #342</option>
+    ##                 <option value="343">MW-Avon, OH #343</option>
+    ##                 <option value="344">MW-Mayfield Hts, OH #344</option>
+    ##                 <option value="346">MW-Castleton, IN #346</option>
+    ##                 <option value="347">MW-Fortune Park, IN #347</option>
+    ##                 <option value="348">MW-Glenview, IL #348</option>
+    ##                 <option value="349">MW-Lenexa, KS #349</option>
+    ##                 <option value="368">MW-South St. Louis, MO #368</option>
+    ##                 <option value="369">MW-Overland Park, KS #369</option>
+    ##                 <option value="370">MW-Merrillville, IN #370</option>
+    ##                 <option value="371">MW-Bloomingdale, IL #371</option>
+    ##                 <option value="372">MW-Coon Rapids, MN #372</option>
+    ##                 <option value="373">MW-Independence, MO #373</option>
+    ##                 <option value="374">MW-Lakeside, MI #374</option>
+    ##                 <option value="375">MW-Kansas City, MO #375</option>
+    ##                 <option value="376">MW-Auburn Hill, MI #376</option>
+    ##                 <option value="377">MW-St. Louis Park, MN #377</option>
+    ##                 <option value="378">MW-Lake Zurich, IL #378</option>
+    ##                 <option value="379">MW-Springdale, OH #379</option>
+    ##                 <option value="380">MW-Lincoln Park, IL #380</option>
+    ##                 <option value="381">MW-Bedford Park, IL #381</option>
+    ##                 <option value="382">MW-St. Peters, MO #382</option>
+    ##                 <option value="383">MW-Niles, IL #383</option>
+    ##                 <option value="384">MW-Deerfield, OH #384</option>
+    ##                 <option value="387">MW-Schaumburg, IL #387</option>
+    ##                 <option value="388">MW-Oak Brook, IL #388</option>
+    ##                 <option value="390">MW-Livonia I, MI #390</option>
+    ##                 <option value="391">MW-Livonia II, MI #391</option>
+    ##                 <option value="393">MW-Madison Heights, MI #393</option>
+    ##                 <option value="394">MW-Roseville, MI #394</option>
+    ##                 <option value="625">MW-Strongsville, OH #625</option>
+    ##                 <option value="628">MW-Grafton, WI #628</option>
+    ##                 <option value="632">MW-Columbus, OH #632</option>
+    ##                 <option value="634">MW-Louisville, KY #634</option>
+    ##                 <option value="647">MW-Orland Park, IL #647</option>
+    ##                 <option value="648">MW-Maple Grove, MN #648</option>
+    ##                 <option value="744">MW-Wyoming, MI #744</option>
+    ##                 <option value="774">MW-Lake in the Hills, IL #774</option>
+    ##                 <option value="779">MW-Mt. Prospect, IL #779</option>
+    ##                 <option value="783">MW-Eden Prairie, MN #783</option>
+    ##                 <option value="784">MW-East Grand Rapids, MI #784</option>
+    ##                 <option value="786">MW-Green Oak Twnshp, MI #786</option>
+    ##                 <option value="788">MW-Des Moines, IA #788</option>
+    ##                 <option value="1007">MW-Toledo, OH #1007</option>
+    ##                 <option value="1012">MW-Omaha, NE #1012</option>
+    ##                 <option value="1020">MW-Middleton, WI #1020</option>
+    ##                 <option value="1021">MW-Maplewood, MN #1021</option>
+    ##                 <option value="1037">MW-Bloomfield, MI #1037</option>
+    ##                 <option value="1040">MW-St. Charles, IL #1040</option>
+    ##                 <option value="1060">MW-Manchester, MO #1060</option>
+    ##                 <option value="1074">MW-Mettawa, IL #1074</option>
+    ##                 <option value="1085">MW-Melrose Park, IL #1085</option>
+    ##                 <option value="1087">MW-Burnsville, MN #1087</option>
+    ##                 <option value="1088">MW-Bolingbrook, IL #1088</option>
+    ##                 <option value="1101">MW-Pewaukee, WI #1101</option>
+    ##                 <option value="1106">MW-Pittsfield, MI #1106</option>
+    ##                 <option value="1107">MW-Chicago South Loop, IL #1107</option>
+    ##                 <option value="1111">MW-Coralville, IA #1111</option>
+    ##                 <option value="1119">MW-West Fargo, ND #1119</option>
+    ##                 <option value="1121">MW-Sun Prairie, WI #1121</option>
+    ##                 <option value="1122">MW-Baxter,  MN #1122</option>
+    ##                 <option value="1125">MW-Rochester, MN #1125</option>
+    ##                 <option value="1126">MW-East Peoria, IL #1126</option>
+    ##                 <option value="1153">MW-North Riverside, IL #1153</option>
+    ##                 <option value="1156">MW-Lexington, KY #1156</option>
+    ##                 <option value="1159">MW-Sioux Falls, SD #1159</option>
+    ##                 <option value="1160">MW-Columbus(Easton), OH #1160</option>
+    ##                 <option value="1161">MW-Fort Wayne, IN #1161</option>
+    ##                 <option value="1162">MW-Bellevue (Green Bay), WI #1162</option>
+    ##                 <option value="1183">MW-Mishawaka, IN #1183</option>
+    ##                 <option value="1185">MW-Centerville, OH #1185</option>
+    ##                 <option value="1191">MW-Kalamazoo, MI #1191</option>
+    ##                 <option value="1194">MW-Perrysburg, Ohio #1194</option>
+    ##                 <option value="1197">MW-Florence, KY #1197</option>
+    ##                 <option value="1198">MW-Pleasant Prairie, WI 1198</option>
+    ##                 <option value="1209">MW-Menomonee Falls, WI #1209</option>
+    ##                 <option value="1212">MW-New Berlin, WI #1212</option>
+    ##                 <option value="1216">NW-BELLINGHAM, WA #1216</option>
+    ##                 <option value="1222">MW-Grand Chute, WI #1222</option>
+    ##                 <option value="1226">MW-Boston Heights, OH #1226</option>
+    ##                 <option value="1227">MW-Greenwood, IN #1227</option>
+    ##                 <option value="1237">MW-LaVista, NE #1237 </option>
+    ##                 <option value="1238">MW-Louisville, KY #1238</option>
+    ##                 <option value="1243">MW-Plain City, OH #1243</option>
+    ##                 <option value="1268">MW-N Kansas City, MO #1268</option>
+    ##                 <option value="1272">MW-Woodbury, MN #1272</option>
+    ##                 <option value="1277">MW-EAST LANSING, MI #1277</option>
+    ##                 <option value="1279">MW-TRAVERSE CITY, MI #1279</option>
+    ##                 <option value="1285">MW-LINCOLN, NE #1285</option>
+    ##                 <option value="1320">MW-Henderson, NV #1320</option>
+    ##                 <option value="1326">MW-OWINGS MILLS, MD #1326</option>
+    ##                 <option value="1353">MW-Love's Park, IL #1353</option>
+ 
+                    
+    ##                 <option value="202">NE-Norfolk, VA  #202</option>
+    ##                 <option value="203">NE-Glen Burnie, MD #203</option>
+    ##                 <option value="204">NE-Fairfax, VA #204</option>
+    ##                 <option value="205">NE-West Henrico, VA #205</option>
+    ##                 <option value="206">NE-Nesconset, NY #206</option>
+    ##                 <option value="208">NE-White Marsh, MD #208</option>
+    ##                 <option value="213">NE-Gaithersburg, MD #213</option>
+    ##                 <option value="214">NE-Beltsville, MD #214</option>
+    ##                 <option value="218">NE-Sterling, VA #218</option>
+    ##                 <option value="222">NE-Hazlet, NJ #222</option>
+    ##                 <option value="225">NE-Manassas, VA #225</option>
+    ##                 <option value="226">NE-Westbury, NY #226</option>
+    ##                 <option value="227">NE-Newington, VA #227</option>
+    ##                 <option value="230">NE-Holbrook, NY #230</option>
+    ##                 <option value="231">NE-Hackensack, NJ #231</option>
+    ##                 <option value="233">NE-Pentagon City, VA #233</option>
+    ##                 <option value="237">NE-Melville, NY #237</option>
+    ##                 <option value="238">NE-Harrisonburg, VA #238</option>
+    ##                 <option value="239">NE-Winchester, VA #239</option>
+    ##                 <option value="240">NE-Commack, NY #240</option>
+    ##                 <option value="241">NE-New Rochelle, NY #241</option>
+    ##                 <option value="243">NE-Queens, NY #243</option>
+    ##                 <option value="244">NE-East Hanover, NJ #244</option>
+    ##                 <option value="245">NE-King Of Prussia, PA #245</option>
+    ##                 <option value="246">NE-Christiana, DE #246</option>
+    ##                 <option value="247">NE-Newport News, VA #247</option>
+    ##                 <option value="248">NE-Montgomeryville, PA #248</option>
+    ##                 <option value="301">NE-Danvers, MA #301</option>
+    ##                 <option value="302">NE-West Springfield, MA #302</option>
+    ##                 <option value="303">NE-Avon, MA #303</option>
+    ##                 <option value="304">NE-Brookfield, CT #304</option>
+    ##                 <option value="305">NE-Nanuet, NY #305</option>
+    ##                 <option value="306">NE-Clifton, NJ #306</option>
+    ##                 <option value="307">NE-Nashua, NH #307</option>
+    ##                 <option value="308">NE-Waltham, MA #308</option>
+    ##                 <option value="310">NE-Lawrence, NY #310</option>
+    ##                 <option value="312">NE-Milford, CT #312</option>
+    ##                 <option value="313">NE-Waterbury, CT #313</option>
+    ##                 <option value="314">NE-Colchester, VT #314</option>
+    ##                 <option value="315">NE-Wharton, NJ #315</option>
+    ##                 <option value="316">NE-Staten Island, NY #316</option>
+    ##                 <option value="317">NE-Lancaster, PA #317</option>
+    ##                 <option value="318">NE-Brooklyn, NY #318</option>
+    ##                 <option value="319">NE-Dedham, MA #319</option>
+    ##                 <option value="320">NE-Union, NJ #320</option>
+    ##                 <option value="321">NE-Yonkers, NY #321</option>
+    ##                 <option value="322">NE-Bridgewater, NJ #322</option>
+    ##                 <option value="323">NE-Edison, NJ #323</option>
+    ##                 <option value="324">NE-Lower Norwalk, CT #324</option>
+    ##                 <option value="325">NE-Arundel Mills, MD #325</option>
+    ##                 <option value="326">NE-Port Chester, NY #326</option>
+    ##                 <option value="327">NE-Harrisburg, PA #327</option>
+    ##                 <option value="328">NE-Cranberry, PA #328</option>
+    ##                 <option value="329">NE-Ocean Township, NJ #329</option>
+    ##                 <option value="330">NE-Frederick, MD #330</option>
+    ##                 <option value="332">NE-Robinson, PA #332</option>
+    ##                 <option value="333">NE-Everett, MA #333</option>
+    ##                 <option value="334">NE-Chantilly, VA #334</option>
+    ##                 <option value="337">NE-Leesburg, VA #337</option>
+    ##                 <option value="340">NE-Fredericksburg, VA #340</option>
+    ##                 <option value="626">NE-Potomac Mills, VA #626</option>
+    ##                 <option value="649">NE-W. Homestead, PA #649</option>
+    ##                 <option value="739">NE-Brick, NJ #739</option>
+    ##                 <option value="749">NE-Mount Laurel, NJ #749</option>
+    ##                 <option value="780">NE-Enfield, CT #780</option>
+    ##                 <option value="785">NE-Riverhead, NY #785</option>
+    ##                 <option value="1000">NE-Columbia, MD #1000</option>
+    ##                 <option value="1025">NE-Manahawkin, NJ #1025</option>
+    ##                 <option value="1039">NE-Brandywine, MD #1039</option>
+    ##                 <option value="1062">NE-Manhattan, NY #1062</option>
+    ##                 <option value="1070">NE-Rego Park, NY #1070</option>
+    ##                 <option value="1078">NE-Lanham, MD #1078</option>
+    ##                 <option value="1081">NE-Sanatoga, PA #1081</option>
+    ##                 <option value="1089">NE-Chesterfield, VA #1089</option>
+    ##                 <option value="1093">NE-Marlboro, NJ #1093</option>
+    ##                 <option value="1103">NE-Bucks County, PA #1103</option>
+    ##                 <option value="1114">NE-Concordville, PA #1114</option>
+    ##                 <option value="1115">NE-Mountain Vernon, VA #1115</option>
+    ##                 <option value="1120">NE-Washington, DC #1120</option>
+    ##                 <option value="1124">NE-Wheaten, MD #1124</option>
+    ##                 <option value="1166">NE-North Plainfield, NJ #1166</option>
+    ##                 <option value="1174">NE-North Brunswick, NJ #1174</option>
+    ##                 <option value="1176">NE-Camillus, NY #1176</option>
+    ##                 <option value="1177">NE-Wayne, NJ #1177</option>
+    ##                 <option value="1184">NE-Charlottesville, VA #1184</option>
+    ##                 <option value="1195">NE-Rochester, NY #1195</option>
+    ##                 <option value="1196">NE-New Britain, CT #1196</option>
+    ##                 <option value="1199">NE-Lawrence Township, NJ #1199</option>
+    ##                 <option value="1214">NE-Teterboro, NJ #1214</option> 
+    ##                 <option value="1215">NE-Oceanside, NY #1215</option>
+    ##                 <option value="1334">NE-BAYONNE, NJ #1334</option>
+                    
+    ##                 <option value="1">NW-Seattle, WA #1</option>
+    ##                 <option value="2">NW-Portland, OR #2</option>
+    ##                 <option value="6">NW-Southcenter, WA #6</option>
+    ##                 <option value="8">NW-Kirkland, WA #8</option>
+    ##                 <option value="9">NW-Aloha, OR #9</option>
+    ##                 <option value="10">NW-Anchorage, AK #10</option>
+    ##                 <option value="13">NW-Silverdale, WA #13</option>
+    ##                 <option value="17">NW-Eugene, OR #17</option>
+    ##                 <option value="61">NW-Federal Way, WA #61</option>
+    ##                 <option value="63">NW-Anchorage II, AK #63</option>
+    ##                 <option value="64">NW-Tumwater, WA #64</option>
+    ##                 <option value="65">NW-Medford, OR #65</option>
+    ##                 <option value="66">NW-Spokane II, WA #66</option>
+    ##                 <option value="67">NW-Missoula, MT #67</option>
+    ##                 <option value="68">NW-Salem, OR #68</option>
+    ##                 <option value="69">NW-Billings, MT #69</option>
+    ##                 <option value="95">NW-Tacoma, WA #95</option>
+    ##                 <option value="96">NW-Bozeman, MT #96</option>
+    ##                 <option value="97">NW-Clackamas, OR #97</option>
+    ##                 <option value="101">NW-Bend, OR #101</option>
+    ##                 <option value="103">NW-Clarkston, WA #103</option>
+    ##                 <option value="106">NW-Aurora Village, WA #106</option>
+    ##                 <option value="107">NW-Juneau, AK #107</option>
+    ##                 <option value="110">NW-Issaquah, WA #110</option>
+    ##                 <option value="111">NW-Tigard, OR #111</option>
+    ##                 <option value="112">NW-Wenatchee, WA #112</option>
+    ##                 <option value="113">NW-Salt Lake City II, UT #113</option>
+    ##                 <option value="114">NW-Everett, WA #114</option>
+    ##                 <option value="145">NW-Twin Falls, ID #145</option>
+    ##                 <option value="484">NW-Orem, UT #484</option>
+    ##                 <option value="486">NW-Kennewick, WA #486</option>
+    ##                 <option value="487">NW-Sandy City, UT #487</option>
+    ##                 <option value="622">NW-West Valley, UT #622</option>
+    ##                 <option value="624">NW-Gig Harbor, WA #624</option>
+    ##                 <option value="633">NW-Helena, MT #633</option>
+    ##                 <option value="639">NW-Sequim, WA #639</option>
+    ##                 <option value="642">NW-Marysville, WA #642</option>
+    ##                 <option value="660">NW-Puyallup, WA #660</option>
+    ##                 <option value="662">NW-Burlington, WA #662</option>
+    ##                 <option value="670">NW-Spokane, WA #670</option>
+    ##                 <option value="682">NW-Albany, OR #682</option>
+    ##                 <option value="692">NW-Hillsboro, OR #692</option>
+    ##                 <option value="733">NW-Lehi, UT #733</option>
+    ##                 <option value="734">NW-Nampa, ID #734</option>
+    ##                 <option value="735">NW-W Bountiful, UT #735</option>
+    ##                 <option value="740">NW-Lacey, WA #740</option>
+    ##                 <option value="745">NW-Kalispell, MT #745</option>
+    ##                 <option value="747">NW-Woodinville, WA #747</option>
+    ##                 <option value="761">NW-Boise, ID #761</option>
+    ##                 <option value="764">NW-Murray, UT #764</option>
+    ##                 <option value="766">NW-Wilsonville, OR #766</option>
+    ##                 <option value="770">NW-S Ogden, UT #770</option>
+    ##                 <option value="772">NW-Vancouver, WA #772</option>
+    ##                 <option value="773">NW-Coeur D' Alene, ID #773</option>
+    ##                 <option value="1013">NW-Union Gap, WA #1013</option>
+    ##                 <option value="1019">NW-South Jordan, UT #1019</option>
+    ##                 <option value="1029">NW-Covington, WA #1029</option>
+    ##                 <option value="1033">NW-Pocatello, ID #1033</option>
+    ##                 <option value="1059">NW-Warrenton, OR #1059</option>
+    ##                 <option value="1073">NW-Roseburg, OR #1073</option>
+    ##                 <option value="1086">NW-E Vancouver, WA #1086</option>
+    ##                 <option value="1118">NW-Spanish Fork, UT #1118</option>
+    ##                 <option value="1190">NW-Lynnwood, WA #1190</option>
+    ##                 <option value="1190">NW-WHS 1190 LYNNWOOD, WA</option>
+    ##                 <option value="1287">NW-Central Point, OR #1287</option>
+    ##                 <option value="1298">NW-Spokane, WA #1298</option>
+    ##                 <option value-"1255">NW-Redmount, WA #1225 </option>
+    ##                 <option value="1317">NW-Eastvale, CA #1317</option>
+    ##                 <option value="1342">NW-Fairbanks, AK #1342</option>
+                    
+    ##                 <option value="116">SD-Albuquerque I, NM #116</option>
+    ##                 <option value="121">SD-El Centro, CA #121</option>
+    ##                 <option value="124">SD-Vista, CA #124</option>
+    ##                 <option value="401">SD-San Diego, CA #401</option>
+    ##                 <option value="403">SD-Santee, CA #403</option>
+    ##                 <option value="407">SD-Tucson, AZ #407</option>
+    ##                 <option value="427">SD-Scottsdale, AZ #427</option>
+    ##                 <option value="431">SD-NW Tucson, AZ #431</option>
+    ##                 <option value="436">SD-Tempe, AZ #436</option>
+    ##                 <option value="439">SD-Aurora, CO #439</option>
+    ##                 <option value="440">SD-Westminster, CO #440</option>
+    ##                 <option value="443">SD-SW Denver, CO #443</option>
+    ##                 <option value="452">SD-Carmel Mountain, CA #452</option>
+    ##                 <option value="460">SD-Rancho Del Rey, CA #460</option>
+    ##                 <option value="462">SD-Carlsbad, CA #462</option>
+    ##                 <option value="465">SD-Phoenix, AZ #465</option>
+    ##                 <option value="466">SD-Prescott, AZ #466</option>
+    ##                 <option value="468">SD-Douglas County, CO #468</option>
+    ##                 <option value="469">SD-La Mesa, CA #469</option>
+    ##                 <option value="480">SD-Superior, CO #480</option>
+    ##                 <option value="481">SD-Gilbert, AZ #481</option>
+    ##                 <option value="483">SD-SE San Diego, CA #483</option>
+    ##                 <option value="488">SD-Mission Valley, CA #488</option>
+    ##                 <option value="490">SD-Phoenix, AZ #490</option>
+    ##                 <option value="491">SD-Temecula, CA #491</option>
+    ##                 <option value="629">SD-Thornton, CO #629</option>
+    ##                 <option value="637">SD-Gypsum, CO #637</option>
+    ##                 <option value="644">SD-Gilbert, AZ #644</option>
+    ##                 <option value="665">SD-Phoenix, AZ #665</option>
+    ##                 <option value="667">SD-Albuquerque II, NM #667</option>
+    ##                 <option value="672">SD-St. George, UT #672</option>
+    ##                 <option value="673">SD-Henderson, NV #673</option>
+    ##                 <option value="674">SD-Glendale, AZ #674</option>
+    ##                 <option value="676">SD-Arvada, CO #676</option>
+    ##                 <option value="685">SD-Summerlin, NV #685</option>
+    ##                 <option value="691">SD-Avondale, AZ #691</option>
+    ##                 <option value="736">SD-Chandler, AZ #736</option>
+    ##                 <option value="737">SD-N. Las Vegas, NV #737</option>
+    ##                 <option value="738">SD-Phoenix, AZ #738</option>
+    ##                 <option value="746">SD-Lake Elsinore, CA #746</option>
+    ##                 <option value="775">SD-Poway, CA #775</option>
+    ##                 <option value="781">SD-Chula Vista, CA #781</option>
+    ##                 <option value="827">SD-Phoenix, AZ #827</option>
+    ##                 <option value="1014">SD-Colorado Springs, CO #1014</option>
+    ##                 <option value="1016">SD-Albuquerque III, NM #1016</option>
+    ##                 <option value="1022">SD-Parker, CO #1022</option>
+    ##                 <option value="1027">SD-Sheridan, CO #1027</option>
+    ##                 <option value="1028">SD-Mesa, AZ #1028</option>
+    ##                 <option value="1030">SD-Colorado Springs West, CO #1030</option>
+    ##                 <option value="1058">SD-Paradise Valley, AZ #1058</option>
+    ##                 <option value="1079">SD-Tucson, AZ #1079</option>
+    ##                 <option value="1080">SD-San Marcos, CA #1080</option>
+    ##                 <option value="1178">SD-Timnath, CO #1178</option>
+    ##                 <option value="1205">SD-Costco Whs. #1205: Woodland Hills, CA 91367</option>
+                    
+    ##                 <option value="88">SE-Pompano, FL #88</option>
+    ##                 <option value="91">SE-Davie, FL #91</option>
+    ##                 <option value="92">SE-Miami, FL #92</option>
+    ##                 <option value="93">SE-Palm Beach Gardens, FL #93</option>
+    ##                 <option value="180">SE-Lantana, FL #180</option>
+    ##                 <option value="181">SE-Miami Lakes, FL #181</option>
+    ##                 <option value="182">SE-North Miami, FL #182</option>
+    ##                 <option value="183">SE-Altamonte Springs, FL #183</option>
+    ##                 <option value="184">SE-South Orlando, FL #184</option>
+    ##                 <option value="185">SE-Winter Park, FL #185</option>
+    ##                 <option value="187">SE-Gwinnett, GA #187</option>
+    ##                 <option value="188">SE-Perimeter, GA #188</option>
+    ##                 <option value="189">SE-Town Center, GA #189</option>
+    ##                 <option value="249">SE-Durham, NC #249</option>
+    ##                 <option value="335">SE-Carolina, PR #335</option>
+    ##                 <option value="336">SE-Clearwater, FL #336</option>
+    ##                 <option value="338">SE-Myrtle Beach, SC #338</option>
+    ##                 <option value="339">SE-Greenboro, NC #339</option>
+    ##                 <option value="345">SE-Boca Raton, FL #345</option>
+    ##                 <option value="351">SE-Ft. Myers, FL #351</option>
+    ##                 <option value="352">SE-NE Memphis, TN #352</option>
+    ##                 <option value="353">SE-SE Memphis, TN #353</option>
+    ##                 <option value="354">SE-Naples, FL #354</option>
+    ##                 <option value="356">SE-Huntsville, AL #356</option>
+    ##                 <option value="357">SE-E. Jacksonville, FL #357</option>
+    ##                 <option value="358">SE-Brandon, FL #358</option>
+    ##                 <option value="359">SE-Charlotte, NC #359</option>
+    ##                 <option value="360">SE-Charleston, SC #360</option>
+    ##                 <option value="361">SE-Winston Salem, NC #361</option>
+    ##                 <option value="362">SE-Hoover, AL #362</option>
+    ##                 <option value="363">SE-EastBayamon, PR #363</option>
+    ##                 <option value="364">SE-West Bayamon, PR #364</option>
+    ##                 <option value="365">SE-Caguas, PR #365</option>
+    ##                 <option value="366">SE-Mall of Georgia, GA #366</option>
+    ##                 <option value="367">SE-Matthews, NC #367</option>
+    ##                 <option value="386">SE-Brentwood, TN #386</option>
+    ##                 <option value="621">SE-Fort Myers, FL #621</option>
+    ##                 <option value="623">SE-Royal Palm Beach, FL #623</option>
+    ##                 <option value="630">SE-West Nashville, TN #630</option>
+    ##                 <option value="631">SE-Cumberland, GA #631</option>
+    ##                 <option value="635">SE-Wilimington, NC #635</option>
+    ##                 <option value="645">SE-Raleigh, NC #645</option>
+    ##                 <option value="742">SE-Pembroke Pines, FL #742</option>
+    ##                 <option value="743">SE-Alpharetta, GA #743</option>
+    ##                 <option value="1005">SE-Greenville, SC #1005</option>
+    ##                 <option value="1008">SE-Spartanburg, SC #1008</option>
+    ##                 <option value="1009">SE-Montgomery, AL #1009</option>
+    ##                 <option value="1023">SE-Kendall, FL #1023</option>
+    ##                 <option value="1026">SE-Tallahassee, FL #1026</option>
+    ##                 <option value="1083">SE-Ft. Oglethorpe, GA #1083</option>
+    ##                 <option value="1084">SE-Brookhaven, GA #1084</option>
+    ##                 <option value="1102">SE-Augusta, GA #1102</option>
+    ##                 <option value="1116">SE-Farragut, TN #1116</option>
+    ##                 <option value="1123">SE-Sarasota Square Mall, FL #1123</option>
+    ##                 <option value="1175">SE-Cumming, GA #1175</option>
+    ##                 <option value="1192">SE-Mobile, AL #1192</option>
+    ##                 <option value="1201">SE-Layfette, LA #1201</option>
+    ##                 <option value="1206">SE-Apex, NC #1206</option>
+    ##                 <option value="1207">SE-WHS, #1207 Tulsa, OK</option>
+    ##                 <option value="1229">SE-Miami, FL #1229</option>
+    ##                 <option value="1232">SE-Columbia, SC #1232</option>
+    ##                 <option value="1235">SE-Orlando, FL #1235</option>
+    ##                 <option value="1249">SE-Tampa, FL #1249</option>
+    ##                 <option value="1262">SE-Tampa, FL #1262</option>
+    ##                 <option value="1294">SE-Jacksonville, FL WHS #1294</option>
+    ##                 <option value="1323">SE-Coral Springs, FL #1323</option>
+    ##                 <option value="1332">SE-Mami, FL #1332</option>
+    ##                 <option value="1350">SE-Oklahoma City #1350</option>
+    ##                 <option value="1360">SE-Clovis, CA #1360</option>
+    ##                 <option value="1361">SE-Sharpsburg, GA #1361</option>
+    ##                 <option value="1364">SE-Bradenton, FL #1364</option>
+                    
+    ##                 <option value="668">TX-Arlington, TX #668</option>
+    ##                 <option value="681">TX-Austin, TX #681</option>
+    ##                 <option value="1172">TX-Baton Rouge, LA #1172</option>
+    ##                 <option value="1152">TX-Cedar Park, TX #1152</option>
+    ##                 <option value="1266">TX-Dallas, TX #1266</option>
+    ##                 <option value="636">TX-Duncanville, TX #636</option>
+    ##                 <option value="664">TX-East Plano, TX #664</option>
+    ##                 <option value="768">TX-El Paso, TX #768</option>
+    ##                 <option value="1097">TX-Frisco, TX #1097</option>
+    ##                 <option value="489">TX-Ft. Worth, TX #489</option>
+    ##                 <option value="1018">TX-Houston, TX #1018</option>
+    ##                 <option value="1228">TX-Humble, TX #1228</option>
+    ##                 <option value="680">TX-Katy, TX #680</option>
+    ##                 <option value="683">TX-Lewisville, TX #683</option>
+    ##                 <option value="1163">TX-Lubbock, TX #1163</option>
+    ##                 <option value="1284">TX-MCKINNEY, OK #1284</option>
+    ##                 <option value="1147">TX-New Orleans, LA #1147</option>
+    ##                 <option value="1173">TX-North Ft Worth, TX #1173</option>
+    ##                 <option value="689">TX-NW San Antonio, TX #689</option>
+    ##                 <option value="1221">TX-Pearland, TX #1221</option>
+    ##                 <option value="1322">TX-PFLUGERVILLE, TX #1322</option>
+    ##                 <option value="1108">TX-Pharr, TX #1108</option>
+    ##                 <option value="1049">TX-Rockwall, TX #1049</option>
+    ##                 <option value="1006">TX-Selma, TX #1006</option>
+    ##                 <option value="693">TX-Sonterra Park, TX #693</option>
+    ##                 <option value="641">TX-South Austin, TX #641</option>
+    ##                 <option value="669">TX-Southlake, TX #669</option>
+    ##                 <option value="1146">TX-Sugar Land, TX #1146</option>
+    ##                 <option value="1189">TX-The Woodlands, TX #1189</option>
+    ##                 <option value="1207">TX-Tulsa, OK #1207</option>
+    ##                 <option value="1130">TX-Webster, TX #1330</option>
+    ##                 <option value="1167">TX-West Katy, TX #1167</option>
+    ##                 <option value="684">TX-West Plano, TX #684</option>
+    ##                 <option value="1200">TX-Wichita, KS #1200</option>
+    ##                 <option value="675">TX-Willowbrook, TX #675</option>                 
+    ##                 <option value="1208">TX-Cypress, TX #1208</option>                      
+                    
+    ##                 <option value="151">EC-EN-MARKHAM, ON #151</option>
+    ##                 <option value="159">EC-EN-AJAX, ON #159</option>
+    ##                 <option value="162">EC-EN-BRAMPTON, ON #162</option>
+    ##                 <option value="252">EC-EN-BARRIE, ON #252</option>
+    ##                 <option value="253">EC-EN-BURLINGTON, ON #253</option>
+    ##                 <option value="257">EC-EN-SUDBURY, ON #257</option>
+    ##                 <option value="508">EC-EN-WESTMINSTER, ON #508</option>
+    ##                 <option value="510">EC-EN-NEWMARKET, ON #510</option>
+    ##                 <option value="511">EC-EN-GLOUCESTER, ON #511</option>
+    ##                 <option value="512">EC-EN-KITCHENER, ON #512</option>
+    ##                 <option value="519">EC-EN-HALIFAX, NS #519</option>
+    ##                 <option value="523">EC-EN-ST.CATHARINES, ON #523</option>
+    ##                 <option value="524">EC-EN-ETOBICOKE, ON #524</option>
+    ##                 <option value="526">EC-EN-MISSISSAUGA, ON #526</option>
+    ##                 <option value="530">EC-EN-LONDON NORTH, ON #530</option>
+    ##                 <option value="531">EC-EN-MISSISSAUGA SOUTH, ON #531</option>
+    ##                 <option value="533">EC-EN-KINGSTON, ON #533</option>
+    ##                 <option value="534">EC-EN-WINDSOR, ON #534</option>
+    ##                 <option value="535">EC-EN-DOWNSVIEW, ON #535</option>
+    ##                 <option value="537">EC-EN-SCARBOROUGH, ON #537</option>
+    ##                 <option value="538">EC-EN-MONCTON, NB #538</option>
+    ##                 <option value="539">EC-EN-ST. JOHN'S, NL #539</option>
+    ##                 <option value="540">EC-EN-NEPEAN, ON #540</option>
+    ##                 <option value="541">EC-EN-KANATA, ON #541</option>
+    ##                 <option value="545">EC-EN-MARKHAM EAST, ON #545</option>
+    ##                 <option value="547">EC-EN-VAUGHAN, ON #547</option>
+    ##                 <option value="551">EC-EN-DARTMOUTH, NS #551</option>
+    ##                 <option value="591">EC-EN-PETERBOROUGH, ON #591</option>
+    ##                 <option value="592">EC-EN-RICHMOND HILL, ON #592</option>
+    ##                 <option value="1055">EC-EN-SAINT JOHN, NB #1055</option>
+    ##                 <option value="1090">EC-EN-FREDERICTON, NB #1090</option>
+    ##                 <option value="1105">EC-EN-ANCASTER, ON #1105</option>
+    ##                 <option value="1128">EC-EN-OSHAWA, ON #1128</option>
+    ##                 <option value="1168">EC-EN-GUELPH, ON #1168</option>
+    ##                 <option value="1169">EC-EN-CENTRAL MISSISSAUGA, ON #1169</option>
+    ##                 <option value="1248">EC-EN-WATERLOO, ON #1248</option>
+    ##                 <option value="1261">EC-EN-NW VVAUGHAN, ON #1261</option>
+    ##                 <option value="1263">EC-EN-BARRHAVEN, ON #1263</option>
+    ##                 <option value="1265">EC-EN-ORILLIA, ON #1265</option>
+    ##                 <option value="1316">EC-EN Toronto, ON #1316</option>
+                    
+    ##                 <option value="502">EC-FR-SAINT-HUBERT, QC #502</option>
+    ##                 <option value="503">EC-FR-QUxc9BEC, QC	#503</option>
+    ##                 <option value="505">EC-FR-LAVAL, QC	#505</option>
+    ##                 <option value="506">EC-FR-ANJOU, QC	#506</option>
+    ##                 <option value="514">EC-FR-SHERBROOKE, QC	#514</option>
+    ##                 <option value="515">EC-FR-MONTRxc9AL, QC #515</option>
+    ##                 <option value="516">EC-FR-SAINTE-FOY, QC	#516</option>
+    ##                 <option value="518">EC-FR-TROIS-RIVIxc8RES, QC	#518</option>
+    ##                 <option value="521">EC-FR-BROSSARD, QC	#521</option>
+    ##                 <option value="525">EC-FR-TERREBONNE, QC	#525</option>
+    ##                 <option value="527">EC-FR-MARCHxc9 CENTRAL, QC	#527</option>
+    ##                 <option value="528">EC-FR-POINTE-CLAIRE, QC #528</option>
+    ##                 <option value="529">EC-FR-SAINT-Jxc9Rxd4ME, QC #529</option>
+    ##                 <option value="532">EC-FR-BOUCHERVILLE, QC #532</option>
+    ##                 <option value="536">EC-FR-CHICOUTIMI, QC	#536</option>
+    ##                 <option value="542">EC-FR-GATINEAU, QC #542</option>
+    ##                 <option value="1295">SE-WOODSTOCK, GA #1295</option>
+    ##                 <option value="1319">SE-MOUNT PLEASANT, SC #1319</option>
+    ##                 <option value="1325">MW-DAVENPORT, IA #1325</option>
+                    
+    ##                 <option value="546">EC-FR-BOISBRIAND, QC #546</option>
+    ##                 <option value="556">EC-FR-CANDIAC, QC #556</option>
+    ##                 <option value="1127">EC-FR-DRUMMONDVILLE, QC	#1127</option>
+    ##                 <option value="1186">EC-FR-LEVIS, QC	#1186</option>
+    ##                 <option value="12313">EC-FR-VAUDREUIL, QC	#1213</option>
+                    
+    ##                 <option value="51">WC-BURNABY, BC #51</option>
+    ##                 <option value="54">WC-RICHMOND, BC #54</option>
+    ##                 <option value="55">WC-SURREY, BC #55</option>
+    ##                 <option value="56">WC-CALGARY NORTH, AB #56</option>
+    ##                 <option value="57">WC-WINNIPEG I, MB #57</option>
+    ##                 <option value="59">WC-KELOWNA, BC #59</option>
+    ##                 <option value="152">WC-SASKATOON, SK #152</option>
+    ##                 <option value="153">WC-WINNIPEG EAST, MB #153</option>
+    ##                 <option value="154">WC-EDMONTON NORTH, AB #154</option>
+    ##                 <option value="155">WC-NANAIMO, BC #155</option>
+    ##                 <option value="156">WC-EDMONTON NORTH EAST, AB #156</option>
+    ##                 <option value="158">WC-PRINCE GEORGE, BC #158</option>
+    ##                 <option value="160">WC-LETHBRIDGE, AB #160</option>
+    ##                 <option value="161">WC-KAMLOOPS, BC #161</option>
+    ##                 <option value="163">WC-ABBOTSFORD, BC #163</option>
+    ##                 <option value="164">WC-RED DEER, AB #164</option>
+    ##                 <option value="251">WC-CALGARY SOUTH, AB #251</option>
+    ##                 <option value="254">WC-GRANDE PRAIRIE, AB #254</option>
+    ##                 <option value="255">WC-PORT COQUITLAM, BC #255</option>
+    ##                 <option value="256">WC-LANGFORD, BC #256</option>
+    ##                 <option value="258">WC-EDMONTON SOUTH, AB #258</option>
+    ##                 <option value="259">WC-LANGLEY, BC #259</option>
+    ##                 <option value="520">WC-REGINA, SK #520</option>
+    ##                 <option value="543">WC-CALGARY NORTHWEST, AB #543</option>
+    ##                 <option value="544">WC-SHERWOOD PARK, AB #544</option>
+    ##                 <option value="548">WC-WILLINGDON, BC #548</option>
+    ##                 <option value="549">WC-WINNIPEG SOUTH, MB #549</option>
+    ##                 <option value="552">WC-DOWNTOWN VANCOUVER, BC #552</option>
+    ##                 <option value="593">WC-MEDICINE HAT, AB #593</option>
+    ##                 <option value="1069">WC-OKOTOKS, AB #1069</option>
+    ##                 <option value="1076">WC-ROCKY VIEW, AB #1076</option>
+    ##                 <option value="1092">WC-COURTENAY, BC #1092</option>
+    ##                 <option value="1112">WC-WEST EDMONTON, AB #1112</option>
+    ##                 <option value="1157">WC-ST ALBERT, AB #1157</option>
+    ##                 <option value="1217">WC-E CALGARY, AB #1217</option>
+    ##                 <option value="1234">WC-S. SASKATOON, SK #1234</option>
+    ##                 <option value="1270">WC-Nisku, AB #1270</option>
+                    
+                    
+                    
+    ##                 <option value="860">Tamasakai, Japan #860</option>
+    ##                 <option value="861">Amagasaki, Japan #861</option>
+    ##                 <option value="862">Kanazawa Seaside, Japan #862</option>
+    ##                 <option value="863">Kawasaki, Japan #863</option>
+    ##                 <option value="864">Sapporo, Japan #864</option>
+    ##                 <option value="865">Iruma, Japan #865</option>
+    ##                 <option value="866">Hisayama, Japan #876</option>
+    ##                 <option value="867">Makuhari, Japan #877</option>
+    ##                 <option value="5150">Shinmisato, Japan #5150</option>
+    ##                 <option value="5153">Kyoto Yawata, Japan #5153</option>
+    ##                 <option value="5154">Zama, Japan #5154</option>
+    ##                 <option value="5155">Maebashi, Japan #5155</option>
+    ##                 <option value="5156">Kobe, Japan #5156</option>
+    ##                 <option value="5157">Hitoshima, Japan #5157</option>
+    ##                 <option value="5158">Kitakyushu, Japan #5158</option>
+    ##                 <option value="5159">Chiba Newtown, Japan #5159</option>
+    ##                 <option value="5160">Izumi, Japan #5160</option>
+    ##                 <option value="5161">Tsukuba, Japan #5161</option>
+    ##                 <option value="5162">Chubu, Japan #5162</option>
+    ##                 <option value="5165">Hitachinaka, Japan #5165</option>
+    ##                 <option value="5166">Kaminoyama, Japan #5166</option>
+    ##                 <option value="5167">Nonoichi, Japan	#5167</option>
+    ##                 <option value="5168">Imizu, Japan #5168</option>
+    ##                 <option value="5169">Gifu Hashima, Japan #5169</option>
+                    
+    ##                 <option value="51">CANADA-Burnaby BC # 51</option>
+    ##                 <option value="54">CANADA-Richmond BC # 54</option>
+    ##                 <option value="55">CANADA-Surrey BC # 55</option>
+    ##                 <option value="56">CANADA-Calgary AB # 56</option>
+    ##                 <option value="57">CANADA-Winnipeg MB # 57</option>
+    ##                 <option value="59">CANADA-Kelowna BC # 59</option>
+    ##                 <option value="151">CANADA-Markham Ont # 151</option>
+    ##                 <option value="152">CANADA-Saskatoon SK # 152</option>
+    ##                 <option value="153">CANADA-Winnipeg MB # 153</option>
+    ##                 <option value="154">CANADA-Edmonton AB # 154</option>
+    ##                 <option value="155">CANADA-Nanaimo BC # 155</option>
+    ##                 <option value="156">CANADA-Edmonton AB # 156</option>
+    ##                 <option value="158">CANADA-Prince George BC # 158</option>
+    ##                 <option value="159">CANADA-Ajax Ont # 159</option>
+    ##                 <option value="160">CANADA-Lethbridge AB # 160</option>
+    ##                 <option value="161">CANADA-Kamloops BC # 161</option>
+    ##                 <option value="162">CANADA-Brampton Ont # 162</option>
+    ##                 <option value="163">CANADA-Abbotsford BC # 163</option>
+    ##                 <option value="164">CANADA-Red Deer AB # 164</option>
+    ##                 <option value="251">CANADA-Calgary AB # 251</option>
+    ##                 <option value="252">CANADA-Barrie Ont # 252</option>
+    ##                 <option value="253">CANADA-Burlington Ont # 253</option>
+    ##                 <option value="254">CANADA-Grande Prairie AB # 254</option>
+    ##                 <option value="255">CANADA-Port Coquitlam BC # 255</option>
+    ##                 <option value="256">CANADA-Langford BC # 256</option>
+    ##                 <option value="257">CANADA-Sudbury Ont # 257</option>
+    ##                 <option value="258">CANADA-Edmonton AB # 258</option>
+    ##                 <option value="259">CANADA-Langley BC # 259</option>
+    ##                 <option value="502">CANADA-Saint-Hubert QC # 502</option>
+    ##                 <option value="503">CANADA-Quebec QC # 503</option>
+    ##                 <option value="505">CANADA-Laval QC # 505</option>
+    ##                 <option value="506">CANADA-Anjou QC #506</option>
+    ##                 <option value="508">CANADA-London Ont # 508</option>
+    ##                 <option value="510">CANADA-Newmarket Ont # 510</option>
+    ##                 <option value="511">CANADA-Gloucester Ont # 511</option>
+    ##                 <option value="512">CANADA-Kitchener Ont # 512</option>
+    ##                 <option value="514">CANADA-Sherbrooke QC # 514</option>
+    ##                 <option value="515">CANADA-Montreal QC # 515</option>
+    ##                 <option value="516">CANADA-Sainte-Foy QC # 516</option>
+    ##                 <option value="518">CANADA-Trois-Rivieres Ouest QC # 518</option>
+    ##                 <option value="519">CANADA-Halifax NS # 519</option>
+    ##                 <option value="520">CANADA-Regina SK # 520</option>
+    ##                 <option value="521">CANADA-Brossard QC # 521</option>
+    ##                 <option value="523">CANADA-St. Catherines Ont # 523</option>
+    ##                 <option value="524">CANADA-Etobicoke Ont # 524</option>
+    ##                 <option value="525">CANADA-Terrebonne QC # 525</option>
+    ##                 <option value="526">CANADA-Mississauga Ont # 526</option>
+    ##                 <option value="527">CANADA-Montreal QC # 527</option>
+    ##                 <option value="528">CANADA-Pointe Claire QC # 528</option>
+    ##                 <option value="529">CANADA-Sainte Jerome QC # 529</option>
+    ##                 <option value="530">CANADA-London Ont # 530</option>
+    ##                 <option value="531">CANADA-Mississauga Ont # 531</option>
+    ##                 <option value="532">CANADA-Boucherville QC # 532</option>
+    ##                 <option value="533">CANADA-Kingston Ont # 533</option>
+    ##                 <option value="534">CANADA-Windsor Ont # 534</option>
+    ##                 <option value="535">CANADA-North York Ont # 535</option>
+    ##                 <option value="536">CANADA-Chicoutimi QC # 536</option>
+    ##                 <option value="537">CANADA-Scarborough Ont # 537</option>
+    ##                 <option value="538">CANADA-Moncton NB # 538</option>
+    ##                 <option value="539">CANADA-St Johns NL # 539</option>
+    ##                 <option value="540">CANADA-Nepean Ont # 540</option>
+    ##                 <option value="541">CANADA-Ottawa Ont # 541</option>
+    ##                 <option value="542">CANADA-Gatineau QC # 542</option>
+    ##                 <option value="543">CANADA-Calgary AB # 543</option>
+    ##                 <option value="544">CANADA-Sherwood Park AB #544</option>
+    ##                 <option value="545">CANADA-Markham Ont # 545</option>
+    ##                 <option value="546">CANADA-Boisbriand QC # 546</option>
+    ##                 <option value="547">CANADA-Vaughn Ont # 547</option>
+    ##                 <option value="548">CANADA-Burnaby BC # 548</option>
+    ##                 <option value="549">CANADA-Winnipeg AB # 549</option>
+    ##                 <option value="551">CANADA-Dartmouth NS # 551</option>
+    ##                 <option value="552">CANADA-Vancouver BC # 552</option>
+    ##                 <option value="556">CANADA-Candiac QC # 556</option>
+    ##                 <option value="591">CANADA-Peterborough Ont # 591</option>
+    ##                 <option value="592">CANADA-Richmond Hill Ont # 592</option>
+    ##                 <option value="593">CANADA-Medicine Hat AB # 593</option>
+    ##                 <option value="1055">CANADA-Saint John NB # 1055</option>
+    ##                 <option value="1069">CANADA-Okotoks AB # 1069</option>
+    ##                 <option value="1076">CANADA-Rocky View AB # 1076</option>
+    ##                 <option value="1090">CANADA-Fredericton NB # 1090</option>
+    ##                 <option value="1092">CANADA-Courtenay BC # 1092</option>
+    ##                 <option value="1105">CANADA-Ancaster Ont # 1105</option>
+    ##                 <option value="1112">CANADA-West Edmonton AB # 1112</option>
+    ##                 <option value="1127">CANADA-Drummondvile QC # 1127</option>
+    ##                 <option value="1128">CANADA-Oshawa Ont # 1128</option>
+    ##                 <option value="1157">CANADA-St. Albert AB # 1157</option>
+    ##                 <option value="1168">CANADA-Guelph N1K 0B6 Ont # 1168</option>
+    ##                 <option value="1169">CANADA-Mississauga Ont # 1169</option>
+    ##                 <option value="1169">CANADA-Mississauga Ont # 1169</option>
+    ##                 <option value="1186">CANADA-Levis QC # 1186</option>
+    ##                 <option value="1213">CANADA-Vaudreuil-Dorio QC # 1213</option>
+    ##                 <option value="1217">CANADA-Calgary AB # 1217</option>
+    ##                 <option value="1234">CANADA-Saskatoon SK # 1234</option>
+    ##                 <option value="1248">CANADA-Waterloo Ont # 1248</option>
+    ##                 <option value="1263">CANADA-Ottawa Ont # 1263</option>     
+    ##                 <option value="1273">CANADA-NEPEAN ONT # 1273</option> 
+    ##                 <option value="1345">CW-MONCTON, NB #1345</option>
+    ##                 <option value="1324">CW-ST. JOHN'S NL #1324</option>
+    ##                 <option value="1331">MW-Evansville, IN #1331</option>
+				## 	<option value="1333">SE-Mooreseville, NC #1333</option>
+    ##                 <option value="1344">MW-St. Cloud, MN #1344</option>
+                    
+    ##                 ## END code copy
+    ##             </select>
+    ##             <script>
+    ##                 $('#wareHouse option').each(function(){
+    ##                   $(this).text($(this).text().toUpperCase());
+    ##                 });
+    ##             </script>
+                
+                
+                ## #### EXPERIMENT BEGIN 
+                <select id="cdsSelect" class="cdsWarehouse scriptQuestDD2" name="customerInput"></select>
+                <script>
+                    let dropdownCC = $('#cdsSelect');
+                    dropdownCC.empty();
+                    dropdownCC.append('<option selected="true" value="">Warehouse Location...</option>');
+                    dropdownCC.prop('selectedIndex', 0);
+                
+                    const url2 = 'store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/json/CDS-select-options.json';
+                    
+                    var arrayJsonOptions=[];
+                
+                    // Populate dropdown with list of locations
+                    $.getJSON(url2, function (data) {
+                        $.each(data, function (key, entry) {
+                            arrayJsonOptions.push(entry);
+                        })
+                
+                        var sortedJsonOptions = _.sortBy(arrayJsonOptions, "region");   
+                        $.each(sortedJsonOptions, function (index, jsonObj) {
+                            dropdownCC.append($('<option></option>').attr('value', jsonObj.value).text(jsonObj.region.toUpperCase()+' - '+jsonObj.location.toUpperCase()));
+                        });
+                
+                    });
+                
+                    $( document ).ready(function() {
+                        $('.scriptQuestDD2').select2();                    
+                    });            
+                    
+                        $('#cdsSelect option').each(function(){
+                            $(this).text($(this).text().toUpperCase());
+                        });                     
+                    
+                </script>
+                
+                ## #### EXPERIMENT END 
+                
+            </div>
+        </div>
+
+          #*================================
+            ACTION BUTTONS
+          =================================*#
+          <div class="actions clearfix">
+            <button id="checkout-continue" class="btn-primary right" onClick="if(verifyQuestions()) { doContinue('frm', 't', this,'review'); } else return false;" >
+              #springMessage("vm.checkout_payment.continue") 
+              <i class="icon-arrow-right icon-white"></i>
+            </button>
+          </div>
+
+        </form>
+        <p style="width: 670px;">If you are an <u>Regional Manager</u> and would like to expedite your order, please continue to place your order. Upon receipt of your order confirmation, call our Customer Service desk with your order number ready and ask for expedited shipping options.</p>
+
+    #end 
+    
+      
+      </div> <!--//#content -->
+        #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    </div> <!--//#container -->
+    #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    
+    <script>
+      
+      var poNum = jQuery('input[name^=customerInput]');
+      
+      jQuery(document).ready(function(){
+        ##  jQuery("#wareHouse").change(function(){
+        ##   var selectedText = jQuery("#wareHouse option:selected").val();
+        ##   jQuery(poNum).val(selectedText);          
+        ##  });
+        
+         jQuery("#cdsSelect").change(function(){
+           var selectedText = jQuery("#cdsSelect option:selected").val();
+           jQuery(poNum).val(selectedText);          
+         });        
+        
+        
+	  });
+	  
+    </script>
+    
+    #parse("libpartcheckoutpaymentjsbottom.vm")
+    
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+  </body>
+</html>
