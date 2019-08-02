@@ -178,9 +178,17 @@ a:hover, #addAnother a:hover{
 }
 
 div#DDmenu a{
-    font-size: 18px;
+    font-size: 14px;
     line-height: 28px;
     display: block;
+    color: #fff;
+    font-family: 'Muli', sans-serif;
+    text-align: left;
+}
+
+div#DDmenu a:hover{
+    color: #A5C1DE;
+    text-decoration: none !important;
 }
 
 h1{ 
@@ -404,13 +412,13 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/new-carlisle-logo-update.png") no-repeat scroll left top transparent;
+    background: url("../images/carsyn-logo.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 66px;
     /*margin: 15px 0px 0px 20px;*/
     padding: 10px 8px 0px 0px;
-    width: 250px;
+    width: 170px;
 }
 
 #header .logo span {
@@ -469,6 +477,7 @@ body{
 
 .nav li{
     float:left;
+    padding-bottom: 6px;
 }
 
 .nav a{
@@ -481,11 +490,12 @@ body{
 
 div#DDmenu{
     position: absolute;
-    /*background-color: #b12936;*/
     display: none;
     z-index: 100;
     padding-bottom: 20px;
     min-width: 227px;
+    background-color: #064DA3;
+    top: 53px;    
 }
 
 li.productCategories:hover div#DDmenu{
@@ -804,14 +814,22 @@ tfoot tr td{
 }
 
 .welcome-message{
-    color: #29323C;
+    color: #464646;
     font-size: 16px;
     line-height: 24px;
-    width: 755px;
+    /*width: 755px;*/
     margin: 0 auto;   
     font-family: 'Muli', sans-serif; 
-    font-weight: bold;
+    /*font-weight: bold;*/
     text-align: center;
+}
+
+.welcomeUL{
+    font-weight: bold;
+}
+
+.welcomeName{
+    margin-right: 10px;
 }
 
 .spotlight {
@@ -2087,23 +2105,16 @@ input#cvv{
     float: right;
 }
 
-.spotlightImage{
-    background: url("../images/spot-img-update.jpg") no-repeat scroll center transparent;
-    display: block;    
-    height: 500px;
-    background-size: cover;
-    font-family: 'PT Sans', sans-serif;
+.spotlightImage{  
+    height: 342px;
+    background-color: #9FA1A4;
 }
 
 .spotlightImageWrapper{
-    z-index: 998;
-    color: #fff;
-    font-size: 90px;
-    font-weight: bold;
-    line-height: 70px;
-    text-align: center;
-    position: relative;
-    top: 170px;
+    background: url("../images/spot-img.jpg") no-repeat scroll center transparent;
+    height: 342px;
+    width: 1024px;
+    margin: 0 auto;    
 }
 
 .spotlightImageWrapper a{
@@ -2214,6 +2225,24 @@ input#cvv{
     padding-right: 0;*/
 }
 
+.productCategories a::after{
+    font-family: 'Material Icons';
+    content: '\e5cf';
+    position: absolute;
+    font-size: 24px;
+}
+
+div#DDmenu a:after{
+    content: initial;
+}
+
+.category-items .first{
+    padding-top: 19px;
+}
+
+#pageLogin .utilNav, #pageLogin .menuSearch{
+    display: none;
+}
 
 /*****  modal login box  - begin   *******/
 
