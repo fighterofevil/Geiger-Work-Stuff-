@@ -250,6 +250,11 @@
     "location": "LogisticsTXMcCoy"
   },
   {
+    "costCenter": "2391-71",
+    "property": "ESS",
+    "location": "ESS"
+  },
+  {
     "costCenter": "1111-11",
     "property": "viewOnly",
     "location": "viewOnly"

@@ -237,4 +237,11 @@
     "city": "Hanahan",
     "state": "SC",
     "fexEx": "101666166"
-  }]
+  },
+  {
+    "name": "ESS",
+    "city": "Brunswick",
+    "state": "OH",
+    "fexEx": "137121220"
+  }
+]
