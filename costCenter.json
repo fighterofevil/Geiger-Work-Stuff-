@@ -95,7 +95,7 @@
     "location": "Hilliard"
   },
   {
-    "costCenter": "2399-30",
+    "costCenter": "2399-71",
     "property": "Power Gen Sales",
     "location": "Power Gen Sales"
   },
@@ -253,6 +253,126 @@
     "costCenter": "2391-71",
     "property": "ESS",
     "location": "ESS"
+  },
+  {
+    "costCenter": "2410-30",
+    "property": "Southwest Region 1",
+    "location": "Southwest Region"
+  },
+  {
+    "costCenter": "2420-30",
+    "property": "Southwest Region 2",
+    "location": "Southwest Region"
+  },
+  {
+    "costCenter": "2460-30",
+    "property": "Southwest Region 3",
+    "location": "Southwest Region"
+  },
+  {
+    "costCenter": "2440-30",
+    "property": "Southwest Region 4",
+    "location": "Southwest Region"
+  },
+  {
+    "costCenter": "2610-30",
+    "property": "Southeast Region 1",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2612-30",
+    "property": "Southeast Region 2",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2650-30",
+    "property": "Southeast Region 3",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2670-30",
+    "property": "Southeast Region 4",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2680-30",
+    "property": "Southeast Region 5",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2720-30",
+    "property": "Southeast Region 6",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2722-30",
+    "property": "Southeast Region 7",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2730-30",
+    "property": "Southeast Region 8",
+    "location": "Southeast Region"
+  },
+  {
+    "costCenter": "2500-71",
+    "property": "Midwest Region 1",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2510-30",
+    "property": "Midwest Region 2",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2520-30",
+    "property": "Midwest Region 3",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2530-30",
+    "property": "Midwest Region 4",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2550-30",
+    "property": "Midwest Region 5",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2560-30",
+    "property": "Midwest Region 6",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2570-30",
+    "property": "Midwest Region 7",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2580-30",
+    "property": "Midwest Region 8",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2587-30",
+    "property": "Midwest Region 9",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2585-30",
+    "property": "Midwest Region 10",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2588-30",
+    "property": "Midwest Region 11",
+    "location": "Midwest Region"
+  },
+  {
+    "costCenter": "2391-71",
+    "property": "Power Gen Sales 2",
+    "location": "Power Gen Sales"
   },
   {
     "costCenter": "1111-11",
