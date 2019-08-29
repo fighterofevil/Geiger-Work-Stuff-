@@ -110,7 +110,7 @@ strong{
 
 body{
     color:#97999B;
-    font-family:    Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     line-height: 18px;
 }
@@ -143,28 +143,36 @@ p .pageItem{
 }
 
 a{ 
-    color:#01b6c9;
+    color:#F9423A;
+}
+
+a:hover{
+    color: #E73D35;
+    text-decoration: underline;
 }
 
 #footer{
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 35px;
 }
 
 #footer a{
     color:#ffffff;
+    text-decoration: none;
 }
 
 #footleft {
-    float: left;
+/*    float: left;
     margin-top: 64px;
-    width: 400px;
+    width: 400px;*/
 }
 
 #footright {
-    float: right;
+/*    float: right;
     margin-top: 64px;
     text-align: right;
-    width: 400px;
+    width: 400px;*/
 }
 
 #tagline {
@@ -320,8 +328,8 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 }
 
 #header{
-    width: 960px;
-    height: 140px;
+    /*width: 960px;*/
+    height: 390px;
 }
 
 #header .wrapper{
@@ -332,20 +340,26 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     display:none;
 }
 
+#headwrap{
+    height: 140px;
+    width: 1024px;
+    margin: 0 auto;    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+}
+
 #headwrap a {
-    color: #ffffff;
     text-decoration: none;
 }
 
-#footer{
-}
-
 #footer .wrapper {
-    background-color: #97999b;
+    background-color: #97999B;
     color: #ffffff;
-    height: 95px;
-    padding: 15px 50px;
-    width: 860px;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
 }
 
 #footer .wrapper p{
@@ -413,8 +427,6 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     display: block;
     float: left;
     height: 28px;
-    margin: 30px 0px 0px 50px;
-    padding: 10px 8px 0px 0px;
     width: 150px;
 }
 
@@ -422,12 +434,33 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     display: none;
 }
 
+#spotWrapper{
+    height: 250px;
+    background-color: #00BCAE;    
+}
+
+#spotText{    
+    max-width: 245px;
+    color: #FFFFFF;
+    font-family: "Open Sans";
+    font-size: 45px;
+    font-weight: 300;
+    line-height: 1.4;
+    overflow-wrap: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto; 
+    margin-top: 60px;    
+}
+
 #spotlightimage {
-    background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
-    width:960px;
-    height:275px;
-    float:left;
-    margin-top:30px;
+    background: url("../images/spot-img.png") no-repeat scroll right top transparent;
+    width:1024px;
+    height:250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;    
 }
 
 #js-popup-message.popup, #deliverypopup{
@@ -633,7 +666,7 @@ table a:hover {
 }
 
 table {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -736,41 +769,88 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    border:1px solid #777;
-    color:#000;
-    padding: 5px 10px;
+    background-color: #F7F7F7;
+    color:#00A7B5;
+    font-weight: bold;
+    /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    border: 1px solid #CCC;
 }
 
 .btn:hover{
-    background-color: #fff;
-    text-decoration: underline;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #E5F6F7;
+    text-decoration: none;
 } 
 
+.btnSpacing{
+    position: relative;
+    left: 270px;
+}
+
 .btn-primary{
-    background-color: #F9423A;
+    background-color: #00a7b5;
     color:#FFF;
     font-weight: bold;
-    padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    border: 1px solid #008f9c;
+}
+
+.btn a{
+    color: #00A7B5;
+}
+
+.btn-primary a{
+    color: #fff;
 }
 
 .btn-primary:hover{
-    background-color: #97999B;
+    background-color: #008F9C;
     text-decoration: none;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+}
+
+.btn-primary-a{
+    background-color: #F9423A;
+    color:#FFF;
+    font-weight: bold;
+    /*padding: 5px 10px;*/
+    cursor: pointer;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-decoration: none;    
+    margin: 0 auto;
+}
+
+.btn-primary-a:hover{
+    background-color: #E73D35;
+    text-decoration: none;
 }
 
 #continueShopBtn {
@@ -879,7 +959,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     margin: 0px;
     padding: 15px;
@@ -922,7 +1002,7 @@ tfoot tr td{
 /****Login****/
 
 .login form{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -956,7 +1036,7 @@ a.forgotPassword{
 /****Register****/
 
 #registration form#registerForm{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -999,7 +1079,7 @@ a.forgotPassword{
 }
 
 #pageMyAccount form.myAccountForm{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -1074,10 +1154,11 @@ td.ar{
 }
 
 .item{
-    position: relative;
+    /*position: relative;*/
     width: 394px;
-    float: left;
+    /*float: left;*/
     text-align: center;
+    margin: 0 auto;
 }
 
 .image{
@@ -1217,7 +1298,7 @@ input.qty-input{
 }
 
 .ui-tabs-panel{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color:#666;
     font-size:12px;
     background:#eaebec;
@@ -1558,7 +1639,7 @@ float: right;
 }
 
 .tabs .tab {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color:#666;
     font-size:12px;
     padding-left: 30px;
@@ -1715,7 +1796,7 @@ input#cvv{
     text-align: center;
     font-size: 19px;
     line-height: 20px;
-    font-family: arial;
+    font-family: 'Open Sans', sans-serif;
     color: #FFF;
     text-shadow: 0px 0px 2px #000;
     box-shadow: 0px 1px 1px 0px #aaa;
@@ -1891,7 +1972,7 @@ input#cvv{
 /****Checkout ????????? Review****/
 
 .location{
-        font-family:Arial, Helvetica, sans-serif;
+        font-family: 'Open Sans', sans-serif;
         color:#666;
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
@@ -2142,8 +2223,8 @@ input#cvv{
 }
 .tooltip:hover span {
         border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
-                box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
-        font-family: Calibri, Tahoma, Geneva, sans-serif;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+        font-family: 'Open Sans', sans-serif;
         position: absolute; left: 1em; top: 2em; z-index: 99;
         margin-left: 0; width: 250px;
         }
@@ -2153,22 +2234,23 @@ input#cvv{
         }
 
 .tooltip:hover em {
-        font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.2em; font-weight: bold;
         display: block; padding: 0.2em 0 0.6em 0;
 }
 
 .href_us {
     border-bottom: none;
     color: #15abb5;
-    font-family: Arial;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #pageHome .clearfix{
     background: #eee;
-    height: 400px;
-    margin-left: -19px;
+    height: 404px;
+/*    margin-left: -19px;
     width: 960px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;*/
 }
 
 .listingHome .item img{
@@ -2182,7 +2264,7 @@ input#cvv{
 }
 
 .listingHome {
-    width: 790px;
+    width: 1024px;
     height: 400px;
     margin: 0 auto;
 }
@@ -2214,4 +2296,39 @@ input#cvv{
 .max-item-msg {
     margin-left: 25px;
     font-weight: bold;
+}
+
+#pageHome #container{
+    margin: initial !important;
+    width: initial !important;
+
+}
+#pageHome #content{
+    padding: initial !important;
+}
+
+.welcome-message{
+    height: 46px;
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
+    font-size: 16px;
+    color: #333333;
+    line-height: 24px;
+}
+
+.home-notes{
+    width: 731px;
+    margin: 0 auto;
+    text-align: center;    
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 24px;
+}
+
+#pageHome p{
+    margin-bottom: initial !important;
 }
