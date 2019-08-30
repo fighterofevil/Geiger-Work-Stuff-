@@ -109,7 +109,7 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#97999B;
+    color:#333;
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     line-height: 18px;
@@ -351,6 +351,13 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 
 #headwrap a {
     text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+}
+
+#cart-icon{
+    padding-right: 12px;
 }
 
 #footer .wrapper {
@@ -777,7 +784,7 @@ tfoot tr td{
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
     border-radius:10px;
-    width: 150px;
+    min-width: 150px;
     height: 40px;
     display: flex;
     justify-content: space-evenly;
@@ -805,7 +812,7 @@ tfoot tr td{
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
     border-radius:10px;
-    width: 150px;
+    min-width: 150px;
     height: 40px;
     display: flex;
     justify-content: space-evenly;
@@ -854,23 +861,11 @@ tfoot tr td{
 }
 
 #continueShopBtn {
-    background-color: #f9423a;
-    margin-left: 550px;
-    color:#FFF;
-    font-weight: bold;
-    padding: 5px 10px;
+    margin-left: 500px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
 }
 
 #continueShopBtn:hover{
-    background-color: #97999B;
-    text-decoration: none;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
 }
 
 .btn.btn-primary.bktocrt {
@@ -2331,4 +2326,10 @@ input#cvv{
 
 #pageHome p{
     margin-bottom: initial !important;
+}
+
+#pageItem h1{
+    color: #F9423A;
+    font-family: "Open Sans";
+    font-size: 32px;
 }
