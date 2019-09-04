@@ -162,6 +162,10 @@ a:hover{
     text-decoration: none;
 }
 
+#footer a:hover{
+    text-decoration: underline;
+}
+
 #footleft {
 /*    float: left;
     margin-top: 64px;
@@ -199,7 +203,7 @@ div#DDmenu a{
 }
 
 h1{ 
-    font-weight: bold;
+    font-weight: 400 !important;;
     font-size: 26px;
     font-style: normal;
     padding: 0;
@@ -230,6 +234,7 @@ h6{ }
 .bCrumbs, .bCrumbs a{
     font-size: 12px;
     color:#777;
+    display: none;
 }
 
 .image .price-box{
@@ -288,12 +293,13 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     text-align: left;
     width: 960px;
     min-height: 787px;
+    padding-top: 30px;
 }
 
 #content{
     z-index: 1;
     clear: both;
-    padding: 15px 20px;
+    padding: 0px 20px;
 }
 
 #pageCategory #content {
@@ -329,7 +335,7 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 
 #header{
     /*width: 960px;*/
-    height: 390px;
+    /*height: 390px;*/
 }
 
 #header .wrapper{
@@ -341,7 +347,7 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 }
 
 #headwrap{
-    height: 140px;
+    height: 84px;
     width: 1024px;
     margin: 0 auto;    
     display: flex;
@@ -430,7 +436,7 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/logo.png") no-repeat scroll left top transparent;
+    background: url("../images/idexx-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 28px;
@@ -452,16 +458,16 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     font-family: "Open Sans";
     font-size: 45px;
     font-weight: 300;
-    line-height: 1.4;
+    line-height: 1.2;
     overflow-wrap: normal;
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto; 
-    margin-top: 60px;    
+    margin-top: 75px;    
 }
 
 #spotlightimage {
-    background: url("../images/spot-img.png") no-repeat scroll right top transparent;
+    background: url("../images/spot-img.png") no-repeat scroll right bottom transparent;
     width:1024px;
     height:250px;
     margin: 0 auto;
@@ -561,7 +567,7 @@ div#DDmenu li a:hover{
 
 #footer ul li{
     display: inline;
-    padding:0px 10px;
+    padding:0px 20px;
 }
 
 #footer ul{
@@ -781,13 +787,13 @@ tfoot tr td{
     font-weight: bold;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border-radius:10px;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border-radius:7px;
     min-width: 150px;
     height: 40px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     text-transform: uppercase;
     font-size: 16px;
@@ -806,16 +812,17 @@ tfoot tr td{
 
 .btn-primary{
     background-color: #00a7b5;
+    /*background-color: #F9423A;*/
     color:#FFF;
     font-weight: bold;
     cursor: pointer;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border-radius:10px;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border-radius:7px;
     min-width: 150px;
     height: 40px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     text-transform: uppercase;
     font-size: 16px;
@@ -832,6 +839,7 @@ tfoot tr td{
 
 .btn-primary:hover{
     background-color: #008F9C;
+    /*background-color: #E73D35;*/
     text-decoration: none;
 }
 
@@ -841,13 +849,13 @@ tfoot tr td{
     font-weight: bold;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border-radius:10px;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border-radius:7px;
     width: 150px;
     height: 40px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     text-transform: uppercase;
     font-size: 16px;
@@ -858,11 +866,14 @@ tfoot tr td{
 .btn-primary-a:hover{
     background-color: #E73D35;
     text-decoration: none;
+    color: #fff
+    ;
 }
 
 #continueShopBtn {
-    margin-left: 500px;
+    /*margin-left: 500px;*/
     cursor: pointer;
+    /*margin-top: 10px;*/
 }
 
 #continueShopBtn:hover{
@@ -2255,7 +2266,8 @@ input#cvv{
     margin-right: 42px;
     margin-top: 24px;
     width: 300px;
-    margin-bottom: 22px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
 }
 
 .listingHome {
@@ -2289,17 +2301,18 @@ input#cvv{
 }
 
 .max-item-msg {
-    margin-left: 25px;
-    font-weight: bold;
+    /*margin-left: 25px;*/
+    font-weight: 400;
 }
 
 #pageHome #container{
-    margin: initial !important;
-    width: initial !important;
+    margin: 0px;
+    width: 100%;
+    padding-top: 0px;
 
 }
 #pageHome #content{
-    padding: initial !important;
+    padding: 0px 0px;
 }
 
 .welcome-message{
@@ -2314,6 +2327,10 @@ input#cvv{
     line-height: 24px;
 }
 
+.welcome-message p{
+    margin-bottom: initial !important; 
+}
+
 .home-notes{
     width: 731px;
     margin: 0 auto;
@@ -2322,14 +2339,35 @@ input#cvv{
     font-size: 16px;
     color: #333333;
     line-height: 24px;
+    padding-top: 10px;
 }
 
 #pageHome p{
-    margin-bottom: initial !important;
+    /*margin-bottom: initial !important;*/
 }
 
 #pageItem h1{
     color: #F9423A;
     font-family: "Open Sans";
     font-size: 32px;
+}
+
+.qtyShipped{
+    display: none;
+}
+
+.desc{
+    font-size: 14px;
+    line-height: 21px;    
+}
+
+#pageBasket b{
+    font-weight: 400;
+}
+
+.f-buttons{
+    display: flex;
+    align-items: center;
+    /*width: 420px;*/
+    justify-content: space-between;
 }
