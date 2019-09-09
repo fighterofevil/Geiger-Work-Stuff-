@@ -1998,6 +1998,7 @@ input#cvv{
     border-top: 1px solid #CCCCCC;
     margin-top: 10px;
     padding-top:10px;
+    display: none;
 }
 
 .location .items li{
@@ -2370,4 +2371,8 @@ input#cvv{
     align-items: center;
     /*width: 420px;*/
     justify-content: space-between;
+}
+
+#instock_msg{
+    display: none;
 }
