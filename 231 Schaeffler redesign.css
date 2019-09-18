@@ -150,8 +150,8 @@ body{
     font-family:    Arial,"Helvetica Neue",Helvetica,sans-serif;
     font-size: 14px;
     line-height: 18px;
-    background: url("../images/bodyBackground.png") top left repeat-x #2b2b2b;
     margin-top: 40px;
+    background-color: #EBEEF0;
 }
 
 #container{
@@ -177,17 +177,21 @@ a{
 }
 
 #footer{
-    font-size: 12px;
-    width: 985px;
-    margin: 0 auto;
-    background: #fff;
-    height: 35px;
-    padding-left: 0px;
-    margin-bottom: 25px;
+    font-size: 14px;
 }
 
 #footer a{
     color:#444;
+}
+
+#footer .wrapper{
+    height: 85px;
+    background-color: #fff;
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
 }
 
 .nav a{
@@ -292,7 +296,7 @@ body{
     margin: 0 auto;
     position: relative;
     text-align: left;
-    width: 985px;
+    width: 1024px;
     min-height: 787px;
     background: #fff;
 }
@@ -305,7 +309,7 @@ body{
 }
 
 #header{
-    width: 985px;
+    width: 1024px;
     height: 125px;
     background: url("../images/headerWMark.jpg") top right no-repeat;
 }
@@ -317,19 +321,6 @@ body{
     /*! margin-top: 15px; */
     background: rgba(255,255,255,0.8);
     padding: 4px;
-}
-
-#footer{
-}
-
-#footer .wrapper{/* For IE8 and earlier */
-    padding: 10px 30px;
-}
-
-#footer .wrapper p{
-    clear:both;
-    float: left;
-    margin-top: -18px;
 }
 
 .repInfo {
@@ -1922,17 +1913,16 @@ input#cvv{
      color: #008752;
 }
 
-.inContainer{
+/*.inContainer{
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     width: 960px;
     margin: 0 auto;
     background: url("../images/footerWMark.jpg") bottom left no-repeat;
-    /*!  */
     min-height: 635px;
 }
-
+*/
 .nav a:hover{
    color: #008752;
 }
