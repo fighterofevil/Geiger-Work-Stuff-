@@ -264,6 +264,11 @@ h6{ }
     text-decoration: none;
 }
 
+.bCrumbs span{
+    padding-left: 5px;
+    padding-right: 5px;    
+}
+
 .image .price-box{
     color:#fff;
 }
@@ -300,8 +305,11 @@ label, .label {
 .sidebar .title{
     font-weight: bold;
     font-size: 14px;
-    margin-top:10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
     color: #646464;
+    border-bottom: 1px solid #f2f2f2f2;
 }
 
 /*********** Global - Structure *************
@@ -330,7 +338,7 @@ body{
 }
 
 #header{
-    height: 140px;;    
+    height: 137px;;    
     background-color: #fff;
     border-bottom: 1px solid #ced5da;
 }
@@ -1038,7 +1046,7 @@ td.ar{
     margin: 10px 0px 20px 0px;
     display: flex;
     align-items: center;
-    justify-content: space-between;    
+    justify-content: flex-end;    
 }
 
 .active-filters{
@@ -1080,7 +1088,7 @@ td.ar{
 
 .pagination-new {
     float: left;
-    width: 760px;
+    width: 790px;
 }
 
 .view-all {
@@ -2121,13 +2129,16 @@ input#cvv{
 }
 
 .apparel-subcat-container div {
-    width: 430px;
+    width: 436px;
     float: left;
     margin: 10px 10px;
-    background-color: #008752;
-    border: solid 3px #fff;
-    outline: solid 3px #008752;
-    padding: 5px 0;
+    background-color: #00893D;
+    /* border: solid 3px #fff; */
+    /* outline: solid 3px #008752; */
+    /* padding: 5px 0; */
+    height: 34px;
+    display: flex;
+    align-items: center;;
 }
 
 .apparel-subcat-title{
@@ -2142,25 +2153,25 @@ text-align:center;
 }
 
 .apparel-subcat-container div:hover{
- background-color: #777;
+/* background-color: #777;
     border: solid 3px #fff;
-    outline: solid 3px #777;
+    outline: solid 3px #777;*/
 }
 
 
 .apparel-subcat-container-instock div {
-    width: 430px;
+/*    width: 430px;
     background-color: #000;
     border: solid 3px #fff;
     outline: solid 3px #000;
-    padding: 5px 0;
+    padding: 5px 0;*/
 }
 
 .apparel-subcat-container-instock div:hover{
-    background-color: #777;
+/*    background-color: #777;
     border: solid 3px #fff;
     outline: solid 3px #777;
-}
+}*/
 
 /*.apparel-subcat-container-instock div{
     width: 430px;
@@ -2168,8 +2179,8 @@ text-align:center;
     outline: 3px solid rgb(0, 0, 0);
     float: none;
     margin: 0px auto;
+*/    
 }
-*/
 
 .home-content{
     display: flex;
@@ -2234,4 +2245,43 @@ text-align:center;
 #addAnother a{
     text-decoration: none;
     color: #646464;
+}
+
+.apparelMsg{
+    width: 944px;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    color: #646464;
+}
+
+.apparelMsg p{
+    width: 825px;
+    text-align: center;
+}
+
+.wishlistButton{
+    width: 894px;
+    display: flex;
+    justify-content: space-between;    
+}
+
+.wishlistButtonRemove{
+    width: 310px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subcat-title a, #recentlyViewed a{
+    padding: 8px 2px 3px 33px;
+    display: block;
+    color: #555;
+    background: url(../images/arrow-menu.png) 2px 1px no-repeat;
+    text-decoration: none;
+    font-size: 12px;
+
+}
+
+#recentlyViewed li{
+    margin-bottom: 10px;
 }
