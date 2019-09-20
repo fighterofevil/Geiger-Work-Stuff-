@@ -183,7 +183,7 @@ h1{
     font-weight: 400;    
     font-size: 28px;
     padding: 0;
-    margin: 0px 0px 15px 0px;
+    margin: 0px 0px 10px 0px;
     line-height: 30px;
     color: #054359;
 }
@@ -326,7 +326,7 @@ body{
 
 #header{
     width: 1024px;
-    height: 140px;
+    height: 85px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -339,7 +339,7 @@ body{
     text-align: right;
     /*margin-top: 15px;*/
     position: relative;
-    bottom: 31px;    
+    /*bottom: 31px;    */
 }
 
 #footer .wrapper{
@@ -408,7 +408,7 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/hearth-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/hearth-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 57px;
@@ -447,7 +447,7 @@ body{
 
 #menu{
     z-index:100;
-    height: 40px;
+    height: 42px;
     background: #054359;
 }
 
@@ -744,9 +744,7 @@ tfoot tr td{
 
 .btn {
     background-color: #F5F5F5;
-    /*border:1px solid #777;*/
     color: #054359;
-    /*padding: 5px 10px;*/
     cursor: pointer;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -758,6 +756,7 @@ tfoot tr td{
     min-width: 130px;
     text-transform: uppercase;
     font-weight: bold;
+    border: 0px;
 }
 
 .btn:hover{
@@ -767,10 +766,8 @@ tfoot tr td{
 
 .btn-primary{
     background-color: #054359;
-    /*border:1px solid #777;*/
     color:#FFF;
     font-weight: bold;
-    /*padding: 5px 10px;*/
     cursor: pointer;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -781,6 +778,7 @@ tfoot tr td{
     height: 40px;
     min-width: 130px;
     text-transform: uppercase;
+    border: 0px;    
 }
 
 .btn-primary:hover{
@@ -812,11 +810,14 @@ tfoot tr td{
     font-size: 16px;
     line-height: 23px;    
     text-align: center;
+    height: 523px;
+    background-color: rgba(255, 255, 255, .75);
 }
 
 .welcome-message p{
     text-align: left;
     font-family: farnham-display, serif;
+    line-height: 1.5em;
 }
 
 #spotlight {
@@ -1159,7 +1160,7 @@ td.ar{
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
-
+    font-weight: bold;
 }
 
 .pagination-new {
@@ -2051,6 +2052,11 @@ input#cvv{
 
 #pageTerms p{
     margin-bottom: 30px;
+    line-height: 1.5em;    
+}
+
+#contact p, #pageFAQ p{
+    line-height: 1.5em;       
 }
 
 #submitClearWishList{
@@ -2086,7 +2092,7 @@ input#cvv{
     margin-bottom: 5px;
 }
 
-li.productCategories:hover{
+li.productCategories:hover, li.homeHover:hover{
     background-color: #053C4F;
 }
 
@@ -2291,9 +2297,18 @@ div#DDmenu a::after{
 }
 
 .productCategories{
-    width: 210px;
+    width: 225px;
 }
 
 #key::placeholder{
     color: #343434;
 }
+
+.shoppingMsg{
+    font-weight: 400;
+}
+
+#pageItem .desc{
+    line-height: 1.5em;
+}
+
