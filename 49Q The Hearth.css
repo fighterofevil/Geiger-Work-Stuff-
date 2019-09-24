@@ -290,7 +290,7 @@ label, .label {
     /*color:#555;*/
     background-position:2px -48px;
     text-decoration:underline;
-    font-size:12px;
+    font-size:13px;
     /*color:#00acd4;*/
 }
 
@@ -746,9 +746,6 @@ tfoot tr td{
     background-color: #F5F5F5;
     color: #054359;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
     display: flex;
     align-items: center;
     justify-content: center;    
@@ -757,6 +754,8 @@ tfoot tr td{
     text-transform: uppercase;
     font-weight: bold;
     border: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .btn:hover{
@@ -769,9 +768,6 @@ tfoot tr td{
     color:#FFF;
     font-weight: bold;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
     display: flex;
     align-items: center;
     justify-content: center;    
@@ -779,6 +775,8 @@ tfoot tr td{
     min-width: 130px;
     text-transform: uppercase;
     border: 0px;    
+    padding-left: 15px;
+    padding-right: 15px;    
 }
 
 .btn-primary:hover{
@@ -787,9 +785,9 @@ tfoot tr td{
 }
 
 .gift-btn {
-    border-radius: 3px 3px 3px 3px;
+/*    border-radius: 3px 3px 3px 3px;
     -moz-border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;*/
     border: 1px solid !important;
     background: #ededed;
 }
@@ -812,12 +810,18 @@ tfoot tr td{
     text-align: center;
     height: 523px;
     background-color: rgba(255, 255, 255, .75);
+    padding-left: 20px;
+    padding-top: 20px;    
 }
 
 .welcome-message p{
     text-align: left;
     font-family: farnham-display, serif;
     line-height: 1.5em;
+}
+
+.welcome-message span{
+    font-size: 20px;
 }
 
 #spotlight {
