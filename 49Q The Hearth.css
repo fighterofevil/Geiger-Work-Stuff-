@@ -326,7 +326,7 @@ body{
 
 #header{
     width: 1024px;
-    height: 85px;
+    height: 157px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -340,6 +340,7 @@ body{
     /*margin-top: 15px;*/
     position: relative;
     /*bottom: 31px;    */
+    height: 107px;
 }
 
 #footer .wrapper{
@@ -408,13 +409,13 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/hearth-logo.svg") no-repeat scroll left top transparent;
+    background: url("../images/new_hearth-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 57px;
+    height: 115px;
     /*margin: 15px 0px 0px 20px;*/
     /*padding: 10px 8px 0px 0px;*/
-    width: 185px;
+    width: 372px;
 }
 
 #header .logo span {
