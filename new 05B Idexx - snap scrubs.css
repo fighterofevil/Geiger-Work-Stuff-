@@ -2292,6 +2292,7 @@ input#cvv{
 
 .checkoutQuestions {
     display: none;
+    /*display: inline-grid;*/
 }
 
 .cart-limit-msg {
