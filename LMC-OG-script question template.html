@@ -1,0 +1,73 @@
+
+<!-- CheckoutQuestion.vm -->
+## Added div.question - NV
+
+    <label for="question-$velocityCount">
+      #set ($qdetail = $question.questiondetails.get(0)) 
+      #set ($answer = $question.getAnswer($qdetail.qdetailid))
+        #if($question.qdescription.substring(0,1) == '*') ## Remove *CAG, if present.
+            $question.qdescription.substring($question.qdescription.indexOf(' '))
+        #else
+            $question.qdescription
+        #end
+     </label>
+    ## <input  name="$question.getName($qdetail.qdetailid)" value="$!answer.content" maxlength="28"></input>
+    <select name="$question.getName($qdetail.qdetailid)" class="scriptQuestDD2" onChange="document.getElementById('customerInput4PO').value=this.value">
+    	<option value="Please"#if($!answer.content != "Yes" && $!answer.content != "No") selected#end>Required-Please Select...</option>
+    	
+    	<option value="17th & Broadway"#if($!answer.content == "17th & Broadway") selected#end>17th & Broadway</option>
+    	<option value="88 West"#if($!answer.content == "88 West") selected#end>88 West</option>
+    	<option value="Aria at Millenia"#if($!answer.content == "Aria at Millenia") selected#end>Aria at Millenia</option>
+    	<option value="Axle"#if($!answer.content == "Axle") selected#end>Axle</option>
+    	<option value="Beacon 85 - Icon"#if($!answer.content == "Beacon 85 - Icon") selected#end>Beacon 85 - Icon</option>
+    	<option value="Beacon 85 - Logo"#if($!answer.content == "Beacon 85 - Logo") selected#end>Beacon 85 - Logo</option>
+    	<option value="Bradham"#if($!answer.content == "Bradham") selected#end>Bradham</option>
+    	<option value="Brooks on Janes"#if($!answer.content == "Brooks on Janes") selected#end>Brooks on Janes</option>
+    	<option value="Canvas"#if($!answer.content == "Canvas") selected#end>Canvas</option> 
+    	<option value="Capitol 650"#if($!answer.content == "Capitol 650") selected#end>Capitol 650</option>
+    	<option value="Colony at the Lakes"#if($!answer.content == "Colony at the Lakes") selected#end>Colony at the Lakes</option>
+    	<option value="Core Apartments"#if($!answer.content == "Core Apartments") selected#end>Core Apartments</option>
+    	<option value="Crest at Las Colinas"#if($!answer.content == "Crest at Las Colinas") selected#end>Crest at Las Colinas</option>
+    	<option value="Crest at Oak Park"#if($!answer.content == "Crest at Oak Park") selected#end>Crest at Oak Park</option>
+    	<option value="Indigo at BCS"#if($!answer.content == "Indigo at BCS") selected#end>Indigo at BCS</option>
+    	<option value="Lennar Multifamily Builders"#if($!answer.content == "Lennar Multifamily Builders") selected#end>Lennar Multifamily Builders</option>
+    	<option value="LMC"#if($!answer.content == "LMC") selected#end>LMC</option>
+    	<option value="Luma"#if($!answer.content == "Luma") selected#end>Luma</option>
+    	<option value="Lumen at Tysons"#if($!answer.content == "Lumen at Tysons") selected#end>Lumen at Tysons</option>
+    	<option value="Malbec at Vallagio"#if($!answer.content == "Malbec at Vallagio") selected#end>Malbec at Vallagio</option>
+    	<option value="Maris"#if($!answer.content == "Maris") selected#end>Maris</option>
+    	<option value="Marisol"#if($!answer.content == "Marisol") selected#end>Marisol</option>
+    	<option value="Marlowe"#if($!answer.content == "Marlowe") selected#end>Marlowe</option>
+    	<option value="Muse"#if($!answer.content == "Malden Station") selected#end>Muse</option>
+    	<option value="Nexa"#if($!answer.content == "Nexa") selected#end>Nexa</option>
+    	<option value="Nordhaus (Minneapolis)"#if($!answer.content == "Nordhaus (Minneapolis)") selected#end>Nordhaus (Minneapolis)</option>
+    	<option value="Novel"#if($!answer.content == "Novel") selected#end>Novel</option>
+    	<option value="Novo"#if($!answer.content == "Novo") selected#end>Novo</option>
+    	<option value="Oceanaire"#if($!answer.content == "Oceanaire") selected#end>Oceanaire</option> 
+    	<option value="Octave"#if($!answer.content == "Octave") selected#end>Octave</option>
+    	<option value="Onyx"#if($!answer.content == "Onyx") selected#end>Onyx</option>
+    	<option value="Radiant"#if($!answer.content == "Radiant") selected#end>Radiant</option>
+    	<option value="Shift"#if($!answer.content == "Shift") selected#end>Shift</option>
+    	<option value="Strata"#if($!answer.content == "Strata") selected#end>Strata</option>
+    	<option value="The 23"#if($!answer.content == "The 23") selected#end>The 23</option>
+    	<option value="The Briscoe"#if($!answer.content == "The Briscoe") selected#end>The Briscoe</option> 
+    	<option value="The Ellis"#if($!answer.content == "The Ellis") selected#end>The Ellis</option>
+    	<option value="The Emerson"#if($!answer.content == "The Emerson") selected#end>The Emerson</option>
+    	<option value="The Lively"#if($!answer.content == "The Lively") selected#end>The Lively</option>
+    	<option value="The Maddox"#if($!answer.content == "The Maddox") selected#end>The Maddox</option>
+    	<option value="The Morris - address"#if($!answer.content == "The Morris - address") selected#end>The Morris - address</option>    	
+    	<option value="The Morris - URL"#if($!answer.content == "The Morris - URL") selected#end>The Morris - URL</option>  
+        <option value="The Whitney"#if($!answer.content == "The Morris - URL") selected#end>The Whitney</option>
+    	<option value="Twenty20 Mad"#if($!answer.content == "Twenty20 Mad") selected#end>Twenty20 Mad</option>
+    	<option value="Valdok"#if($!answer.content == "Valdok") selected#end>Valdok</option>
+    	<option value="Vireo"#if($!answer.content == "Vireo") selected#end>Vireo</option>
+	    <option value="Vitri"#if($!answer.content == "Vitri") selected#end>Vitri</option>       	
+   </select>
+   
+   <input  type="hidden" id="customerInput4PO" name="customerInput" value="$!checkoutViewDTO.customerInput" maxlength="28" ></input>
+   
+  <script type="text/javascript">
+$( document ).ready(function() {
+    $('.scriptQuestDD2').select2();
+    });
+</script>

@@ -2553,4 +2553,7 @@ input#cvv{
     display: flex;
     justify-content: space-around;
 }    
+
+.welcomemsg{
+    padding-right: 10px !important;    
 }
