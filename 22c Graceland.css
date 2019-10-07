@@ -2497,3 +2497,22 @@ div#DDmenu a::after{
     text-decoration: none;
     color: #fff;    
 }
+
+.landingPageLogo{
+    display: none;
+}
+
+#pageLandingPage .landingPageLogo{
+    display: initial;
+    background: url("../images/graceland-logo.svg") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+    height: 106px;
+    width: 304px;    
+}
+
+#pageLandingPage .wrapper2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
