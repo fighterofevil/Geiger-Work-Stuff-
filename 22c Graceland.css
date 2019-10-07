@@ -170,7 +170,7 @@ a:hover{
 }
 
 .nav a{
-    color: #ffffff;
+    color: #000 !important;
     font-size: 16px;
     text-decoration: none;
     line-height: 45px;
@@ -2245,7 +2245,7 @@ div#DDmenu a::after{
 }
 
 .superWrapper2{
-    background: url("../images/nav-pattern.jpg") repeat scroll left top transparent;
+    background: url("../images/nav-pattern2.jpg") repeat scroll left top transparent;
     height: 150px;
 }
 
@@ -2420,4 +2420,80 @@ div#DDmenu a::after{
 
 #pageItem #page a{
     font-family: 'Open Sans', sans-serif;      
+}
+
+#pageLandingPage .logoSearchCart, #pageLandingPage #header .wrapper, #pageLandingPage #menu, #pageLandingPage #container{
+    display: none;
+}
+
+.superWrapper3{
+    height: 80px;
+    background-color:#231F20;
+}
+
+.landingPageInnerWrapper{
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    height: 80px;
+    justify-content: center;
+    font-size: 30px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;    
+}
+
+#pageLandingPage #footer ul{
+    display: none;
+}
+
+.landingPageSpotlight{
+     background: url("../images/landing-img.png") no-repeat scroll left top transparent;
+     height: 77vh;
+     background-size: cover;
+}
+
+.WrapperSpotlight{
+    justify-content: space-around;
+    position: relative;
+    top: 60px;
+}
+
+
+.storeInfo{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.storeInfoText{
+    font-size: 40px;
+    line-height: 45px;
+    height: 83px;
+    text-align: center;
+    text-shadow: 0 1px 9px rgba(0,0,0,0.7);
+    font-family: 'Poppins', sans-serif;
+}
+
+.storeButton{
+    background-color: #f12b2f;
+    width: 167px;
+    height: 40px;
+    box-shadow: 0 1px 18px 18px rgba(1,1,1,0.34);
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 30px;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;    
+}
+
+.storeInfo a{
+    text-decoration: none;
+    color: #fff;    
 }
