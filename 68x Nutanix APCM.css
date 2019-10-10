@@ -2557,3 +2557,7 @@ input#cvv{
 .welcomemsg{
     padding-right: 10px !important;    
 }
+
+#ui-datepicker-div{
+    background-color: rgb(175, 218, 53);
+}
