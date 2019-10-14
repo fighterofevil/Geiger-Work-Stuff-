@@ -174,6 +174,7 @@ a:hover{
     font-size: 16px;
     text-decoration: none;
     line-height: 45px;
+    font-weight: 700;
 }
 
 div#DDmenu a{
@@ -184,13 +185,15 @@ div#DDmenu a{
 
 h1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 28px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    color: #000;
 }
 
-#pageHome h1{
+.spotlightText h1{
+    color:#fff;
     text-align: center;
 }
 
@@ -202,7 +205,7 @@ h1{
 }
 
 h2{ 
-    font-size:22px;
+    font-size:21px;
     color:#424242;
     font-weight:bold;
     margin-bottom: 15px;
@@ -264,7 +267,7 @@ label, .label {
 .sidebar .title{
     font-weight: 600;
     font-size: 14px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     text-transform: uppercase;
     color: #000;
     border-bottom: 1px solid #eee;
@@ -291,7 +294,7 @@ label, .label {
     /*color:#555;*/
     background-position:2px -48px;
     text-decoration:underline;
-    font-size:12px;
+    font-size:13px;
     /*color:#00acd4;*/
 }
 
@@ -404,10 +407,10 @@ body{
     background: url("../images/graceland-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 64px;
+    height: 70px;
     /*margin: 15px 0px 0px 20px;*/
     /*padding: 10px 8px 0px 0px;*/
-    width: 165px;
+    width: 200px;
 }
 
 #header .logo span {
@@ -520,6 +523,7 @@ div#DDmenu li a:hover{
 
 .utilNav ul{
     float: right;
+    font-size: 13px;
 }
 
 
@@ -545,6 +549,8 @@ div#DDmenu li a:hover{
     display: flex;
     align-items: center;
     justify-content: start;    
+    font-size: 13px;
+    box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.5)  ; 
 }
 
 .cartbutton{
@@ -580,7 +586,8 @@ div#DDmenu li a:hover{
 }
 
 #searchForm div{
-    border: 1px solid #aaaaaa;
+    /*border: 1px solid #aaaaaa;*/
+    box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.5)  ; 
     background-color: #fff;
     width: 215px;
     height: 35px;
@@ -594,6 +601,7 @@ div#DDmenu li a:hover{
     width: 215px;
     float: left;
     padding-left: 2px;
+    font-size: 14px;
 }
 
 #searchForm input#searchBtn{
@@ -740,19 +748,22 @@ tfoot tr td{
 
 .btn {
     /*border:1px solid #777;*/
-    /*padding: 5px 10px;*/
+    padding: 0px 15px;
     background-color: #E1E1E1;
     text-transform: uppercase;
-    color:#000;    
+    color:#3a3a3a;    
     cursor: pointer;
-    -moz-border-radius:3px;
+    /*-moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
     min-width: 130px;
+    border: 0px;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .btn:hover{
@@ -761,20 +772,23 @@ tfoot tr td{
 
 .btn-primary{
     /*border:1px solid #777;*/
-    /*padding: 5px 10px;*/
+    padding: 0px 15px;
     background-color: #F12B2F;
     text-transform: uppercase;    
     color:#FFF;
     font-weight: bold;
     cursor: pointer;
-    -moz-border-radius:3px;
+    /*-moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
     min-width: 130px;
+    border: 0px;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .btn-primary:hover, .storeButton:hover{
@@ -782,9 +796,9 @@ tfoot tr td{
 }
 
 .gift-btn {
-    border-radius: 3px 3px 3px 3px;
+/*    border-radius: 3px 3px 3px 3px;
     -moz-border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;*/
     border: 1px solid !important;
     background: #ededed;
 }
@@ -1091,13 +1105,17 @@ td.ar{
     text-align: left;
 }
 
+#pageCategory .name a{
+    line-height: 1.5em;
+}
+
 .sortView{
     background-color: #eaebec;
     padding: 3px 5px;
     border: 1px solid #ccc;
     margin: 10px 0px 20px 0px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;    
     font-family: 'Open Sans', sans-serif;     
 }
@@ -1141,7 +1159,7 @@ td.ar{
 
 .pagination-new {
     float: left;
-    width: 760px;
+    width: 780px;
 }
 
 .view-all {
@@ -1420,9 +1438,12 @@ ul.radios-list li label{
 }
 
 .address-options {
-text-align: right;
-margin: -5px 0 8px;
-float: right;
+    text-align: right;
+    margin: -5px 0 8px;
+    float: right;
+    display: flex;
+/*    justify-content: space-between;
+    width: 375px;*/
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
@@ -1858,6 +1879,7 @@ input#cvv{
     font-size: 13px;
     text-align: center;
     margin-bottom: 20px;
+    line-height: 1.5em;
 }
 
 .message.success{
@@ -2056,7 +2078,7 @@ input#cvv{
 }
 
 #recentlyViewed{
-    margin-top: 25px;
+    /*margin-top: 25px;*/
 }
 
 .cross-sell h3{
@@ -2247,6 +2269,7 @@ div#DDmenu a::after{
 .superWrapper2{
     background: url("../images/nav-pattern2.jpg") repeat scroll left top transparent;
     height: 150px;
+    border-bottom: 1px solid #000;    
 }
 
 .wrapper2{
@@ -2268,6 +2291,7 @@ div#DDmenu a::after{
 
 .extLinkText{
     padding-left: 5px;
+    font-size: 13px;
 }
 
 .extLink a{
@@ -2332,6 +2356,7 @@ div#DDmenu a::after{
 
 .spotlightText p{
     font-family: 'Open Sans', sans-serif;
+    line-height: 1.5em;
 }
 
 .tripleBoxes{
@@ -2515,4 +2540,44 @@ div#DDmenu a::after{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.custom-popup p{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.pageLogin .error{
+    font-size: 13px;
+}
+
+.emptyBasketButton{
+    margin-top: 15px;
+}
+
+.emptyCartMsg{
+    font-weight: 400;
+}
+
+.ship-to-multiple, #singleAddy{
+    margin-right: 10px;
+}
+
+#pageCheckoutAddressesMulti table{
+    margin-left: 0px !important;
+}
+
+#pageCheckoutComplete p, #pageFAQ p, #contact p, #pageTerms p, #pageCheckoutReview p{
+    line-height: 1.5em;
+}
+
+#key::placeholder{
+    color: #3a3a3a;
+}
+
+.budgetInfo{
+    margin-left: 15px;
+}
+
+#pageCheckoutComplete #page-messages{
+    width: 775px;
 }
