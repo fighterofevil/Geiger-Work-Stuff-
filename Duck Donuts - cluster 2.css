@@ -2527,11 +2527,11 @@ input#cvv{
 
 .storeName1{
     background: url(../images/landing1-title.png) no-repeat;
-    height: 117px;
-    width: 337px;       
+    height: 164px;
+    width: 303px;       
     position: relative;
-    top: 83px;
-    left: 21px;
+    top: 52px;
+    left: 16px;
 
 }
 
@@ -2540,8 +2540,8 @@ input#cvv{
     height: 220px;
     width: 165px;     
     position: relative;
-    top: 33px;    
-    right: 10px;
+    top: 64px;    
+    right: 9px;
 }
 
 .storeName2{
@@ -2549,7 +2549,7 @@ input#cvv{
     height: 117px;
     width: 337px; 
     position: relative;
-    top: 83px;
+    top: 72px;
     left: 21px;
     right: 10px;
 }
@@ -2557,9 +2557,9 @@ input#cvv{
 .storeImage2{
     background: url(../images/landing2-bg.png) no-repeat;
     height: 204px;
-    width: 110px;         
+    width: 120px;         
     position: relative;
-    top: 33px;    
+    top: 25px;    
 }
 
 .duckStoreText{
@@ -2597,4 +2597,82 @@ input#cvv{
     }
 
 
+}
+
+.adBanner{
+    width: 1024px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 48px;    
+}
+
+.adBox{
+    height: 250px;
+    width: 524px;
+    background-color: #F5426C;
+    box-shadow: 0 0 50px 0 rgba(0,0,0,0.1);
+}
+
+.adText{
+    background: url(../images/jacket-img.png) no-repeat;
+    height: 245px;
+    background-position: right;
+    color: #fff;
+}
+
+.adTextWrapper{
+    width: 282px;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+
+.adText p{
+    color: #fff;
+}
+
+.adTextp1{
+    font-size: 21px;
+    width: 185px;
+    display: flex;
+    text-align: center;
+    line-height: 21px;
+    margin-bottom: 8px;
+}
+
+.adTextp2{
+    font-size: 16px;
+    width: 263px;
+    display: flex;
+    text-align: center;
+}
+
+.adTitle{
+    font-family: "Brandon Grotesque";
+    color: #F6CF3F;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 32px;
+    width: 282px;
+    display: flex;
+    text-align: center;     
+    margin-bottom: 6px;
+}
+
+.adOrderButton{
+    box-sizing: border-box;
+    height: 40px;
+    width: 206px;
+    border: 1px solid #03569E;
+    background-color: #98CAEC;    
+    text-transform: uppercase;
+    font-size: 16px;
+    color: #03569E;
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
