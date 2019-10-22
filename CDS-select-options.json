@@ -776,5 +776,7 @@
      { "value": "1324", "region": "CW", "location": "ST. JOHN'S NL"},
      { "value": "1331", "region": "MW", "location": "Evansville, IN"},
      { "value": "1333", "region": "SE", "location": "Mooreseville, NC"},
-     { "value": "1344", "region": "MW", "location": "St. Cloud, MN"}
+     { "value": "1344", "region": "MW", "location": "St. Cloud, MN"},
+     { "value": "1363", "region": "MW", "location": "Eagan, MN"},
+     { "value": "1372", "region": "NE", "location": "East Lyme, CT"}
 ]
