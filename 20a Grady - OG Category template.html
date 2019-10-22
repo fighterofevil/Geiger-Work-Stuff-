@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+
+#parse('libmacroURL.vm')
+
+## TODO-Ask
+#if(($multiPageViews) && ($__virtualCategory))
+  #set($itemMultiPageView = $multiPageViews.get($__virtualCategory.getPageTileName()))
+#end
+
+#if (!$direction) #set($direction = $regExp.getParamFromURL($itemMultiPageView.multiPageURL, 'direc'))  #end
+
+#set($catid = $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'categoryid'))
+#set($metadescription= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'metadescription'))
+#set($metakeywords= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'metakeywords'))
+#set($pagetitle= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'pagetitle'))
+#set($categoryImage= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'image'))
+#set($categoryThumb= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'thumbimage'))
+#set($categoryName= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'name'))
+#set($categoryCommonName= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'description'))
+#set($category= $pageTile.getItemObject($childCategoriesDTO, $childCategoriesDTO.getItems(), "c"))
+
+#set($itemsDTO = $childItemsDTO)
+#set($itemsPaginationDTO = "childItemsDTO")
+
+#if (!$mpvp&&$itemMultiPageView&&$itemMultiPageView.currentPageIndex) 
+  #set($mpvp = $itemMultiPageView.currentPageIndex)  
+#else
+  #set($mpvp = "")  
+#end
+#set($subpage = $request.getParameter("mpvp"))
+
+#*********************************************
+* The following block of code is used together with the 
+* redirect to item option in category properties
+* this should automatically redirect the category to
+* the single item in that category.
+*********************************************#
+#set($category1= $pageTile.getItemObject($categoryNameDTOHQL, $categoryNameDTOHQL.items.get(0), 'c'))
+#set($childItemsViewDTO = $multiPageViews.get("childItemsDTO"))
+#if($category1.autoview==1 && $childItemsViewDTO.itemsCount==1)
+  #foreach($itemIter in $childItemsDTO.getItems())
+    #set($childItem = $pageTile.getItemObject($childItemsDTO, $itemIter, "i"))
+  #end
+  $response.sendRedirect($seourl.encodeURL("store.html?cid=$catid&vid=$vendorSettingsDTO.vendorId&iid=$childItem.itemid"))
+#end
+#set($numSubCats = $category.size() )
+#########################################################################
+
+<html id="pageCategory">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+<script>
+jQuery(document).ready(function() {
+if( !jQuery.trim( jQuery('.sidebar').html()).length ) {
+jQuery('.page').addClass('noFacet');
+    }
+
+if(jQuery.trim( jQuery('.filter').html()).length){
+jQuery('.title').css("display","block");
+}
+
+});
+</script>
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        
+      <div id="content" role="main">
+        <div class="bCrumbs">
+          #parse("libpartCategoryBreadcrumbs.vm")
+        </div>
+
+        <h1>$categoryCommonName</h1>
+        
+    ##    <div id="holidayMsg2">
+    ##        <p><span>In order to ensure delivery by December 21st, please place your order by Wednesday, December 12th.</span></p>
+    ##        <p>Orders placed after December 12th may be subject to expedited shipping charges to guarantee delivery before December 21st. If you would like to place an order and expedite the shipping to guarantee delivery by 12/21, please call the call center directly at <a href="tel:1-866-847-1522">1-866-847-1522</a> between 8 am and 8 pm to place your order with a customer service representative. Please be sure to let them know you would like to expedite delivery for the holidays.<br />Thank you for shopping with Grady Gear!</p>
+    ##    </div>
+        
+        <div class="sortView clearfix">
+          #parse("libpartCategorySort.vm")
+          #parse("libpartCategoryPagination.vm")
+        </div>
+
+        #parse("libpartCategoryActiveFacets.vm")
+
+        <div class="clearfix">
+            <div class="sidebar">
+                #if($numSubCats >= 1)
+                    ## #parse("libpartCategorySubCatList.vm")
+                    ## BEGIN libpartCategorySubCatList
+                        <div class="title">#springMessage("subCategories")</div>
+                            #foreach($itemIter in $childCategoriesDTO.getItems())
+                            ## #foreach($shippingAdress in $sorter.sort($shippingAddressDTO, "address1"))
+
+                                #set($category = $pageTile.getItemObject($childCategoriesDTO, $itemIter, "c"))
+                                
+                                <script>
+                                    console.log("$!category.description");
+                                </script>
+                                
+                                #if($category.description=="Grady Club Gear")
+                                    #if($request.session.getAttribute("SessionCustomerDTO_${vendorSettingsDTO.vendorId}").getCustomerProperty('categoryClub'))
+                                        <div class="subcat-container">
+                                            ##<div class="subcat-img">
+                                            ## #if($category.thumbimage !="No Image")
+                                            ##   <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$category.categoryid")">
+                                            ##      #if($category.thumbimage.startsWith("http"))
+                                            ##        <img src="$category.thumbimage"  alt="$category.name" />
+                                            ##      #else
+                                            ##        <img src="store$category.thumbimage"  alt="$category.name" />
+                                            ##     #end
+                                            ##   </a>
+                                            ##  #else  
+                                            ##    <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$category.categoryid")">
+                                            ##      <img src="store/$vendorSettingsDTO.vendorId/assets/images5/no_img.gif" alt="$category.name"/>
+                                            ##    </a>
+                                            ##  #end
+                                            ## </div>
+                                            <div>
+                                                <div class="subcat-title">
+                                                    <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$category.categoryid"))">$category.description</a>
+                                                </div>  
+                                            </div>
+                                        </div>                                        
+                                    #end
+                                #else
+                                    <div class="subcat-container">
+                                        ##<div class="subcat-img">
+                                        ## #if($category.thumbimage !="No Image")
+                                        ##   <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$category.categoryid")">
+                                        ##      #if($category.thumbimage.startsWith("http"))
+                                        ##        <img src="$category.thumbimage"  alt="$category.name" />
+                                        ##      #else
+                                        ##        <img src="store$category.thumbimage"  alt="$category.name" />
+                                        ##     #end
+                                        ##   </a>
+                                        ##  #else  
+                                        ##    <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$category.categoryid")">
+                                        ##      <img src="store/$vendorSettingsDTO.vendorId/assets/images5/no_img.gif" alt="$category.name"/>
+                                        ##    </a>
+                                        ##  #end
+                                        ## </div>
+                                        <div>
+                                            <div class="subcat-title">
+                                                <a href="#encodeURL($seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$category.categoryid"))">$category.description</a>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                #end    
+                            #end
+                    ## END   libpartCategorySubCatList
+                #end
+            #parse("libpartCategoryFacets.vm")
+            #parse("libpartCategoryBestSellers.vm")
+            #parse("libpartRecentlyViewedCategories.vm")
+          </div>
+          <div class="page">
+            #parse("libpartCategoryProductList.vm")
+            
+            ##if no subcategories or items, display no products message
+            #if($numSubCats < 1 && $itemsDTO.getItems().size() < 1)
+              <div class="info">#springMessage("categoryNoProducts")</div>
+            #end 
+          </div>
+        </div><!--//.clearfix-->
+
+        <div class="sortView clearfix">
+          #parse("libpartCategorySort.vm")
+          #parse("libpartCategoryPagination.vm")
+        </div>
+        
+      </div> <!--//#content -->
+      <div class="push"></div>
+        #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    </div> <!--//#container -->
+    #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    
+    <script>var $j = jQuery.noConflict(); jQuery.noConflict();</script>
+    <script src="assets/plugins/lowpro/lowpro.js"></script>
+    <script src="assets/plugins/jshashtable/jshashtable.js"></script>
+    <script src="assets/plugins/domec/domec.js"></script>
+    <script src="assets/commercelib/commerce/commerce_jQuery.js"></script>
+    <script src="assets/commercelib/commerce/commerce_shop_jQuery.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/js/jquery.jcarousellite.min.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/js/jquery-ui.min.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/js/lineItemAdd/lineItemAdd.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/js/lineItemAdd/lineItemAdd_event.js"></script>
+
+    ##TODO: Scope scripts: AvettiCommerce.Category.{function}(foo, bar)) 
+
+    ##TODO: Externalize scripts, but make calls from the page: AvettiCommerce.Category.sortBy(${activeSort})
+
+    <script>
+
+
+
+      ##TODO: Replace YUI
+      function createCookie(values){
+         var expdate = new Date();
+         expdate.setFullYear(expdate.getFullYear()+20);
+         YAHOO.util.Cookie.set("preferences", values, { expires: expdate,path: "/" }); 
+      }
+
+      ## TODO: rewrite this
+      function changePageItemsCount(pageItemsCount){
+        if (pageItemsCount=='15'){
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('pageItemsCount' '15')",'(^\s+)|(\s+$)')";
+        }
+        if (pageItemsCount=='20'){
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('pageItemsCount' '20')",'(^\s+)|(\s+$)')";
+        }
+        if (pageItemsCount=='25'){
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('pageItemsCount' '25')",'(^\s+)|(\s+$)')";
+        }
+      }
+
+      function setSortBy(id){
+          var sortBySelected = document.getElementById(id).value;
+          document.getElementById("sortby").value = sortBySelected;
+      }
+      
+      function sortRedirect(sortselect){
+        ## currentURI = '//${request.getServerName()}${request.getRequestURI()}?${request.getQueryString()}';
+        ##TODO: this should be a class, otherwise, a second instance wont work
+        ##TODO: rewrite this:
+       // var sortselect = document.getElementById("sortby");
+        
+        if (sortselect.value == 'stitleASC'){
+            window.location.href='$baselink$regExp.removeStr("#hrefNewParameter('sortci' 'stitle+asc')",'(^\s+)|(\s+$)')';
+        }
+        if (sortselect.value == 'newestDESC'){
+            window.location.href='$baselink$regExp.removeStr("#hrefNewParameter('sortci' 'newest+desc')",'(^\s+)|(\s+$)')';
+        }
+        if (sortselect.value == 'priceASC'){  
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('sortci' 'price+asc')", '(^\s+)|(\s+$)')";
+        }
+        if (sortselect.value == 'priceDESC'){
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('sortci' 'price+desc')", '(^\s+)|(\s+$)')";
+        }
+        if (sortselect.value == 'topsellers'){
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('sortci' 'topsellers+asc')", '(^\s+)|(\s+$)')";
+        }
+        if (sortselect.value == 'averagereview'){
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('sortci' 'averagereview+desc')", '(^\s+)|(\s+$)')";
+        }
+        if (sortselect.value == 'orderscount'){
+          window.location.href="$baselink$regExp.removeStr("#hrefNewParameter('sortci' 'orderscount+desc')", '(^\s+)|(\s+$)')";
+        }
+      }
+    </script>
+
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+  </body>
+</html>
