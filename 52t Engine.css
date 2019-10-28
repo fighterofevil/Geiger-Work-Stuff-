@@ -120,7 +120,7 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#444444;
+    color:#3A3A3A;
     font-family:    Arial,"Helvetica Neue",Helvetica,sans-serif;
     font-size: 14px;
     line-height: 18px;
@@ -145,8 +145,12 @@ p .pageItem{
 }
 
 a{ 
-    color:#84010F;
+    color:#E74128;
     text-decoration: none;
+}
+
+a:hover{
+    color:#A22A18;
 }
 
 #footer{
@@ -162,16 +166,24 @@ a{
 
 .nav a{
     color: #231F20;
-    font-size: 12px;
+    font-size: 14px;
     text-decoration: none;
     line-height: 45px;
-    padding: 10px 20px;    
+    padding: 10px 20px;   
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.nav a:hover{
+    text-decoration: underline;
+    color: #E74128;
 }
 
 div#DDmenu a{
-    font-size: 18px;
+    font-size: 14px;
     line-height: 28px;
     display: block;
+    font-weight: 400;
 }
 
 h1{ 
@@ -186,8 +198,10 @@ h1{
     text-align: center;
 }
 
-#pageCategory h1{
+#pageCategory h1, #pageItem h1{
     margin-top: 15px;
+    font-size: 28px;
+    color: #404040;
 }
 
 h2{ 
@@ -203,8 +217,8 @@ h5{ }
 h6{ }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    font-size: 14px;
+    color: #231F20;
     margin-bottom: 20px;
 }
 
@@ -249,11 +263,11 @@ label, .label {
 } 
 
 .sidebar .title{
-    font-weight: 600;
-    font-size: 13px;
+    font-weight: 400;
+    font-size: 14px;
     margin-top: 10px;
     text-transform: uppercase;
-    color: #555;
+    color: #000000;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -266,17 +280,17 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#555;
+    color:#231F20;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
-    font-size:12px
+    font-size:13px;
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
     /*color:#555;*/
     background-position:2px -48px;
     text-decoration:underline;
-    font-size:12px;
+    /*font-size:12px;*/
     /*color:#00acd4;*/
 }
 
@@ -308,6 +322,11 @@ body{
     z-index: 1;
     clear: both;
     /*padding: 30px 20px 50px 20px;*/
+    margin-top: 25px;
+}
+
+#pageHome #content{
+    margin-top: 0px;
 }
 
 #header{
@@ -319,9 +338,9 @@ body{
 
 #header .wrapper{
     float: right;
-    width: 700px;
+    /*width: 700px;*/
     text-align: right;
-    margin-top: 15px;
+    margin-top: 16px;
 }
 
 #footer .wrapper{
@@ -433,7 +452,7 @@ body{
     width: 774px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 }
 
@@ -447,16 +466,18 @@ body{
 }
 
 .nav li:hover{
-    background-color: #b12936;
+    /*background-color: #b12936;*/
 }
 
 div#DDmenu{
     position: absolute;
-    background-color: #b12936;
+    background-color: #fff;
     display: none;
     z-index: 100;
     padding-bottom: 20px;
     min-width: 227px;
+    box-shadow: -1px 7px 6px 0px rgba(0,0,0,0.18);
+    text-align: center;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -473,6 +494,7 @@ div#DDmenu li a{
 
 div#DDmenu li a:hover{
     text-decoration: underline;
+    color: #E74128;
 }
 
 .liveChat{
@@ -483,15 +505,26 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .utilNav ul{
     float: right;
+    display: flex;
+    align-items: center;
+    width: 774px;
+    justify-content: flex-end;    
+    text-transform: uppercase;
+    margin-bottom: 13px;
 }
 
-.utilNav ul a{
+.utilNav ul a, .welcomemsg{
     color: #231F20;
+    font-size: 12px;
+}
+
+.welcomemsg strong{
+    font-weight: 400;
 }
 
 /****footer nav****/
@@ -509,7 +542,10 @@ div#DDmenu li a:hover{
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    /*margin-top: -8px;*/
+    width: 217px;
+    margin-left: 15px !important;
+    display: flex;
 }
 
 .cartbutton{
@@ -517,17 +553,21 @@ div#DDmenu li a:hover{
     display: flex;
     align-items: center;
     justify-content: center;    
+    left: 13px;
+    position: relative;
 }
 
 #cart-icon{
     float: left;
     font-size: 24px;
-    margin: 5px 5px 0px 0px
+    margin: 5px 5px 0px 0px;
+    color: #404040;
 }
 
 .summary{
     float: right;
     text-align: left;
+    text-transform: initial;
 }
 
 #cart-quantity, #cart-total{
@@ -542,7 +582,7 @@ div#DDmenu li a:hover{
 }
 
 #searchForm div{
-    border: 1px solid #aaaaaa;
+    border: 1px solid #B7B7B7;
     background-color: #fff;
     width: 210px;
     height: 35px;
@@ -599,7 +639,7 @@ table {
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
     background:#eaebec;
-    margin:20px;
+    margin: 0px 0px 20px 0px;
     border:#ccc 1px solid;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -701,50 +741,47 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    /*border:1px solid #777;*/
-    color:#000;
+    background-color: #E1E1E1;
+    border:0px;
+    color:#3A3A3A;
+    font-weight: bold;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
+/*    -moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
-    min-width: 130px;
+    min-width: 170px;
+    text-transform: uppercase;
 }
 
 .btn:hover{
-    background-color: #fff;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #C7C7C7;
 } 
 
 .btn-primary{
-    background-color: #84010F;
-    /*border:1px solid #777;*/
+    background-color: #404040;
+    border:0px;
     color:#FFF;
     font-weight: bold;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
+   /* -moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
-    min-width: 130px;
+    min-width: 170px;
+    text-transform: uppercase;
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #706F6F;
 }
 
 .gift-btn {
@@ -791,6 +828,9 @@ tfoot tr td{
 
 .featured-product-carousel{
     position:relative;
+    width: 800px;
+    height: 213px;
+    margin: 0 auto;
 }
 
 .featured-product-carousel .title{
@@ -807,7 +847,7 @@ tfoot tr td{
     float:left;
     width:600px;
     padding-left:10px;
-    height: 132px;
+    height: 180px;
 }   
 
 .featured-product-carousel .prev{
@@ -837,22 +877,22 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item{
-    width:135px;
-    height:125px;
+    width:175px;
+    height:175px;
     float:left;
     display:table-cell;
     vertical-align:middle;
-    margin-right:5px;
+    margin-right:20px;
 }
 
 .featured-product-carousel .item img{
-    max-height:125px;
-    max-width:125px;
+    max-height:175px;
+    max-width:175px;
 }
 
 .featured-product-carousel .item a{
-    width:100%;
-    height:125px;
+    width:175px;
+    height:175px;
     display:table-cell;
     vertical-align:middle;
     text-align:center;
@@ -1084,6 +1124,10 @@ td.ar{
 
 .filter {
     margin-bottom: 15px;
+    color: #3A3A3A;
+    font-size: 16px;
+    font-weight: 800;
+}    
 }
 
 .item{
@@ -1106,11 +1150,11 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #444;
+    background: #2D2D2D;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
-
+    font-weight: bold;
 }
 
 .pagination-new {
@@ -1143,6 +1187,7 @@ a.view-all{
 .btn.wishlist{
     /*display: block;*/
     margin-top: 5px;
+    min-width: 130px;
 }
 
 /****Item Page****/
@@ -1323,7 +1368,7 @@ ul.radios-list li label{
 
 .co-breadcrumb{
   background-image: url("../images/bg/checkout_sprite.png");
-  background-position: 103% 0;
+  background-position: 107% 0;
   background-repeat: no-repeat;
   margin: 30px 0;
 }
@@ -1334,11 +1379,11 @@ ul.radios-list li label{
 }
 
 .co-breadcrumb.step2 {
-    background-position: 86% 0;
+    background-position: 89% 0;
 }
 
 .co-breadcrumb.step3{
-  background-position: 69% 0;
+  background-position: 72% 0;
 }
 
 .co-breadcrumb.step4{
@@ -1394,9 +1439,12 @@ ul.radios-list li label{
 }
 
 .address-options {
-text-align: right;
-margin: -5px 0 8px;
-float: right;
+    text-align: right;
+    margin: -5px 0 8px;
+    float: right;
+    display: flex;
+    width: 440px;
+    justify-content: space-between;    
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
@@ -2018,8 +2066,8 @@ input#cvv{
     float: left;
     cursor: pointer;
     font-size: 24px !important;
-    color: #4F5559;
-    top: 4px;
+    color: #404040;
+    top: 5px;
     padding-left: 10px;    
 }
 
@@ -2212,12 +2260,31 @@ div#DDmenu a::after{
     width: 761px;
     display: flex;
     justify-content: center;    
+    margin: 0 auto;
 }
 
 .superWrapper{
     width: 1024px;
-    height: 87px;
+    /*height: 87px;*/
     display: flex;
     justify-content: space-between;   
     margin: 0 auto;
+}
+
+#key::placeholder {
+  color: #231F20; 
+}
+
+.ui-widget-content a{
+    color: #E74128 !important;
+}
+
+#singleAddy{
+    min-width: 220px;
+}
+
+#pageCheckoutSplitAddress .f-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 360px;
 }
