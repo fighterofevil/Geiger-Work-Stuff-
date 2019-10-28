@@ -2089,7 +2089,7 @@ input#cvv{
     content: '\e5cf';
     position: absolute;
     font-size: 24px;
-    color: #fff;
+    color: #231F20;
 }
 
 div#DDmenu a::after{
