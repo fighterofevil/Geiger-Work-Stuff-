@@ -146,7 +146,7 @@ p .pageItem{
 
 a{ 
     color:#007DB6;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 a:hover{
@@ -163,6 +163,11 @@ a:hover{
 
 #footer a{
     color:#fff;
+    text-decoration: none;    
+}
+
+#footer a:hover{
+    text-decoration: underline;
 }
 
 .nav a{
@@ -176,10 +181,19 @@ a:hover{
     text-shadow: 0 2px 1px rgba(0,0,0,0.7);
 }
 
+.nav a:hover{
+    text-decoration: underline;
+}
+
+div#DDmenu li a:hover{
+    text-decoration: none;
+}
+
 div#DDmenu a{
     font-size: 18px;
     line-height: 28px;
     display: block;
+    text-shadow: initial;
 }
 
 h1{ 
@@ -211,8 +225,8 @@ h5{ }
 h6{ }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    font-size: 14px;
+    color: #007DB6;
     margin-bottom: 20px;
 }
 
@@ -223,6 +237,10 @@ h6{ }
 .pagination-new li.active a{
     color:#444444;
     text-decoration: none;
+}
+
+.pagination-new a{
+    text-decoration: underline;
 }
 
 .filter .title{
@@ -274,17 +292,16 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#555;
+    color: #262626;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
-    font-size:12px
+    font-size:13px
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
     /*color:#555;*/
     background-position:2px -48px;
     text-decoration:underline;
-    font-size:12px;
     /*color:#00acd4;*/
 }
 
@@ -322,13 +339,15 @@ body{
     width: 1024px;
     height: 140px;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
-    text-align: right;
-    margin-top: 15px;
+    height: 106px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #footer .wrapper{
@@ -455,16 +474,20 @@ body{
 }
 
 .nav li:hover{
-    background-color: #b12936;
+    /*background-color: #b12936;*/
 }
 
 div#DDmenu{
     position: absolute;
-    background-color: #b12936;
+    /*background-color: #b12936;*/
+    background-color: #fff;
     display: none;
     z-index: 100;
     padding-bottom: 20px;
     min-width: 227px;
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    top: 191px;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -477,10 +500,12 @@ div#DDmenu li{
 
 div#DDmenu li a{
     padding:3px 20px;
+    color: #000;
 }
 
 div#DDmenu li a:hover{
-    text-decoration: underline;
+    /*text-decoration: underline;*/
+    color: #007DB6;
 }
 
 .liveChat{
@@ -492,12 +517,18 @@ div#DDmenu li a:hover{
 #header .wrapper .utilNav li{
     float: left;
     margin-left: 10px;
+    text-transform: uppercase;
+    font-size: 13px;    
+}
+
+#header .wrapper .utilNav li a{
+    color: #262626;
+    text-decoration: none;
 }
 
 .utilNav ul{
-    float: right;
+    /*float: right;*/
 }
-
 
 /****footer nav****/
 
@@ -514,7 +545,7 @@ div#DDmenu li a:hover{
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    text-transform: initial !important;
 }
 
 .cartbutton{
@@ -708,50 +739,43 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
+    background-color: #D6D5D5;
     /*border:1px solid #777;*/
-    color:#000;
+    color:#007DB6;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
-    min-width: 130px;
+    min-width: 150px;
+    text-transform: uppercase;    
+    font-weight: bold;
 }
 
 .btn:hover{
-    background-color: #fff;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #E3E1E1;
+    color: #00AAE7;
 } 
 
 .btn-primary{
-    background-color: #84010F;
+    background-color: #F58021;
     /*border:1px solid #777;*/
     color:#FFF;
     font-weight: bold;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
-    min-width: 130px;
+    min-width: 150px;
+    text-transform: uppercase;    
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #FF8421;
+    color: #fff;
 }
 
 .gift-btn {
@@ -1073,6 +1097,10 @@ td.ar{
     text-align: left;
 }
 
+#pageCategory .name a{
+    text-decoration: underline;
+}
+
 .sortView{
     background-color: #eaebec;
     padding: 3px 5px;
@@ -1110,7 +1138,7 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #444;
+    background: #F58021;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
@@ -2240,4 +2268,29 @@ div#DDmenu a::after{
     font-size: 28px;
     text-transform: uppercase;
     color: #262626;
+}
+
+#searchForm input#key::placeholder{
+    color: #262626;
+}
+
+.utilNav{
+/*    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 106px;    */
+}
+
+.miniUL{
+    float: right;
+    margin-top: 60px;
+}
+
+#pageCategory .price{
+    font-weight: bold;
+}
+
+.desc a{
+    color: #007DB6 !important;
 }
