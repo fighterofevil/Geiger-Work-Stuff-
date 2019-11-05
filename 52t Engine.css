@@ -476,7 +476,7 @@ div#DDmenu{
     display: none;
     z-index: 100;
     padding-bottom: 20px;
-    min-width: 227px;
+    min-width: 155px;
     box-shadow: -1px 7px 6px 0px rgba(0,0,0,0.18);
     text-align: left;
 }
@@ -487,6 +487,7 @@ li.productCategories:hover div#DDmenu{
 
 div#DDmenu li{
     float:none;
+    margin-top: 10px;
 }
 
 div#DDmenu li a{
