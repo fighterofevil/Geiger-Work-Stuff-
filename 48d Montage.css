@@ -132,7 +132,7 @@ body{
 
 p{ 
     margin-bottom: 15px;
-
+    line-height: 1.5em;
 }
 
 p .pageItem{
@@ -172,7 +172,7 @@ a:hover{
 
 .nav a{
     color: #ffffff;
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     line-height: 45px;
     padding: 10px 20px;
@@ -191,15 +191,16 @@ div#DDmenu li a:hover{
 }
 
 div#DDmenu a{
-    font-size: 18px;
+    font-size: 14px;
     line-height: 28px;
     display: block;
     text-shadow: initial;
+    border: 1px solid #d7d7d7;
 }
 
 h1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 28px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
@@ -214,7 +215,7 @@ h1{
 }
 
 h2{ 
-    font-size:22px;
+    font-size:21px;
     color:#424242;
     font-weight:bold;
     margin-bottom: 15px;
@@ -229,6 +230,7 @@ h6{ }
     font-size: 14px;
     color: #007DB6;
     margin-bottom: 20px;
+    text-decoration: none;
 }
 
 .image .price-box{
@@ -338,7 +340,7 @@ body{
 
 #header{
     width: 1024px;
-    height: 140px;
+    height: 133px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -484,11 +486,11 @@ div#DDmenu{
     background-color: #fff;
     display: none;
     z-index: 100;
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     min-width: 227px;
     border: 1px solid #D7D7D7;
     box-sizing: border-box;
-    top: 191px;
+    top: 183px;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -638,7 +640,7 @@ table {
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
     background:#eaebec;
-    margin:20px;
+    margin:20px 0 20px 0;
     border:#ccc 1px solid;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -752,6 +754,7 @@ tfoot tr td{
     min-width: 150px;
     text-transform: uppercase;    
     font-weight: bold;
+    border: 0px;
 }
 
 .btn:hover{
@@ -771,7 +774,8 @@ tfoot tr td{
     justify-content: center;    
     height: 40px;
     min-width: 150px;
-    text-transform: uppercase;    
+    text-transform: uppercase;   
+    border: 0px;
 }
 
 .btn-primary:hover{
@@ -799,7 +803,7 @@ tfoot tr td{
 }
 
 .welcome-message{
-    width: 500px;
+    width: 490px;
     font-size: 15px;
     line-height: 27px;
 }
@@ -1023,7 +1027,7 @@ a.forgotPassword{
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
     background:#eaebec;
-    margin:0px 20px 20px 20px;
+    margin:20px 20px 20px 20px;
     border:#ccc 1px solid;
     padding: 15px;
     width: 425px;
@@ -1090,12 +1094,13 @@ td.ar{
 }
 
 #pageCategory .text, #pageSearchResults .text{
-    min-height: 72px;
+    min-height: 85px;
     line-height: 17px;
 }    
 
 #pageCategory .name{
     text-align: left;
+    line-height: 1.5em;
 }
 
 #pageCategory .name a{
@@ -1106,7 +1111,10 @@ td.ar{
     background-color: #eaebec;
     padding: 3px 5px;
     border: 1px solid #ccc;
-    margin: 10px 0px 20px 0px;
+    margin: 10px 0px 20px 0px;    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;    
 }
 
 .active-filters{
@@ -1148,7 +1156,7 @@ td.ar{
 
 .pagination-new {
     float: left;
-    width: 700px;
+    width: 780px;
 }
 
 .view-all {
@@ -1427,9 +1435,11 @@ ul.radios-list li label{
 }
 
 .address-options {
-text-align: right;
-margin: -5px 0 8px;
-float: right;
+    text-align: right;
+    margin: -5px 0 8px;
+    float: right;
+    display: flex;
+    justify-content: space-between;    
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
@@ -1442,6 +1452,7 @@ float: right;
     -moz-box-shadow: 0 1px 2px #d1d1d1;
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
     box-shadow: 0 1px 2px #d1d1d1;
+    margin-top: 28px;
 }
 
 .select-single li {
@@ -2266,7 +2277,7 @@ div#DDmenu a::after{
 }
 
 .featured-product-carousel h2{
-    font-size: 28px;
+    font-size: 21px;
     text-transform: uppercase;
     color: #262626;
 }
@@ -2294,4 +2305,48 @@ div#DDmenu a::after{
 
 .desc a{
     color: #007DB6 !important;
+}
+
+#pageCategoryStatic .page{
+    width: 700px;
+}
+
+.ship-to-multiple, #singleAddy{
+    margin-right: 20px;
+}
+
+#singleAddy{
+    padding-right: 10px;
+    padding-left: 10px;    
+}
+
+#instock_msg{
+    width: 650px !important;
+}
+
+#pageCheckoutComplete #page-messages{
+    width: 715px;
+}
+
+.wishButtons, .wishButtonPair{
+    display: flex;
+    justify-content: space-between;
+}
+
+.wishButtonPair{
+    width: 320px;
+}
+
+#pageForgottenPassword .btn-primary{
+    margin-top: 10px;
+}
+
+
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+
+    div#DDmenu a{
+        text-shadow: 0px 0px 0px;
+    }
+
 }
