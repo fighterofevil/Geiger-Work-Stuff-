@@ -755,6 +755,7 @@ tfoot tr td{
     text-transform: uppercase;    
     font-weight: bold;
     border: 0px;
+    font-size: 14px;
 }
 
 .btn:hover{
@@ -776,6 +777,7 @@ tfoot tr td{
     min-width: 150px;
     text-transform: uppercase;   
     border: 0px;
+    font-size: 14px;    
 }
 
 .btn-primary:hover{
@@ -2349,4 +2351,8 @@ div#DDmenu a::after{
         text-shadow: 0px 0px 0px;
     }
 
+}
+
+#continueShopBtn{
+    margin-top: 10px;
 }
