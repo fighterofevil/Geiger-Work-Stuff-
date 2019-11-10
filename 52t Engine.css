@@ -2326,3 +2326,7 @@ div#DDmenu a::after{
 .wishButtonPair{
     width: 370px;
 }
+
+#continueShopBtn{
+    margin-top: 10px;
+}
