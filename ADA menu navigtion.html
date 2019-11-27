@@ -99,13 +99,14 @@
                 
                 if(liSelected){
                 
-                    -->>> you are here kevin <<<----    
-
+                    ## removes classes and focus from currently selected object                     
                     liSelected.removeClass('activeLi');
                     jQuery(liSelected).find("a").removeClass("adaNavLink");                                    
                     jQuery(liSelected).find("a").removeAttr("tabindex");
                     
                     next = liSelected.next();
+
+                    ## add classes to selected object 
                     if(next.length > 0){
                         liSelected = next.addClass('activeLi');                        
                         jQuery(liSelected).find("a").addClass("adaNavLink");
@@ -124,17 +125,20 @@
             }else if(e.which === 38){
 
                 ## console.log("in keyup function");
+
                 ## prevents scrolling of page on keypress events 
                 e.preventDefault();
                 
                 if(liSelected){
+
+                    ## removes classes and focus from currently selected object 
                     liSelected.removeClass('activeLi');
-                    jQuery(liSelected).find("a").removeClass("adaNavLink");
-                    
-                    ## jQuery(liSelected).removeAttr("tabindex");
+                    jQuery(liSelected).find("a").removeClass("adaNavLink");                    
                     jQuery(liSelected).find("a").removeAttr("tabindex");
                     
                     next = liSelected.prev();
+
+                    ## add classes to selected object 
                     if(next.length > 0){
                         liSelected = next.addClass('activeLi');
                         jQuery(liSelected).find("a").addClass("adaNavLink");
@@ -146,43 +150,38 @@
                     liSelected = li.last().addClass('activeLi');
                     jQuery(liSelected).find("a").addClass("adaNavLink");
                 }
-                ## jQuery(liSelected).attr("tabindex",-1).focus();
-                jQuery(liSelected).find("a").attr("tabindex",-1).focus();;
                 
-                console.log("after the tabindex assigned "+liSelected);
+                ## gives focus to selected link 
+                jQuery(liSelected).find("a").attr("tabindex",-1).focus();;               
             }
 
         }
         else{
-            console.log("menu is closed");
+            ## console.log("menu is closed");
         }
          
     });    
     
-    document.onclick = popMessage;
+    document.onclick = mouseClickNavMenu;
     
-    function popMessage(){
-        console.log("hey you clicked the mouse");
+    function mouseClickNavMenu(){
+        
+        ## console.log("hey you clicked the mouse");
         
         
-        var testfocusedElement = document.activeElement;
-        ## var inputTypes = ['input', 'select', 'button', 'textarea'];
-
-        console.log("test focused element")
-        console.log(testfocusedElement);
+        var newfocusedElement = document.activeElement;
     
-        if (testfocusedElement && inputTypes.indexOf(testfocusedElement.tagName.toLowerCase()) !== -1) {
-            console.log("This is an input");
+        if (newfocusedElement && inputTypes.indexOf(newfocusedElement.tagName.toLowerCase()) !== -1) {
+            ## console.log("This is an input");
         }
         else{
-            console.log("This is not an input");
-            
-            ## jQuery('#DDmenu').css("display","none");
-            
+            ## console.log("This is not an input");            
+
+            ## removes simulated hover state and focus for drop down navigation and menu elements. 
             jQuery('#DDmenu').removeAttr( 'style' );
             jQuery('#DDmenu').blur();
             jQuery('.productCategories').removeClass("adaNav");               
         }        
     }
-
+    
 </script>
