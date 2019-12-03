@@ -3,6 +3,7 @@
     var liSelected;
     
     var inputTypes = ['input', 'select', 'button', 'textarea'];
+    // var focusedElement = document.activeElement;
     
     jQuery(window).keydown(function(e){        
         
@@ -14,7 +15,7 @@
 
         ## original location for keydown/keyup        
         
-        ## fires if Enter key is pressed and if focseded element on the page is not an input field defined in inputTypes
+        ## fires if Enter key is pressed and if focused element on the page is not an input field defined in inputTypes
 
         if ( (e.which == 13) && (focusedElement && inputTypes.indexOf(focusedElement.tagName.toLowerCase()) == -1) ) { // enter
             
@@ -59,31 +60,12 @@
          ## fires if Esc key is pressed. 
 
          if (e.which == 27){
-            ## console.log("esc key");            
+            ## console.log("esc key");                      
 
-            ## removes simulated hover state and focus for drop down navigation and menu elements. 
-            
-            jQuery('.productCategories').removeClass("adaNav");
-            jQuery('.activeLi').removeClass('activeLi');
-            jQuery('.adaNavLink').removeClass('adaNavLink');                               
-            jQuery('#DDmenu').removeAttr( 'style' );
-            jQuery('#DDmenu').blur();
-            
-            ## resets tracking of location of selected element in drop down navigation
-            
-            ## console.log(liSelected);
-
-            liSelected = undefined;
-
-            ## console.log("reset li");
-            ## console.log(liSelected);            
-
-            jQuery(liSelected).find("a").removeAttr("tabindex");
-            liSelected.removeClass('activeLi');            
-            next = liSelected.eq(0);            
+            resetAllTheThings();
          }
          
-        ## checks to see if dropd own menu has been opened, if so, then allow tracking of keyup/keydown events. 
+        ## checks to see if drop down menu has been opened, if so, then allow tracking of keyup/keydown events. 
         ## note activeLi is a class used to help keep track of which LI element is currently selected. There is no CSS for this class. 
 
         if(jQuery(".productCategories").hasClass("adaNav")){
@@ -166,8 +148,7 @@
     
     function mouseClickNavMenu(){
         
-        ## console.log("hey you clicked the mouse");
-        
+        ## console.log("hey you clicked the mouse");        
         
         var newfocusedElement = document.activeElement;
     
@@ -177,11 +158,26 @@
         else{
             ## console.log("This is not an input");            
 
-            ## removes simulated hover state and focus for drop down navigation and menu elements. 
-            jQuery('#DDmenu').removeAttr( 'style' );
-            jQuery('#DDmenu').blur();
-            jQuery('.productCategories').removeClass("adaNav");               
+            resetAllTheThings();
         }        
     }
     
+    ## function resetAllTheThings strips out all simulated hover states and tracked elements when Esc key or mouseClick is detected 
+
+    function resetAllTheThings(){
+        jQuery('#DDmenu').removeAttr( 'style' );
+        jQuery('#DDmenu').blur();              
+        jQuery('.productCategories').removeClass("adaNav");
+        jQuery('.activeLi').removeClass('activeLi');
+        jQuery('.adaNavLink').removeClass('adaNavLink');                                           
+        jQuery(liSelected).find("a").removeAttr("tabindex");
+            
+
+        ## resets tracking of location of selected element in drop down navigation         
+
+        next = liSelected.eq(0);   
+        liSelected = undefined;                 
+
+        document.activeElement.blur();         
+    }
 </script>
