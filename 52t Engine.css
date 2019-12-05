@@ -485,6 +485,10 @@ li.productCategories:hover div#DDmenu{
     display: block;
 }
 
+/*.productCategories a:first-child:hover{
+    cursor: default;
+}
+*/
 div#DDmenu li{
     float:none;
     margin-top: 10px;
@@ -849,7 +853,7 @@ tfoot tr td{
     float:left;
     width:600px;
     padding-left:10px;
-    height: 180px;
+    height: 190px;
 }   
 
 .featured-product-carousel .prev{
