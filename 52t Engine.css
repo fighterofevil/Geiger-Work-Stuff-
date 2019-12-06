@@ -2334,3 +2334,7 @@ div#DDmenu a::after{
 #continueShopBtn{
     margin-top: 10px;
 }
+
+#pageForgottenPassword .btn-primary{
+    margin-top: 10px;
+}
