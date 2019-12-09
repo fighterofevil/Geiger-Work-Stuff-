@@ -2105,6 +2105,16 @@ input#cvv{
     color: #231F20;
 }
 
+/* fix for IE 11 psuedo-element hover issue*/
+
+.productCategories a:hover::after{
+     text-decoration: underline;
+}
+.productCategories a:hover::after{
+     text-decoration: none;
+}
+
+
 div#DDmenu a::after{
     content:'';
 }
