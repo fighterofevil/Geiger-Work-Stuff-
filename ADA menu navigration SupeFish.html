@@ -76,7 +76,7 @@
 
             if(e.which === 40){
                 
-                ## console.log("in keydown function");
+                console.log("in keydown function");
 
                 ## prevents scrolling of page on keypress events 
                 e.preventDefault();
@@ -92,14 +92,20 @@
 
                     ## add classes to selected object 
                     if(next.length > 0){
-                        liSelected = next.addClass('activeLi');                        
+                        liSelected = next.addClass('activeLi');  
+                        console.log(liSelected);                      
                         jQuery(liSelected).find("a").addClass("adaNavLink");
                     }else{
                         liSelected = li.eq(0).addClass('activeLi');    
+                        console.log(liSelected);
+                        console.log("at 0 position");
                         jQuery(liSelected).find("a").addClass("adaNavLink");
                     }
                 }else{
                     liSelected = li.eq(0).addClass('activeLi');                    
+                    console.log(liSelected);
+                    console.log("if liSelected didn't exist");
+                    console.log(jQuery(liSelected).html());
                     jQuery(liSelected).find("a").addClass("adaNavLink");
                 }             
                 
@@ -136,16 +142,24 @@
                 }
                 
                 ## gives focus to selected link 
-                jQuery(liSelected).find("a").attr("tabindex",-1).focus();;               
+                jQuery(liSelected).find("a").attr("tabindex",-1).focus();              
             }
             else if(e.which === 39){
                 console.log("in key right function");
+                // console.log(jQuery(this).index());
 
                 ## prevents scrolling of page on keypress events 
                 e.preventDefault();                
 
                 ## checks to see if there are any children to the currently selected li [ meaning there is a submenu]
                 if (jQuery(liSelected).children("ul").length) {
+                    // outputs how many children there are (li) in the ul
+                    console.log(jQuery(liSelected).children("ul").children().length);
+
+                    // li=jQuery(liSelected).children("ul");
+
+                    console.log(li);
+
                     console.log(liSelected);
                     console.log("yes it does. ");
 
@@ -154,9 +168,9 @@
                     jQuery(liSelected).find("a").removeAttr("tabindex");
 
                     ##simulate hover event for child menu
-                    jQuery(liSelected).children("ul").css("display","block");
-                    jQuery(liSelected).children("ul").find("a").addClass("adaNavLink");
-                    jQuery(liSelected).children("ul").find("a").attr("tabindex",-1).focus();;     
+                    // jQuery(liSelected).children("ul").css("display","block");
+                    // jQuery(liSelected).children("ul").find("a").addClass("adaNavLink");
+                    // jQuery(liSelected).children("ul").find("a").attr("tabindex",-1).focus();;     
 
                 }
                 else{
@@ -165,12 +179,27 @@
                 }
             }  
             else if(e.which === 37){
+                console.log(liSelected);
                 console.log("in key left function");
+                // console.log(jQuery(this).index());
+
+                
+                if (this.previousSibling == null)
+                {
+                    /* do something */
+                    console.log("at the last element");
+                }
 
                 ## prevents scrolling of page on keypress events 
                 e.preventDefault();        
 
                 ## need to move up to parent     
+
+                ##remove hover events from parent item
+                jQuery(liSelected).find("a").removeClass("adaNavLink");                    
+                jQuery(liSelected).find("a").removeAttr("tabindex");
+
+                // console.log(liSelected.parentElement);
 
             } 
         } 
