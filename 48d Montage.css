@@ -145,12 +145,12 @@ p .pageItem{
 }
 
 a{ 
-    color:#007DB6;
+    color: #007DB6;
     text-decoration: underline;
 }
 
 a:hover{
-    color: #00AAE7;
+    color: #1B245F;
 }
 
 #footer{
@@ -519,7 +519,7 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 20px;
     text-transform: uppercase;
     font-size: 13px;    
 }
@@ -527,6 +527,10 @@ div#DDmenu li a:hover{
 #header .wrapper .utilNav li a{
     color: #262626;
     text-decoration: none;
+}
+
+#header .wrapper .utilNav li a:hover{
+    text-decoration: underline;
 }
 
 .utilNav ul{
@@ -742,9 +746,9 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #D6D5D5;
+    background-color: #E3E1E1;
     /*border:1px solid #777;*/
-    color:#007DB6;
+    color: #1B245F;
     /*padding: 5px 10px;*/
     cursor: pointer;
     display: flex;
@@ -759,12 +763,12 @@ tfoot tr td{
 }
 
 .btn:hover{
-    background-color: #E3E1E1;
-    color: #00AAE7;
+    background-color: #D6D5D5;
+    color: #101849;
 } 
 
 .btn-primary{
-    background-color: #F58021;
+    background-color: #B80C4B;
     /*border:1px solid #777;*/
     color:#FFF;
     font-weight: bold;
@@ -781,7 +785,7 @@ tfoot tr td{
 }
 
 .btn-primary:hover{
-    background-color: #FF8421;
+    background-color: #8F0638;
     color: #fff;
 }
 
@@ -872,8 +876,8 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item{
-    width:155px;
-    height:155px;
+    width:150px;
+    height:150px;
     float:left;
     display:table-cell;
     vertical-align:middle;
@@ -881,13 +885,13 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item img{
-    max-height:155px;
-    max-width:155px;
+    max-height:150px;
+    max-width:150px;
 }
 
 .featured-product-carousel .item a{
-    width:155px;
-    height:155px;
+    width:150px;
+    height:150px;
     display:table-cell;
     vertical-align:middle;
     text-align:center;
@@ -1149,7 +1153,7 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #F58021;
+    background: #B80C4B;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
@@ -1186,6 +1190,7 @@ a.view-all{
 .btn.wishlist{
     /*display: block;*/
     margin-top: 5px;
+    text-decoration: none;
 }
 
 /****Item Page****/
@@ -2355,4 +2360,8 @@ div#DDmenu a::after{
 
 #continueShopBtn{
     margin-top: 10px;
+}
+
+.flexEnd{
+    justify-content: flex-end !important;
 }
