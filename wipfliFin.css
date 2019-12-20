@@ -2438,9 +2438,9 @@ input#cvv{
     display: none;
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
-   /* IE10+ specific styles go here */  
-
+@media all and (-ms-high-contrast: none),   
+(-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */
     #pageLanding .spotlightWrapper{
         background: none;
     }
