@@ -294,12 +294,12 @@ li.welcomemsg {
 }
 
 #footer marketing {
-    color: #fff !important;
-    font-weight: bold !important;
+/*    color: #fff !important;
     font-size: 24px !important;
     display: inline;
     margin-left: 340px;
-    width: 100%;
+    width: 100%;*/
+    font-weight: bold !important;    
 }
 
 #portalContent {
@@ -862,6 +862,9 @@ body{
     padding:15px 15px;
     width: 1076px;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;    
 }
 
 #footer .wrapper p {
