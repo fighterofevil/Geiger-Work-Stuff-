@@ -358,7 +358,7 @@ body{
 
 #footer .wrapper p{
     position: relative;
-    right: 220px;
+    right: 160px;
     padding-top: 3px;
 }
 
@@ -1169,6 +1169,41 @@ a.view-all{
 .btn.wishlist{
     display: block;
     margin-top: 5px;
+}
+
+#holidaylinks .page {
+    width: 960px;
+}
+
+#holidaytext {
+    width: 650px;
+    margin: 0 auto;
+}
+
+#holidaytext span {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+#holidaytext p {
+    line-height: 20px;
+    margin-bottom: 50px;
+}
+
+#holidaycatlist li {
+    display: inline;
+    width: 300px;
+    height: 275px;
+    float: left;
+    text-align: center;
+    font-size: 17px;
+    line-height: 29px;
+    font-weight: bold;
+}
+
+#holidaycatlist img {
+    height: 270px;
 }
 
 /****Item Page****/
@@ -2055,7 +2090,8 @@ input#cvv{
 }
 
 .banner1{
-    background: url("../images/banner1.jpg") no-repeat scroll left top transparent;
+    /* background: url("../images/banner1.jpg") no-repeat scroll left top transparent; */
+    background: url("../images/Holiday_Banner19.jpg") no-repeat scroll left top transparent;
     width: 485px;
     height: 225px;
 }
