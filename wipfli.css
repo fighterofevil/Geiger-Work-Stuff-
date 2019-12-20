@@ -2260,7 +2260,7 @@ input#cvv{
     text-decoration: underline;
 }
 
-#pageLanding #footer ul{
+#pageLanding #footer li.notNewPrivacyAndTerms{
     display: none;
 }
 
@@ -2484,3 +2484,4 @@ input#cvv{
 #scriptQuestionDiv{
     display: none;
 }
+
