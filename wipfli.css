@@ -420,11 +420,11 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/wipfli-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/Wipfli_white.png") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 43px;
-    width: 214px;
+    height: 33px;
+    width: 222px;
     top: 61px;
     position: relative;
 }
@@ -2290,9 +2290,9 @@ input#cvv{
 }
 
 .logo1{
-    background: url("../images/wipfli-logo.png") no-repeat scroll left top transparent;
-    height: 43px;
-    width: 214px;    
+    background: url("../images/Wipfli_white.png") no-repeat scroll left top transparent;
+    height: 33px;
+    width: 222px;    
     position: relative;
     top: 18px;    
 }
@@ -2323,10 +2323,10 @@ input#cvv{
 }
 
 .merch{
-    background: url("../images/wipfli-logo-land.png") no-repeat scroll left top transparent;
+    background: url("../images/wipfli-white-landing.png") no-repeat scroll left top transparent;
     position: relative;
     background-position-x: 50%; 
-    background-position-y: 12px;  
+    background-position-y: 16px; 
 }
 
 .finAdv{
@@ -2484,5 +2484,3 @@ input#cvv{
 #scriptQuestionDiv{
     display: none;
 }
-
-/*test*/
