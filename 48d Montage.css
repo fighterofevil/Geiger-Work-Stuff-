@@ -496,6 +496,11 @@ div#DDmenu{
 
 li.productCategories:hover div#DDmenu{
     display: block;
+    cursor: default;
+}
+
+.productCategoriesA:hover{
+    cursor: default;
 }
 
 div#DDmenu li{
@@ -536,6 +541,11 @@ div#DDmenu li a:hover{
 
 .utilNav ul{
     /*float: right;*/
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 30px;
+    flex-wrap: wrap;    
 }
 
 /****footer nav****/
@@ -2295,11 +2305,9 @@ div#DDmenu a::after{
 }
 
 .utilNav{
-/*    display: flex;
+    display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
-    width: 500px;
-    height: 106px;    */
 }
 
 .miniUL{
