@@ -388,6 +388,7 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 
 #footer .wrapper p{
     clear:both;
+    margin-right: 20px;    
 }
 
 .progressivecurve {
@@ -679,7 +680,7 @@ div#DDmenu li a:hover{
     position: relative;
     text-align: right;
     width: 1024px;
-    z-index: 99;
+    z-index: 99;  
 }
 
 /****Mini Cart****/
@@ -2467,4 +2468,9 @@ display:none !important;
 
 .KEBoxContent {
     padding: 10px;
+}
+
+.termsAndPrivacy{
+    display: flex;
+    justify-content: flex-end;    
 }
