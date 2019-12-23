@@ -345,8 +345,8 @@ a{
     0.75rem 0.75rem, 0.75rem 0.75rem;
     background-repeat: repeat-x;*/
 
-    padding-top: 1px;
-    margin-top: -1px; 
+/*    padding-top: 1px;
+    margin-top: -1px; */
     background-image: /* Bottom jagged */ linear-gradient(135deg, #fff 50%, transparent 50%), linear-gradient(-135deg, #fff 51%, transparent 50%);
     background-position: /* Bottom jagged */ top right, top right;
     background-size: 25px 25px;
@@ -359,7 +359,8 @@ a{
     float: right;
     /* margin-top: 20px; */
     position: relative;
-    top: 35px;
+    /*top: 35px;*/
+    margin-left: 20px;
 }
 
 .nav a {
@@ -609,13 +610,16 @@ body{
     width: 1024px;
     margin: 0 auto;
     font-size: 16px;
-    padding: 0 10px;
+    padding: 20px 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
 }
 
 #footer .wrapper p{
     clear:both;
     float: left;
-    margin-top: 17px;
+    /*margin-top: 17px;*/
 }
 
 .repInfo {
@@ -804,12 +808,12 @@ div#DDmenu li a:hover{
 
 #footer ul li{
     display: inline;
-    padding:0px 10px;
+    /*padding:0px 10px;*/
 }
 
 #footer ul{
-    width: 380px;
-    float: right;
+/*    width: 380px;
+    float: right;*/
 }
 
 /****Mini Cart****/
