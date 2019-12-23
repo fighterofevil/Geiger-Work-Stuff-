@@ -864,15 +864,14 @@ body{
 }
 
 #footer marketing {
-    color: #fff !important;
-    font-weight: bold !important;
+    /*    color: #fff !important;
     font-size: 24px !important;
-   
-display: inline; 
-    margin-left: 50px; 
-    width: 100%; 
-    width: 121px;
+    display: inline;
+    margin-left: 340px;
+    width: 100%;*/
+    font-weight: bold !important;    
 }
+
 
 #footer .wrapper{
     box-sizing: border-box;
