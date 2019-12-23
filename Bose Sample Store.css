@@ -318,6 +318,9 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     height: 35px;
     margin: 0 auto;
     width: 930px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
 }
 
 #footer .wrapper p{
@@ -670,23 +673,23 @@ li.welcomemsg {
 }
 
 #footleft {
-    width: 150px;
+    /*width: 150px;*/
     line-height: 35px;
-    float:left;
+    /*float:left;*/
 }
 
 #footright {
-    float: right;
+/*    float: right;
     text-align: right;
-    width: 150px;
+    width: 150px;*/
     line-height: 35px;
 }
 
 #footmiddle {
     float: left;
     margin: 0 auto;
-    text-align: center;
-    width: 630px;
+    /*text-align: center;*/
+    /*width: 630px;*/
     line-height: 35px;
 }
 
