@@ -100,7 +100,7 @@ strong{
 
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 body{
-    color:#444444;
+    color:#37424a;
     font-family: noto-sans, sans-serif;
     font-size: 14px;
     line-height: 18px;
@@ -146,7 +146,7 @@ a:hover{
 }
 
 .nav a:hover{
-    color: #00a6cf;
+    color: #2c6ef2;
     
 }
 
@@ -167,6 +167,10 @@ div#DDmenu a{
 
 }
 
+.utilNav a:hover{
+    color: #2c6ef2;
+}
+
  .mini-cart a{
     color:#FFF;
     text-decoration: none;
@@ -182,12 +186,13 @@ div#DDmenu a{
 
 h1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 30px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
-    color: #00B0D3;
+    color: #000;
     font-family: oswald, sans-serif;
+    text-transform: uppercase;
 }
 #pageHome h1{
     /*text-align: center;*/
@@ -210,14 +215,11 @@ h2{
 }
 
 #pageHome h2{
-/*    width: 1024px;
-    margin: 0 auto;*/
     margin-bottom: 0px;
-/*    padding: 15px;*/
     color: #fff;
     font-size: 16px;
     padding-left: 33px;
-
+    font-family: noto-sans, sans-serif;       
 }
 
 h3{ font-family: oswald, sans-serif;}
@@ -226,7 +228,7 @@ h5{ font-family: oswald, sans-serif;}
 h6{ font-family: oswald, sans-serif;}
 .bCrumbs, .bCrumbs a{
     font-size: 12px;
-    color:#777;
+    color:#37424a;
 }
 .image .price-box{
     color:#fff;
@@ -256,9 +258,10 @@ label, .label {
 } 
 
 .sidebar .title{
-font-weight: bold;
-font-size: 20px;
-margin-top:10px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top:10px;
+    margin-bottom:4px;
 }
 
 
@@ -279,17 +282,20 @@ body{
     text-align: left;
     width: 1024px;
     min-height: 787px;
+    padding-top: 30px;
+
 }
 
 #pageHome #container{
     min-height: 580px;
+    padding-top: 0px;
 
 }
 
 #content{
     z-index: 1;
     clear: both;
-    padding: 15px 20px;
+    padding: 20px 15px 50px 15px;
 }
 
 #pageHome #content{
@@ -300,7 +306,7 @@ body{
 #header{
     /*width: 1024px;*/
     height: 135px;
-    border-bottom: 3px solid #e6e6e6;    
+    border-bottom: 1px solid #e6e6e6;    
 }
 
 .superWrapper{
@@ -439,6 +445,8 @@ body{
     height: 23px;
     /*margin-bottom: 15px;*/
     width: 700px;
+    position: relative;
+    bottom: 15px;    
 }
 .nav{
     margin: 0;
@@ -450,7 +458,7 @@ body{
 
 .nav li{
     float:left;
-    margin-left: 39px;
+    margin-left: 42px;
     /*padding: 0px 19px;*/
     /*border-left: 1px solid #00b0d3;*/
 }
@@ -464,9 +472,11 @@ div#DDmenu{
     background-color: #000;
     display: none;
     z-index: 100;
-    padding-bottom: 20px;
+    padding-top: 15px;    
+    padding-bottom: 15px;
     min-width: 254px;
-    top: 135px;
+    /*top: 135px;*/
+    right: 80px;
 
 }
 li.productCategories:hover div#DDmenu{
@@ -477,14 +487,17 @@ li.productCategories:hover div#DDmenu{
 div#DDmenu li{
     float:none;
     border-left: none;
+    margin-left: 25px;
 }
 div#DDmenu li a{
     padding: 3px 0px;
     color: #fff;
+    font-size: 14px;
+    line-height: 24px;    
 }
 div#DDmenu li a:hover{
     text-decoration:none;
-    color: #2661D5;
+    color: #2661D5;    
      
 }
 
@@ -606,8 +619,8 @@ table a:visited {
 }
 table a:active,
 table a:hover {
-    color: #bd5a35;
-    text-decoration:underline;
+    color: #2661D5;
+    /*text-decoration:underline;*/
 }
 table {
     font-family: noto-sans, sans-serif;
@@ -615,7 +628,7 @@ table {
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
-    margin: 20px 0px 20px 0px;
+    margin: 0px 0px 20px 0px;
     border:#ccc 1px solid;
 
     -moz-border-radius:3px;
@@ -706,11 +719,13 @@ tfoot tr td{
 .btn {
     background-color: #E7E7E7;
     color:#000;
-    padding: 5px 10px;
+    padding: 5px 15px;
     cursor: pointer;
     border:0px;
     display: flex;
-    align-items: center;    
+    align-items: center;  
+    height: 40px;
+
 }
 .btn:hover{
     background-color: #D9D9D9;
@@ -719,12 +734,13 @@ tfoot tr td{
 .btn-primary{
     background-color: #2C6EF2;
     color:#FFF;
-    padding: 5px 10px;
+    padding: 5px 15px;
     cursor: pointer;
     font-size: 14px;
     border:0px;
     display: flex;
-    align-items: center;    
+    align-items: center;   
+    height: 40px 
 }
 .btn-primary:hover{
     background-color: #2661D5;
@@ -746,12 +762,8 @@ tfoot tr td{
 
 
 .welcome-message{
-    /*background: url(../images/bkg.png) repeat; */
-    /* padding: 7px; */
-    /* width: 450px; */
-    /* border: 3px solid #999; */    
     position: absolute;
-    top: 50px;
+    top: 35px;
     left: 59px;
     color: #fff;
     font-size: 12.5px;
@@ -760,7 +772,7 @@ tfoot tr td{
 }
 
 .welcome-message p{
-    width: 406px;
+    width: 410px;
 }
 
 
@@ -973,7 +985,7 @@ a.forgotPassword{
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
-    margin:0px 20px 20px 20px;
+    margin:10px 20px 20px 20px;
     border:#ccc 1px solid;
 
 
@@ -988,7 +1000,7 @@ a.forgotPassword{
 }
 
 #pageMyAccount form.myAccountForm .f-buttons{
-    margin-top: 15px;
+    margin-top: 25px;
 }
 
 #pageMyAccount form.myAccountForm .f-row{
@@ -1254,7 +1266,7 @@ ul.radios-list li label{
   background-image: url(../images/bg/checkout_sprite.png);
   background-position: 103% 0;
   background-repeat: no-repeat;
-  margin: 30px 0;
+  margin: 30px 0px 50px 0px;
 }
 .co-breadcrumb li.active{
     font-weight: bold;
@@ -1605,7 +1617,8 @@ input#cvv{
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
         background:#eaebec;
-        margin:20px;
+        margin: 20px 20px 30px 20px;
+
         border:#ccc 1px solid;
 
         -moz-border-radius:3px;
@@ -1670,8 +1683,13 @@ input#cvv{
 }
 
 .warningText{
-    color: #FC9801;
+    color: red;
     font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#new-address-modal .warningText{
+    margin-top: 10px;
 }
 .message.success{
     padding: 5px 10px;
@@ -1888,3 +1906,55 @@ div#DDmenu li a::after{
 }
 
 
+.info_needed{
+    margin-bottom: 10px;
+}
+
+#pageMyAccount h2{
+    font-family: noto-sans, sans-serif;
+    font-size: 21px;
+    font-weight:700;
+    color:#37424a;    
+}
+
+
+#pageCheckoutComplete .alert-success, #pageCheckoutReview #instock_msg{
+    width: 750px;
+    color: #37424a;
+    line-height: 1.5;
+}
+
+#pageBasket .basket-item-desc b{
+    font-weight: 400;
+}
+
+#pageBasket .basket-item-desc #continueShopBtn{
+    margin-top: 10px;
+}
+
+.companyInfo{
+    line-height: 1.5;    
+}
+
+.filter h3{
+    font-family: noto-sans, sans-serif;   
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+#recentlyViewed{
+    text-transform: uppercase;
+}
+
+#recentlyViewed li{
+    margin-bottom: 2px;
+}
+
+.welcomeMsgCustomOrder, .welcomeMsgCustomOrder:hover{
+    color: #fff;
+    text-decoration: none;
+}
+
+.searchGlass{
+    color: #000;
+}
