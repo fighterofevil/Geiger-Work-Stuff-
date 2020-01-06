@@ -820,6 +820,7 @@ tfoot tr td{
     background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;
     height: 400px;
     background-size: cover;
+    background-position: center center;
 }
 
 /*Featured Products Carousel*/
@@ -2474,9 +2475,10 @@ div#DDmenu a::after{
 }
 
 .landingPageSpotlight{
-     background: url("../images/landing-img.png") no-repeat scroll left top transparent;
-     height: 77vh;
-     background-size: cover;
+    background: url("../images/landing-img.png") no-repeat scroll left top transparent;
+    height: 77vh;
+    background-size: cover;
+    background-position: center center;
 }
 
 .WrapperSpotlight{

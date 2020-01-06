@@ -806,6 +806,7 @@ tfoot tr td{
     background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;
     height: 400px;
     background-size: cover;
+    background-position: center center;
 }
 
 /*Featured Products Carousel*/
