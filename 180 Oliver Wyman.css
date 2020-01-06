@@ -343,16 +343,16 @@ body{
     height: 50px;
 }
 #footer .wrapper{ /* For IE8 and earlier */
-    padding:15px 15px;
+    /* padding: 15px 15px; */
     color: #fff;
- 
     width: 1024px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
 }
-#footer .wrapper p{
-    
-
-
+#footer .wrapper p{  
     float: right;
     margin-right: 35px;
 }
@@ -459,8 +459,7 @@ body{
 .nav li{
     float:left;
     margin-left: 42px;
-    /*padding: 0px 19px;*/
-    /*border-left: 1px solid #00b0d3;*/
+    height: 35px;
 }
 
 .nav li:first-child{
@@ -474,9 +473,9 @@ div#DDmenu{
     z-index: 100;
     padding-top: 15px;    
     padding-bottom: 15px;
-    min-width: 254px;
-    /*top: 135px;*/
-    right: 80px;
+    min-width: 220px;
+    top: 37px;
+    right: 85px;
 
 }
 li.productCategories:hover div#DDmenu{
@@ -527,7 +526,7 @@ div#DDmenu li a:hover{
 /****footer nav****/
 #footer ul li{
     display: inline;
-    padding: 6px 10px;
+    padding: 0px 10px;
     border-left: 1px solid #00A6CF;
 
 }
@@ -537,12 +536,9 @@ div#DDmenu li a:hover{
 }
 
 #footer ul{
-    /*margin: 0 auto; */
-    /* width: 575px; */
     float: left;
-    /* text-align: right; */
-    padding-left: 50px;
-
+    left: 50px;
+    position: relative;
 }
 /****Mini Cart****/
 .utilNav .mini-cart{
@@ -1957,4 +1953,10 @@ div#DDmenu li a::after{
 
 .searchGlass{
     color: #000;
+}
+
+#footer .wrapper img{
+    width: 130px;
+    position: relative;
+    top: 5px;    
 }
