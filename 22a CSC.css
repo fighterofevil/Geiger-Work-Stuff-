@@ -2310,7 +2310,7 @@ input#cvv{
 .splitNav{
     position: relative;
     float: right;
-    top: -34px;
+    top: -32px;
 }
 .splitNav li{
     float: left;
