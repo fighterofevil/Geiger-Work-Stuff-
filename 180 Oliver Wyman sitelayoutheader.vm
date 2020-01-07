@@ -29,101 +29,98 @@
 ## Begin Layout
 <div id="header">
     <div class="logo">
-      <a href="store.html?vid=${vendorSettingsDTO.vendorId}"><span>$!htmlSiteName</span></a>
+        <a href="store.html?vid=${vendorSettingsDTO.vendorId}"><span>$!htmlSiteName</span></a>
     </div>
-  <div class="wrapper">
-    <div class="utilNav">
-      <ul>
-        #if($welcomeMatDTO)
-          #if(${welcomeMatDTO.loggedIn}) 
-            <li class="welcomemsg">
-              <strong>Welcome ${welcomeMatDTO.firstName}!</strong>
-            </li>
-              #if($pageTileDictionaryDTO.templateName == "checkout_completed.vm")
-                <li>
-                    <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}'>
-                  #springMessage("log_out")
-                </a>
-                </li>
-              #else 
-            <li>
-                <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'> #springMessage("log_out") </a>
+    <div class="wrapper">
+      <div class="utilNav">
+        <ul>
+          #if($welcomeMatDTO)
+              #if(${welcomeMatDTO.loggedIn}) 
+                  <li class="welcomemsg">
+                      <strong>Welcome ${welcomeMatDTO.firstName}!</strong>
+                  </li>
+                  #if($pageTileDictionaryDTO.templateName == "checkout_completed.vm")
+                      <li>
+                          <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}'>
+                              #springMessage("log_out")
+                          </a>
+                      </li>
+                  #else 
+                      <li>
+                          <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'> #springMessage("log_out") </a>
+                      </li>   
+                  #end 
+              #else
+                  <li> 
+                      <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'>
+                          #springMessage("log_in")
+                      </a>
+                  </li> 
               #end
-            </li>
-          #else
-            <li> 
-              <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'>
-                #springMessage("log_in")
-              </a>
-            </li> 
           #end
-        #end
-        <li>
-          <a href="$seourl.encodeURL("myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId")">$!MyAccountNavName</a>
-        </li>
-        <li>
-          <a href="$seourl.encodeURL("myaccount.html?mode=vieworder&vid=$vendorSettingsDTO.vendorId")">Order History</a>
-        </li>
-        #if($!{displayWishlist} == "YES")
           <li>
-            <a href="wishlist.html?action=add&vid=$vendorSettingsDTO.vendorId">Wishlist</a>
+              <a href="$seourl.encodeURL("myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId")">$!MyAccountNavName</a>
           </li>
-        #end
-        #if(${welcomeMatDTO.loggedIn} && $BrowserFromPost)
-            <li>
-                <form method="POST" action="$BrowserFromPost">
+          <li>
+              <a href="$seourl.encodeURL("myaccount.html?mode=vieworder&vid=$vendorSettingsDTO.vendorId")">Order History</a>
+          </li>
+          #if($!{displayWishlist} == "YES")
+              <li>
+                <a href="wishlist.html?action=add&vid=$vendorSettingsDTO.vendorId">Wishlist</a>
+              </li>
+          #end
+          #if(${welcomeMatDTO.loggedIn} && $BrowserFromPost)
+              <li>
+                  <form method="POST" action="$BrowserFromPost">
                       <INPUT TYPE="HIDDEN" NAME="cXML-urlencoded" VALUE="$esc.html("$EmptyPunchoutOrderMessage")">
-                     <INPUT TYPE="SUBMIT" VALUE="Back To Procurement Site">
-                </form>
-            </li>    
-        #end
-        
-        <li>
-            <a href="$seourl.encodeURL("basket.html?vid=$vendorSettingsDTO.vendorId")">#springMessage("navViewCart")</a>
-        </li>
-       
-      </ul>
-    </div> <!--//.utilNav -->
+                      <INPUT TYPE="SUBMIT" VALUE="Back To Procurement Site">
+                  </form>
+              </li>    
+          #end
+          <li>
+              <a href="$seourl.encodeURL("basket.html?vid=$vendorSettingsDTO.vendorId")">#springMessage("navViewCart")</a>
+          </li>       
+        </ul>
+      </div> <!--//.utilNav -->
     
-    ##  <li class="mini-cart">
-    ##       #if($!displayMiniCart == "YES")
-    ##         <div class="summary"></div>
-    ##       #end
-    ##       <a class="btn-primary" href="$seourl.encodeURL("basket.html?vid=$vendorSettingsDTO.vendorId")">
-    ##         #springMessage("navViewCart")
-    ##       </a>
-    ## </li>
+      ##  <li class="mini-cart">
+      ##       #if($!displayMiniCart == "YES")
+      ##         <div class="summary"></div>
+      ##       #end
+      ##       <a class="btn-primary" href="$seourl.encodeURL("basket.html?vid=$vendorSettingsDTO.vendorId")">
+      ##         #springMessage("navViewCart")
+      ##       </a>
+      ## </li>
 
-    <div class="search">
-      <form action="asearch.html" onsubmit="checkKey();" id="searchForm">
-        #set($key="") 
-        #set($brand_param="")
-        #set($cname="")
-        #if($advancedSolrSearchCommand)
-          #if($advancedSolrSearchCommand.searchParameters.key)
-            #set($key=$advancedSolrSearchCommand.searchParameters.key)
-          #end
-          #if($advancedSolrSearchCommand.searchParameters.brand)
-            #set($brand_param=$advancedSolrSearchCommand.searchParameters.brand)
-          #end
-          #if($advancedSolrSearchCommand.searchParameters.cname) 
-            #set($cname=$advancedSolrSearchCommand.searchParameters.cname)
-          #end 
-          #if($brand_param && $brand_param.length() > 2) 
-            #set($brand_length = $math.sub($brand_param.length(),1))
-            #set($brand_param = $brand_param.substring(1,$brand_length))
-          #end
-        #end 
-        <input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId">
-        <div>
-          <!--<input type="text" name="key" value="$key" id="key" placeholder="Product Search...">-->
-          <input type="text" name="keyword" id="key" placeholder="Product Search...">
-          <input type="button" id="searchBtn" class="btn small" value="" onclick="checkKey(); jQuery('#key').val(jQuery('#key').val().toUpperCase()); document.forms['searchForm'].submit();">
-        </div>
-      </form>
-    </div><!-- //.search-->
-
-  </div> <!--//.wrapper -->
+      <div class="search">
+          <form action="asearch.html" onsubmit="checkKey();" id="searchForm">
+            #set($key="") 
+            #set($brand_param="")
+            #set($cname="")
+            #if($advancedSolrSearchCommand)
+              #if($advancedSolrSearchCommand.searchParameters.key)
+                #set($key=$advancedSolrSearchCommand.searchParameters.key)
+              #end
+              #if($advancedSolrSearchCommand.searchParameters.brand)
+                #set($brand_param=$advancedSolrSearchCommand.searchParameters.brand)
+              #end
+              #if($advancedSolrSearchCommand.searchParameters.cname) 
+                #set($cname=$advancedSolrSearchCommand.searchParameters.cname)
+              #end 
+              #if($brand_param && $brand_param.length() > 2) 
+                #set($brand_length = $math.sub($brand_param.length(),1))
+                #set($brand_param = $brand_param.substring(1,$brand_length))
+              #end
+            #end 
+            <input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId">
+            <div>
+              <!--<input type="text" name="key" value="$key" id="key" placeholder="Product Search...">-->
+              <input type="text" name="keyword" id="key" placeholder="Product Search...">
+              <input type="button" id="searchBtn" class="btn small" value="" onclick="checkKey(); jQuery('#key').val(jQuery('#key').val().toUpperCase()); document.forms['searchForm'].submit();">
+            </div>
+          </form>
+      </div><!-- //.search-->
+    </div> <!--//.wrapper -->
 </div> <!--//#header -->
 
 
@@ -174,5 +171,4 @@
     <a href="http://www.boldchat.com" title="Live Chat" target="_blank"><img alt="Live Chat" src="https://vms.boldchat.com/aid/448279438470883650/bc.vmi?&amp;wdid=445571115049217291" border="0" width="1" height="1" /></a>
     </noscript>
     <!-- /BoldChat Visitor Monitor HTML v5.00 -->
-        
 </div>
