@@ -207,11 +207,11 @@ h1{
     margin-top: 15px;
 }
 h2{ 
-    font-size:22px;
-    color:#424242;
+    font-size:21px;
+    color:#37424a;
     font-weight:bold;
     margin-bottom: 15px;
-    font-family: oswald, sans-serif;
+    font-family: noto-sans, sans-serif;  
 }
 
 #pageHome h2{
@@ -259,7 +259,7 @@ label, .label {
 
 .sidebar .title{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
     margin-top:10px;
     margin-bottom:4px;
 }
@@ -1316,11 +1316,11 @@ ul.radios-list li label{
 }
 .address-options {
     text-align: right;
-    margin: -5px 0 8px;
+    margin: -15px 0 8px;
     float: right;
-    width: 345px;
+    width: 375px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .ccNote {
@@ -1454,7 +1454,7 @@ ul.radios-list li label{
     }
 
 #pageCheckoutPayment .js-click{
-    color:#84010F;
+    color:#2C6EF2;
 }
 
 .tabs.clearfix > ul {
@@ -1946,6 +1946,10 @@ div#DDmenu li a::after{
     margin-bottom: 2px;
 }
 
+#recentlyViewed li a{
+    text-transform: initial;
+}
+
 .welcomeMsgCustomOrder, .welcomeMsgCustomOrder:hover{
     color: #fff;
     text-decoration: none;
@@ -1960,3 +1964,37 @@ div#DDmenu li a::after{
     position: relative;
     top: 5px;    
 }
+
+.ship-to-multiple{
+    margin-right: 20px;
+}
+
+#simplemodal-container h1{
+    font-weight: bold;
+    font-size: 30px;
+    font-family: oswald, sans-serif;
+    color: #000;
+}
+
+#simplemodal-container p{
+    width: 345px;
+    font-size: 14px;
+    line-height: 21px;
+    color: #37414a;
+    font-family: noto-sans, sans-serif;
+    position: relative;
+    left: 20px;    
+}
+
+.modalLogo{
+    background: url("../images/oliver-logo.svg") no-repeat scroll left top transparent;    
+    height: 28px;
+    /*width: 305px;*/
+    display: block;
+    background-position: center;
+    margin-bottom: 48px;
+    margin-top: 48px;    
+}
+
+
+
