@@ -317,11 +317,11 @@ margin-bottom: 0px;
 
 a
 {
-	color: #0A70BC;
+	color: #0863A6;
 	text-decoration: none;
 }
 
-a:hover { color: #0864A6; }
+a:hover { color: #04365b; }
 
 #footer
 {
@@ -593,8 +593,8 @@ body { background: #FFF; }
 
 #js-popup-message.popup, #deliverypopup
 {
-	background-color: #DE7A82;
-	border: 3px solid #9E091C;
+	background-color: #FDE3E7;
+	border: 1px solid #9E091C;
 	box-shadow: 1px 1px 5px #ADADAD;
 	left: 40% !important;
 	padding: 20px;
@@ -769,7 +769,7 @@ div#DDmenu li a:hover, .adaNavLink
 	font-weight: 100;
 }
 
-#footer li:hover { background: #8c8c8c !important; }
+#footer li:hover { background: #404040 !important; }
 li.copyright:hover { background: none !important; }
 
 /****Mini Cart****/
@@ -887,7 +887,7 @@ table a:link
 
 table a:visited
 {
-	color: #999999;
+	color: #666;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -2646,6 +2646,16 @@ input#cvv { width: 50px; }
 	color: #666;
 }
 
+#registration #content input::placeholder, #pageLogin #content input::placeholder{
+	color: #607070;
+}
+
+
+.bc-input-container input::placeholder{
+	color: red!important;
+}
+
+
 /*
  * Class for elements that are only visible to the screen reader. From
  * https://www.paciellogroup.com/blog/2012/05/html5-accessibility-chops-hidden-and-aria-hidden/
@@ -2716,5 +2726,5 @@ input#cvv { width: 50px; }
 [tabindex="1"]:focus,
 a:focus,
 button:focus,
-input:focus { outline: solid 2px orange; }
+input:focus { outline: solid 2px black; }
 #updateDesc, #removeNotice, #offerCodeMsg { display: none; }
