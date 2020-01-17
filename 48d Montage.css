@@ -2374,3 +2374,9 @@ div#DDmenu a::after{
 .flexEnd{
     justify-content: flex-end !important;
 }
+
+.inputs div{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
