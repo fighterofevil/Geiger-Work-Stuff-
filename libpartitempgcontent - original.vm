@@ -1,0 +1,146 @@
+
+<div class="messages">
+          ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div> #end
+          <div class="message success" id="globmsg" style="display:none;"></div>
+        </div>
+
+    <div class="bCrumbs">
+          #parse("libpartCategoryBreadcrumbs.vm")
+    </div>
+        <div class="clearfix itemContent">
+          <div class="sidebar">
+            #parse('libpartItemBadges.vm')
+            <div id="imageWindow">
+              <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner" onclick="adaFunction()">
+                <img  src="store$item.largeimage" width="300" alt="$!{item.title}"/>
+              </a>
+              
+              ## function needed to augment MagicZoom Plus plug in to be ADA compliant - kevin 11.19.19  
+              <script>
+                function adaFunction() {
+                    $(document).ready(function() {
+                        $(".MagicThumb-expanded" ).attr("role","dialog");
+                        $("a[title|='Close']").attr("tabindex","-1");
+                    });                            
+                }
+              </script>              
+              
+            </div>
+            <div id="suggestedItems"><!-- you may also like section --> </div> 
+            #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+            
+          </div>
+          <div class="page">
+            <h1 id="js-item-title-${item.itemid}">$!{item.title}</h1>
+            #springMessage('itemCode'):<span id="itemCodeList"> <span id="js-item-code-${item.itemid}">$item.code</span></span>
+            <input type="hidden" id="formName" value="F$item.itemid"> ## What's this?
+            #parse($item_topDTO.getItems().get(0).get('item_top')) ## What's this?
+            #parse("libpartItemTabInfo.vm")  ## Tabs to show description, tiers, longdesc2...
+            
+ 
+                #if($!{isPointStore} == 'TRUE')
+                    ## sitewide variable for pricing on/off
+                    #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))   
+                        #parse("libpartitempoints.vm") ## Item Price
+                    #end
+                    <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                    #if($item.itemid)
+                      #set($formName = "F$item.itemid")
+                    #end
+                #else
+                    ## original location of pricing on/off if statement
+                    #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))     
+                        #parse("libpartItemPrice.vm") ## Item Price
+                    #end
+                    <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                    #if($item.itemid)
+                      #set($formName = "F$item.itemid")
+                    #end
+                #end
+     
+
+	        ## get the min order qty required out of the above div innerHTML and rewrites minQtyNum used in the tiered pricing table
+            ## minQtyNum and minQtyNumRow are located within libpartItemTabInfo.vm
+            #if($quantityBreakOut && $quantityBreakOut=='y')
+                <script>
+                        $( document ).ready(function() {
+                            var actualMinQtyNum=(document.getElementById("js-item-minorderqty4pitem-${item.itemid}").innerHTML).replace(/[^0-9]/g,'');
+                            if (actualMinQtyNum>0)
+                                document.getElementById("minQtyNum").innerHTML=actualMinQtyNum;
+                            else
+                                document.getElementById("minQtyNumRow").style.display="none";
+                        });   
+                </script> 
+            #end    
+
+            #*================================
+              Errors
+            =================================*#
+              #springBind( "storeItemDTO.*" )
+              #if($status.errors.errorCount>0)
+                <div class="msg">
+                  #foreach($error in $status.errorMessages)
+                    <div class="error">$error</div>
+                  #end
+                </div>   
+              #end
+
+            <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+              <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"> ##TODO: variable for cid
+              <input type="hidden" id="compCode_0" value="$item.code"/>
+              #set ($found = 'false')
+
+              #parse("libpartItemAddAnother.vm")  ## Add Another
+
+              #parse("libpartItemCustomization.vm") ## Customization
+              
+              ## forces customization to checked by default and to show imprint options. 
+              ## added 01.03.19 - kevin   
+              #if($forceImprint && $forceImprint == true) 
+                  <script>
+                    $( document ).ready(function() {
+                        $("#customize").prop("checked",true);
+                        $(".custom-input").show();
+                    });                              
+                  </script>
+              #end                      
+            
+              <div id="js-item-hiddenfields-$item.itemid"></div> ## What's this used for? Container for multiple "add another" items?
+
+              #parse("libpartItemAddToWishlist.vm")  ## Add To Wishlist
+
+              #*
+               * RedirectMode = true: navigate to wishlist after add
+               * RedirectMode = false: stay on page, display message
+              *#
+              <input type="hidden" name="redirectMode" value="true">
+
+                        #foreach($error in $product.errors)
+                        <div class="error-text-area">
+                           $error.message
+                        </div>
+                        #end
+
+              #*================================
+                  Add to Cart Button
+                =================================*#
+              <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();" role=“button”>
+                #springMessage('addToCart')
+              </div>
+            </form>
+          </div><!--//.page -->
+        </div><!--//.clearfix-->
+        
+        
+        ## code to update the DS messages for SWEDA items only. BEGIN
+        #if($swedaCat)
+            #set($swedaCheck="#isItemInCategory($item.getItemId(),$swedaCat)")
+            #if($swedaCheck==true)
+                <script>
+                    $( document ).ready(function() {
+                         document.getElementsByClassName('DSMessage')[0].innerHTML="$!swedaMsg";
+                    });
+                </script>
+            #end
+        #end
+        ## END
