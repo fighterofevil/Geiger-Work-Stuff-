@@ -136,10 +136,47 @@
                               
                                 #parse("libpartItemAddAnother.vm")  ## Add Another
                                 
-                                ## finds select option on the item that has drop down text indicating that there is a Personalization [ aka cutom imprint ] option available - kevin 01.20.20
+                                ## original location for "## begin-finds select option on the item that has drop down text indicating that there is a Personalization [ aka cutom imprint ] option available - kevin 01.20.20"
+                                
+                                ## #parse("libpartItemCustomization.vm") ## Customization
+                                
+                                ## substitution for libpartItemCustomization to enable Enhanced Item Customization - kevin 01.17.20
+                                #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/item_customization.vm")
+                                #renderItemCustomizationForm()
+                                
+                                ## javascript library used to sort 
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
                                 <script>
-                                    $(document).ready(function() {
+                                    ## assigns value of selected value to hidden imprint input box. - kevin 01.17.20
+                                    function assignSelectValue(selectValue){
+                                        if(selectValue.trim()=="Please")
+                                        {
+                                            console.log("choose an option");
+
+                                            $('#custom-line-0').val("");
+                                            changeButtonState("none", "#262626", "Select Imprint");
+                                        }
+                                        else{
+                                            console.log(selectValue);
+
+                                            $('#custom-line-0').val(selectValue.trim());
+                                            changeButtonState("", "#B80C4B", "Add to Cart");                                       
+
+                                        }    
+                                    }  
+
+                                    ## controls the behavior of the Add to Cart button 
+                                    function changeButtonState(pointerEvent, bgColor, buttonText){
+                                            $('.btn-primary').css("pointer-events", pointerEvent);
+                                            $('.btn-primary').css("background-color", bgColor );
+                                            $('.btn-primary').text(buttonText);
+                                    }
                                     
+
+                                    $( document ).ready(function() {
+
+                                        ## begin-finds select option on the item that has drop down text indicating that there is a Personalization [ aka cutom imprint ] option available - kevin 01.20.20
+
                                         $('.customization').css("display","none");
                                     
                                         ## console.log($('select:has(option:contains("PERS"))'));
@@ -156,60 +193,32 @@
                                                 if ( ($('#custom-line-0').val()=="") || ($('#custom-line-0').val()=="Please") ){
                                                     console.log($('#custom-line-0').val());
                                                     console.log("You must choose a Department Imprint.");
-                                                    $('.btn-primary').css("pointer-events","none");
-                                                    $('.btn-primary').css("background-color", "#262626");
-                                                    $('.btn-primary').text("Select Imprint");
+
+                                                    changeButtonState("none", "#262626", "Select Imprint");
                                                 }
                                                 else{
                                                     console.log($('#custom-line-0').val());
-                                                    $('.btn-primary').css("pointer-events","");
-                                                    $('.btn-primary').css("background-color", "#B80C4B");
-                                                    $('.btn-primary').text("Add to Cart");
+
+                                                    changeButtonState("", "#B80C4B", "Add to Cart");                                                      
                                                 }
                                              }
                                              else{
                                                 console.log("this option DOES NOT have personalization");
+
                                                 $('#custom-line-0').val("");
                                                 $('#departCustomizationSelect').val("Please").trigger('change');
                                                 $('.customization').css("display","none");
-                                                $('.btn-primary').css("pointer-events","");
-                                                $('.btn-primary').css("background-color", "#B80C4B");
-                                                $('.btn-primary').text("Add to Cart");
+
+                                                changeButtonState("", "#B80C4B", "Add to Cart");                                                   
+
                                              }
-                                        });
-                                    });
-                                </script>
-                                
-                                ## #parse("libpartItemCustomization.vm") ## Customization
-                                
-                                ## substitution for libpartItemCustomization to enable Enhanced Item Customization - kevin 01.17.20
-                                #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/item_customization.vm")
-                                #renderItemCustomizationForm()
-                                
-                                ## javascript library used to sort 
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
-                                <script>
-                                    ## assigns value of selected value to hidden imprint input box. - kevin 01.17.20
-                                    function assignSelectValue(selectValue){
-                                        if(selectValue.trim()=="Please")
-                                        {
-                                            console.log("choose an option");
-                                            $('#custom-line-0').val("");
-                                            $('.btn-primary').css("pointer-events","none");
-                                            $('.btn-primary').css("background-color", "#262626");
-                                            $('.btn-primary').text("Select Imprint");
-                                        }
-                                        else{
-                                            console.log(selectValue);
-                                            $('.btn-primary').css("pointer-events","");
-                                            $('.btn-primary').css("background-color", "#B80C4B");
-                                            $('.btn-primary').text("Add to Cart");
-                                            $('#custom-line-0').val(selectValue.trim());
-                                        }    
-                                    }  
-                                    
-                                    ## hides default imprint customization box.  creates and autopopulates dropdown based off departCustomization.json. ALL updates to the dropdown must be done through the json file - kevin 01.17.20
-                                    $( document ).ready(function() {
+                                        });                      
+                                                  
+                                        ## end-finds select option on the item that has drop down text indicating that there is a Personalization [ aka cutom imprint ]
+
+
+                                        ## begin-hides default imprint customization box.  creates and autopopulates dropdown based off departCustomization.json. ALL updates to the dropdown must be done through the json file - kevin 01.17.20    
+
                                         $( "#departCustomization input[id='custom-line-0']" ).css( "display","none" );
                                         $( "#departCustomization label[for='custom-line-0']" ).after( "<select id='departCustomizationSelect' class='scriptQuestDD2' onChange='assignSelectValue(this.value)'><select>" );
                                         
@@ -239,6 +248,8 @@
                                             
                                             ## assigns class to dropdown to utliize select2 plugin - kevin 01.17.20
                                             $('.scriptQuestDD2').select2();  
+
+                                            ## end-hides default imprint customization box.  creates and autopopulates dropdown based off departCustomization.json. ALL updates to the dropdown must be done through the json file - kevin 01.17.20    
 
                                     });  
                                 </script>
