@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+#set($itemRow = $singleItemDTO.getItem(0))
+#set($item = $pageTile.getItemObject($singleItemDTO, $itemRow , "i"))
+#set($price = $item.itemPrice)
+#set($mainItemPrice = $item.itemPrice)
+#set($printitemid = $pageTile.getItemObject($singleItemDTO, $itemRow , "itemid"))
+
+#if(!$pageTileDictionaryDTO)
+  #if($_commandName)
+    #springBind( "${_commandName}.pageTileDictionaryDTO")
+    #set ($pageTileDictionaryDTO = ${status.value})
+  #end
+#end
+
+#if($pageTileDictionaryDTO)
+  #set($childItemsHomeDTO=$pageTileDictionaryDTO.getPageTile("childItemsHomeDTO"))
+  #set($catDropMenuDTO=$pageTileDictionaryDTO.getPageTile("catDropMenuDTO"))
+#end
+
+#set($metadescription= $item.metadescription)
+#set($keywords= $item.keywords)
+#set($pagetitle= $item.pagetitle)
+
+## Determines if an item is in a category. Doesn't check sub-categories. 
+## @param   _iiic_itemID                Item ID.
+## @param   _iiic_categoryID            Category ID.
+#macro(isItemInCategory $_iiic_itemID, $_iiic_categoryID)#*
+	*##set($_iiic_intClass = $request.class.forName('java.lang.Integer'))#*
+	*##set($_iiic_return = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("itemCategoryLinksDAO").isItemInCategory($_iiic_intClass.parseInt("$_iiic_itemID"), $_iiic_intClass.parseInt("$_iiic_categoryID")))#*
+	*##if($_iiic_return == false || $_iiic_return == true)#*
+		*#$_iiic_return#*
+	*##end#*
+*##end
+
+#########################################################################
+
+<html id="pageItem">
+    <head>
+        <title>#if($!pagetitle) $pagetitle  #else $!{item.title} - $!{htmlSiteName} #end</title>
+        #parse('libMarkupHead.vm')
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+        #parse('libitempgjavascript.vm')
+    </head>
+    <body>
+        #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        <div id="container">
+            #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+            <div id="content" role="main">
+                ## #parse('libpartitempgcontent.vm')
+                ## BEGIN libpartitempgcontent
+                    <div class="messages">
+                        ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div> #end
+                        <div class="message success" id="globmsg" style="display:none;"></div>
+                    </div>
+                    <div class="bCrumbs">
+                        #parse("libpartCategoryBreadcrumbs.vm")
+                    </div>
+                    <div class="clearfix itemContent">
+                        <div class="sidebar">
+                            #parse('libpartItemBadges.vm')
+                            <div id="imageWindow">
+                                <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner" onclick="adaFunction()">
+                                    <img  src="store$item.largeimage" width="300" alt="$!{item.title}"/>
+                                </a>              
+                                ## function needed to augment MagicZoom Plus plug in to be ADA compliant - kevin 11.19.19  
+                                <script>
+                                    function adaFunction() {
+                                        $(document).ready(function() {
+                                            $(".MagicThumb-expanded" ).attr("role","dialog");
+                                            $("a[title|='Close']").attr("tabindex","-1");
+                                        });                            
+                                    }
+                                </script>                            
+                            </div>
+                            <div id="suggestedItems"><!-- you may also like section --> </div> 
+                            #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")            
+                        </div>
+                        <div class="page">
+                            <h1 id="js-item-title-${item.itemid}">$!{item.title}</h1>
+                            #springMessage('itemCode'):<span id="itemCodeList"> <span id="js-item-code-${item.itemid}">$item.code</span></span>
+                            <input type="hidden" id="formName" value="F$item.itemid"> ## What's this?
+                            #parse($item_topDTO.getItems().get(0).get('item_top')) ## What's this?
+                            #parse("libpartItemTabInfo.vm")  ## Tabs to show description, tiers, longdesc2...       
+                            #if($!{isPointStore} == 'TRUE')
+                                ## sitewide variable for pricing on/off
+                                #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))   
+                                    #parse("libpartitempoints.vm") ## Item Price
+                                #end
+                                <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                                #if($item.itemid)
+                                  #set($formName = "F$item.itemid")
+                                #end
+                            #else
+                                ## original location of pricing on/off if statement
+                                #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))     
+                                    #parse("libpartItemPrice.vm") ## Item Price
+                                #end
+                                <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                                #if($item.itemid)
+                                  #set($formName = "F$item.itemid")
+                                #end
+                            #end   
+                            ## get the min order qty required out of the above div innerHTML and rewrites minQtyNum used in the tiered pricing table
+                            ## minQtyNum and minQtyNumRow are located within libpartItemTabInfo.vm
+                            #if($quantityBreakOut && $quantityBreakOut=='y')
+                                <script>
+                                        $( document ).ready(function() {
+                                            var actualMinQtyNum=(document.getElementById("js-item-minorderqty4pitem-${item.itemid}").innerHTML).replace(/[^0-9]/g,'');
+                                            if (actualMinQtyNum>0)
+                                                document.getElementById("minQtyNum").innerHTML=actualMinQtyNum;
+                                            else
+                                                document.getElementById("minQtyNumRow").style.display="none";
+                                        });   
+                                </script> 
+                            #end    
+                            #*================================
+                                Errors
+                            =================================*#
+                            #springBind( "storeItemDTO.*" )
+                            #if($status.errors.errorCount>0)
+                                <div class="msg">
+                                    #foreach($error in $status.errorMessages)
+                                        <div class="error">$error</div>
+                                    #end
+                                </div>   
+                            #end
+                            <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+                                <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"> ##TODO: variable for cid
+                                <input type="hidden" id="compCode_0" value="$item.code"/>
+                                #set ($found = 'false')
+                              
+                                #parse("libpartItemAddAnother.vm")  ## Add Another
+                                
+                                ## finds select option on the item that has drop down text indicating that there is a Personalization [ aka cutom imprint ] option available - kevin 01.20.20
+                                <script>
+                                    $(document).ready(function() {
+                                    
+                                        $('.customization').css("display","none");
+                                    
+                                        ## console.log($('select:has(option:contains("PERS"))'));
+                                        $('select:has(option:contains("PERS"))').addClass("selectHasPers");
+                                        
+                                        $('.selectHasPers').change(function(e){
+                                             console.log($('.selectHasPers option:selected').text());
+                                             
+                                             if( ($('.selectHasPers option:selected').text().indexOf("PERS")>=0) && ($('.selectHasPers option:selected').text().indexOf("Choose LOGO/PERS")==-1) )
+                                             {
+                                                console.log("this option has personalization");
+                                                $('.customization').css("display","");
+                                                
+                                                if ( ($('#custom-line-0').val()=="") || ($('#custom-line-0').val()=="Please") ){
+                                                    console.log($('#custom-line-0').val());
+                                                    console.log("You must choose a Department Imprint.");
+                                                    $('.btn-primary').css("pointer-events","none");
+                                                    $('.btn-primary').css("background-color", "#262626");
+                                                    $('.btn-primary').text("Select Imprint");
+                                                }
+                                                else{
+                                                    console.log($('#custom-line-0').val());
+                                                    $('.btn-primary').css("pointer-events","");
+                                                    $('.btn-primary').css("background-color", "#B80C4B");
+                                                    $('.btn-primary').text("Add to Cart");
+                                                }
+                                             }
+                                             else{
+                                                console.log("this option DOES NOT have personalization");
+                                                $('#custom-line-0').val("");
+                                                $('#departCustomizationSelect').val("Please").trigger('change');
+                                                $('.customization').css("display","none");
+                                                $('.btn-primary').css("pointer-events","");
+                                                $('.btn-primary').css("background-color", "#B80C4B");
+                                                $('.btn-primary').text("Add to Cart");
+                                             }
+                                        });
+                                    });
+                                </script>
+                                
+                                ## #parse("libpartItemCustomization.vm") ## Customization
+                                
+                                ## substitution for libpartItemCustomization to enable Enhanced Item Customization - kevin 01.17.20
+                                #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/item_customization.vm")
+                                #renderItemCustomizationForm()
+                                
+                                ## javascript library used to sort 
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+                                <script>
+                                    ## assigns value of selected value to hidden imprint input box. - kevin 01.17.20
+                                    function assignSelectValue(selectValue){
+                                        if(selectValue.trim()=="Please")
+                                        {
+                                            console.log("choose an option");
+                                            $('#custom-line-0').val("");
+                                            $('.btn-primary').css("pointer-events","none");
+                                            $('.btn-primary').css("background-color", "#262626");
+                                            $('.btn-primary').text("Select Imprint");
+                                        }
+                                        else{
+                                            console.log(selectValue);
+                                            $('.btn-primary').css("pointer-events","");
+                                            $('.btn-primary').css("background-color", "#B80C4B");
+                                            $('.btn-primary').text("Add to Cart");
+                                            $('#custom-line-0').val(selectValue.trim());
+                                        }    
+                                    }  
+                                    
+                                    ## hides default imprint customization box.  creates and autopopulates dropdown based off departCustomization.json. ALL updates to the dropdown must be done through the json file - kevin 01.17.20
+                                    $( document ).ready(function() {
+                                        $( "#departCustomization input[id='custom-line-0']" ).css( "display","none" );
+                                        $( "#departCustomization label[for='custom-line-0']" ).after( "<select id='departCustomizationSelect' class='scriptQuestDD2' onChange='assignSelectValue(this.value)'><select>" );
+                                        
+                                            let dropdownCC = $('#departCustomizationSelect');
+
+                                            dropdownCC.empty();
+                                        
+                                            dropdownCC.append('<option selected="true" value="Please">Please Choose a Department...</option>');
+                                            dropdownCC.prop('selectedIndex', 0);
+                                            
+                                            const url = 'store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/json/departCustomization.json';
+                                            
+                                            var arrayJsonOptions=[];
+                                        
+                                            ## Populate dropdown with list of locations
+                                            $.getJSON(url, function (data) {
+                                                $.each(data, function (key, entry) {
+                                                    arrayJsonOptions.push(entry);
+                                                })
+                                        
+                                                var sortedJsonOptions = _.sortBy(arrayJsonOptions, "department");   
+                                                $.each(sortedJsonOptions, function (index, jsonObj) {
+                                                    dropdownCC.append($('<option></option>').attr('value', jsonObj.department).text(jsonObj.department));
+                                                });
+                                        
+                                            });     
+                                            
+                                            ## assigns class to dropdown to utliize select2 plugin - kevin 01.17.20
+                                            $('.scriptQuestDD2').select2();  
+
+                                    });  
+                                </script>
+                              
+                                ## forces customization to checked by default and to show imprint options. 
+                                ## added 01.03.19 - kevin   
+                                #if($forceImprint && $forceImprint == true) 
+                                    <script>
+                                      $( document ).ready(function() {
+                                          $("#customize").prop("checked",true);
+                                          $(".custom-input").show();
+                                      });                              
+                                    </script>
+                                #end                      
+                            
+                                <div id="js-item-hiddenfields-$item.itemid"></div> ## What's this used for? Container for multiple "add another" items?
+                    
+                                #parse("libpartItemAddToWishlist.vm")  ## Add To Wishlist
+                    
+                                #*
+                                 * RedirectMode = true: navigate to wishlist after add
+                                 * RedirectMode = false: stay on page, display message
+                                *#
+                                
+                                <input type="hidden" name="redirectMode" value="true">
+                                #foreach($error in $product.errors)
+                                    <div class="error-text-area">
+                                        $error.message
+                                    </div>
+                                #end
+                    
+                                #*================================
+                                  Add to Cart Button
+                                =================================*#
+                                <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();" role=“button”>
+                                    #springMessage('addToCart')
+                                </div>
+                            </form>
+                        </div><!--//.page -->
+                    </div><!--//.clearfix-->      
+                            
+                    ## code to update the DS messages for SWEDA items only. BEGIN
+                    #if($swedaCat)
+                        #set($swedaCheck="#isItemInCategory($item.getItemId(),$swedaCat)")
+                        #if($swedaCheck==true)
+                            <script>
+                                $( document ).ready(function() {
+                                     document.getElementsByClassName('DSMessage')[0].innerHTML="$!swedaMsg";
+                                });
+                            </script>
+                        #end
+                    #end
+                    ## END                
+                ## END   libpartitempgcontent
+            
+                ## this script is set to change the wishlist button class.  Defined in template for newer stores. 
+                ## not changed in MTL as to not affect all stores - kevin 12.21.18
+                <script>
+                    $( document ).ready(function() {
+                        $('*[id*="wishlistbtn"]').each(function() {
+                            $(this).removeClass("btn-primary");
+                            $(this).addClass("btn");
+                        });    
+                        
+                        $( "#addwishlistdiv" ).insertBefore( ".actions" );
+                    });
+                </script>
+
+            </div> <!--//#content -->
+            #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end        
+            #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        </div> <!--//#container -->
+        #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        #parse("libpartitempgjsbottom.vm")
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/dynamic_item_images.vm")
+        #renderDynamicItemImagesScript()
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+        #parse("libMarkupFoot.vm")
+    </body>
+</html>
