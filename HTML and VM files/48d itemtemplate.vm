@@ -156,21 +156,23 @@
                                             ## console.log("choose an option");
 
                                             $('#custom-line-0').val("");
-                                            changeButtonState("none", "#262626", "Select Imprint");
+                                            changeButtonState("none", "transparent", "Select Imprint","1px solid #B80C4B","#B80C4B");
                                         }
                                         else{
                                             ## console.log(selectValue);
 
                                             $('#custom-line-0').val(selectValue.trim());
-                                            changeButtonState("", "#B80C4B", "Add to Cart");                                       
+                                            changeButtonState("", "#B80C4B", "Add to Cart","0px","#fff");                                       
 
                                         }    
                                     }  
 
                                     ## controls the behavior of the Add to Cart button 
-                                    function changeButtonState(pointerEvent, bgColor, buttonText){
+                                    function changeButtonState(pointerEvent, bgColor, buttonText, border, fontColor){
                                             $('.btn-primary').css("pointer-events", pointerEvent);
                                             $('.btn-primary').css("background-color", bgColor );
+                                            $('.btn-primary').css("border", border );
+                                            $('.btn-primary').css("color", fontColor );
                                             $('.btn-primary').text(buttonText);
                                     }
                                     
@@ -198,12 +200,12 @@
                                                     ## console.log($('#custom-line-0').val());
                                                     ## console.log("You must choose a Department Imprint.");
 
-                                                    changeButtonState("none", "#262626", "Select Imprint");
+                                                    changeButtonState("none", "transparent", "Select Imprint","1px solid #B80C4B","#B80C4B");
                                                 }
                                                 else{
                                                     ## console.log($('#custom-line-0').val());
 
-                                                    changeButtonState("", "#B80C4B", "Add to Cart");                                                      
+                                                    changeButtonState("", "#B80C4B", "Add to Cart","0px","#fff");                                                       
                                                 }
                                              }
                                              else{
@@ -215,7 +217,7 @@
                                                 $('#departCustomizationSelect').val("Please").trigger('change');
                                                 $('.customization').css("display","none");
 
-                                                changeButtonState("", "#B80C4B", "Add to Cart");                                                   
+                                                changeButtonState("", "#B80C4B", "Add to Cart","0px","#fff");                                                    
 
                                              }
                                         });                      
