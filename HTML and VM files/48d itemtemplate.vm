@@ -140,24 +140,26 @@
                                 
                                 ## #parse("libpartItemCustomization.vm") ## Customization
                                 
-                                ## substitution for libpartItemCustomization to enable Enhanced Item Customization - kevin 01.17.20
+                                ## begin - substitution for libpartItemCustomization to enable Enhanced Item Customization - kevin 01.17.20
                                 #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/item_customization.vm")
                                 #renderItemCustomizationForm()
+                                ## end - substitution for libpartItemCustomization to enable Enhanced Item Customization - kevin 01.17.20
                                 
                                 ## javascript library used to sort 
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
                                 <script>
-                                    ## assigns value of selected value to hidden imprint input box. - kevin 01.17.20
+                                    ## assigns selected value to hidden original imprint input box. - kevin 01.17.20
                                     function assignSelectValue(selectValue){
                                         if(selectValue.trim()=="Please")
                                         {
-                                            console.log("choose an option");
+                                            ## console.log("choose an option");
 
                                             $('#custom-line-0').val("");
                                             changeButtonState("none", "#262626", "Select Imprint");
                                         }
                                         else{
-                                            console.log(selectValue);
+                                            ## console.log(selectValue);
 
                                             $('#custom-line-0').val(selectValue.trim());
                                             changeButtonState("", "#B80C4B", "Add to Cart");                                       
@@ -180,30 +182,34 @@
                                         $('.customization').css("display","none");
                                     
                                         ## console.log($('select:has(option:contains("PERS"))'));
+
                                         $('select:has(option:contains("PERS"))').addClass("selectHasPers");
                                         
                                         $('.selectHasPers').change(function(e){
-                                             console.log($('.selectHasPers option:selected').text());
+                                             ## console.log($('.selectHasPers option:selected').text());
                                              
                                              if( ($('.selectHasPers option:selected').text().indexOf("PERS")>=0) && ($('.selectHasPers option:selected').text().indexOf("Choose LOGO/PERS")==-1) )
                                              {
-                                                console.log("this option has personalization");
+                                                ## console.log("this option has personalization");
+                                                
                                                 $('.customization').css("display","");
                                                 
                                                 if ( ($('#custom-line-0').val()=="") || ($('#custom-line-0').val()=="Please") ){
-                                                    console.log($('#custom-line-0').val());
-                                                    console.log("You must choose a Department Imprint.");
+                                                    ## console.log($('#custom-line-0').val());
+                                                    ## console.log("You must choose a Department Imprint.");
 
                                                     changeButtonState("none", "#262626", "Select Imprint");
                                                 }
                                                 else{
-                                                    console.log($('#custom-line-0').val());
+                                                    ## console.log($('#custom-line-0').val());
 
                                                     changeButtonState("", "#B80C4B", "Add to Cart");                                                      
                                                 }
                                              }
                                              else{
-                                                console.log("this option DOES NOT have personalization");
+                                                ## console.log("this option DOES NOT have personalization");
+
+                                                ## option selected Logo only - resets elements to default values. 
 
                                                 $('#custom-line-0').val("");
                                                 $('#departCustomizationSelect').val("Please").trigger('change');
