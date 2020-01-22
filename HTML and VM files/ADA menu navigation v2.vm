@@ -4,21 +4,15 @@
     var liSelected;
     
     var inputTypes = ['input', 'select', 'button', 'textarea'];
-    // var focusedElement = document.activeElement;
-    
+
+    ## note - keydown function is captured immediately as a part of the keyup function appended at the end of keyup function     
     jQuery(window).keyup(function(e){        
     
-        ## console.log("semaj");
-        ## console.log(document.activeElement);    
-        
+        ## console.log(document.activeElement);            
         ## console.log($(":focus"));
-        ## console.log($(":focus").attr('href'));
-
-        ## need to detect when tab is on Product Categories to stop scrolling of the body [ default behavior ] and trigger opening if tabbed on menu and left arrow down
-        
+        ## console.log($(":focus").attr('href'));     
         
         var focusedElement = document.activeElement;
-        var inputTypes = ['input', 'select', 'button', 'textarea'];
         
         ## console.log(liSelected);
         ## console.log(focusedElement);
@@ -28,51 +22,14 @@
         ## fires if Enter key is pressed and if focused element on the page is not an input field defined in inputTypes
 
         if ( ((e.which == 13) && (focusedElement && inputTypes.indexOf(focusedElement.tagName.toLowerCase()) == -1)) ){ // enter
-        ## if ( ((e.which == 13) && (focusedElement && inputTypes.indexOf(focusedElement.tagName.toLowerCase()) == -1)) || ((e.which == 40) && (focusedElement && inputTypes.indexOf(focusedElement.tagName.toLowerCase()) == -1))) { // enter
             
             ## console.log("enter key" );
 
-            if (jQuery('#DDmenu').is(":focus")) {
-
-                ## console.log("showing focused element");
-                ## console.log(focusedElement);                
-                ## console.log(jQuery(focusedElement).html());
-              
-                ## removes simulated hover state and focus for drop down navigation 
-
-                jQuery('.productCategories').removeClass("adaNav");                                          
-                jQuery('#DDmenu').removeAttr( 'style' );
-                jQuery('#DDmenu').blur();                
-            }
-            else{
-                
-                ## console.log("showing focused element and not in DDmenu");
-                ## console.log(focusedElement);                    
-                ## console.log(jQuery(focusedElement).html());
-                
-                
-                ## detects if focus is on anchor tag within the menu. if so, then will open that link. 
-
-                if(focusedElement.tagName=="A"){
-                    ## console.log("it is a link");
-                    ## console.log(focusedElement.href);
-                    
-                    window.open(focusedElement.href,"_self");
-                }
-
-                ## adds simulated hover state and focus for drop down navigation 
-
-                jQuery('.productCategories').addClass("adaNav");
-                jQuery('#DDmenu').css("display","block"); 
-                jQuery("#DDmenu").attr("tabindex",-1).focus();
-            }
+            menuBehaviorToggle(focusedElement,true);
         }  
         
-         ## fires if Esc key is pressed. 
-
-         if (e.which == 27){
-            ## console.log("esc key");              
-
+         ## fires if Esc key is pressed.          
+         if (e.which == 27){             
             resetAllTheThings();
          }
 
@@ -94,9 +51,7 @@
 
             if(e.which === 40){
                 
-                ## console.log(e.which);
-                ## console.log("in keydown function");
-                
+                ## console.log("in keydown function");                
 
                 ## prevents scrolling of page on keypress events 
                 
@@ -150,8 +105,8 @@
                     }else{
                         console.log(liSelected);
                         
-                        ## liSelected = li.last().addClass('activeLi');
-                        
+                        ## original lines of code to cycle through menu when arrowing up and hitting the first element. commented out to collapse the menu
+                        ## liSelected = li.last().addClass('activeLi');                        
                         ## jQuery(liSelected).find("a").addClass("adaNavLink");
                         
                         resetAllTheThings();
@@ -172,10 +127,8 @@
         }
          
     }).keydown(function(e){
-        ## e.preventDefault();
-        ## console.log(document.activeElement); 
-        ## console.log(e.which);
         
+        ## error checking to see if menu is already open by checking for adaNav class. if so, prevents default keydown press defaults EXCEPT for Tab. Allows tab to work as normal. 
         if (jQuery(".productCategories").hasClass("adaNav")){
             ## console.log("already has the addNav class");
             if(e.which!=9){
@@ -184,55 +137,55 @@
         }
         else if( ((e.which === 40) && (jQuery('.productCategories').is(":focus"))) || ((e.which === 40) && (jQuery(".productCategories").hasClass("adaNav"))) ){
 
-            console.log("product categories has the focus");
-            
-            e.preventDefault();      
-            
-            ## console.log(e.which);
+            ## console.log("product categories has the focus");
             ## console.log("in keydown function AFTER keyup");
-            ## console.log(document.activeElement);   
             
-                var focusedElement = document.activeElement;
-                var inputTypes = ['input', 'select', 'button', 'textarea'];
-                if (jQuery('#DDmenu').is(":focus")) {
-    
-                    ## console.log("showing focused element");
-                    ## console.log(focusedElement);                
-                    ## console.log(jQuery(focusedElement).html());
-                  
-                    ## removes simulated hover state and focus for drop down navigation 
-    
-                    jQuery('.productCategories').removeClass("adaNav");                                          
-                    jQuery('#DDmenu').removeAttr( 'style' );
-                    jQuery('#DDmenu').blur();                
-                }
-                else{
-                    
-                    ## console.log("showing focused element and not in DDmenu");
-                    ## console.log(focusedElement);                    
-                    ## console.log(jQuery(focusedElement).html());
-                    
-                    
-                    ## detects if focus is on anchor tag within the menu. if so, then will open that link. 
-    
-                    if(focusedElement.tagName=="A"){
-                        ## console.log("it is a link");
-                        ## console.log(focusedElement.href);
-                        
-                        ## window.open(focusedElement.href,"_self");
-                    }
-    
-                    ## adds simulated hover state and focus for drop down navigation 
-    
-                    jQuery('.productCategories').addClass("adaNav");
-                    jQuery('#DDmenu').css("display","block"); 
-                    jQuery("#DDmenu").attr("tabindex",-1).focus();
-                }                
-
+            e.preventDefault();                  
+            menuBehaviorToggle(document.activeElement,false);               
         }
     });;    
     
+    ## captures mouse click to determine when to call resetAllTheThings
     document.onclick = mouseClickNavMenu;
+
+    function menuBehaviorToggle(focusedElement,anchorCheck){
+        if (jQuery('#DDmenu').is(":focus")) {
+
+            ## console.log("showing focused element");
+            ## console.log(focusedElement);                
+            ## console.log(jQuery(focusedElement).html());
+          
+            ## removes simulated hover state and focus for drop down navigation 
+
+            jQuery('.productCategories').removeClass("adaNav");                                          
+            jQuery('#DDmenu').removeAttr( 'style' );
+            jQuery('#DDmenu').blur();                
+        }
+        else{
+            
+            ## console.log("showing focused element and not in DDmenu");
+            ## console.log(focusedElement);                    
+            ## console.log(jQuery(focusedElement).html());
+            
+            ## added check to execute only in keyup function. anchorCheck true means menuBehaviorToggle called from keyup
+            if (anchorCheck==true){
+                ## detects if focus is on anchor tag within the menu. if so, then will open that link. 
+
+                if(focusedElement.tagName=="A"){
+                    ## console.log("it is a link");
+                    ## console.log(focusedElement.href);
+                    
+                    window.open(focusedElement.href,"_self");
+                }
+            }
+
+            ## adds simulated hover state and focus for drop down navigation 
+
+            jQuery('.productCategories').addClass("adaNav");
+            jQuery('#DDmenu').css("display","block"); 
+            jQuery("#DDmenu").attr("tabindex",-1).focus();
+        }
+    }
     
     function mouseClickNavMenu(){
         
