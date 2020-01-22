@@ -1,4 +1,3 @@
-
 <script>
     var li = jQuery('#DDmenu li');
     var liSelected;
@@ -213,13 +212,11 @@
         jQuery('.adaNavLink').removeClass('adaNavLink');                                           
         jQuery(liSelected).find("a").removeAttr("tabindex");
             
-
         ## resets tracking of location of selected element in drop down navigation         
 
         next = liSelected.eq(0);   
-        liSelected = undefined;                
+        liSelected = undefined;              
   
-
         document.activeElement.blur();         
     }
 </script>
