@@ -579,6 +579,10 @@ body { background: #FFF; }
 * Place site styles here for things used on multiple pages like:
 * navigation, header, footer, etc */
 
+.logo{
+	width: 150px;
+}
+
 #menu .logo a
 {
 	background: url(../images/statefarm-logo.svg) no-repeat;
@@ -1118,7 +1122,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 
 .banner.l
 {
-	background: url(../images/banner-holiday.png) no-repeat center center;
+	background: url(../images/Banner-FA.jpg) no-repeat center center;
 	width: 475px;
 	height: 300px;
 	margin-right: 54px;
@@ -1269,7 +1273,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 
 .banner .contain2 h1, .bannerContainH1
 {
-	width: 245px;
+	width: 265px;
 	color: #313131;
 	font-family: "news-gothic-std", sans-serif;
 	font-size: 24px;
@@ -1280,10 +1284,26 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 	line-height: 25px;
 }
 
-.bannerContainH1 span { font-weight: bold; }
+.bannerContainH1_FA {
+    margin-top: -5px;
+}
 
-.vert-center-container
-{
+.bannerContainH1 span {
+    font-weight: bold;
+}
+
+.bannerContainH1_FA span { 	
+	font-size: 16px;	
+	font-weight: bold;	
+	letter-spacing: -1px;	
+	line-height: 24px;	 
+}
+
+.bannerContainP_FA {
+    margin-bottom: 5px;
+}
+
+.vert-center-container {
 	height: 125px;
 	position: relative;
 }
@@ -1296,6 +1316,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 	left: 50%;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+	width: 260px;
 }
 
 .clearfix { clear: both; }
