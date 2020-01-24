@@ -1,3 +1,4 @@
+
 <script>
     var li = jQuery('#DDmenu li');
     var liSelected;
@@ -14,8 +15,8 @@
         var focusedElement = document.activeElement;
         
         ## console.log(liSelected);
-        ## console.log(focusedElement);
-
+        ## console.log(focusedElement);    
+      
         ## original location for keydown/keyup        
         
         ## fires if Enter key is pressed and if focused element on the page is not an input field defined in inputTypes
@@ -23,7 +24,6 @@
         if ( ((e.which == 13) && (focusedElement && inputTypes.indexOf(focusedElement.tagName.toLowerCase()) == -1)) ){ // enter
             
             ## console.log("enter key" );
-
             menuBehaviorToggle(focusedElement,true);
         }  
         
@@ -48,76 +48,23 @@
             
             ## console.log("menu is open");
 
-            if(e.which === 40){
-                
-                ## console.log("in keydown function");                
+            ## checks if down arrow key or tab key has been pressed 
+            if ( (e.which === 40) || (e.which === 9) ){            
+            
+                ## fires if the key combo is SHIFT+TAB to move up the menu structure 
+                if (e.shiftKey) {
 
-                ## prevents scrolling of page on keypress events 
-                
-                e.preventDefault();
-                
-                if(liSelected){
-                
-                    ## removes classes and focus from currently selected object                     
-                    liSelected.removeClass('activeLi');
-                    jQuery(liSelected).find("a").removeClass("adaNavLink");                                    
-                    jQuery(liSelected).find("a").removeAttr("tabindex");
-                    
-                    next = liSelected.next();
-
-                    ## add classes to selected object 
-                    if(next.length > 0){
-                        liSelected = next.addClass('activeLi');                        
-                        jQuery(liSelected).find("a").addClass("adaNavLink");
-                    }else{
-                        liSelected = li.eq(0).addClass('activeLi');    
-                        jQuery(liSelected).find("a").addClass("adaNavLink");
-                    }
-                }else{
-                    liSelected = li.eq(0).addClass('activeLi');                    
-                    jQuery(liSelected).find("a").addClass("adaNavLink");
-                }             
-                
-                ## gives focus to selected link 
-                jQuery(liSelected).find("a").attr("tabindex",-1).focus();;              
-
-            }else if(e.which === 38){
-
-                ## console.log("in keyup function");
-
-                ## prevents scrolling of page on keypress events 
-                e.preventDefault();
-                
-                if(liSelected){
-
-                    ## removes classes and focus from currently selected object 
-                    liSelected.removeClass('activeLi');
-                    jQuery(liSelected).find("a").removeClass("adaNavLink");                    
-                    jQuery(liSelected).find("a").removeAttr("tabindex");
-                    
-                    next = liSelected.prev();
-
-                    ## add classes to selected object 
-                    if(next.length > 0){
-                        liSelected = next.addClass('activeLi');
-                        jQuery(liSelected).find("a").addClass("adaNavLink");
-                    }else{
-                        console.log(liSelected);
-                        
-                        ## original lines of code to cycle through menu when arrowing up and hitting the first element. commented out to collapse the menu
-                        ## liSelected = li.last().addClass('activeLi');                        
-                        ## jQuery(liSelected).find("a").addClass("adaNavLink");
-                        
-                        resetAllTheThings();
-                        jQuery('.productCategories').focus(); 
-                    }
-                }else{
-                    liSelected = li.last().addClass('activeLi');
-                    jQuery(liSelected).find("a").addClass("adaNavLink");
+                    ## console.log("shift tab was hit and you are in the key arrow down function");
+                    moveFocusUp(e);                    
                 }
-                
-                ## gives focus to selected link 
-                jQuery(liSelected).find("a").attr("tabindex",-1).focus();;               
+                else{ 
+                    moveFocusDown(e);
+                }
+
+            }else if( e.which === 38){
+
+                ## console.log("in key arrow up function");
+                moveFocusUp(e)           
             }
 
         }
@@ -146,6 +93,80 @@
     
     ## captures mouse click to determine when to call resetAllTheThings
     document.onclick = mouseClickNavMenu;
+
+    ## controls focus of menu element and anchor in the drop down menu moving down- kevin 01.24.20    
+    function moveFocusDown(e){
+        ## console.log("in key arrow down function");                
+
+        ## prevents scrolling of page on keypress events
+        e.preventDefault();
+        
+        if(liSelected){
+        
+            ## removes classes and focus from currently selected object                     
+            liSelected.removeClass('activeLi');
+            jQuery(liSelected).find("a").removeClass("adaNavLink");                                    
+            jQuery(liSelected).find("a").removeAttr("tabindex");
+            
+            next = liSelected.next();
+
+            ## add classes to selected object 
+            if(next.length > 0){
+                liSelected = next.addClass('activeLi');                        
+                jQuery(liSelected).find("a").addClass("adaNavLink");
+            }else{
+                liSelected = li.eq(0).addClass('activeLi');    
+                jQuery(liSelected).find("a").addClass("adaNavLink");
+            }
+        }else{
+            liSelected = li.eq(0).addClass('activeLi');                    
+            jQuery(liSelected).find("a").addClass("adaNavLink");
+        }             
+        
+        ## gives focus to selected link 
+        jQuery(liSelected).find("a").attr("tabindex",-1).focus();;            
+    }
+
+
+    ## controls focus of menu element and anchor in the drop down menu moving upwards- kevin 01.24.20
+    function moveFocusUp(e){
+        ## console.log("in key arrow up function");
+
+        ## prevents scrolling of page on keypress events 
+        e.preventDefault();
+
+        if(liSelected){
+
+            ## removes classes and focus from currently selected object 
+            liSelected.removeClass('activeLi');
+            jQuery(liSelected).find("a").removeClass("adaNavLink");                    
+            jQuery(liSelected).find("a").removeAttr("tabindex");
+            
+            next = liSelected.prev();
+
+            ## add classes to selected object 
+            if(next.length > 0){
+                liSelected = next.addClass('activeLi');
+                jQuery(liSelected).find("a").addClass("adaNavLink");
+            }else{
+                console.log(liSelected);
+                
+                ## original lines of code to cycle through menu when arrowing up and hitting the first element. commented out to collapse the menu
+                ## liSelected = li.last().addClass('activeLi');                        
+                ## jQuery(liSelected).find("a").addClass("adaNavLink");
+                
+                resetAllTheThings();
+                jQuery('.productCategories').focus(); 
+            }
+        }else{
+            liSelected = li.last().addClass('activeLi');
+            jQuery(liSelected).find("a").addClass("adaNavLink");
+        }
+
+        ## gives focus to selected link 
+        jQuery(liSelected).find("a").attr("tabindex",-1).focus();;            
+
+    }
 
     function menuBehaviorToggle(focusedElement,anchorCheck){
         if (jQuery('#DDmenu').is(":focus")) {
