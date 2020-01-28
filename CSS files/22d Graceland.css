@@ -170,10 +170,11 @@ a:hover{
 }
 
 .nav a{
-    color: #ffffff;
+    color: #000 !important;
     font-size: 16px;
     text-decoration: none;
     line-height: 45px;
+    font-weight: 700;
 }
 
 div#DDmenu a{
@@ -401,14 +402,22 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/graceland-logo.svg") no-repeat scroll left top transparent;
+/*    background: url("../images/graceland-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 64px;
-    /*margin: 15px 0px 0px 20px;*/
-    /*padding: 10px 8px 0px 0px;*/
-    width: 165px;
+    width: 165px;*/
+    background: url(../images/graceland-logo.svg) no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+    height: 70px;
+    /* margin: 15px 0px 0px 20px; */
+    /* padding: 10px 8px 0px 0px; */
+    width: 200px;    
 }
+
+
+
 
 #header .logo span {
     display: none;
@@ -1098,9 +1107,9 @@ td.ar{
     border: 1px solid #ccc;
     margin: 10px 0px 20px 0px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;    
-    font-family: 'Open Sans', sans-serif;     
+    justify-content: flex-end;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;    
 }
 
 .active-filters{
@@ -2245,9 +2254,16 @@ div#DDmenu a::after{
     text-transform: uppercase;
 }
 
-.superWrapper2{
+/*.superWrapper2{
     background: url("../images/nav-pattern.jpg") repeat scroll left top transparent;
     height: 150px;
+}*/
+
+.superWrapper2{
+    /*background: url("../images/nav-pattern.jpg") repeat scroll left top transparent;*/
+    background: url("../images/nav-pattern2.jpg") repeat scroll left top transparent;
+    height: 150px;
+    border-bottom: 1px solid #000;    
 }
 
 .wrapper2{
