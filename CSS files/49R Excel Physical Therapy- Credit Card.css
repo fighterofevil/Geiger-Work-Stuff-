@@ -34,6 +34,7 @@
 
 html, body {
     height: 100%;
+    line-height: 1.5em !important;
 }
 
 html{
@@ -186,7 +187,7 @@ div#DDmenu a{
 
 h1, .termsH1, .welcome-message-H1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 28px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
@@ -287,7 +288,7 @@ label, .label {
     /*color:#555;*/
     background-position:2px -48px;
     text-decoration:underline;
-    font-size:12px;
+    font-size:13px;
     /*color:#00acd4;*/
 }
 
@@ -469,6 +470,10 @@ body{
     padding: 10px 20px;
 }
 
+.nav a:hover{
+    color: #206c49;
+}
+
 .nav li:hover{
     /*background-color: #b12936;*/
 }
@@ -478,7 +483,7 @@ div#DDmenu{
     background-color: #fff;
     display: none;
     z-index: 100;
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     min-width: 227px;
     box-shadow: 0 0 6px 0px rgba(0,0,0,0.18);   
     margin-top: 6px; 
@@ -506,7 +511,7 @@ div#DDmenu li:hover{
 }
 
 div#DDmenu li a:hover{
-    /*text-decoration: underline;*/
+    color: #000;
 }
 
 .liveChat{
@@ -655,7 +660,7 @@ table {
 }
 
 .p-table.cart-table {
-    width: 95%;
+    width: 984px;
 }
 
 table th {
@@ -747,53 +752,42 @@ tfoot tr td{
 
 .btn {
     background-color: #E1E1E1;
-    /*border:1px solid #777;*/
     color:#206C49;
-    /*padding: 5px 10px;*/
     cursor: pointer;
-/*    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;*/
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
     min-width: 130px;
     text-transform: uppercase;
+    font-size: 16px;    
+    border: 0px;
+    font-weight: bold;
 }
 
 .btn:hover{
     background-color: #C7C7C7;
     color:#000000;
-/*    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;*/
 } 
 
 .btn-primary{
     background-color: #206C49;
-    /*border:1px solid #777;*/
     color:#FFF;
     font-weight: bold;
-    /*padding: 5px 10px;*/
     cursor: pointer;
-/*    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;*/
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
     min-width: 130px;
     text-transform: uppercase;
+    font-size: 16px;
+    border: 0px;    
 }
 
 .btn-primary:hover{
     background-color: #1E5A3D;
     color: #fff;
-/*    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;*/
 }
 
 .gift-btn {
@@ -1269,6 +1263,7 @@ input.qty-input{
 
 .add-another-item label, .add-another-item .col3 span{
     display: block;
+    text-transform: uppercase;
 
 } 
 
@@ -2121,6 +2116,7 @@ div#DDmenu a::after{
 .modalWarningText{
     padding-top: 20px;
     margin-bottom: initial;
+    text-align: left;
 }
 
 #deleteAll{
@@ -2366,7 +2362,7 @@ input:focus {
 .featured-product-carousel-h2{
     color: #206C49;
     text-transform: uppercase;
-    font-size: 22px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 15px;
 }    
@@ -2459,6 +2455,10 @@ input:focus {
     font-weight: 300;
 }
 
+.utilNav a:hover{
+    text-decoration: underline;
+}
+
 #cartAndMenu{
     width: 800px;
     display: flex;
@@ -2486,4 +2486,28 @@ input:focus {
 #singleAddy{
     padding-left: 5px;
     padding-right: 5px;    
+}
+
+.companyInfo{
+    width: 600px;
+}
+
+#pageCategoryStatic .page{
+    width: 650px;
+}
+
+#addAnother{
+    font-size: 16px;
+}
+
+#continueShopBtn{
+    margin-top: 15px;
+}
+
+#instock_msg{
+    width: 650px;
+}
+
+#pageCheckoutComplete .success{
+    width: 710px;
 }
