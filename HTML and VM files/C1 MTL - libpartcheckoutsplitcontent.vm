@@ -1,108 +1,107 @@
-
-<h1>#springMessage("vm.checkout_shipping.split")</h1>
- #*================================
+    <h1>#springMessage("vm.checkout_shipping.split")</h1>
+    #*================================
           Checkout Progress
-        =================================*#
-        <ul class="co-breadcrumb step1">
-          <li class="yi active">Addresses</li>
-          <li class="py">Payment</li>
-          <li class="rv">Review</li>
-<li class="ty">Order Confirmation</li>
+    =================================*#
+    <ul class="co-breadcrumb step1">
+        <li class="yi active">Addresses</li>
+        <li class="py">Payment</li>
+        <li class="rv">Review</li>
+        <li class="ty">Order Confirmation</li>
+    </ul>
+    #springBind( "checkoutViewDTO.*" )
+    <form name="frm" action="splitshipping.html" method="POST">
+        <input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId">
+        <input type="hidden" name="t">
+        <input type="hidden" name="redirect">
+        
+        #springBind( "checkoutViewDTO.productidx")
+        <input type="hidden" name="$status.expression" value="$status.value">
+        
+        #springBind( "checkoutViewDTO.addressidx")
+        <input type="hidden" name="$status.expression" value="$status.value">
 
-        </ul>
-#springBind( "checkoutViewDTO.*" )
-            <form name="frm" action="splitshipping.html" method="POST">
-              <input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId">
-              <input type="hidden" name="t">
-              <input type="hidden" name="redirect">
-#springBind( "checkoutViewDTO.productidx")
-              <input type="hidden" name="$status.expression" value="$status.value">
-#springBind( "checkoutViewDTO.addressidx")
-              <input type="hidden" name="$status.expression" value="$status.value">
+        #set($product=$checkoutViewDTO.details.products.get(${checkoutViewDTO.productidx}))
+        #set($shipaddr=$product.shipAddress.get(${checkoutViewDTO.addressidx}))
 
-#set($product=$checkoutViewDTO.details.products.get(${checkoutViewDTO.productidx}))
-#set($shipaddr=$product.shipAddress.get(${checkoutViewDTO.addressidx}))
-
-#springBind( "checkoutViewDTO.*" )
-#if($status.errors.errorCount>0)
-  #foreach($error in $status.errorMessages)
-              <div class="warning">$error</div>
-  #end
-#end
-              <div class="f-form horizontal custom-lbl-width location">
-					<div style="float:right">
-					  <button class="btn new-address" addr-type="2" model="0">
-					    <i class="icon-plus"></i>
-						#springMessage("vm.checkout_shipping.newaddress")
-				</button>
-					</div>
-                <div class="f-row">
-                  <label><strong>#springMessage("vm.basket.item"):</strong></label>
-                  <div class="f-field">
+        #springBind( "checkoutViewDTO.*" )
+        
+        #if($status.errors.errorCount>0)
+            #foreach($error in $status.errorMessages)
+                <div class="warning">$error</div>
+            #end
+        #end
+        
+        <div class="f-form horizontal custom-lbl-width location">
+            <div style="float:right">
+                <button class="btn new-address" addr-type="2" model="0">
+                    <i class="icon-plus"></i>
+                    #springMessage("vm.checkout_shipping.newaddress")
+                </button>
+            </div>
+            <div class="f-row">
+                <label><strong>#springMessage("vm.basket.item"):</strong></label>
+                <div class="f-field">
                     <span>$product.title</span>
-                  </div>
                 </div>
-                <div class="f-row">
-                  <label><strong>#springMessage("vm.checkout_split.youhave"):</strong></label>
-                  <div class="f-field">
+            </div>
+            <div class="f-row">
+                <label><strong>#springMessage("vm.checkout_split.youhave"):</strong></label>
+                <div class="f-field">
                     <input type="text" value="$shipaddr.qty" readonly="readonly"/>
-                  </div>
                 </div>
-                <div class="f-row">
-                  <label><strong>#springMessage("vm.checkout_completed.vm.qty"):</strong></label>
-                  <div class="f-field">
-#springBind("checkoutViewDTO.qty")
+            </div>
+            <div class="f-row">
+                <label><strong>#springMessage("vm.checkout_completed.vm.qty"):</strong></label>
+                <div class="f-field">
+                    #springBind("checkoutViewDTO.qty")
                     <input type="text" name="$status.expression" value="$status.value"/>
-                  </div>
                 </div>
-                <div class="f-row">
-                  <label><strong>#springMessage("vm.vieworderdetail.shippingaddr"):</strong></label>
-                  <div class="f-field">
-#springBind("checkoutViewDTO.shipaddressid")
+            </div>
+            <div class="f-row">
+                <label><strong>#springMessage("vm.vieworderdetail.shippingaddr"):</strong></label>
+                <div class="f-field">
+                    #springBind("checkoutViewDTO.shipaddressid")
                     <select name="$status.expression">
-#foreach($address in $customerAddressDTO)
-                      <option value="$address.addressid" 
-  #if("$address.addressid"=="$status.value") selected #end>$address.firstname $address.lastname | $address.city | $address.address1
-                      </option>
-#end
-
-                    
+                        #foreach($address in $customerAddressDTO)
+                            <option value="$address.addressid" 
+                                #if("$address.addressid"=="$status.value") selected #end>$address.firstname $address.lastname | $address.city | $address.address1
+                            </option>
+                                #end                    
                     </select>
-
-                  </div>
                 </div>
-                <div class="f-buttons" style="margin-top: 15px;">
-                  <input type="submit" value="#springMessage("button.CANCEL")" onclick="doSubmit(this.form,this.form.redirect,'shipping.html')" class="btn"/>
-                  <input type="submit" value="#springMessage("button.CONTINUE")" onclick="doSubmit(this.form,this.form.t,'split')" class="btn btn-primary"/>
-                </div>
-              </div>
-            </form>
-          </div><!-- end yui3-u main -->
+            </div>
+            <div class="f-buttons" style="margin-top: 15px;">
+                <input type="submit" value="#springMessage("button.CANCEL")" onclick="doSubmit(this.form,this.form.redirect,'shipping.html')" class="btn"/>
+                <input type="submit" value="#springMessage("button.CONTINUE")" onclick="doSubmit(this.form,this.form.t,'split')" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+</div><!-- end yui3-u main -->
           
-           <!--new address secion--> 
-        #*================================
-          Modal for New Address
-        =================================*#
-        <div id="new-address-modal" style="display:none;">
-          <h1>New Address</h1>
-<p>All fields are required unless otherwise noted. </p>
-          <div id="haserror" class="error"></div>
-          <form name="frm2" action="" method="POST">
-            <input name="vendorId" id="vendorId" type="hidden" value="${vendorSettingsDTO.vendorId}">
-            <input name="address.addressid" id="ajaxaddressid" type="hidden" value="0">
-            <input name="address.type" id="ajaxaddresstype" type="hidden" value="2">
-            <input name="model" id="ajaxmodel" type="hidden" value="0">
-            <fieldset>
-              <div class="clearfix">
-                <div class="half">
+<!--new address secion--> 
+#*================================
+    Modal for New Address
+=================================*#
+<div id="new-address-modal" style="display:none;">
+    <h1>New Address</h1>
+    <p>All fields are required unless otherwise noted. </p>
+    <div id="haserror" class="error"></div>
+    <form name="frm2" action="" method="POST">
+        <input name="vendorId" id="vendorId" type="hidden" value="${vendorSettingsDTO.vendorId}">
+        <input name="address.addressid" id="ajaxaddressid" type="hidden" value="0">
+        <input name="address.type" id="ajaxaddresstype" type="hidden" value="2">
+        <input name="model" id="ajaxmodel" type="hidden" value="0">
+        <fieldset>
+            <div class="clearfix">
+              <div class="half">
                   <label for="ajaxfirst-name">#springMessage("vm.checkout_address.firstname")</label>
                   <input name="address.firstname" id="ajaxfirst-name" maxlength="28" type="text">
-                </div>
-                <div class="half">
+              </div>
+              <div class="half">
                   <label for="ajaxlast-name">#springMessage("vm.checkout_address.lastname")</label>
                   <input name="address.lastname" id="ajaxlast-name" maxlength="28" type="text">
-                </div>
               </div>
+            </div>
             ##   <div>
             ##     <label for="ajaxaddress1">#springMessage("vm.checkout_address.company") (Optional)</label>
             ##     <input name="address.company" id="ajaxcompany" maxlength="50" type="text">
@@ -117,92 +116,87 @@
                     <input name="address.company" id="ajaxcompany" maxlength="50" type="text">
                 </div>              
             </div>             
-              <div class="clearfix">
-              <div class="half">
-                <label for="country">#springMessage("vm.checkout_address.country")</label>
-                <select name="address.countryid" id="country" class="chzn-select" style="width:220px;" data-placeholder="Select a Country...">
-                  <option value=""></option>                                  
-                </select>
-              </div>
-              <div class="half">
-                <label for="province">#springMessage("vm.checkout_address.region")</label>
-                <select name="address.provinceid" id="province" class="chzn-select" style="width:220px;" data-placeholder="Select a Province...">
-                  <option value=""></option>              
-                </select>
-                <input name="address.anotherprovince" id="ajaxprovince_another" maxlength="28" type="text" style="display:none;">
-              </div>
-</div>
-              <div>
+            <div class="clearfix">
+                <div class="half">
+                    <label for="country">#springMessage("vm.checkout_address.country")</label>
+                    <select name="address.countryid" id="country" class="chzn-select" style="width:220px;" data-placeholder="Select a Country...">
+                        <option value=""></option>                                  
+                    </select>
+                </div>
+                <div class="half">
+                    <label for="province">#springMessage("vm.checkout_address.region")</label>
+                    <select name="address.provinceid" id="province" class="chzn-select" style="width:220px;" data-placeholder="Select a Province...">
+                        <option value=""></option>              
+                    </select>
+                    <input name="address.anotherprovince" id="ajaxprovince_another" maxlength="28" type="text" style="display:none;">
+                </div>
+            </div>
+            <div>
                 <label for="ajaxaddress2">#springMessage("vm.checkout_address.adress") <div class="warningText">Please Note: We are unable to ship to a P.O. Box address</div></label>
                 <input name="address.address1" id="ajaxaddress1" maxlength="30" type="text">
-              </div>
-              <div>
-                <input name="address.address2" id="ajaxaddress2" maxlength="30" type="text">
-              </div>
-              <div class="clearfix">
-                <div class="half">
-                  <label for="ajaxcity">#springMessage("vm.checkout_address.city")</label>
-                  <input name="address.city" id="ajaxcity" maxlength="28" type="text">
-                </div>
-                         <div class="half">
-                  <label for="ajaxzip">#springMessage("vm.checkout_address.zippostalcode")</label>
-                  <input name="address.postal" id="ajaxzip" maxlength="12" type="text">
-                </div>       
-                
-              </div>
-              <div class="clearfix">
-
-                <div class="half">
-                  <label for="ajaxstate">#springMessage("vm.checkout_address.email")</label>
-                  <input name="address.email" id="ajaxemail" maxlength="50" type="text">
-                </div>
-                <div class="half">
-                  <label for="ajaxphone">#springMessage("vm.checkout_address.phone")</label>
-                  <input name="address.phone" id="ajaxphone" maxlength="28" type="text">
-                </div>
-              </div>
-            </fieldset>
-            <div class="default">
-              <input name="address.def" id="make-default-address" type="checkbox">
-              <label for="make-default-address">Make this my default address</label>
             </div>
-          </form>
-
-          <div class="actions">
-            <button id="addyModalCont" class="btn btn-primary right" onclick="checkNickName()"><i class="icon-plus icon-white"></i> Add New Address</button>
-            <button class="btn btn-primary right" id="address-oper" style="display:none;"><i class="icon-plus icon-white"></i> Add New Address</button>
-            ## <button class="btn btn-primary right" id="address-oper"><i class="icon-plus icon-white"></i> Add New Address</button>
-          </div>
-          
-          <script>
-          
-              $( document ).ready(function() {
-                    makeDate();
-              });
-              
-              function makeDate()
-              {
-                  var currentdate = new Date(); 
-                  var datetime = (currentdate.getMonth()+1)  + "/"                   
-                        + currentdate.getDate() + "/"
-                        + currentdate.getFullYear() + " @ "  
-                        + currentdate.getHours() + ":"  
-                        + currentdate.getMinutes() + ":" 
-                        + currentdate.getSeconds();                  
-                   document.getElementById("ajaxnickname").value="New Address "+datetime;    
-              }
-              
-              function checkNickName()
-              {    
-                if (document.getElementById("ajaxnickname").value!="")
-                {
-                    $('#address-oper').trigger('click');
-                }
-                else
-                {
-                    alert("Please enter in a nickname");
-                    makeDate();
-                }
-              }
-          </script>
+            <div>
+                <input name="address.address2" id="ajaxaddress2" maxlength="30" type="text">
+            </div>
+            <div class="clearfix">
+                <div class="half">
+                    <label for="ajaxcity">#springMessage("vm.checkout_address.city")</label>
+                    <input name="address.city" id="ajaxcity" maxlength="28" type="text">
+                </div>
+                <div class="half">
+                    <label for="ajaxzip">#springMessage("vm.checkout_address.zippostalcode")</label>
+                    <input name="address.postal" id="ajaxzip" maxlength="12" type="text">
+                </div>       
+            </div>
+            <div class="clearfix">
+                <div class="half">
+                    <label for="ajaxstate">#springMessage("vm.checkout_address.email")</label>
+                    <input name="address.email" id="ajaxemail" maxlength="50" type="text">
+                </div>
+                <div class="half">
+                    <label for="ajaxphone">#springMessage("vm.checkout_address.phone")</label>
+                    <input name="address.phone" id="ajaxphone" maxlength="28" type="text">
+                </div>
+            </div>
+        </fieldset>
+        <div class="default">
+            <input name="address.def" id="make-default-address" type="checkbox">
+            <label for="make-default-address">Make this my default address</label>
         </div>
+    </form>
+    <div class="actions">
+        <button id="addyModalCont" class="btn btn-primary right" onclick="checkNickName()"><i class="icon-plus icon-white"></i> Add New Address</button>
+        <button class="btn btn-primary right" id="address-oper" style="display:none;"><i class="icon-plus icon-white"></i> Add New Address</button>
+        ## <button class="btn btn-primary right" id="address-oper"><i class="icon-plus icon-white"></i> Add New Address</button>
+    </div>          
+    <script>          
+          $( document ).ready(function() {
+                makeDate();
+          });
+          
+          function makeDate()
+          {
+              var currentdate = new Date(); 
+              var datetime = (currentdate.getMonth()+1)  + "/"                   
+                    + currentdate.getDate() + "/"
+                    + currentdate.getFullYear() + " @ "  
+                    + currentdate.getHours() + ":"  
+                    + currentdate.getMinutes() + ":" 
+                    + currentdate.getSeconds();                  
+               document.getElementById("ajaxnickname").value="New Address "+datetime;    
+          }
+          
+          function checkNickName()
+          {    
+            if (document.getElementById("ajaxnickname").value!="")
+            {
+                $('#address-oper').trigger('click');
+            }
+            else
+            {
+                alert("Please enter in a nickname");
+                makeDate();
+            }
+          }
+    </script>
+</div>
