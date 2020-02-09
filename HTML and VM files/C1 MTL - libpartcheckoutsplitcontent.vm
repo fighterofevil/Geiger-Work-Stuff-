@@ -62,11 +62,17 @@
                 <div class="f-field">
                     #springBind("checkoutViewDTO.shipaddressid")
                     <select name="$status.expression">
-                        #foreach($address in $customerAddressDTO)
-                            <option value="$address.addressid" 
-                                #if("$address.addressid"=="$status.value") selected #end>$address.firstname $address.lastname | $address.city | $address.address1
-                            </option>
-                                #end                    
+
+                        ## updated foreach criteria to auto sort based off site level variable $addressSort, if it exists  02.08.20- kevin 
+                        #if(addressSort)
+                            #foreach($address in $sorter.sort($customerAddressDTO,$addressSort))
+                        #else
+                            #foreach($address in $customerAddressDTO) ## original foreach  
+                        #end                         
+                                <option value="$address.addressid" 
+                                    #if("$address.addressid"=="$status.value") selected #end>$address.firstname $address.lastname | $address.city | $address.address1
+                                </option>
+                            #end                    
                     </select>
                 </div>
             </div>
