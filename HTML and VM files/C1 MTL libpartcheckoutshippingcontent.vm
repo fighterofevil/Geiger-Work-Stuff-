@@ -81,7 +81,7 @@
                                         <option value="-1" >#springMessage("vm.checkout_shipping.selectadd")</option>
                                         
                                         ## updated foreach criteria to auto sort based off site level variable $addressSort, if it exists  02.08.20- kevin 
-                                        #if(addressSort)
+                                        #if($addressSort)
                                             #foreach($address in $sorter.sort($customerAddressDTO,$addressSort))
                                         #else
                                             #foreach($address in $customerAddressDTO) ## original foreach  
