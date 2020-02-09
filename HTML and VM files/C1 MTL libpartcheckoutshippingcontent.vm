@@ -81,15 +81,20 @@
                                         <option value="-1" >#springMessage("vm.checkout_shipping.selectadd")</option>
                                         
                                         ## updated foreach criteria to auto sort based off site level variable $addressSort, if it exists  02.08.20- kevin 
+                                        ## there is code duplication since could not have the foreach statements themselves isolated in the if...else statements. 
                                         #if($addressSort)
                                             #foreach($address in $sorter.sort($customerAddressDTO,$addressSort))
-                                        #else
-                                            #foreach($address in $customerAddressDTO) ## original foreach  
-                                        #end 
                                                 <option value="$address.addressid" #if("$address.addressid"=="$shipaddr.shipaddressid") selected #end>
                                                     $address.firstname $address.lastname | $address.city | $address.address1
                                                 </option>
-                                        #end
+                                            #end
+                                        #else
+                                            #foreach($address in $customerAddressDTO) ## original foreach  
+                                                <option value="$address.addressid" #if("$address.addressid"=="$shipaddr.shipaddressid") selected #end>
+                                                    $address.firstname $address.lastname | $address.city | $address.address1
+                                                </option>
+                                            #end
+                                        #end                                 
                                     </select>
                                     <a href="javascript:void(0);" addr-type="2" model="1" class="edit-address-link" addr-id="$shipaddr.shipaddressid">#springMessage("vm.checkout_shipping.edit")</a>
                                 #else

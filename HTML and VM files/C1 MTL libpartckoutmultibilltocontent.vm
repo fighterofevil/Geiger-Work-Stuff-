@@ -79,11 +79,10 @@
             #end            
             
             ## updated foreach criteria to auto sort based off site level variable $addressSort, if it exists  02.08.20- kevin 
+            ## there is code duplication since could not have the foreach statements themselves isolated in the if...else statements. 
             #if($addressSort)
                 #foreach($shippingAdress in $sorter.sort($shippingAddressDTO,$addressSort))
-            #else
-                #foreach($shippingAdress in $shippingAddressDTO)  ## original foreach  
-            #end 
+
                     ## added [ id=addyRow$!velocityCount ] to the li  AND [ class="addyOpt$!velocityCount" and onClick="checkClicked($!velocityCount)" ] to the input field 
                     <li id="addyRow$!velocityCount" #if($selectedaddressid==$shippingAdress.addressid) class="active" #end>                                          
                         <input class="addyOpt$!velocityCount" name="shipaddressid" id="ship-address_$shippingAdress.addressid" value="$shippingAdress.addressid" #if($selectedaddressid==$shippingAdress.addressid) checked="checked" #end type="radio" onClick="checkClicked($!velocityCount)">
@@ -111,8 +110,42 @@
                             'provinceCode' : '$shippingAdress.provinceCode',
                             'countryCode' : '$shippingAdress.countryCode'
                         })                        
-                    </script>            
+                    </script>  
+
                 #end
+            #else
+                #foreach($shippingAdress in $shippingAddressDTO)  ## original foreach  
+                    ## added [ id=addyRow$!velocityCount ] to the li  AND [ class="addyOpt$!velocityCount" and onClick="checkClicked($!velocityCount)" ] to the input field 
+                    <li id="addyRow$!velocityCount" #if($selectedaddressid==$shippingAdress.addressid) class="active" #end>                                          
+                        <input class="addyOpt$!velocityCount" name="shipaddressid" id="ship-address_$shippingAdress.addressid" value="$shippingAdress.addressid" #if($selectedaddressid==$shippingAdress.addressid) checked="checked" #end type="radio" onClick="checkClicked($!velocityCount)">
+                        <label for="ship-address_$shippingAdress.addressid">
+                            <div class="name">$!shippingAdress.firstname $!shippingAdress.lastname</div>
+                            #if($shippingAdress.company && $shippingAdress.company!='')
+                                <div class="company">$!shippingAdress.company</div>
+                            #end
+                            <div class="address address-one">$!shippingAdress.address1</div>
+                            #if($shippingAdress.address2 && $shippingAdress.address2!='')
+                                <div class="address address-two">$!shippingAdress.address2</div>
+                            #end
+
+                            ## support user-supplied regions for non-US/CA addresses
+                            ## John Paine - 04/18/2019
+                             #if($shippingAdress.anotherprovince && $shippingAdress.countryCode != 'US' && $shippingAdress.countryCode != 'CA')
+                                <div class="city-state-zip">$!shippingAdress.city&nbsp;$!shippingAdress.anotherprovince, $!shippingAdress.countryCode $!shippingAdress.postal<a href="javascript:void(0);" addr-type="2" model="1" class="edit-address-link" addr-id="$shippingAdress.addressid">Edit</a></div>
+                             #else
+                                <div class="city-state-zip">$!shippingAdress.city&nbsp;$!shippingAdress.provinceCode, $!shippingAdress.countryCode $!shippingAdress.postal<a href="javascript:void(0);" addr-type="2" model="1" class="edit-address-link" addr-id="$shippingAdress.addressid">Edit</a></div>
+                             #end                 
+                        </label>
+                    </li>
+                    <script>
+                        checkoutAddressList.push({
+                            'provinceCode' : '$shippingAdress.provinceCode',
+                            'countryCode' : '$shippingAdress.countryCode'
+                        })                        
+                    </script>  
+
+                #end
+            #end 
         </ul>
         ## strips out 'active' class from current rows and adds it to the row which has been clicked. 
         <script>
