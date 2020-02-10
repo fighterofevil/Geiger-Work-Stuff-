@@ -83,6 +83,17 @@
             #if($addressSort)
                 #foreach($shippingAdress in $sorter.sort($shippingAddressDTO,$addressSort))
 
+                    #set($addressTestValues=["firstname", "lastname", "company", "address1", "address2", "city", "provinceCode", "countryCode", "postal", "anotherprovince"])
+                    #foreach($testAddressSort in $addressSort )
+                        #if($addressTestValues.contains($testAddressSort))
+                            ## do nothing
+                        #else
+                            <script>
+                                alert("This error is generated from libpartckoutmultibilltocontent.vm. $!testAddressSort is not a valid value set in the siteConfig. please make sure it matches one of these values $addressTestValues.");
+                            </script>
+                        #end    
+                    #end              
+
                     ## added [ id=addyRow$!velocityCount ] to the li  AND [ class="addyOpt$!velocityCount" and onClick="checkClicked($!velocityCount)" ] to the input field 
                     <li id="addyRow$!velocityCount" #if($selectedaddressid==$shippingAdress.addressid) class="active" #end>                                          
                         <input class="addyOpt$!velocityCount" name="shipaddressid" id="ship-address_$shippingAdress.addressid" value="$shippingAdress.addressid" #if($selectedaddressid==$shippingAdress.addressid) checked="checked" #end type="radio" onClick="checkClicked($!velocityCount)">
