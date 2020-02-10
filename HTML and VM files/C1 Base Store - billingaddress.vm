@@ -1,0 +1,211 @@
+
+## #parse("libPartMyAccountBillingAddress.vm")
+## BEGIN libPartMyAccountBillingAddress
+
+<h2>$!billingAddressHeader</h2>
+<div class="warningText">Please Note: Unless you provide another address, this address may be used as your shipping address.<br/>We are unable to ship to a P.O. Box address.</div>
+<p class="info_needed">#springMessage("vm.billingaddress.msg1")(<span class="needed_star">*</span>) #springMessage("vm.billingaddress.msg2") </p>
+    #set($updateStatus = $request.getParameter("executeActionStatus"))
+    #if($updateStatus == 'true')
+       <div class="message success">Address updated successfully! </div>
+    #end 
+<form action="myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId" method="post" name="frm" class="myAccountForm">
+
+  <div class="f-group horizontal">
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.firstname" )
+      <label for="${status.expression}">#springMessage("vm.register.firstname") <span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input id="${status.expression}" name="${status.expression}" type="text" value="$!status.value" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.lastname" )
+      <label for="${status.expression}">#springMessage("vm.register.lastname")<span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input name="${status.expression}" type="text" value="$!status.value" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+
+    #if($hideEmail && $hideEmail=='TRUE')
+        #springBind( "myAccountDTO.billingAddress.email" )
+        <input name="${status.expression}" type="hidden" value="$!status.value" />   
+    #else
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.email" )
+      <label for="${status.expression}">Email Address<span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input class="billingAddressEmail" id="${status.expression}" name="${status.expression}" type="text" value="$!status.value" onBlur="checkEmail(this)" onSubmit="checkEmail(this)" />
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+    <input id="savedEmailAddress" type="hidden" value="$!status.value" />
+    <script>
+        function checkEmail(el) {
+            if(el.value=='' || el.value.indexOf('@')<1)
+                el.value = document.getElementById('savedEmailAddress').value;
+        }
+    </script>
+    #end
+    
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.title" )
+      <label for="${status.expression}">#springMessage("vm.billingaddress.title")</label>
+      <div class="f-field">
+        <input name="${status.expression}" type="text" value="$!status.value" />
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.company" )
+      <label for="${status.expression}">#springMessage("vm.register.company")</label>
+      <div class="f-field">
+        <input name="${status.expression}" type="text" value="$!status.value" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.address1" )
+      <label for="${status.expression}">#springMessage("vm.register.address") 1<span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input name="${status.expression}" type="text" value="$!status.value" maxlength="35" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.address2" )
+      <label for="${status.expression}">#springMessage("vm.register.address") 2</label>
+      <div class="f-field">
+        <input name="$status.expression" type="text" value="$!status.value" maxlength="35" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.city" )
+      <label for="${status.expression}">#springMessage("vm.register.city")<span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input name="${status.expression}" type="text" value="$!status.value" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.countryid" )
+      <label for="${status.expression}">#springMessage("vm.register.country")<span class="needed_star">*</span></label>
+      <div class="f-field">
+        #set($curcountry=$status.value)
+        <select id="country_id" name="${status.expression}" onChange="changeRegion(this.value)">
+          <option value="0">#springMessage("vm.register.chosecountry")</option>
+          #foreach($country in ${myAccountDTO.countyInUse})
+            <option #if($country.country.id == $curcountry) selected="selected" #end  value="$country.country.id">
+              $country.country.name
+            </option>
+          #end
+        </select>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end  
+    </div>
+
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.provinceid" )
+      <label for="${status.expression}">#springMessage("vm.register.province")<span class="needed_star">*</span></label>
+      <div class="f-field">
+        ##set($curcountry=$status.value)
+        #if(${myAccountDTO.billingAddress.provinceid}==-1)
+          <select  name="$status.expression" id="province" style="display:none">
+        #else 
+          <select  name="$status.expression" id="province">
+        #end
+          <option value="0">#springMessage("vm.register.choseprovince")</option>  ##this option needed when page first displayed
+          #foreach($country in $myAccountDTO.countyInUse)
+            #if(${curcountry} == ${country.country.id})
+                #foreach($province in ${country.provinces})   
+                  #if( ${province.province.id} == ${status.value})
+                      <option value="${province.province.id}" selected>${province.province.name}</option>
+                  #else
+                      <option value="${province.province.id}">${province.province.name}</option>
+                  #end    
+                #end
+              #end
+          #end            
+          </select>
+          #springBind( "myAccountDTO.billingAddress.anotherprovince" )
+          #if(${myAccountDTO.billingAddress.provinceid}!=-1 )
+                  <input name="${status.expression}" type="text" value="$!status.value" id="otherprovince" style="display:none"/>
+          #else 
+                  <input name="${status.expression}" type="text" value="$!status.value" id="otherprovince"/>
+          #end
+      </div>
+
+      #springBind( "myAccountDTO.billingAddress.provinceid" )
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end  
+
+      #springBind( "myAccountDTO.billingAddress.anotherprovince" )
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end  
+    </div>
+    
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.postal" )
+      <label for="${status.expression}">#springMessage("vm.register.postal")<span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input name="${status.expression}" type="text" value="$!status.value"/>      
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+    <div class="f-row">
+      <input type="hidden" name="validateBillingPhone" value="true"/>
+      #springBind( "myAccountDTO.billingAddress.phone" )
+      <label for="${status.expression}">#springMessage("vm.register.phone")<span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input name="${status.expression}" type="text" value="$!status.value"/>      
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>
+    
+    ## experimental BEGIN  - kevin 02.10.20
+    
+    <div class="f-row">
+      #springBind( "myAccountDTO.billingAddress.fax" )
+      <label for="${status.expression}">Account Number <span class="needed_star">*</span></label>
+      <div class="f-field">
+        <input id="${status.expression}" name="${status.expression}" type="text" value="$!status.value" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+      </div>
+      #foreach($error in $status.errorMessages) <div class="warning2">$error</div> #end 
+    </div>    
+    
+    ## experimental END  - kevin 02.10.20    
+
+    <div class="f-buttons">      
+		  #springBind( "myAccountDTO.billingAddress.addressid" )
+		  <input type="hidden" name="${status.expression}" value="$!status.value"/>
+		  <input type="hidden" name="submit" value="update"/>
+		  <input type="hidden" name="_targetbillingaddress" value="myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId"/>
+      ##<input type="hidden" name="_targetbillingaddress" value="store.html?vid=${vendorSettingsDTO.vendorId}"/>
+	    #if($math.toInteger(${myAccountDTO.billingAddress.addressid})>0)
+			  <input type="submit"  name="TODO" class="btn btn-primary"  value="#springMessage('button.UPDATE')"/>
+		  #else
+			  <input type="submit"  name="TODO" class="btn btn-primary" value="#springMessage('button.ADD')"/>
+		  #end      
+    </div>
+  </div>
+  <!-- end of billingadd-->
+ </form>
+## END   libPartMyAccountBillingAddress    
+
+## if $constrainedEmailReg is active, prevents a user from changing their domain. 
+#if($constrainedEmailReg && $constrainedEmailReg != "N") 
+    <script>
+        $( document ).ready(function() {
+            console.log($(".billingAddressEmail").val());
+            $('.billingAddressEmail').prop('disabled', true);
+        });
+    </script>
+#end
