@@ -1,0 +1,344 @@
+
+<h1>#springMessage("navCustomerInfo")</h1>    
+        #*================================
+          Checkout Progress
+        =================================*#
+        <ul class="co-breadcrumb step1">
+          <li class="yi active">Addresses</li>
+          <li class="py">Payment</li>
+          <li class="rv">Review</li>
+        <li class="ty">Order Confirmation</li>
+
+        </ul>
+
+        #*================================
+          Page Messages
+        =================================*#
+        <div id="page-messages">
+          <div class="errors">
+            #springBind("checkoutViewDTO.*")
+            #if($status.errors.errorCount>0) 
+              <div class="alert alert-error">
+                <button class='close' data-dismiss='alert'>×</button>   
+                <ul>
+                  #foreach($error in $status.errorMessages)
+                    <li>$error</li>
+                  #end                    
+                </ul>
+                Please click <a href="myaccount.html?mode=billingaddress&vid=${vendorSettingsDTO.vendorId}">here</a> to fix above error(s)!
+              </div>
+            #end   
+          </div>
+          <div class="success"></div>
+        </div>
+
+        <form class="f-group horizontal custom-lbl-width" name="frm" action="" method="POST">
+          <input type="hidden" name="mid" id="mid" value="demo"/>
+          <input type="hidden" name="t">
+          #springBind( "checkoutViewDTO.productidx" )
+          <input type="hidden" name="$status.expression" value="$!{status.value}">
+          #springBind( "checkoutViewDTO.addressidx" )
+          <input type="hidden" name="$status.expression" value="$!{status.value}">            
+          #springBind( "checkoutViewDTO.addresses.billingAddress.addressId" )
+          <input type="hidden" name="$status.expression" value="$!{status.value}">
+          #springBind( "checkoutViewDTO.qty" )
+          <input type="hidden" name="$status.expression" value="$!{status.value}">
+          <input type="hidden" id="anchorName_id" name="anchorName" value="">
+          <input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId">
+          #springBind( "checkoutViewDTO.shipTypes.currentType")
+          <input type="hidden" name="$status.expression" value="1">
+
+          <div class="address-title autoclear">
+            <div class="address-options">
+              #set($itemindex= 0)
+              #foreach($productgroup in $checkoutViewDTO.details.shippinggroup)
+                #foreach($productitem in $productgroup.shipItems)
+                  #set($itemindex= $itemindex+ $productitem.shipaddr.qty)
+                #end
+              #end
+              #if($itemindex>1)
+                <button class="btn ship-to-multiple"><i class="icon-th-list"></i> Ship to multiple addresses</button>
+              #end
+              <button class="btn new-address" addr-type="2" model="0"><i class="icon-plus"></i> New Address</button>
+            </div>
+            <h2>Select a shipping address...</h2>
+          </div>
+          <div class="select-single"> 
+            <ul id="select-single-billing" class="addresses-list">
+              #set($selectedaddressid = 0)
+              #foreach($shippingAdress in $shippingAddressDTO)
+                #if($checkoutViewDTO.shipaddressid>0 && $shippingAdress.addressid==$checkoutViewDTO.shipaddressid)
+                  #set($selectedaddressid = $shippingAdress.addressid)
+                #end
+                #if($selectedaddressid==0 && ($shippingAdress.def || $velocityCount==$shippingAddressDTO.size()))
+                  #set($selectedaddressid = $shippingAdress.addressid)
+                #end   
+              #end
+              #foreach($shippingAdress in $shippingAddressDTO)  
+                ## added [ id=addyRow$!velocityCount ] to the li  AND [ class="addyOpt$!velocityCount" and onClick="checkClicked($!velocityCount)" ] to the input field 
+                <li id="addyRow$!velocityCount" #if($selectedaddressid==$shippingAdress.addressid) class="active" #end>                                          
+                  <input class="addyOpt$!velocityCount" name="shipaddressid" id="ship-address_$shippingAdress.addressid" value="$shippingAdress.addressid" #if($selectedaddressid==$shippingAdress.addressid) checked="checked" #end type="radio" onClick="checkClicked($!velocityCount)">
+                  <label for="ship-address_$shippingAdress.addressid">
+                    <div class="name">$!shippingAdress.firstname $!shippingAdress.lastname</div>
+                    #if($shippingAdress.company && $shippingAdress.company!='')
+                      <div class="company">$!shippingAdress.company</div>
+                    #end
+                    <div class="address address-one">$!shippingAdress.address1</div>
+                    #if($shippingAdress.address2 && $shippingAdress.address2!='')
+                      <div class="address address-two">$!shippingAdress.address2</div>
+                    #end
+                    
+                    
+                   ## <div class="city-state-zip">$!shippingAdress.city&nbsp;$!shippingAdress.provinceCode, $!shippingAdress.countryCode $!shippingAdress.postal<a href="javascript:void(0);" addr-type="2" model="1" class="edit-address-link" addr-id="$shippingAdress.addressid">Edit</a></div>
+                  
+                    ## support user-supplied regions for non-US/CA addresses
+                    ## John Paine - 04/18/2019
+                    #if($shippingAdress.anotherprovince && $shippingAdress.countryCode != 'US' && $shippingAdress.countryCode != 'CA')
+                    <div class="city-state-zip">$!shippingAdress.city&nbsp;$!shippingAdress.anotherprovince, $!shippingAdress.countryCode $!shippingAdress.postal<a href="javascript:void(0);" addr-type="2" model="1" class="edit-address-link" addr-id="$shippingAdress.addressid">Edit</a></div>
+                  #else
+                    <div class="city-state-zip">$!shippingAdress.city&nbsp;$!shippingAdress.provinceCode, $!shippingAdress.countryCode $!shippingAdress.postal<a href="javascript:void(0);" addr-type="2" model="1" class="edit-address-link" addr-id="$shippingAdress.addressid">Edit</a></div>
+                  #end
+                      
+                      
+                      
+                  </label>
+                </li>
+              #end
+            </ul>
+            ## strips out 'active' class from current rows and adds it to the row which has been clicked. 
+            <script>
+                function checkClicked(rowCount)
+                {
+                    $("#select-single-billing li").removeClass("active");
+                    var rowSelector="#addyRow"+rowCount;
+                    $(rowSelector).addClass("active");
+                }
+            </script>
+          </div>
+
+          <div class="address-title">
+            <div class="address-options hide">
+              <button class="btn new-address" addr-type="3" model="0"><i class="icon-plus"></i> New Address</button>
+            </div>
+            <h2>$!billingAddressHeader</h2>
+          </div>
+          <div class="select-single">
+            <ul id="select-single-billing" class="addresses-list">
+              #set($selectedaddressid = 0)
+              #foreach($billingAdress in $billingAddressDTO)  
+                #if($checkoutViewDTO.billingaddressid>0 && $billingAdress.addressid==$checkoutViewDTO.billingaddressid)
+                  #set($selectedaddressid = $billingAdress.addressid)
+                #end
+                #if($selectedaddressid==0 && ($billingAdress.def || $velocityCount==$billingAddressDTO.size()))
+                  #set($selectedaddressid = $billingAdress.addressid)
+                #end   
+
+              #end
+              #foreach($billingAdress in $billingAddressDTO) 
+                <li #if($selectedaddressid==$billingAdress.addressid) class="active" #end>
+                  <input name="billingaddressid" id="bill-address_$billingAdress.addressid" value="$billingAdress.addressid" class="hide"  #if($selectedaddressid==$billingAdress.addressid) checked="checked" #end type="radio">
+                  <label for="bill-address_$billingAdress.addressid">
+                    <div class="name">$!billingAdress.firstname $!billingAdress.lastname</div>
+                    #if($billingAdress.company && $billingAdress.company!='')
+                      <div class="company">$!billingAdress.company</div>
+                    #end
+                    <div class="address address-one">$!billingAdress.address1</div>
+                    #if($billingAdress.address2 && $billingAdress.address2!='')
+                      <div class="address address-two">$!billingAdress.address2</div>
+                    #end
+                    
+                    ## <div class="city-state-zip">#if($billingAdress.city && $billingAdress.city!='')$!billingAdress.city $!billingAdress.provinceCode, $!billingAdress.countryCode $billingAdress.postal#end<a href="javascript:void(0);" addr-type="3" model="1" class="edit-address-link" addr-id="$billingAdress.addressid">Edit</a></div>
+                     
+                    ## support user-supplied regions for non-US/CA addresses
+                    ## John Paine - 04/18/2019
+                    #if($billingAdress.anotherprovince && $billingAdress.countryCode != 'US' && $billingAdress.countryCode != 'CA') 
+                      <div class="city-state-zip">#if($billingAdress.city && $billingAdress.city!='')$!billingAdress.city $!billingAdress.anotherprovince, $!billingAdress.countryCode $billingAdress.postal#end<a href="javascript:void(0);" addr-type="3" model="1" class="edit-address-link billingAddyEditLink" addr-id="$billingAdress.addressid">Edit</a></div>
+                  #else
+                    <div class="city-state-zip">#if($billingAdress.city && $billingAdress.city!='')$!billingAdress.city $!billingAdress.provinceCode, $!billingAdress.countryCode $billingAdress.postal#end<a href="javascript:void(0);" addr-type="3" model="1" class="edit-address-link billingAddyEditLink" addr-id="$billingAdress.addressid">Edit</a></div>
+                  #end
+                      
+                      
+                      
+                      
+                  </label>
+                </li>
+              #end  
+            </ul>
+          </div>
+
+          #*================================
+            Order Type 
+          =================================*#
+          #if($!defaultOrderType == "") ## Ask the user to select order type
+            <div class="order-type-section clearfix">
+              <h2>#springMessage("vm.checkout_shipping.ordertype")</h2>
+              <strong>#springMessage("vm.chechout_shipping.ordertypeQtn")</strong>
+              <br>
+              #if($!defaultOrderCheckbox == "P") 
+                <input type="radio" name="orderType" id="ordertype-B" value="B" />
+                <label for="ordertype-B">#springMessage("vm.checkout_shopping.ordertype.business")</label>
+                <br>
+                <input type="radio" name="orderType" id="ordertype-P"  value="P" checked />
+                <label for="ordertype-P">#springMessage("vm.checkout_shipping.ordertype.personal")</label>
+              #elseif($!defaultOrderCheckbox == "B") ## B(usiness)
+                <input type="radio" name="orderType" id="ordertype-B" value="B" checked />
+                <label for="ordertype-B">#springMessage("vm.checkout_shopping.ordertype.business")</label>
+                <br>
+                <input type="radio" name="orderType" id="ordertype-P"  value="P"/>
+                <label for="ordertype-P">#springMessage("vm.checkout_shipping.ordertype.personal")</label>
+              #else
+                <input type="radio" name="orderType" id="ordertype-B" value="B" />
+                <label for="ordertype-B">#springMessage("vm.checkout_shopping.ordertype.business")</label>
+                <br>
+                <input type="radio" name="orderType" id="ordertype-P"  value="P" checked />
+                <label for="ordertype-P">#springMessage("vm.checkout_shipping.ordertype.personal")</label>
+              #end
+            </div>
+          #elseif($!defaultOrderType == "B") ## B(usiness)
+            <input name="orderType" type="hidden" value="B">
+          #else ## Not null, not B, therefore P(ersonal)
+            <input name="orderType" type="hidden" value="P">
+          #end
+
+          <div class="actions clearfix">
+            <!--<button id="checkout-cancel" onClick="JavaScript:window.location.href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/basket.html?vid=${vendorSettingsDTO.vendorId}'">#springMessage('button.CANCEL')</button>-->
+            <button id="checkout-continue" class="btn-primary right" onClick="doContinue('frm', 't', 'update');">
+              #springMessage('button.CONTINUE') <i class="icon-arrow-right icon-white"></i>
+            </button>
+          </div>
+          <div id="payment_method_alert" style="display:none;" class="warning" >#springMessage('vm.register.msg4')</div>
+        </form>
+
+        #*================================
+          Modal for New Address
+        =================================*#
+        <div id="new-address-modal" style="display:none;">
+          <h1>New Address</h1>
+<p>All fields are required unless otherwise noted. </p>
+          <div id="haserror" class="error"></div>
+          <form name="frm2" action="" method="POST">
+            <input name="vendorId" id="vendorId" type="hidden" value="${vendorSettingsDTO.vendorId}">
+            <input name="address.addressid" id="ajaxaddressid" type="hidden" value="0">
+            <input name="address.type" id="ajaxaddresstype" type="hidden" value="2">
+            <input name="model" id="ajaxmodel" type="hidden" value="0">
+            ## <input name="address.nickname" id="ajaxnickname" maxlength="50" type="hidden">
+            <fieldset>
+              <div class="clearfix">
+                <div class="half">
+                  <label for="ajaxfirst-name">#springMessage("vm.checkout_address.firstname")</label>
+                  <input name="address.firstname" id="ajaxfirst-name" maxlength="28" type="text">
+                </div>
+                <div class="half">
+                  <label for="ajaxlast-name">#springMessage("vm.checkout_address.lastname")</label>
+                  <input name="address.lastname" id="ajaxlast-name" maxlength="28" type="text">
+                </div>
+              </div>
+            ##   <div>
+            ##     <label for="ajaxaddress1">#springMessage("vm.checkout_address.company") (Optional)</label>
+            ##     <input name="address.company" id="ajaxcompany" maxlength="50" type="text">
+            ##   </div>
+              <div class="clearfix">
+                  <div class="half">
+                    <label for="ajaxnick-name">Nickname</label>
+                    <input name="address.nickname" id="ajaxnickname" maxlength="50" >     
+                  </div>
+                  <div class="half">
+                    <label for="ajaxaddress1">#springMessage("vm.checkout_address.company") (Optional)</label>
+                    <input name="address.company" id="ajaxcompany" maxlength="50" type="text">
+                  </div>                          
+              </div>            
+              <div class="clearfix">
+              <div class="half">
+                <label for="country">#springMessage("vm.checkout_address.country")</label>
+                <select name="address.countryid" id="country" class="chzn-select" style="width:220px;" data-placeholder="Select a Country...">
+                  <option value=""></option>                                  
+                </select>
+              </div>
+              <div class="half">
+                <label for="province">#springMessage("vm.checkout_address.region")</label>
+                <select name="address.provinceid" id="province" class="chzn-select" style="width:220px;" data-placeholder="Select a Province...">
+                  <option value=""></option>              
+                </select>
+                <input name="address.anotherprovince" id="ajaxprovince_another" maxlength="28" type="text" style="display:none;">
+              </div>
+</div>
+              <div>
+                #if($baseRefresh && $baseRefresh == "YES")
+                    <div class="warningText modalWarningText">Please Note: We are unable to ship to a P.O. Box address</div>
+                #end               
+                <label for="ajaxaddress2">#springMessage("vm.checkout_address.adress")</label> 
+                #if(($baseRefresh && $baseRefresh == "NO") || (!$baseRefresh))
+                    <div class="warningText">Please Note: We are unable to ship to a P.O. Box address</div></label>
+                #end 
+               <input name="address.address1" id="ajaxaddress1" maxlength="30" type="text">
+              </div>
+              <div>
+                <input name="address.address2" id="ajaxaddress2" maxlength="30" type="text">
+              </div>
+              <div class="clearfix">
+                <div class="half">
+                  <label for="ajaxcity">#springMessage("vm.checkout_address.city")</label>
+                  <input name="address.city" id="ajaxcity" maxlength="28" type="text">
+                </div>
+                         <div class="half">
+                  <label for="ajaxzip">#springMessage("vm.checkout_address.zippostalcode")</label>
+                  <input name="address.postal" id="ajaxzip" maxlength="12" type="text">
+                </div>       
+                
+              </div>
+              <div class="clearfix">
+
+                <div class="half">
+                  <label for="ajaxstate">#springMessage("vm.checkout_address.email")</label>
+                  <input name="address.email" id="ajaxemail" maxlength="50" type="text">
+                </div>
+                <div class="half">
+                  <label for="ajaxphone">#springMessage("vm.checkout_address.phone")</label>
+                  <input name="address.phone" id="ajaxphone" maxlength="28" type="text">
+                </div>
+              </div>
+            </fieldset>
+            <div class="default">
+              <input name="address.def" id="make-default-address" type="checkbox">
+              <label for="make-default-address">Make this my default address</label>
+            </div>
+          </form>
+
+         <div class="actions">
+                <button id="addyModalCont" class="btn btn-primary right" onclick="checkNickName()"><i class="icon-plus icon-white"></i> Add New Address</button>
+                <button class="btn btn-primary right" id="address-oper" style="display:none;"><i class="icon-plus icon-white"></i> Add New Address</button>
+                ## <button class="btn btn-primary right" id="address-oper"><i class="icon-plus icon-white"></i> Add New Address</button>
+          </div>
+          
+          <script>
+          
+              $( document ).ready(function() {
+                    makeDate();
+              });
+              
+              function makeDate()
+              {
+                  var currentdate = new Date(); 
+                  var datetime = (currentdate.getMonth()+1)  + "/"                   
+                        + currentdate.getDate() + "/"
+                        + currentdate.getFullYear() + " @ "  
+                        + currentdate.getHours() + ":"  
+                        + currentdate.getMinutes() + ":" 
+                        + currentdate.getSeconds();                  
+                  document.getElementById("ajaxnickname").value="New Address "+datetime;    
+              }
+              
+              function checkNickName()
+              {    
+                if (document.getElementById("ajaxnickname").value!="")
+                {
+                    $('#address-oper').trigger('click');
+                }
+                else
+                {
+                    alert("Please enter in a nickname");
+                    makeDate();
+                }
+              }
+          </script>   
+        </div>
