@@ -146,9 +146,13 @@ p .pageItem{
 }
 
 a{ 
-    color:#84010F;
+    color:#6400FF;
     text-decoration: none;
 }
+
+a:hover{ 
+    color: #391477;
+ }
 
 #footer{
     font-size: 12px;
@@ -160,6 +164,11 @@ a{
 
 #footer a{
     color:#444;
+}
+
+#footer a:hover{
+    text-decoration: underline;
+    color: #6400FF;
 }
 
 .nav a{
@@ -205,8 +214,8 @@ h5{ }
 h6{ }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    font-size: 14px;
+    color:#000;
     margin-bottom: 20px;
 }
 
@@ -268,17 +277,17 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#555;
+    color:#000;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
-    font-size:12px
+    font-size:13px
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
     /*color:#555;*/
     background-position:2px -48px;
     text-decoration:underline;
-    font-size:12px;
+    font-size:13px;
     /*color:#00acd4;*/
 }
 
@@ -313,16 +322,15 @@ body{
 }
 
 #header{
-    width: 1024px;
+    /*width: 1024px;*/
     height: 140px;
     margin: 0 auto;
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
     text-align: right;
-    margin-top: 15px;
+    height: 40px;
+    background-color: #F2F2F2;
 }
 
 #footer .wrapper{
@@ -438,6 +446,9 @@ body{
 #menuWrapper{
     width: 1024px;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
 }
 
 .nav{
@@ -488,13 +499,37 @@ div#DDmenu li a:hover{
 
 /****Utility Nav****/
 
+.utilNav{
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    height: 40px;
+    color: #000;
+}
+
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+#header .wrapper .utilNav li a{
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#header .wrapper .utilNav li a:hover{
+    color: #6400FF;    
 }
 
 .utilNav ul{
-    float: right;
+    display: flex;
+    align-content: center;
+    height: 40px;
 }
 
 
@@ -513,7 +548,7 @@ div#DDmenu li a:hover{
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    /*margin-top: -8px;*/
 }
 
 .cartbutton{
@@ -526,13 +561,18 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 24px;
-    margin: 5px 5px 0px 0px
+    margin: 5px 5px 0px 0px;
     color: #6400FF;
 }
 
 .summary{
     float: right;
     text-align: left;
+    font-weight: 300;
+}
+
+.summary strong{
+    font-weight: 300;
 }
 
 #cart-quantity, #cart-total{
@@ -707,50 +747,43 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    /*border:1px solid #777;*/
+    background-color: #fff;
+    border: 1px solid #000000;
     color:#000;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
-    min-width: 130px;
+    min-width: 150px;
+    font-size: 16px;
+    font-weight: bold;
+
 }
 
 .btn:hover{
-    background-color: #fff;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #E6E6E6;
+
 } 
 
 .btn-primary{
-    background-color: #84010F;
-    /*border:1px solid #777;*/
-    color:#FFF;
+    background-color: #6400FF;
+    border: 0px;
+    color: #FFF;
     font-weight: bold;
-    /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
     height: 40px;
-    min-width: 130px;
+    min-width: 150px;
+    font-size: 16px;
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #391477;
 }
 
 .gift-btn {
@@ -1115,11 +1148,11 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #444;
+    background: #2D2D2D;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
-
+    font-weight: bold;
 }
 
 .pagination-new {
@@ -1575,7 +1608,7 @@ ul.radios-list li label{
 }
 
 #pageCheckoutPayment .js-click{
-    color:#84010F;
+    color:#6400FF;
 }
 
 .payment-section{
@@ -2351,11 +2384,33 @@ input:focus {
     position: relative;
     float: left;
     text-align: left;
-    height: 92%;
+    /* height: 72%; */
     width: 95%;
     display: flex;
     justify-content: left;
     align-items: flex-end;
-    bottom: 35px;
-    left: 37px;   
+    /* bottom: 35px; */
+    left: 37px;
+    top: 80%;
+   
+}
+
+.productCategories{
+    min-width: 190px;
+}
+
+.logo{
+    height: 100px;
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}    
+
+.promos{
+    margin-bottom: 20px;
+}
+
+.promos input{
+    margin-bottom: 10px;
 }
