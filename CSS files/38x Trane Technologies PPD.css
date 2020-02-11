@@ -2331,8 +2331,31 @@ input:focus {
     margin-bottom: 40px;  
 }
 
-.child{
+.allLogosChild{
     height: 125px;
     width: 189px;
-    background: #F7F7F7;    
+    background-size: 80% 80% !important;
+    background-color: #F7F7F7 !important;
+}
+
+
+#allLogos a:hover .allLogosChild { 
+    background-color: #EBEBEB !important; 
+}
+
+
+#spotlightBanner span{
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 60px;
+    position: relative;
+    float: left;
+    text-align: left;
+    height: 92%;
+    width: 95%;
+    display: flex;
+    justify-content: left;
+    align-items: flex-end;
+    bottom: 35px;
+    left: 37px;   
 }
