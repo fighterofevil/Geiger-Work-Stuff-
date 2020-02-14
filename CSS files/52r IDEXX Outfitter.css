@@ -2310,10 +2310,131 @@ div#DDmenu a::after{
 }
 
 #australiaBanner{
+    border-bottom: 1px solid #97999B;
+    background-color: #F7F7F7;
+}
+
+#australiaBannerWrapper{
     height: 84px;
     width: 1024px;
     margin: 0 auto;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+#australiaBannerWrapper a:hover{
+    text-decoration: none;
+}
+
+.australiaShirt{
+    background: url("../images/banner-shirt.png") no-repeat left top transparent;
+    width: 166px;
+    height: 84px;
+}
+
+.australiaCopy{
+    height: 100%;
+}
+
+.australiaCopy1{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;    
+}
+
+.australiaCopy2Wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 630px;   
+    margin-top: 10px;
+}
+
+.australiaCopy2{
+    width: 417px;    
+}
+
+.australiaCopyLogo{
+    background: url("../images/banner-logos.png") no-repeat left top transparent;
+    width: 196px;
+    height: 34px;
+}
+
+.australiaButton{
+    color: #00008B;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #E6E6F3;
+    width: 139px;
+    height: 52px;
+    box-sizing: border-box;
+    border: 1px solid #B3B3DC;
+    border-radius: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
+
+.australiaIDEXX{
+    background: url("../images/banner-idexx.png") no-repeat left top transparent;
+    width: 52px;
+    height: 71px;
+}
+
+
+/* aussie modal errror definitions*/
+
+/* The Modal (background) */
+.modalAussie {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-headerAussie{
+
+}
+
+.modal-headerAussie h2{
+    color: #00A7B5;
+    font-weight: bold;    
+}
+
+/* Modal Content */
+.modal-contentAussie {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 55%;
+    top: 20vh;
+    position: relative;
+}
+
+/* The Close Button */
+.closeAussie {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closecloseAussie:hover,
+.closecloseAussie:focus {
+  color: #000;
+  text-decoration: none;
+  c
+
+
+
