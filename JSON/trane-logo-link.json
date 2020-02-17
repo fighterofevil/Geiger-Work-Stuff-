@@ -1,12 +1,12 @@
 [
-  { "image": "tranetech-logo.svg", "link": "google.com", "alt": "Trane Technologies"},
-  { "image": "amstand-logo.svg", "link": "google.com", "alt": "American Standrd Heating & Air Conditioning"},
-  { "image": "ameristar-logo.svg", "link": "google.com", "alt": "Ameristar Heating & Cooling"},
-  { "image": "nexia-logo.svg", "link": "google.com", "alt": "Nexia"},
-  { "image": "oxbox-logo.svg", "link": "google.com", "alt": "Oxbox-A Trane Brand"},
-  { "image": "runtru-logo.svg", "link": "google.com", "alt": "RunTru by Trane"},
-  { "image": "thermo-logo.svg", "link": "google.com", "alt": "Thermo King"},
-  { "image": "tranecom-logo.svg", "link": "google.com", "alt": "Trane"},
-  { "image": "traneres-logo.svg", "link": "google.com", "alt": "Trane-It's Hard to Stop a Trane"},
-  { "image": "tranesup-logo.svg", "link": "google.com", "alt": "Trane Supply"}
+  { "image": "tranetech-logo.svg", "catID": "683474", "alt": "Trane Technologies"},
+  { "image": "amstand-logo.svg", "catID": "683580", "alt": "American Standrd Heating & Air Conditioning"},
+  { "image": "ameristar-logo.svg", "catID": "683921", "alt": "Ameristar Heating & Cooling"},
+  { "image": "nexia-logo.svg", "catID": "683948", "alt": "Nexia"},
+  { "image": "oxbox-logo.svg", "catID": "684020", "alt": "Oxbox-A Trane Brand"},
+  { "image": "runtru-logo.svg", "catID": "684058", "alt": "RunTru by Trane"},
+  { "image": "thermo-logo.svg", "catID": "683552", "alt": "Thermo King"},
+  { "image": "tranecom-logo.svg", "catID": "683524", "alt": "Trane"},
+  { "image": "traneres-logo.svg", "catID": "683607", "alt": "Trane-It's Hard to Stop a Trane"},
+  { "image": "tranesup-logo.svg", "catID": "683893", "alt": "Trane Supply"}
 ]

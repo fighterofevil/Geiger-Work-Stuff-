@@ -1219,6 +1219,7 @@ a.view-all{
 
 .estimate-calendar {
     margin-top: 5px;
+    display: none;
 }
 
 .add-another-item  table {
