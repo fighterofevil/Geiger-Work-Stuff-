@@ -599,7 +599,7 @@ div#DDmenu li a:hover{
 
 #searchForm input#key{
     border: none;
-    width: 148px;
+    width: 190px;
     float: left;
     padding-left: 2px;
 }
@@ -2427,6 +2427,15 @@ input:focus {
     justify-content: space-evenly;
     top: 50px;
     position: relative;
+}
+
+#chooseLogo a{
+    background-color: #F7F7F7;
+    padding: 30px;    
+}
+
+#chooseLogo a:hover{
+    background-color: #EBEBEB; 
 }
 
 .traneCom{
