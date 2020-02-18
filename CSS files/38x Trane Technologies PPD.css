@@ -2415,3 +2415,28 @@ input:focus {
 .promos input{
     margin-bottom: 10px;
 }
+
+#pageLandingTrane .page{
+    margin: 0px;
+    width: 0px;
+}
+
+#chooseLogo{
+    width: 1024px;
+    display: flex;
+    justify-content: space-evenly;
+    top: 50px;
+    position: relative;
+}
+
+.traneCom{
+    background: url("../images/tranecom-logo.svg") no-repeat scroll left top transparent;
+    height: 84px;
+    width: 250px;
+}
+
+.traneBuild{
+    background: url("../images/trane-green.svg") no-repeat scroll left top transparent;
+    height: 84px;
+    width: 250px;    
+}
