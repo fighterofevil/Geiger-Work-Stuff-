@@ -122,7 +122,7 @@ strong{
 
 body{
     color:#444444;
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     font-size: 14px;
     line-height: 18px;
 }
@@ -640,7 +640,7 @@ table a:hover {
 }
 
 table {
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     color:#666;
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
@@ -902,7 +902,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     font-size: 14px;
     margin: 0px;
     padding: 15px;
@@ -922,7 +922,7 @@ tfoot tr td{
 #pageFAQ .section p, #pageFAQ .faqsSection p {
 
     color: #313131;
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     font-size: 14px;
     line-height: 20px;
 }
@@ -943,7 +943,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     font-size: 12px;
     margin: 20px 0 20px 0;
     padding: 15px;
@@ -954,7 +954,7 @@ tfoot tr td{
 /****Login****/
 
 .login form{
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -988,7 +988,7 @@ a.forgotPassword{
 /****Register****/
 
 #registration form#registerForm{
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -1031,7 +1031,7 @@ a.forgotPassword{
 }
 
 #pageMyAccount form.myAccountForm{
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     color:#666;
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
@@ -1266,7 +1266,7 @@ input.qty-input{
 }
 
 .ui-tabs-panel{
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     color:#666;
     font-size:12px;
     background:#eaebec;
@@ -1629,7 +1629,7 @@ ul.radios-list li label{
 }
 
 .tabs .tab {
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     color:#666;
     font-size:12px;
     background:#FFFFFF;
@@ -1769,7 +1769,7 @@ input#cvv{
     text-align: center;
     font-size: 19px;
     line-height: 20px;
-    font-family: 'Public Sans', ;
+    font-family: 'Public Sans';
     color: #FFF;
     text-shadow: 0px 0px 2px #000;
     box-shadow: 0px 1px 1px 0px #aaa;
@@ -1801,7 +1801,7 @@ input#cvv{
 /****Checkout ????????? Review****/
 
 .location{
-        font-family: 'Public Sans', ;
+        font-family: 'Public Sans';
         color:#666;
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
