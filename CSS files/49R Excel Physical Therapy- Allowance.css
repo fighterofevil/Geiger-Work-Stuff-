@@ -603,7 +603,7 @@ div#DDmenu li a:hover{
 
 #searchForm input#key{
     border: none;
-    width: 148px;
+    width: 175px;
     float: left;
     padding-left: 2px;
 }
@@ -2073,7 +2073,7 @@ input#cvv{
     cursor: pointer;
     font-size: 24px !important;
     color: #206C49;
-    top: 4px;
+    padding-top: 4px;
     padding-left: 10px;    
 }
 
