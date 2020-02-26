@@ -66,7 +66,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body {
-    line-height: 1;
+    line-height: 1.5em;
     color: black;
     background: white;
     min-width: 1024px;
@@ -121,7 +121,7 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#444444;
+    color:#000;
     font-family: 'Public Sans';
     font-size: 14px;
     line-height: 18px;
@@ -151,7 +151,8 @@ a{
 }
 
 a:hover{ 
-    color: #391477;
+    color: #391477;    
+    text-decoration: underline;
  }
 
 #footer{
@@ -168,7 +169,7 @@ a:hover{
 
 #footer a:hover{
     text-decoration: underline;
-    color: #6400FF;
+    color: #000;
 }
 
 .nav a{
@@ -187,10 +188,11 @@ div#DDmenu a{
 
 h1, .termsH1, .welcome-message-H1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 30px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    color: #000;
 }
 
 #pageHome h1, .welcome-message-H1{
@@ -203,7 +205,7 @@ h1, .termsH1, .welcome-message-H1{
 
 h2{ 
     font-size:22px;
-    color:#424242;
+    color:#000;
     font-weight:bold;
     margin-bottom: 15px;
 }
@@ -261,10 +263,10 @@ label, .label {
 
 .sidebar .title{
     font-weight: 600;
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 10px;
     text-transform: uppercase;
-    color: #555;
+    color: #000;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -305,6 +307,7 @@ html{
 
 body{
     background: #FFF;
+    line-height: 1.5em;
 }
 
 #container{
@@ -551,6 +554,10 @@ div#DDmenu li a:hover{
     /*margin-top: -8px;*/
 }
 
+.mini-cart a:hover{
+    text-decoration: none;
+}
+
 .cartbutton{
     text-decoration: none;
     display: flex;
@@ -561,7 +568,7 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 24px;
-    margin: 0px 5px 0px 0px;
+    margin: 0px 7px 0px 0px;
     color: #6400FF;
 }
 
@@ -579,6 +586,10 @@ div#DDmenu li a:hover{
     clear: both;
 }
 
+#cart-quantity{
+    margin-right: 7px;
+}
+
 /**** search ****/
 
 .search {
@@ -588,7 +599,7 @@ div#DDmenu li a:hover{
 }
 
 #searchForm div{
-    border: 1px solid #aaaaaa;
+    border: 1px solid #D9D9D6;
     background-color: #fff;
     width: 210px;
     height: 35px;
@@ -645,7 +656,7 @@ table {
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
     background:#eaebec;
-    margin:20px;
+    margin:0 0 20px 0;
     border:#ccc 1px solid;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -656,7 +667,7 @@ table {
 }
 
 .p-table.cart-table {
-    width: 95%;
+    /*width: 95%;*/
 }
 
 table th {
@@ -747,7 +758,7 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #fff;
+    background-color: #B3B3B3;
     border: 1px solid #000000;
     color:#000;
     /*padding: 5px 10px;*/
@@ -764,7 +775,7 @@ tfoot tr td{
 }
 
 .btn:hover{
-    background-color: #E6E6E6;
+    background-color: #A0A0A0;
 
 } 
 
@@ -783,15 +794,21 @@ tfoot tr td{
 }
 
 .btn-primary:hover{
-    background-color: #391477;
+    background-color: #5A00E6;
 }
 
 .gift-btn {
     border-radius: 3px 3px 3px 3px;
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;
-    border: 1px solid !important;
-    background: #ededed;
+    border: 0px !important;
+    background: #B3B3B3 !important;
+    color: #000 !important;
+    font-size: 16px;
+    font-weight: bold;
+    height: 40px;
+    display: flex !important;
+    align-items: center;    
 }
 
 /*********** Page Experience Specific Styles *************
@@ -867,8 +884,8 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item{
-    width:150px;
-    height:150px;
+    width:125px;
+    height:125px;
     float:left;
     display:table-cell;
     vertical-align:middle;
@@ -876,17 +893,17 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item img{
-    max-height:150px;
-    max-width:150px;
+    max-height:125px;
+    max-width:125px;
 }
 
 .featured-product-carousel .item a{
-    width:150px;
-    height:150px;
+    width:125px;
+    height:125px;
     display:table-cell;
     vertical-align:middle;
     text-align:center;
-    border:1px solid #C3C3C3;
+    border:1px solid #d9d9d6;
 }   
         
 /****FAQ ****/
@@ -901,13 +918,14 @@ tfoot tr td{
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
-    color: #666666;
+    color: #000;
     font-family: 'Public Sans';
     font-size: 14px;
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
     width: 660px;
+    font-weight: 700;
 }
 
 #pageFAQ h2:hover, #pageFAQ .faqsSection:hover{
@@ -924,7 +942,7 @@ tfoot tr td{
     color: #313131;
     font-family: 'Public Sans';
     font-size: 14px;
-    line-height: 20px;
+    line-height: 1.5em;
 }
 
 /****Custom Orders****/
@@ -1023,9 +1041,9 @@ a.forgotPassword{
 }
 
 #myaccount_menu{
-    background-color: #eaebec;
-    border: 1px solid #CCCCCC;
-    margin: 10px 0 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #d9d9d6;
+    margin: 10px 0 30px;
     padding: 10px 5px;
     text-align: center;
 }
@@ -1036,7 +1054,7 @@ a.forgotPassword{
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
     background:#eaebec;
-    margin:0px 20px 20px 20px;
+    margin:15px 20px 20px 20px;
     border:#ccc 1px solid;
     padding: 15px;
     width: 425px;
@@ -1056,13 +1074,18 @@ a.forgotPassword{
     margin-top: 5px;
 }
 
+#pageMyAccount #accountShipping .f-buttons{
+    display: flex;
+    justify-content: flex-end;    
+}
+
 #pageMyAccount hr{
     border: #000;
     color:  #fff;
 }
 
 .info_needed {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 /****My Account My Address****/
@@ -1111,10 +1134,15 @@ td.ar{
     text-align: left;
 }
 
+#pageCategory .name a, #pageSearchResults .name a{
+    line-height: 1.5em;
+}
+
+
 .sortView{
-    background-color: #eaebec;
+    background-color: #f2f2f2;
     padding: 3px 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #d9d9d6;
     margin: 10px 0px 20px 0px;
 }
 
@@ -1148,7 +1176,7 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #2D2D2D;
+    background: #000;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
@@ -1219,7 +1247,7 @@ a.view-all{
 
 .estimate-calendar {
     margin-top: 5px;
-    display: none;
+    display: none !important;
 }
 
 .add-another-item  table {
@@ -1362,13 +1390,21 @@ ul.radios-list li label{
     vertical-align: middle;
 }
 
+#pageBasket .ar{
+    width: 80px;
+}
+
+#pageBasket{
+
+}
+
 /**** Checkout General ****/
 
 .co-breadcrumb{
   background-image: url("../images/bg/checkout_sprite.png");
   background-position: 103% 0;
   background-repeat: no-repeat;
-  margin: 30px 0;
+  margin: 30px 0 50px 0;
 }
 
 .co-breadcrumb li.active{
@@ -1433,7 +1469,7 @@ ul.radios-list li label{
 
 .co-breadcrumb li.ty {
   margin-left: 60px;
-  width: 125px;
+  width: 126px;
 }
 
 .address-options {
@@ -1580,7 +1616,7 @@ ul.radios-list li label{
     }
 
     .shipping-methods-section{
-        
+        margin-bottom: 30px;
     }
 
     .shipping-methods-section .location{
@@ -1806,7 +1842,7 @@ input#cvv{
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
         background:#eaebec;
-        margin:20px;
+        margin:20px 0 20px 0;
         border:#ccc 1px solid;
         -moz-border-radius:3px;
         -webkit-border-radius:3px;
@@ -1875,11 +1911,12 @@ input#cvv{
 }
 
 .warningText{
-    color: red;
+    color: #cc0000;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .message.success{
@@ -2120,6 +2157,10 @@ div#DDmenu a::after{
 
 #registration #content input::placeholder, #pageLogin #content input::placeholder{
 	color: #607070;
+}
+
+.search input::placeholder{
+    color: #000;
 }
 
 
@@ -2374,7 +2415,7 @@ input:focus {
 
 
 #allLogos a:hover .allLogosChild { 
-    background-color: #EBEBEB !important; 
+    background-color: #F0F0F0 !important; 
 }
 
 
@@ -2416,6 +2457,12 @@ input:focus {
     margin-bottom: 10px;
 }
 
+.promos .f-field{
+    display: flex;
+    width: 350px;
+    justify-content: space-between;    
+}
+
 #pageLandingTrane .page{
     margin: 0px;
     width: 0px;
@@ -2448,4 +2495,32 @@ input:focus {
     background: url("../images/trane-green.svg") no-repeat scroll left top transparent;
     height: 84px;
     width: 250px;    
+}
+
+#pageItem h1{
+    font-size: 23px;
+    color: #000;
+    line-height: 1.5em;
+}
+
+.desc{
+    font-size: 14px;
+    line-height: 1.5em;   
+}
+
+.point-of-contact{
+    line-height: 1.5em;
+}
+
+#pageWishlist img{
+    height: 125px;
+    width: 125px;
+}
+
+#pageWishlist .f-row{
+    margin-bottom: 10px;
+}
+
+#instock_msg p{
+    width: 600px;
 }
