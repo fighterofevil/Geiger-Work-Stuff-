@@ -2524,3 +2524,38 @@ input:focus {
 #instock_msg p{
     width: 600px;
 }
+
+#singleAddy{
+    padding-left: 5px;
+    padding-right: 5px;    
+}
+
+#pageCheckoutAddressesMulti table{
+    margin: 0 0 40px 0;
+}
+
+#pageCheckoutAddressesMulti .order-type-section{
+    padding-top: 10px;
+}
+
+.order-type-section label{
+    font-weight: 400;
+}
+
+#pageCheckoutSplitAddress .f-buttons{
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cancelContButtons{
+    display: flex;
+    width: 320px;
+    justify-content: space-between;
+}
+
+.splitNewAddress{
+
+}
