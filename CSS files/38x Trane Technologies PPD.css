@@ -2440,7 +2440,7 @@ input:focus {
 }
 
 .productCategories{
-    min-width: 190px;
+    /*min-width: 190px;*/
 }
 
 .logo{
@@ -2583,6 +2583,14 @@ input:focus {
     justify-content: space-between;
 }
 
+.question-dialog-buttons{
+    display: flex;
+    justify-content: space-around;    
+}
+
+#\39 29{
+    display: none;
+}
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
    /* IE10+ specific styles go here */  
