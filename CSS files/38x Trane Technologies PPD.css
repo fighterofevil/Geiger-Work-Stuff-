@@ -809,8 +809,8 @@ tfoot tr td{
     height: 40px;
     display: flex !important;
     align-items: center;    
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;    
+    border-radius: 0px !important;
+    padding: 0px 8px !important;
 }
 
 /*********** Page Experience Specific Styles *************
@@ -2440,7 +2440,7 @@ input:focus {
 }
 
 .productCategories{
-    min-width: 190px;
+    /*min-width: 203px;*/
 }
 
 .logo{
@@ -2581,6 +2581,19 @@ input:focus {
     display: flex;
     width: 310px;
     justify-content: space-between;
+}
+
+.lithium-ion-warning{
+    font-family: 'Public Sans' !important;
+    font-size: 13px !important;
+}
+
+#pageWishlist table{
+    margin-top: 15px;
+}
+
+.sf-menu li.productCategories:hover{
+    cursor: pointer;
 }
 
 
