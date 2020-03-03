@@ -2511,3 +2511,9 @@ input:focus {
 #pageCheckoutComplete .success{
     width: 710px;
 }
+
+#pageCheckoutSplitAddress .f-buttons{
+    display: flex;
+    width: 280px;
+    justify-content: space-between;    
+}

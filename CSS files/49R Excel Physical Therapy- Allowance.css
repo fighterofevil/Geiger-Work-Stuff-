@@ -2516,3 +2516,9 @@ input:focus {
     color: #fff;
     margin-left: 15px;
 }
+
+#pageCheckoutSplitAddress .f-buttons{
+    display: flex;
+    width: 280px;
+    justify-content: space-between;    
+}
