@@ -2402,15 +2402,15 @@ input:focus {
 
 #allLogos{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 15px;
     grid-row-gap: 15px;
     margin-bottom: 40px;  
 }
 
 .allLogosChild{
-    height: 125px;
-    width: 189px;
+    height: 100px;
+    width: 241px;
     background-size: 80% 80% !important;
     background-color: #F7F7F7 !important;
 }
@@ -2627,7 +2627,7 @@ input:focus {
         width: 1024px;
         -ms-flex-flow: row wrap;
         justify-content: space-between;
-        height: 280px;
+        height: 350px;
 
     }           
 }
