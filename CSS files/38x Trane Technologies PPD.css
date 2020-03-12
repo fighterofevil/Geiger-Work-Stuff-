@@ -414,8 +414,8 @@ body{
 }
 
 #js-popup-message.popup, #deliverypopup{
-	background-color: #FDE3E7;
-	border: 1px solid #9E091C;
+    background-color: #FDE3E7;
+    border: 1px solid #9E091C;
     box-shadow: 1px 1px 5px #ADADAD;
     left: 40% !important;
     padding: 20px;
@@ -809,8 +809,8 @@ tfoot tr td{
     height: 40px;
     display: flex !important;
     align-items: center;    
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;    
+    border-radius: 0px !important;
+    padding: 0px 8px !important;
 }
 
 /*********** Page Experience Specific Styles *************
@@ -2158,7 +2158,7 @@ div#DDmenu a::after{
 }
 
 #registration #content input::placeholder, #pageLogin #content input::placeholder{
-	color: #607070;
+    color: #607070;
 }
 
 .search input::placeholder{
@@ -2320,27 +2320,27 @@ div#DDmenu a::after{
  * https://www.paciellogroup.com/blog/2012/05/html5-accessibility-chops-hidden-and-aria-hidden/
  */
 .visually-hidden {
-	clip: rect(1px 1px 1px 1px); /* IE 6/7 */
-	clip: rect(1px, 1px, 1px, 1px);
-	height: 1px;
-	overflow: hidden;
-	position: absolute;
-	white-space: nowrap;
-	width: 1px;
-	margin: -1px;
+    clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    margin: -1px;
 }
 
 /*
  * For `.visually-hidden` elements that should be visible when it gains focus.
  */
 .visible-when-focused:focus {
-	clip: auto;
-	height: auto;
-	overflow: visible;
-	position: static;
-	white-space: normal;
-	width: auto;
-	margin: auto;
+    clip: auto;
+    height: auto;
+    overflow: visible;
+    position: static;
+    white-space: normal;
+    width: auto;
+    margin: auto;
 }
 
 /*
@@ -2348,11 +2348,11 @@ div#DDmenu a::after{
  * a `.bypass-block-target` element.
  */
 .bypass-block-link {
-	position: absolute;
-	text-decoration: none;
-	background: #ffffcc;
-	padding: 0.2em;
-	z-index: 10;
+    position: absolute;
+    text-decoration: none;
+    background: #ffffcc;
+    padding: 0.2em;
+    z-index: 10;
 }
 
 /*
@@ -2402,16 +2402,16 @@ input:focus {
 
 #allLogos{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 15px;
     grid-row-gap: 15px;
     margin-bottom: 40px;  
 }
 
 .allLogosChild{
-    height: 125px;
-    width: 189px;
-    background-size: 80% 80% !important;
+    height: 100px;
+    width: 241px;
+    background-size: 70% 70% !important;
     background-color: #F7F7F7 !important;
 }
 
@@ -2440,7 +2440,7 @@ input:focus {
 }
 
 .productCategories{
-    /*min-width: 190px;*/
+    /*min-width: 203px;*/
 }
 
 .logo{
@@ -2583,14 +2583,40 @@ input:focus {
     justify-content: space-between;
 }
 
-.question-dialog-buttons{
-    display: flex;
-    justify-content: space-around;    
+.lithium-ion-warning{
+    font-family: 'Public Sans' !important;
+    font-size: 13px !important;
+}
+
+#pageWishlist table{
+    margin-top: 15px;
+}
+
+.sf-menu li.productCategories:hover{
+    cursor: pointer;
+}
+
+.cross-sell{
+    display: none;
 }
 
 #\39 29{
     display: none;
 }
+
+.question-dialog-buttons{
+    display: flex;
+    justify-content: space-evenly;    
+}
+
+.catNote{
+    font-weight: bold;
+    color: red;
+    width: 630px;
+    text-align: center;
+    margin: 10px auto 30px;
+}
+
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
    /* IE10+ specific styles go here */  
@@ -2601,7 +2627,7 @@ input:focus {
         width: 1024px;
         -ms-flex-flow: row wrap;
         justify-content: space-between;
-        height: 280px;
+        height: 350px;
 
     }           
 }

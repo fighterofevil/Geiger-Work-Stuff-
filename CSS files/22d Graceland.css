@@ -1208,7 +1208,9 @@ a.view-all{
 }
 
 #pageItem .actions{
-    text-align: right;
+    width: 644px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .estimate-calendar {
@@ -2443,4 +2445,37 @@ div#DDmenu a::after{
     display: flex;
     width: 350px;
     justify-content: space-between;    
+}
+
+#pageCheckoutAddresses .address-options, #pageCheckoutAddressesMulti .address-options{
+    display: flex;
+    justify-content: space-between;
+}
+
+#pageCheckoutAddresses .address-options{
+    width: 370px;
+}
+
+#pageCheckoutAddressesMulti .address-options{
+    width: 340px;
+}
+
+#pageCheckoutAddressesMulti table{
+    margin: 20px 0px 20px 0px;
+}
+
+#pageCheckoutAddressesMulti .address-title {
+    width: 985px;
+}
+
+#singleAddy{
+    padding: 0px 10px;
+}
+
+#pageCheckoutAddresses .select-single{
+    padding-top: 10px;    
+}
+
+.inline-datepicker{
+    height: 280px;
 }

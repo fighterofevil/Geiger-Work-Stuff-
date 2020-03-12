@@ -486,7 +486,7 @@ div#DDmenu{
     /*padding-bottom: 20px;*/
     min-width: 227px;
     box-shadow: 0 0 6px 0px rgba(0,0,0,0.18);   
-    margin-top: 6px; 
+    margin-top: 5px; 
 }
 
 li.productCategories:hover div#DDmenu{
@@ -2510,4 +2510,10 @@ input:focus {
 
 #pageCheckoutComplete .success{
     width: 710px;
+}
+
+#pageCheckoutSplitAddress .f-buttons{
+    display: flex;
+    width: 280px;
+    justify-content: space-between;    
 }

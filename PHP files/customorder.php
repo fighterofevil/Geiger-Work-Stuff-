@@ -11,7 +11,7 @@ date_default_timezone_set("America/New_York");
 /*
 ** Database and C8 settings.
 */
-$serverIP = 			'ggc8.ciw6ojegqrdb.us-east-1.rds.amazonaws.com/';  //C8C1
+$serverIP = 			'ggc8.ciw6ojegqrdb.us-east-1.rds.amazonaws.com';  //C8C1
 $userID = 				'geiger_script';
 $password = 			'GeiGrom';
 $databasePreview = 		'previewc8prod';
