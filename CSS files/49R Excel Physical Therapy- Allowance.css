@@ -2522,3 +2522,18 @@ input:focus {
     width: 280px;
     justify-content: space-between;    
 }
+
+#pageAllowanceAdmin table{
+    background: #fff;
+}
+
+.pointsButtons{
+    display: flex;
+    width: 320px;
+    justify-content: space-between;
+    padding-left: 0px !important;    
+}
+
+.noBorder{
+    border-left: none;
+}
