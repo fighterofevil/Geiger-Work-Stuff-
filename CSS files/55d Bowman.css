@@ -127,7 +127,7 @@ strong{
 
 body{
     color:#444444;
-    font-family: 	Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-family:    Arial,"Helvetica Neue",Helvetica,sans-serif;
     font-size: 14px;
     line-height: 18px;
 }
@@ -555,7 +555,7 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/bowman-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/bowman-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 85px;
@@ -567,6 +567,44 @@ body{
 #header .logo span {
     display: none;
 }
+
+.spotlight-background{
+    background: url("../images/spotlight-background.jpg") no-repeat scroll left top transparent;
+    width: 100%;
+    height: 427px;
+    position: relative;
+}
+
+.spotlight-content{
+    width: 262px;
+    margin: 0 auto;
+    color:white;
+    font-size: 22px;
+    font-family: Verdana, Helvetica, sans-serif;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.spotlight-background h3:first-of-type{
+    font-weight: 400;
+    font-style: italic;
+    text-align: left;
+}
+
+.spotlight-background h3{
+    font-weight: bold;
+    text-align: right;
+    padding: 10px 0px;
+}
+
+.spotlight-background img{
+   
+}
+
 
 #js-popup-message.popup, #deliverypopup{
     background-color: #DE7A82;
@@ -1991,15 +2029,15 @@ float: right;
 #simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px;}
 
 #simplemodal-container a.modalCloseImg {
-	background:url("../images/x.png") no-repeat;
-	width:25px;
-	height:29px;
-	display:inline;
-	z-index:3200;
-	position:absolute;
-	top:-15px;
-	right:-18px;
-	cursor:pointer;
+    background:url("../images/x.png") no-repeat;
+    width:25px;
+    height:29px;
+    display:inline;
+    z-index:3200;
+    position:absolute;
+    top:-15px;
+    right:-18px;
+    cursor:pointer;
 }
 
 #new-address-modal {
@@ -2504,7 +2542,7 @@ input#cvv{
 }
 
 .popUpAd{
-    background-image: url("../images/Bowman-PopUp.png");   
+    background-image: url("../images/Bowman-PopUp2.PNG");   
     height: 469px;
     background-size: 100%;
     display: block;
