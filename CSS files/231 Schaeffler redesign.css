@@ -2067,7 +2067,7 @@ input#cvv{
 }
 
 .spotlightImg{
-    background: url("../images/item spotlight.png") no-repeat scroll left top transparent;
+    background: url("../images/newSpotlight.png") no-repeat scroll left top transparent;
     height: 312px;
     width: 519px;
 }
