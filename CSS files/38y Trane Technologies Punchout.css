@@ -2600,7 +2600,7 @@ input:focus {
     display: none;
 }
 
-#\39 29{
+#\39 30{
     display: none;
 }
 
@@ -2629,10 +2629,9 @@ input:focus {
         justify-content: space-between;
         height: 350px;
 
-    }      
+    }           
 
     #\39 30 label{
         width: 500px;
     }
 }
-
