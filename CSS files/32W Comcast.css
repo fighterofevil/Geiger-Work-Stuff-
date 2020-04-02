@@ -122,9 +122,9 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#444444;
-    font-family: montserrat, sans-serif;
-    font-size: 14px;
+    color:#000;
+    font-family: lato, sans-serif;
+    font-size: 15px;
     line-height: 1.5em;
 }
 
@@ -146,13 +146,13 @@ p .pageItem{
     margin-bottom: 0px;
 }
 
-a{ 
+a, #pageCheckoutPayment .js-click{ 
     color:#005BBB;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
-a:hover{
-    color: #005BBB;
+a:hover, #pageCheckoutPayment .js-click:hover, a.forgotPassword:hover{
+    color: #004083;
 }
 
 #footer{
@@ -182,6 +182,7 @@ a:hover{
     padding: 10px 20px;
     display: flex;
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 .nav a:hover{
@@ -196,7 +197,7 @@ div#DDmenu a{
 
 h1, .termsH1, .welcome-message-H1{ 
     font-weight: bold;
-    font-size: 26px;
+    font-size: 28px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
@@ -206,17 +207,18 @@ h1, .termsH1, .welcome-message-H1{
     text-align: center;
 }
 
-#pageCategory h1, #pageItem h1{
+#pageCategory h1, #pageItem h1, #pageCategoryStatic h1, #pageFAQ h1{
     margin-top: 20px;
     font-size: 32px;
     color: #fff;
 }
 
 h2{ 
-    font-size:22px;
-    color:#424242;
+    font-size:21px;
+    color:#000;
     font-weight:bold;
     margin-bottom: 15px;
+    line-height: 1.15em;
 }
 
 h3{ }
@@ -224,8 +226,12 @@ h4{ }
 h5{ }
 h6{ }
 
+.bCrumbs{
+    border-bottom: 1px solid #e6eaed;
+}
+
 .bCrumbs, .bCrumbs a{
-    font-size: 14px;
+    font-size: 13px;
     color:#000;
     background-color: #F7F7F7;   
 }
@@ -247,6 +253,7 @@ h6{ }
     font-size: 18px;
     font-weight: bold;
     margin: 10px;
+    color: #000;
 }
 
 #itemCodeList {
@@ -522,7 +529,7 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .utilNav ul{
@@ -549,6 +556,8 @@ div#DDmenu li a:hover{
     background-color: #303030;
     display: flex;
     justify-content: flex-start;
+    text-align: center;   
+    height: 40px; 
 }
 
 .mini-cart a{
@@ -643,7 +652,7 @@ table a:hover {
 
 table {
     font-family: montserrat, sans-serif;
-    color:#666;
+    color:#000;
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
     background:#eaebec;
@@ -655,6 +664,7 @@ table {
     -moz-box-shadow: 0 1px 2px #d1d1d1;
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
     box-shadow: 0 1px 2px #d1d1d1;
+    line-height: 1.15em;
 }
 
 .p-table.cart-table {
@@ -757,12 +767,12 @@ tfoot tr td{
     align-items: center;
     justify-content: center;    
     height: 40px;
-    min-width: 130px;
-    /*border: 1px solid #000;*/
+    min-width: 130px;    
     text-transform: uppercase;
     font-size: 16px;    
     padding-left: 22px;
-    padding-right: 22px;        
+    padding-right: 22px;    
+    border: 0px;
 }
 
 .btn:hover{
@@ -778,12 +788,12 @@ tfoot tr td{
     align-items: center;
     justify-content: center;    
     height: 40px;
-    min-width: 130px;
-    /*border: 1px solid #000;*/
+    min-width: 130px;    
     text-transform: uppercase;
     font-size: 16px;
     padding-left: 22px;
-    padding-right: 22px;    
+    padding-right: 22px;  
+    border: 0px;  
 }
 
 .btn-primary:hover{
@@ -817,12 +827,14 @@ tfoot tr td{
     line-height: 24px;
     font-size: 16px;
     padding-top: 40px;
+    padding-bottom: 40px;
     color: #000;
 }
 
 .welcome-message p{
     font-family: lato, sans-serif;
     text-align: center;
+    margin-bottom: 0px;
 }
 
 .spotlight {
@@ -848,7 +860,7 @@ tfoot tr td{
     color: #fff;
     display: flex;
     align-items: center;    
-    background-position: 400px 0px;
+    background-position: 425px 0px;
 }
 
 .spotlightText{
@@ -863,6 +875,7 @@ tfoot tr td{
     height: 4px;
     width: 395px;
     background-color: #F9D14F;
+    margin-bottom: 20px;
 }
 
 .spotStore{
@@ -872,6 +885,18 @@ tfoot tr td{
     margin-top: 31px;
     margin-bottom: 40px;
     font-weight: 700;
+}
+
+/*.spotBarText{
+    margin-top: 20px;
+    line-height: 1.15em;
+    text-align: center;
+}*/
+
+
+.spotBarText{
+    width: 1024px;
+    text-align: center;
 }
 
 .shopButton{
@@ -888,11 +913,15 @@ tfoot tr td{
     font-weight: 700;    
 }
 
+.shopButton:hover{
+    background-color: #e0bc47;
+}
+
 /*Featured Products Carousel*/
 
 .featured-product-carousel{
     position:relative;
-    top: 42px;
+    /*top: 42px;*/
 }
 
 .featured-product-carousel .title{
@@ -946,8 +975,8 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item img{
-    max-height:175px;
-    max-width:175px;
+    max-height:150px;
+    max-width:150px;
 }
 
 .featured-product-carousel .item a{
@@ -956,6 +985,8 @@ tfoot tr td{
     display:table-cell;
     vertical-align:middle;
     text-align:center;
+    background-color: #fff;
+    box-shadow: -7px 7px 30px 0px rgba(0,0,0,0.05);
     /*border:1px solid #C3C3C3;*/
 }   
         
@@ -971,13 +1002,14 @@ tfoot tr td{
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
-    color: #666666;
+    color: #000;
     font-family: montserrat, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     margin: 0px;
     padding: 15px;
     text-shadow: 1px 1px 0 #FFFFFF;
     width: 660px;
+    font-weight: 700;
 }
 
 #pageFAQ h2:hover, #pageFAQ .faqsSection:hover{
@@ -991,9 +1023,9 @@ tfoot tr td{
 
 #pageFAQ .section p, #pageFAQ .faqsSection p {
 
-    color: #313131;
-    font-family: montserrat, sans-serif;
-    font-size: 14px;
+    color: #000;
+    font-family: lato, sans-serif;
+    font-size: 15px;
     line-height: 20px;
 }
 
@@ -1106,14 +1138,14 @@ a.forgotPassword{
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
     background:#eaebec;
-    margin:0px 20px 20px 20px;
+    margin: 15px 20px 20px 20px;
     border:#ccc 1px solid;
     padding: 15px;
     width: 425px;
 }
 
 #pageMyAccount form.myAccountForm label{
-    width: 120px;
+    width: 130px;
     display: block;
     float: left;
 }
@@ -1179,6 +1211,7 @@ td.ar{
 
 #pageCategory .name{
     text-align: left;
+    line-height: 1.15em;
 }
 
 .sortView{
@@ -1196,6 +1229,7 @@ td.ar{
 
 .filter {
     margin-bottom: 15px;
+    display: none;
 }
 
 .item{
@@ -1437,12 +1471,13 @@ ul.radios-list li label{
   background-image: url("../images/bg/checkout_sprite.png");
   background-position: 103% 0;
   background-repeat: no-repeat;
-  margin: 30px 0;
+  margin: 30px 0px 50px 0px;
+
 }
 
 .co-breadcrumb li.active{
     font-weight: bold;
-    color:#666;
+    color:#000;
 }
 
 .co-breadcrumb.step2 {
@@ -1502,7 +1537,7 @@ ul.radios-list li label{
 
 .co-breadcrumb li.ty {
   margin-left: 60px;
-  width: 125px;
+  width: 135px;
 }
 
 .address-options {
@@ -1686,9 +1721,9 @@ ul.radios-list li label{
     clear: right;
 }
 
-#pageCheckoutPayment .js-click{
+/*#pageCheckoutPayment .js-click{
     color:#84010F;
-}
+}*/
 
 .payment-section{
     margin-bottom: 30px;
@@ -1708,7 +1743,7 @@ ul.radios-list li label{
 
 .tabs .tab {
     font-family: montserrat, sans-serif;
-    color:#666;
+    color:#000;
     font-size:12px;
     background:#FFFFFF;
     border:#ccc 1px solid;
@@ -1736,7 +1771,7 @@ ul.radios-list li label{
     float: right;
     margin-top: 15px;
     text-align: right;
-    width: 150px;
+    width: 210px;
 }
 
 .subtotal-line.total{
@@ -1800,7 +1835,7 @@ ul.radios-list li label{
     .tabs label {display:block;}
     .tabs .half input, .tabs .half select {width:180px;}
     .tabs .half{float:left;width:49%;}
-    .tabs .section {line-height:2em;}
+    .tabs .section {line-height:1.5em;}
     .tabs .section label {line-height:1em;padding:0 0 1px;margin:12px 0 0;}
     .tabs .section h4 {font-weight:bold;font-size:14px;border-bottom:1px solid #ADADAD;padding-bottom:1px;line-height:1.3em;margin:10px 0 6px}
     .tabs .chzn-container {margin-top:4px;}
@@ -1954,11 +1989,23 @@ input#cvv{
 }
 
 .warningText{
-    color: red;
+    color: #e60000;
     font-weight: bold;
     font-size: 13px;
     text-align: center;
     margin-bottom: 20px;
+}
+
+#pageMyAccount .warningText{
+    font-size: 14px;
+    line-height: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 10px;    
+}
+
+#pageMyAccount table{
+    font-size: 13px;
+    margin: 0px 0px 20px 0px;    
 }
 
 .message.success{
@@ -2455,13 +2502,14 @@ input:focus {
     font-size: 32px;
     color: #000;    
     text-align: center;
-    padding-top:41px;   
+    padding-top:40px;   
+    margin-bottom: 0px;
 }
 
 #catItemSpotlight{
     background: url("../images/catspot-img.jpg") no-repeat scroll left top transparent;
     display: block;
-    height: 180px;
+    height: 140px;
     background-position: center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -2469,17 +2517,27 @@ input:focus {
     background-size: cover;        
 }
 
-#catItemSpotlightWrapper{
+/*#catItemSpotlightWrapper{
     width: 1024px;
     margin: 0 auto;
     width: 1024px;
     margin: 0 auto;
     display: flex;
-    height: 180px;
+    height: 140px;
     justify-content: center;
+}*/
+
+
+#catItemSpotlightWrapper {
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    height: 140px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-#pageCategory .spotBar, #pageItem .spotBar{
+#pageCategory .spotBar, #pageItem .spotBar, #pageCategoryStatic .spotBar, #pageFAQ .spotBar{
     width: 200px;
     text-align: center;
     position: relative;
@@ -2491,6 +2549,8 @@ input:focus {
     flex-wrap: wrap;
     width: 500px;
     justify-content: center;    
+    align-items: center;
+    height: 140px;    
 }
 
 .itemTitle{
@@ -2518,7 +2578,7 @@ input:focus {
     display: none;
 }
 
-.desc{
+.desc, #pageCategoryStatic p{
     color: #000;
     font-family: lato, sans-serif;
     font-size: 15px;
@@ -2532,7 +2592,7 @@ input:focus {
 }
 
 .welcomemsg strong{
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 #pageCheckoutSplitAddress .f-buttons{
@@ -2542,4 +2602,36 @@ input:focus {
 
 .ship-to-multiple{
     display: none;
+}
+
+#pageCategory .name a{
+    font-size: 13px;
+}
+
+.DSMessage{
+    line-height: 1.15em;
+    font-family: lato, sans-serif;    
+}
+
+.emptyBasketButton{
+    margin-top: 15px;
+}
+
+#pageCheckoutAddresses .name, #pageCheckoutAddresses .company, #pageCheckoutAddresses .address, #pageCheckoutAddresses .city-state-zip{
+    line-height: 1.3em;
+}
+
+#instock_msg{
+    width: 650px;
+    line-height: 1.5em;    
+}
+
+#pageCheckoutComplete .alert{
+    width: 745px;
+    line-height: 1.5em;   
+}
+
+#pageMyAccount .f-buttons{
+    display: flex;
+    justify-content: flex-end;    
 }
