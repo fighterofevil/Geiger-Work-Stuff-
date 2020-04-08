@@ -153,6 +153,7 @@ a, #pageCheckoutPayment .js-click{
 
 a:hover, #pageCheckoutPayment .js-click:hover, a.forgotPassword:hover{
     color: #004083;
+    text-decoration: underline;
 }
 
 #footer{
@@ -161,6 +162,7 @@ a:hover, #pageCheckoutPayment .js-click:hover, a.forgotPassword:hover{
     background-color: #414141;
     height: 60px;
     color: #fff;
+    font-family: montserrat, sans-serif;    
 }
 
 
@@ -183,6 +185,7 @@ a:hover, #pageCheckoutPayment .js-click:hover, a.forgotPassword:hover{
     display: flex;
     font-weight: 700;
     text-transform: uppercase;
+    font-family: montserrat, sans-serif;    
 }
 
 .nav a:hover{
@@ -201,6 +204,8 @@ h1, .termsH1, .welcome-message-H1{
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    color: #000;
+    font-family: montserrat, sans-serif;    
 }
 
 #pageHome h1, .welcome-message-H1{
@@ -209,7 +214,7 @@ h1, .termsH1, .welcome-message-H1{
 
 #pageCategory h1, #pageItem h1, #pageCategoryStatic h1, #pageFAQ h1{
     margin-top: 20px;
-    font-size: 32px;
+    /*font-size: 32px;*/
     color: #fff;
 }
 
@@ -231,7 +236,7 @@ h6{ }
 }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 13px;
+    font-size: 14px;
     color:#000;
     background-color: #F7F7F7;   
 }
@@ -254,6 +259,7 @@ h6{ }
     font-weight: bold;
     margin: 10px;
     color: #000;
+    font-family: montserrat, sans-serif;    
 }
 
 #itemCodeList {
@@ -287,18 +293,19 @@ label, .label {
     padding-bottom: 5px;
     margin-bottom: 10px;
     width: 85%;
+    font-family: montserrat, sans-serif;       
 }
 
 #recentlyViewed li {
 }
 
-.subcat-title a,#recentlyViewed a {
+.subcat-title a, #recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
     color:#000;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
-    font-size:13px
+    font-size:14px; 
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
@@ -534,6 +541,7 @@ div#DDmenu li a:hover{
 
 .utilNav ul{
     float: right;
+    font-family: montserrat, sans-serif;    
 }
 
 
@@ -558,14 +566,20 @@ div#DDmenu li a:hover{
     justify-content: flex-start;
     text-align: center;   
     height: 40px; 
+    font-family: montserrat, sans-serif;    
 }
 
 .mini-cart a{
     color: #fff;
 }
 
+.mini-cart a:hover{
+    text-decoration: none;
+}
+
 .mini-cart:hover{
     background-color: #454545;    
+    text-decoration: none;
 }
 
 .cartbutton{
@@ -664,7 +678,8 @@ table {
     -moz-box-shadow: 0 1px 2px #d1d1d1;
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
     box-shadow: 0 1px 2px #d1d1d1;
-    line-height: 1.15em;
+    line-height: 1.5em;
+    width: 100%
 }
 
 .p-table.cart-table {
@@ -773,6 +788,7 @@ tfoot tr td{
     padding-left: 22px;
     padding-right: 22px;    
     border: 0px;
+    font-family: montserrat, sans-serif;    
 }
 
 .btn:hover{
@@ -794,6 +810,7 @@ tfoot tr td{
     padding-left: 22px;
     padding-right: 22px;  
     border: 0px;  
+    font-family: montserrat, sans-serif;    
 }
 
 .btn-primary:hover{
@@ -819,6 +836,7 @@ tfoot tr td{
 .home-content{
     height: 234px;
     background: #fff;
+    padding-bottom: 10px;
 }
 
 .welcome-message{
@@ -865,6 +883,7 @@ tfoot tr td{
 
 .spotlightText{
     font-size: 21px;
+    font-family: montserrat, sans-serif;    
 }
 
 .spotlightText a{
@@ -897,6 +916,7 @@ tfoot tr td{
 .spotBarText{
     width: 1024px;
     text-align: center;
+    line-height: 1.15em;
 }
 
 .shopButton{
@@ -911,6 +931,7 @@ tfoot tr td{
     align-items: center;
     margin-top: 41px;
     font-weight: 700;    
+    font-family: montserrat, sans-serif;    
 }
 
 .shopButton:hover{
@@ -938,7 +959,7 @@ tfoot tr td{
     float:left;
     /*width:600px;*/
     /*padding-left:10px;*/
-    height: 175px;
+    height: 200px;
 }   
 
 .featured-product-carousel .prev{
@@ -972,6 +993,7 @@ tfoot tr td{
     display:table-cell;
     vertical-align:middle;
     margin-right:35px;
+    margin-top: 10px;
 }
 
 .featured-product-carousel .item img{
@@ -1215,10 +1237,11 @@ td.ar{
 }
 
 .sortView{
-    background-color: #eaebec;
+    background-color: #f7f7f7;
     padding: 3px 5px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     margin: 10px 0px 20px 0px;
+    border-bottom: 1px solid #e6eaed;
 }
 
 .active-filters{
@@ -1257,6 +1280,8 @@ td.ar{
     bottom: 5px;
     padding: 5px 6px;
     font-weight: 700;
+    font-size: 14px;
+    font-family: montserrat, sans-serif;
 }
 
 .pagination-new {
@@ -1652,7 +1677,7 @@ ul.radios-list li label{
 
 #new-address-modal {
     width:600px;
-    height: 600px;
+    height: 615px;
     padding: 0px 20px;
     background-color:#FFF;
     overflow:auto;  /* safe scroll for all browsers */
@@ -1714,11 +1739,13 @@ ul.radios-list li label{
 
     .shipping-methods-section .options {
         float:right;
+        display: none;
     }
 
 #sh-shipping-info {
     float: right;
     clear: right;
+    display: none;
 }
 
 /*#pageCheckoutPayment .js-click{
@@ -2006,6 +2033,7 @@ input#cvv{
 #pageMyAccount table{
     font-size: 13px;
     margin: 0px 0px 20px 0px;    
+    font-family: lato, sans-serif;
 }
 
 .message.success{
@@ -2504,6 +2532,7 @@ input:focus {
     text-align: center;
     padding-top:40px;   
     margin-bottom: 0px;
+    font-family: montserrat, sans-serif;    
 }
 
 #catItemSpotlight{
@@ -2529,7 +2558,7 @@ input:focus {
 
 
 #catItemSpotlightWrapper {
-    width: 600px;
+    width: 1024px;
     margin: 0 auto;
     display: flex;
     height: 140px;
@@ -2634,4 +2663,8 @@ input:focus {
 #pageMyAccount .f-buttons{
     display: flex;
     justify-content: flex-end;    
+}
+
+.warn{
+    font-family: lato, sans-serif;    
 }
