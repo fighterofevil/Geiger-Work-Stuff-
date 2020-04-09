@@ -531,7 +531,7 @@ div#DDmenu li a:hover{
     /*float: right;*/
     height: 50px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -778,8 +778,8 @@ tfoot tr td{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 44px;
-    min-width: 165px;
+    height: 40px;
+    min-width: 185px;
     text-transform: lowercase; 
     font-size: 16px;
 }
@@ -801,8 +801,8 @@ tfoot tr td{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 44px;
-    min-width: 165px;
+    height: 40px;
+    min-width: 185px;
     text-transform: lowercase;
     font-size: 16px;
 }
@@ -2452,7 +2452,7 @@ input:focus {
 .budgetDiv{
     position: relative;
     float: left;
-    left: 10px;
+    left: 200px;
     bottom: 10px;    
     font-family: nunito-sans, sans-serif;
 }
@@ -2515,4 +2515,12 @@ input:focus {
 
 .pointBtn{
     margin-right: 10px;    
+}
+
+#pageCheckoutComplete .alert-success{
+    width: 725px;    
+}
+
+#errortext{
+    display: flex;
 }
