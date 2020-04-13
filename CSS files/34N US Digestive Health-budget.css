@@ -458,6 +458,8 @@ body{
 .nav{
     width: 610px;
     height: 45px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .nav li{
@@ -533,6 +535,7 @@ div#DDmenu li a:hover{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    z-index: 1000;
 }
 
 .utilNav ul a{
@@ -540,7 +543,7 @@ div#DDmenu li a:hover{
 }
 
 .utilNav-ul1{
-    width: 600px;
+    width: 570px;
     display: flex;
     justify-content: flex-start;    
 }
@@ -675,7 +678,7 @@ table {
 }
 
 .p-table.cart-table {
-    width: 95%;
+    /*width: 95%;*/
 }
 
 table th {
@@ -778,7 +781,7 @@ tfoot tr td{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
+    height: 36px;
     min-width: 185px;
     text-transform: lowercase; 
     font-size: 16px;
@@ -801,7 +804,7 @@ tfoot tr td{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
+    height: 36px;
     min-width: 185px;
     text-transform: lowercase;
     font-size: 16px;
@@ -2183,7 +2186,6 @@ div#DDmenu a::after{
 
 .new-address{
     margin-left: 10px;   
-    height: 44px;
 }
 
 .modalWarningText{
@@ -2447,18 +2449,32 @@ input:focus {
 
 .welcomemsg{
     text-align: left;
+/*    line-height: 2.15em;
+    position: relative;
+    top: 15px;
+    left: 40px;*/
+
 }
 
 .budgetDiv{
     position: relative;
     float: left;
-    left: 200px;
-    bottom: 10px;    
+    left: 157px;
+    /*bottom: 10px;    */
     font-family: nunito-sans, sans-serif;
+}
+
+.budgetDiv ul{
+    justify-content: flex-start;
+}
+
+.budgetDiv ul li{
+    margin-left: 0px !important;
 }
 
 .budgetSite{
     width: 800px;
+    height: 0px;
 }
 
 .ui-widget-content a{
@@ -2523,4 +2539,13 @@ input:focus {
 
 #errortext{
     display: flex;
+}
+
+#singleAddy{
+    height: 32px;
+}
+
+.budgetInfo{
+    position: relative;
+    bottom: 10px;
 }
