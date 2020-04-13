@@ -2458,7 +2458,7 @@ input:focus {
 
 .budgetDiv{
     position: relative;
-    float: left;
+    float: left;''
     left: 157px;
     /*bottom: 10px;    */
     font-family: nunito-sans, sans-serif;
@@ -2488,7 +2488,7 @@ input:focus {
 
 .wishListButtonRemoveButtons{
     display: flex;
-    width: 345px;
+    width: 380px;
     justify-content: space-between;
 }
 
