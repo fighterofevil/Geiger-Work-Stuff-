@@ -834,7 +834,7 @@ tfoot tr td{
 /****Home****/
 
 .home-content{
-    height: 234px;
+    height: 255px;
     background: #fff;
     padding-bottom: 10px;
 }
@@ -883,7 +883,9 @@ tfoot tr td{
 
 .spotlightText{
     font-size: 21px;
-    font-family: montserrat, sans-serif;    
+    font-family: montserrat, sans-serif; 
+    width: 440px;
+    line-height: 1.5em;  
 }
 
 .spotlightText a{
@@ -1008,8 +1010,8 @@ tfoot tr td{
     vertical-align:middle;
     text-align:center;
     background-color: #fff;
-    box-shadow: -7px 7px 30px 0px rgba(0,0,0,0.05);
-    /*border:1px solid #C3C3C3;*/
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.03);    
+    border: 1px solid #e6eaed;
 }   
         
 /****FAQ ****/
@@ -1264,7 +1266,7 @@ td.ar{
 }
 
 .item .image img{
-    border:1px solid #ccc;
+    border:1px solid #e6eaed;
     padding: 12px;
     width: 125px;
 }
@@ -1275,7 +1277,7 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #000;
+    background: #191919;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
