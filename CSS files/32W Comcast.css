@@ -1351,7 +1351,7 @@ a.view-all{
 
 .estimate-calendar {
     margin-top: 5px;
-    display: none;
+    display: none !important;
 }
 
 .add-another-item  table {
