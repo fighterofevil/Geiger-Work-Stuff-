@@ -144,6 +144,7 @@ p .pageItem{
 
 #footer p{
     margin-bottom: 0px;
+    color: #fff !important;
 }
 
 a, #pageCheckoutPayment .js-click{ 
@@ -1350,6 +1351,7 @@ a.view-all{
 
 .estimate-calendar {
     margin-top: 5px;
+    display: none;
 }
 
 .add-another-item  table {
@@ -2655,6 +2657,7 @@ input:focus {
 #instock_msg{
     width: 650px;
     line-height: 1.5em;    
+    display: none;
 }
 
 #pageCheckoutComplete .alert{
