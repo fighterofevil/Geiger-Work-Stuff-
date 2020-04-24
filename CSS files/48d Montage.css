@@ -539,6 +539,10 @@ div#DDmenu li a:hover{
     text-decoration: underline;
 }
 
+#header .wrapper .utilNav li.mini-cart a:hover{
+    text-decoration: none;
+}
+
 .utilNav ul{
     /*float: right;*/
     display: flex;
@@ -546,6 +550,7 @@ div#DDmenu li a:hover{
     width: 100%;
     height: 30px;
     flex-wrap: wrap;    
+    align-items: center;
 }
 
 /****footer nav****/
@@ -576,7 +581,7 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 24px;
-    margin: 5px 5px 0px 0px;
+    margin: 0px 5px 0px 0px;
     color: #007DB6;
 }
 
