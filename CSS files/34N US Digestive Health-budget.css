@@ -1681,11 +1681,13 @@ ul.radios-list li label{
 
     .shipping-methods-section .options {
         float:right;
+        display: none;
     }
 
 #sh-shipping-info {
     float: right;
     clear: right;
+    display: none;
 }
 
 #pageCheckoutPayment .js-click{
