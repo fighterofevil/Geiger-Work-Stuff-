@@ -502,7 +502,7 @@ div#DDmenu li a{
 }
 
 div#DDmenu li:hover{
-    background-color: #B2E1EA; 
+    background-color: #B4E184; 
 }
 
 div#DDmenu li a:hover{
@@ -564,7 +564,7 @@ div#DDmenu li a:hover{
 /****Mini Cart****/
 
 .mini-cart{
-    background-color: #B2E1EA;
+    background-color: #B4E184;
     height: 50px;
     width: 176px;
     border-bottom-left-radius: 20px;
@@ -609,7 +609,7 @@ div#DDmenu li a:hover{
 }
 
 #searchForm div{
-    border: 2px solid #81BE41;
+    border: 2px solid #3C829B;
     background-color: #fff;
     width: 176px;
     height: 35px;
@@ -844,7 +844,7 @@ tfoot tr td{
 }
 
 .spotlight {
-    background: url("../images/sponsored-spot.jpg") no-repeat scroll left top transparent;
+    background: url("../images/staff-spot.jpg") no-repeat scroll left top transparent;
     background-size: cover;    
     height: 416px;
     background-position: center top;
@@ -910,7 +910,7 @@ tfoot tr td{
 .featured-product-carousel .items-wrapper{
     float:left;
     /*width:600px;*/
-    /*padding-left:10px;*/
+    padding-left: 3px;
     height: 200px;
 }   
 
@@ -952,6 +952,7 @@ tfoot tr td{
     display:table-cell;
     vertical-align:middle;
     margin-right:30px;
+    margin-top: 3px;
 }
 
 .featured-product-carousel .item img{
