@@ -456,7 +456,7 @@ body{
 }
 
 .nav{
-    width: 610px;
+    width: 625px;
     height: 45px;
     display: flex;
     justify-content: flex-end;
@@ -606,6 +606,7 @@ div#DDmenu li a:hover{
 
 .search {
     height: 40px;
+    display: none;
 }
 
 #searchForm div{
@@ -889,6 +890,20 @@ tfoot tr td{
     font-weight: 400;    
 }
 
+.spotlightLandingBig{
+    font-size: 44px;
+    height: 36px;    
+    text-transform: initial;
+}
+
+.spotlightLandingSmall{
+    font-size: 22px;
+    font-family: nunito-sans, sans-serif;
+    font-weight: 400;        
+    height: 36px;
+    text-transform: initial;
+}
+
 /*Featured Products Carousel*/
 
 .featured-product-carousel{
@@ -910,7 +925,7 @@ tfoot tr td{
 .featured-product-carousel .items-wrapper{
     float:left;
     /*width:600px;*/
-    /*padding-left:10px;*/
+    padding-left: 3px;
     height: 200px;
 }   
 
@@ -952,6 +967,7 @@ tfoot tr td{
     display:table-cell;
     vertical-align:middle;
     margin-right:30px;
+    margin-top: 3px;
 }
 
 .featured-product-carousel .item img{
@@ -1962,7 +1978,7 @@ input#cvv{
     font-weight: bold;
     font-size: 13px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .message.success{
@@ -2544,4 +2560,82 @@ input:focus {
 .budgetInfo{
     position: relative;
     bottom: 10px;
+}
+
+#pageLanding .nav, #pageLanding .utilNav {
+    display: none;
+}
+
+#pageLanding .spotlight {
+    background: url("../images/landing-spot.jpg") no-repeat scroll left top transparent;
+    background-size: cover;    
+    height: 416px;
+    background-position: center top;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;   
+    display: flex;
+    align-items: center;
+    justify-content: left;   
+}    
+
+
+#pageLanding .spotlightText{
+    width: 1024px;    
+    right: initial;
+}
+
+.buttonSection{
+    width: 1024px;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;    
+}
+
+.storeButton{
+    width: 497px;
+    height: 190px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.blue{
+    background-color: #3C829B;
+}
+
+.green{
+    background-color: #81BE41;
+}
+
+.storeTitle{
+    height: 35px;
+    font-size: 45px;
+    color: #fff;
+    text-shadow: 3px 3px 0.2px rgba(1,2,2,0.56);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    position: relative;
+    top: 24px;
+}
+
+.clickAccess{
+    color: #fff;
+    font-size: 16px;
+    width: 176px;
+    height: 40px;
+    border: 2px solid;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 10px;    
+}
+
+#pageLanding a:hover{
+    text-decoration: none;
 }
