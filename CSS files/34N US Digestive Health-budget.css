@@ -606,7 +606,7 @@ div#DDmenu li a:hover{
 
 .search {
     height: 40px;
-    display: none;
+    /*display: none;*/
 }
 
 #searchForm div{
@@ -679,7 +679,7 @@ table {
 }
 
 .p-table.cart-table {
-    /*width: 95%;*/
+    width: 100%;
 }
 
 table th {
@@ -1532,7 +1532,7 @@ ul.radios-list li label{
     text-align: right;
     margin: -5px 0 8px;
     float: right;
-    display: flex;
+    display: none;
 }
 
 .address-options .btb{
@@ -2509,6 +2509,7 @@ input:focus {
 }
 .ship-to-multiple{
     width: 230px;
+    display: none;
 }
 
 #new-address-modal h1, #new-address-modal p{
@@ -2643,4 +2644,16 @@ input:focus {
 
 #pageLanding a:hover{
     text-decoration: none;
+}
+
+#pageLanding #footer a:hover{
+    text-decoration: underline;
+}
+
+.edit-address-link{ 
+        display: none; 
+}
+
+#pageMyAccount table{
+    width: 100%;
 }
