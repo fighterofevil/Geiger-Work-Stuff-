@@ -146,18 +146,29 @@ p .pageItem{
 }
 
 a{ 
-    color:#84010F;
+    color:#0854A9;
     text-decoration: none;
 }
 
+a:hover{
+    color: #221F1F;
+    text-decoration: underline;
+}
+
 #footer{
-    font-size: 12px;
+    font-size: 13px;
     position: relative;
-    background-color: #e5e5e5;
+    background-color: #221F1F;
+    text-transform: uppercase;
+    color: #fff;
 }
 
 #footer a{
-    color:#444;
+    color:#fff;
+}
+
+#footer a:hover{
+    text-decoration: underline;
 }
 
 .nav a{
@@ -310,16 +321,22 @@ body{
 }
 
 #header{
-    width: 1024px;
-    height: 140px;
+    /*width: 1024px;*/
+    height: 108px;
     margin: 0 auto;
+    border-bottom: 5px solid #000;    
 }
 
 #header .wrapper{
-    float: right;
-    width: 700px;
-    text-align: right;
-    margin-top: 15px;
+    /* float: right; */
+    width: 1024px;
+    /* text-align: right; */
+    /* margin-top: 15px; */
+    margin: 0 auto;
+    height: 40px; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;    
 }
 
 #footer .wrapper{
@@ -384,17 +401,15 @@ body{
 * Place site styles here for things used on multiple pages like:
 * navigation, header, footer, etc */
 
-#header .logo a{
-    background: url("../images/newlogo.png") no-repeat scroll left top transparent;
+#menuWrapper .logo a{
+    background: url("../images/AXIS_Ellipse.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 110px;
-    margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;
-    width: 142px;
+    height: 62px;
+    width: 93px;
 }
 
-#header .logo span {
+#menuWrapper .logo span {
     display: none;
 }
 
@@ -426,12 +441,16 @@ body{
     z-index:100;
     height: 45px;
     /*margin-bottom: 15px;*/
-    background: #8E0215;
+    /*background: #8E0215;*/
+    /*border-bottom: 5px solid #000;*/
 }
 
 #menuWrapper{
     width: 1024px;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav{
@@ -484,7 +503,20 @@ div#DDmenu li a:hover{
 
 #header .wrapper .utilNav li{
     float: left;
+    height: 29px;
     margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#header .wrapper .utilNav li a{
+    color: #221F1F;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+#header .wrapper .utilNav li a:hover{
+    text-decoration: underline;
 }
 
 .utilNav ul{
@@ -507,7 +539,8 @@ div#DDmenu li a:hover{
 /****Mini Cart****/
 
 .mini-cart{
-    margin-top: -8px;
+    /* margin-top: -8px; */
+    width: 200px;
 }
 
 .cartbutton{
@@ -520,7 +553,8 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 24px;
-    margin: 5px 5px 0px 0px
+    margin: 5px 5px 0px 0px;
+    color: #0854A9;
 }
 
 .summary{
@@ -536,12 +570,12 @@ div#DDmenu li a:hover{
 
 .search {
     clear: right;
-    padding-top: 20px;
+    /*padding-top: 20px;*/
     float: right;
 }
 
 #searchForm div{
-    border: 1px solid #aaaaaa;
+    /*border: 1px solid #aaaaaa;*/
     background-color: #fff;
     width: 210px;
     height: 35px;
@@ -700,50 +734,42 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
+    background-color: #DFDFDF;
     /*border:1px solid #777;*/
     color:#000;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
     min-width: 130px;
+    text-transform: uppercase;
 }
 
 .btn:hover{
-    background-color: #fff;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #C2C2C2;
+
 } 
 
 .btn-primary{
-    background-color: #84010F;
+    background-color: #00AEEF;
     /*border:1px solid #777;*/
     color:#FFF;
     font-weight: bold;
     /*padding: 5px 10px;*/
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
     display: flex;
     align-items: center;
     justify-content: center;    
     height: 40px;
     min-width: 130px;
+    text-transform: uppercase;
 }
 
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #0096CE;
+
 }
 
 .gift-btn {
@@ -768,9 +794,13 @@ tfoot tr td{
 }
 
 .spotlight {
- /*   background: url("../images/spotlight.jpg") no-repeat scroll left top transparent;
-    width: 1024px;
-    height: 576px;*/
+    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;    
+    height: 351px;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    
 }
 
 /*Featured Products Carousel*/
@@ -2019,7 +2049,7 @@ input#cvv{
     float: left;
     cursor: pointer;
     font-size: 24px !important;
-    color: #4F5559;
+    color: #0854A9;
     top: 4px;
     padding-left: 10px;    
 }
@@ -2037,12 +2067,16 @@ input#cvv{
     margin-bottom: 5px;
 }
 
+.productCategories{
+    width: 220px;   
+}
+
 .productCategories a::after{
     font-family: 'Material Icons';
     content: '\e5cf';
     position: absolute;
     font-size: 24px;
-    color: #fff;
+    color: #0854A9;
 }
 
 div#DDmenu a::after{
