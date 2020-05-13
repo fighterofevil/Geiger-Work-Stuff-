@@ -2592,6 +2592,10 @@ input:focus {
     text-shadow: 1px 2px 3px rgba(1,2,2,0.76);
 }
 
+#pageLanding .logo, #pageLanding .search{
+    display: none;
+}
+
 .buttonSection{
     width: 1024px;
     flex-wrap: wrap;
