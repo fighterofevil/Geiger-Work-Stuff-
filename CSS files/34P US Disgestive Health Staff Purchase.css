@@ -769,7 +769,7 @@ tfoot tr td{
 }
 
 .btn {
-    /*background-color: #E7E7E7; */
+    background-color: #fff; 
     border: 2px solid #00A3D9;
     color: #58595B;
     font-weight: bold;
@@ -1199,7 +1199,7 @@ td.ar{
     margin: 10px 0px 20px 0px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;    
+    justify-content: flex-end;    
 }
 
 .active-filters{
