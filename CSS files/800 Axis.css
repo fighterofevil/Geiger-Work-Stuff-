@@ -158,7 +158,7 @@ a:hover{
 #footer{
     font-size: 13px;
     position: relative;
-    background-color: #221F1F;
+   /* background-color: #221F1F;*/
     text-transform: uppercase;
     color: #fff;
 }
@@ -184,12 +184,14 @@ div#DDmenu a{
     display: block;
 }
 
-h1, .termsH1, .welcome-message-H1{ 
+h1, .termsH1, .welcome-message-H1, #pageHome h2{ 
     /*font-weight: bold;*/
-    font-size: 26px;
+    font-size: 28px;
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
+    text-transform: uppercase;;
+    font-weight: 400;
 }
 
 #pageHome h1, .welcome-message-H1{
@@ -362,13 +364,33 @@ body{
     align-items: center;    
 }
 
+.footerMainWrap{
+    display: flex;
+    justify-content: flex-start;
+}
+
+#footer .leftWrapper{
+    background-color: #221F1F;
+    height: 60px;
+    width: 1024px;
+}
+
 #footer .wrapper{
     box-sizing: border-box;
     height: 60px;
     padding: 20px 15px;
     margin: 0 auto;
-    width: 1024px;
+    min-width: 1024px;
+    display: flex;
+    justify-content: space-between;   
+    background-color: #221F1F;    
+}
 
+#footer .rightWrapper{
+    height: 60px;
+    width: 1024px;
+    background-color: #fff;    
+    background: url("../images/Axis-slice-tiny.png") no-repeat scroll left top transparent;
 }
 
 #footer .wrapper p{
@@ -832,33 +854,83 @@ tfoot tr td{
 }
 
 .spotlight {
-    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;    
-    height: 351px;
-    background-position: center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;    
+
 }
 
 .spotlightWrapper{
-    width: 1024px;
-    margin: 0 auto;
+    height: 350px;
+
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 351px;
-    font-size: 72px;    
-  }  
+}  
 
-  .spotlightRight{
-    background: url("../images/Axis-slice.png") no-repeat scroll left top transparent;    
-  }
+.spotLeft{
+    background: url(../images/spot-img_repeat.png) no-repeat scroll right top transparent;
+    height: 350px;
+    /*position: relative;*/
+    width: 1024px;
+    /*margin: 0 auto;*/
+    /*right: 1024px;*/
+}
 
+.spotlightCenter{
+    min-width: 1024px;
+    margin: 0 auto;
+    text-align: left;
+    position: relative;
+    /*bottom: 350px;*/
+}
+
+
+.subwrap{
+
+}
+
+.parallelogram{
+    /*position: relative;*/
+    background: url("../images/spot-img_repeat.png") no-repeat scroll left top transparent; 
+    height: 350px;
+    /*position: relative;*/
+    display: flex;
+}    
+
+.parallelogram img{
+    position: absolute;
+    right: -93px;
+    bottom: 1px;
+}
+
+.spotText{
+    font-size: 65px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+}
+.spotlightRight{
+    /*background: url("../images/Axis-slice-small.png") no-repeat scroll left top transparent;    */
+    height: 350px;
+    /*position: relative;*/
+    /*bottom: 700px;*/
+    width: 1024px;
+    /*margin: 0 auto;*/
+    /*left: 877px;*/
+}
+
+.spotlightRightBG{
+    position: relative;
+    background-color: #231F1F;
+    height: 350px;
+    /*left: 237px;*/
+    border-top: 5px solid #231F1F;
+    bottom: 5px;
+}
 /*Featured Products Carousel*/
 
 .featured-product-carousel{
     position:relative;
+    text-align: center;
+    margin-top: 45px;    
 }
 
 .featured-product-carousel .title{
@@ -873,9 +945,9 @@ tfoot tr td{
 
 .featured-product-carousel .items-wrapper{
     float:left;
-    width:600px;
-    padding-left:10px;
-    height: 132px;
+    width:1024px;
+    /*padding-left:10px;*/
+    height: 280px;
 }   
 
 .featured-product-carousel .prev{
@@ -903,26 +975,28 @@ tfoot tr td{
 }
 
 .featured-product-carousel .item{
-    width:135px;
-    height:125px;
+    width:200px;
+    height:276px;
     float:left;
     display:table-cell;
     vertical-align:middle;
-    margin-right:5px;
+    margin-right:30px;
+    border: 1px solid #C3C3C3;
 }
 
 .featured-product-carousel .item img{
-    max-height:125px;
-    max-width:125px;
+    max-height:150px;
+    max-width:150px;
 }
 
 .featured-product-carousel .item a{
     width:100%;
-    height:125px;
+    height:276px;
     display:table-cell;
     vertical-align:middle;
     text-align:center;
-    border:1px solid #C3C3C3;
+    /*border:1px solid #C3C3C3;*/
+    margin-right:30px;  
 }   
         
 /****FAQ ****/
@@ -2115,7 +2189,8 @@ input#cvv{
 
 .featuredwrap{
     display: flex;
-    justify-content: space-between;    
+    justify-content: center;
+    height: 280px;
 }
 
 #recentlyViewed{
@@ -2451,4 +2526,28 @@ input:focus {
     font-weight: bold;
     color: #0854A9;
     padding-right: 10px;    
+}
+
+.welcome-message p{
+    width: 621px;
+    margin: 0 auto;
+    line-height: 25px;    
+    margin-top: 24px;
+}
+
+#pageHome #content{
+    padding: 49px 20px 50px 20px;
+}
+
+.featItemTitle{
+    text-transform: uppercase;
+    padding-top: 20px;
+    color: #00355f;
+    font-weight: bold;
+    min-height: 40px;
+    width: 200px;
+}
+
+.featItemPrice{
+    font-weight: bold;
 }
