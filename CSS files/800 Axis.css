@@ -807,6 +807,7 @@ tfoot tr td{
     min-width: 151px;
     text-transform: uppercase;
     border: 0px;
+    font-weight: bold;
 }
 
 .btn:hover{
@@ -828,6 +829,7 @@ tfoot tr td{
     min-width: 151px;
     text-transform: uppercase;
     border: 0px;
+    font-weight: bold;
 }
 
 .btn-primary:hover{
