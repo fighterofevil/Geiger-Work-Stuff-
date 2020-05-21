@@ -2223,12 +2223,13 @@ input#cvv{
     cursor: default; 
 }
 
-.productCategories a::after{
+.productCategories::after{
     font-family: 'Material Icons';
     content: '\e5cf';
     position: absolute;
     font-size: 24px;
     color: #0854A9;
+    right: 10px;
 }
 
 div#DDmenu a::after{
