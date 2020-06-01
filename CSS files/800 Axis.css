@@ -2618,3 +2618,91 @@ input:focus {
 .emailWishBtn{
     margin-top: 10px;
 }
+
+#contact #footer ul{
+    width: 80%;
+}
+
+#pageLanding .utilNav, #pageLanding .sf-menu, #pageLanding .search{
+    display: none;
+}
+
+/* temp change while Custom Orders has been removed*/
+.sf-menu{
+    width: 56%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.landingMsg{
+    font-size: 28px;
+    color: #221f1f;
+    text-transform: uppercase;
+    font-family: open-sans, sans-serif;
+    text-align: center;
+}
+
+.landingButtonDiv{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 25px;
+
+}
+
+.landingButton{
+    background: url("../images/region-spot-bg.jpg") no-repeat scroll left top transparent;
+    width: 425px;
+    height: 400px;
+    font-size: 45px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.landingShopButton{
+    background-color: #00aeef;
+    width: 185px;
+    height: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    font-weight: bold;
+}
+
+.landingShopButton:hover{
+    background-color: #0096CE;
+}
+
+.landingLocation{
+    width: 425px;
+    display: flex;
+    justify-content: center;    
+    font-weight: 600;
+    line-height: 1em;
+    text-align: center;
+    position: relative;
+    top: 40px;
+}    
+
+.landingShopButton1{
+    position: relative;
+    bottom: 60px;
+}
+
+.landingShopButton2{
+    position: relative;
+    bottom: 47px;   
+}
+
+.landingButton a:hover{
+    text-decoration: none;
+}
+
+#pageLanding #footer ul{
+    display: none;
+}
