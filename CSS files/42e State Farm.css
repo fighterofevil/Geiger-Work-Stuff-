@@ -317,7 +317,7 @@ margin-bottom: 0px;
 
 a
 {
-	color: #0863A6;
+	color: #4050A0;
 	text-decoration: none;
 }
 
@@ -1122,7 +1122,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 
 .banner.l
 {
-	background: url(../images/Banner-FA.jpg) no-repeat center center;
+	background: url(../images/banner1.png) no-repeat center center;
 	width: 475px;
 	height: 300px;
 	margin-right: 54px;
@@ -1151,7 +1151,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 
 .banner.r
 {
-	background: url(../images/banner-warmup.png) no-repeat center center;
+	background: url(../images/banner-keep-cool.jpg) no-repeat center center;
 	width: 475px;
 	height: 300px;
 }
@@ -1284,6 +1284,21 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 	line-height: 25px;
 }
 
+.banner.l .bannerContainH1 {
+	letter-spacing: -.01em;
+	margin-bottom: 5px;
+}
+
+.banner.l  .bannerContain {
+    font-size: 23px !important;
+    letter-spacing: -0.02em;
+}
+
+.banner.l p {
+    margin-bottom: 0px;
+    font-size: 13px !important;
+}
+
 .bannerContainH1_FA {
     margin-top: -5px;
 }
@@ -1316,7 +1331,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 	left: 50%;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	width: 260px;
+	width: 280px;
 }
 
 .clearfix { clear: both; }
@@ -1328,7 +1343,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 
 .slider-content
 {
-	width: 1060px;
+	width: 1500px;
 	margin: 0 auto;
 	margin-top: 0px;
 	position: relative;
@@ -1342,57 +1357,81 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 {
 	min-height: 400px;
 	background-size: cover !important;
+	background: #F3F3F3;
 }
 
-.slick-slider-img1 { background: url("../images/spotlight1-bg.jpg") no-repeat center center transparent; }
+.slick-slider-img1 { min-height: 400px; }
 .slick-slider-img1 img, h2 { display: flex; }
-.slick-slider-img1 img { padding-top: 13px; }
+.slick-slider-img1 img {  }
 
-.slick-slider-img1 h2
-{
-	padding: 130px 0px 0px 49px;
-	color: #FFFFFF;
-	font-size: 60px;
-	font-weight: bold;
-	line-height: 65px !important;
+.spot-subtitle-img1 {
+    display: flex;
+}
+
+.slick-slider-img1 h2 {
+    color: #FFFFFF;
+	margin-top: -333px;
+	text-align: center;
+	margin-left: 100px;
+  	font-size: 60px;
+  	font-weight: bold;
+  	letter-spacing: 0;
+  	line-height: 62px !important;
+}
+
+.spot-subtitle-img1 {
+    color: #FFFFFF;
+    font-family: news-gothic-std, sans-serif !important;
+    font-style: oblique;
+    font-size: 32px !important;
+    line-height: 40px !important;
+    text-align: center;
+    margin-top: -130px;
+    margin-left: -550px;
 }
 
 .slick-slider-img2
 {
-	background: url("../images/spotlight2-bg.jpg") no-repeat center center transparent;
-	padding-bottom: 0px;
+	background: #F3F3F3;
+	/* background: url("../images/spotlight2-bg.jpg") no-repeat center center transparent;
+	padding-bottom: 0px; */
 }
 
-.slick-slider-img2 img { margin-top: 15px; }
+.slick-slider-img2 img {}
 
-.slick-slider-img2 h2
-{
-	padding: 100px 40px 0px 40px;
-	text-align: center;
-	color: #FFFFFF;
-	font-size: 60px;
-	font-weight: bold;
-	line-height: 65px;
-	margin: 0 auto;
+.slick-slider-img2 h2 {
+  margin: -300px auto 0;
+  color: #CE0E2D;
+  font-size: 55px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 59px;
+  text-align: center;
 }
 
-.slick-slider-img3 { background: url("../images/spotlight3-bg.png") no-repeat center center transparent;
-	min-height: 400px;
+.slick-slider-img3 { 
+	/*  background: url("../images/spotlight3-bg.png") no-repeat center center transparent;
+	min-height: 400px; */
 }
-.slick-slider-img3 img, h2 { display: flex; }
-.slick-slider-img3 img { padding-top: 8px; }
+.slick-slider-img3 img, h2, h3 { display: flex; }
+.slick-slider-img3 img {  }
 
-.slick-slider-img3 h2
-{
-	padding: 130px 38px 0px 0px;
-	text-align: center;
-	color: #CE0E2D;
-	font-size: 58px;
-	font-weight: bold;
-	line-height: 55px;
+.slick-slider-img3 h2 {
+  margin: -250px auto 0;
+  color: #CE0E2D;
+  font-size: 55px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 59px;
+  text-align: center;
+  display: block;
 }
 
-#spotlight h, .spotlightH1
+.slick-slider-img3 span {
+	color: #FFF;
+}
+
+#spotlight h1, .spotlightH1
 {
 	height: 53px;
 	width: 482px;
@@ -1572,6 +1611,16 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 14px;
 	line-height: 20px;
+}
+
+#pageFAQ .section li 
+{
+    list-style: disc;
+    color: #313131;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+}
 }
 
 /****Custom Orders****/
