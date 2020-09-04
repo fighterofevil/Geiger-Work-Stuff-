@@ -161,6 +161,11 @@ a{
     font-size: 15px;
 }
 
+#terms-link:after {
+    content: "|";
+    padding-left: 15px;
+}
+
 .nav a{
     color: #ffffff;
     font-size: 22px;
@@ -219,6 +224,7 @@ h1{
 
 }
 
+
 .instructionMsg{
     color: #31708f;
     background-color: #d9edf7;
@@ -228,9 +234,9 @@ h1{
     border-radius: 4px 4px 4px 4px;
     -moz-border-radius: 4px 4px 4px 4px;
     -webkit-border-radius: 4px 4px 4px 4px;
-
-    margin: 0 auto 25px;
+margin: 0 auto 25px;
     width: 94%;
+
 }
 
 .instructionMsg a{
@@ -245,6 +251,7 @@ h1{
     margin-top: 10px;
     text-indent: 20px;
 }
+
 
 h2{ 
     font-size:22px;
@@ -347,7 +354,7 @@ body{
 
 #container{
     margin: 0 auto;
-   /* position: relative;*/
+    position: relative;
     text-align: left;
     width: 1024px;
 /*    min-height: 787px;*/
@@ -445,7 +452,7 @@ min-height: 80%;
     margin: 90px 0px 0px 00px;
     padding: 10px 8px 0px 0px;
     width: 210px;
-position: absolute;
+   position: absolute;
 }
 
 #header .logo span {
@@ -593,7 +600,7 @@ div#DDmenu li a:hover{
     clear: right;
     padding-top: 60px;
     float: right;
-    /*margin-left: 615px;*/
+   /* margin-left: 615px;*/
 }
 
 #searchForm div{
@@ -815,7 +822,7 @@ tfoot tr td{
 /****Home****/
 
 .home-content{
-    background:url("../images/fall-image-home.jpg") no-repeat;    
+    background: url("../images/fall-image-home.jpg") no-repeat;   
     width: 960px;
     height: 379px;
     margin: 0 auto;
@@ -848,7 +855,7 @@ tfoot tr td{
     text-align: center;
     padding: 10px;
     margin-top: 180px;
-    margin-left: 375px;    
+    margin-left: 330px;    
 }
 
 .collectionBtn a{
@@ -880,10 +887,8 @@ tfoot tr td{
 
 .featured-product-carousel .items-wrapper{
     float:left;
-    /*width:600px;*/
     padding-left:20px;
-    /*height: 132px;*/
-    width: 1040px !important;
+/*    width: 760px !important;*/
 }   
 
 .featured-product-carousel .prev{
@@ -934,7 +939,8 @@ tfoot tr td{
     color: #00355f;
     font-weight: bold;
     min-height: 40px;
-    width: 230px !important;
+
+    width: 230px;
 }
 
 .featItemCode{
@@ -967,8 +973,8 @@ tfoot tr td{
     margin: -400px -180px;
 }
 
-.featCatImg{
-    background:url("../images/wintergearimage.jpg") no-repeat;    
+.featCatImg {
+    background: url("../images/image009.png") no-repeat;
     width: 406px;
     height: 412px;
     margin: 0 auto;
@@ -2197,26 +2203,6 @@ padding-bottom: 10px;
     position: relative;
     float: right;
     margin-top: 10px;
-    margin-right: -130px;
-}
-.quotemessage{
-    float: right;
-    clear: right;
-    padding: 15px;
-    background-color: #FFF4AA;
-    margin-top: 15px;
-    border: 1px solid #F9D50B;
-}
-.quotemessage a{
-    color: #00355f;
-    font-weight: bold;
-}
+    margin-right: -135px;
 
-.onOff{
-   display: initial;
-}
-
-#terms-link:after {
-    content: "|";
-    padding-left: 15px;
 }
