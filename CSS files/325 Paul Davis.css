@@ -55,7 +55,7 @@ div[id^="wrapper-custom-line"] {
 }
 
 .mini-cart {
-	height: 82px !important;
+    height: 82px !important;
 }
 
 html{    
@@ -910,6 +910,8 @@ tfoot tr td{
     width: 960px;
     height: 340px;
     margin:0 auto;
+    display: flex;
+    justify-content: space-between;    
 }
 
 .spotlight a {
@@ -1795,7 +1797,7 @@ background-image: none !important;
 }
 
 .calendarHeader{
-	background-color: #000;
+    background-color: #000;
     border-bottom: 6px solid #B2965C;
     height: 90px;
 }
@@ -1804,8 +1806,8 @@ background-image: none !important;
     background: url("../images/PDavisLogo19Rev.png") no-repeat;
     float: left;
     width: 250px;
-	height: 60px;
-	margin: 15px 0px 0px 30px;
+    height: 60px;
+    margin: 15px 0px 0px 30px;
 }
 
 .suggestion_form_content.suggestion_form_content_usa, .suggestion_form_content.suggestion_form_content_can {
@@ -2729,4 +2731,24 @@ table.no-border tr, table.no-border td {
 
 .welcome-message p{ 
     margin-bottom: 10px;
-},
+}
+
+#bcaBanner{
+    background: url("../images/BreastCancerAwareness.png") no-repeat scroll center top #ffbad2;
+    height: 120px;
+    background-size: 55%;
+}
+
+#bcaBannerText{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    height: 120px;
+    align-items: flex-end;    
+    font-weight: bold;
+}
+
+.bcaA{
+    color: #000;
+    text-decoration: none;
+}
