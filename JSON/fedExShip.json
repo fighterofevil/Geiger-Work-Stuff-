@@ -214,13 +214,7 @@
     "state": "TX",
     "fexEx": "101666166"
   },
-   {
-    "name": "LogisticsTX",
-    "city": "New Boston",
-    "state": "TX",
-    "fexEx": "101666166"
-  },
-    {
+  {
     "name": "LogisticsIL",
     "city": "Rock Island",
     "state": "IL",
