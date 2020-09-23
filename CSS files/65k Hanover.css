@@ -815,7 +815,7 @@ tfoot tr td{
 /****Home****/
 
 .home-content{
-    background:url("../images/golf-banner.png") no-repeat;    
+    background:url("../images/fall-image-home.jpg") no-repeat;    
     width: 960px;
     height: 379px;
     margin: 0 auto;
@@ -2219,4 +2219,9 @@ padding-bottom: 10px;
 #terms-link:after {
     content: "|";
     padding-left: 15px;
+}
+
+.nonCarouselItem{
+    width: 200px;
+    height: 200px;
 }
