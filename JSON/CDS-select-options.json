@@ -632,5 +632,7 @@
      { "value": "548", "region": "WC 3", "location": "Burnaby, BC"},
      { "value": "552", "region": "WC 3", "location": "Vancouver, BC"},
      { "value": "1092", "region": "WC 3", "location": "Courtenay, BC"},
+     { "value": "1343", "region": "MW 3", "location": "Meridian, ID"},
+     { "value": "1415", "region": "NE 1", "location": "Cherry Hill, NJ"},
      { "value": "1375", "region": "SC 3", "location": "Surprise, AZ"}
 ]
