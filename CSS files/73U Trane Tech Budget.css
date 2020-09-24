@@ -146,7 +146,7 @@ p .pageItem{
 }
 
 a{ 
-    color:#6400FF;
+    color:#E62700;
     text-decoration: none;
 }
 
@@ -169,7 +169,7 @@ a:hover{
 
 #footer a:hover{
     text-decoration: underline;
-    color: #6400FF;
+    color: #D62400;
 }
 
 .nav a{
@@ -409,7 +409,7 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/tranetech-logo.svg") no-repeat scroll left top transparent;
+    background: url("../images/tranecom-logo.svg") no-repeat scroll left top transparent;
     display: block;
     /*float: left;*/
     height: 54px;
@@ -535,7 +535,7 @@ div#DDmenu li a:hover{
 }
 
 #header .wrapper .utilNav li a:hover{
-    color: #6400FF;    
+    color: #D62400;    
 }
 
 .utilNav ul{
@@ -578,7 +578,7 @@ div#DDmenu li a:hover{
     float: left;
     font-size: 24px;
     margin: 0px 7px 0px 0px;
-    color: #6400FF;
+    color: #E62700;
 }
 
 .summary{
@@ -789,7 +789,7 @@ tfoot tr td{
 } 
 
 .btn-primary{
-    background-color: #6400FF;
+    background-color: #E62700;
     border: 0px;
     color: #FFF;
     font-weight: bold;
@@ -803,7 +803,7 @@ tfoot tr td{
 }
 
 .btn-primary:hover{
-    background-color: #5A00E6;
+    background-color: #D62400;
 }
 
 .gift-btn {
@@ -832,7 +832,12 @@ tfoot tr td{
 }
 
 .welcome-message{
-
+    border-bottom: 1px #D9D9D6 solid;
+    padding-bottom: 32px;
+    margin-bottom: 30px !important;
+    margin: 0 auto;
+    width: 588px;
+    text-align: center;
 }
 
 #spotlight{
@@ -864,6 +869,8 @@ tfoot tr td{
 
 .featured-product-carousel{
     position:relative;
+    text-align: center;
+    margin-bottom: 24px;
 }
 
 .featured-product-carousel .title{
@@ -1228,6 +1235,10 @@ td.ar{
 
 .pagination-new ul{
     margin-left: 10px;
+}
+
+.pagination-new a{
+    color: #D62400;
 }
 
 a.view-all{
@@ -2158,7 +2169,7 @@ input#cvv{
     float: left;
     cursor: pointer;
     font-size: 24px !important;
-    color: #6400FF;
+    color: #E62700;
     top: 4px;
     padding-left: 10px;    
 }
@@ -2184,7 +2195,7 @@ input#cvv{
     content: '\e5cf';
     position: absolute;
     font-size: 24px;
-    color: #6400FF;
+    color: #E62700;
 }
 
 div#DDmenu a::after{
@@ -2447,6 +2458,7 @@ input:focus {
     color: #000000;
     font-size: 30px;
     font-weight: bold;    
+    margin-bottom: 20px;
 }
 
 #pageHome #content{
@@ -2488,8 +2500,8 @@ input:focus {
     align-items: flex-end;
     /* bottom: 35px; */
     left: 37px;
-    top: 80%;
-   
+    top: 55%;
+    line-height: 1.2;   
 }
 
 .productCategories{
@@ -2683,4 +2695,8 @@ input:focus {
         height: 350px;
 
     }           
+}
+
+.ui-widget-content a {
+    color: #E62700 !important;
 }
