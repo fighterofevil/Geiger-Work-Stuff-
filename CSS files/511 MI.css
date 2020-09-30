@@ -271,9 +271,14 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 }
 
 #pageHome #content {
+    height: 429px !important;
     background: transparent none;
-    width: 960px;
+    width: 1024px;
     box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
 }
 
 #header{
@@ -949,9 +954,8 @@ tfoot tr td{
     box-shadow: 0px 2px 8px 1px rgba(1,1,1,0.39);
     display: flex;
     align-items: center;
-    margin-top: 55px;
 }
-}
+
 
 /*Featured Products Carousel*/
 
@@ -2226,5 +2230,24 @@ input#cvv{
 
 .bcaColor{
     color: #e11473;
+    text-decoration: none;
+}
+
+.bcaButton{
+    color: #fff;
+    background-color: #E11473;
+    width: 350px;
+    height: 100px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 1.5em;
+    font-weight: bold;
+}
+
+#pageHome #content a{
     text-decoration: none;
 }
