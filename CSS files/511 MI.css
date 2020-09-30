@@ -262,7 +262,8 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 }
 
 #pageHome #container {
-    background: transparent url("../images/home_bg.jpg") no-repeat scroll 50% 50% / 100% auto;
+    /*background: transparent url("../images/home_bg.jpg") no-repeat scroll 50% 50% / 100% auto;*/
+    background: transparent url("../images/spot-bg-BCA.JPG") no-repeat scroll 50% 50% / 100% auto;   
     max-width: 100%;
     min-width: 1200px;
     height: 432px;
@@ -938,10 +939,18 @@ tfoot tr td{
 /****Home****/
 
 .home-content {
-    width: 368px;
+    width: 400px;
     height: 278px;
-    background-color: rgba(255, 255, 255, 0.7);
+    /* background-color: rgba(255, 255, 255, 0.7); */
+    background-color: #fff;
     padding: 10px;
+    font-weight: bold;
+    line-height: 1.5em;
+    box-shadow: 0px 2px 8px 1px rgba(1,1,1,0.39);
+    display: flex;
+    align-items: center;
+    margin-top: 55px;
+}
 }
 
 /*Featured Products Carousel*/
@@ -2207,4 +2216,15 @@ input#cvv{
 .productCategoryMenu{
     width: 850px;
     margin: 0 auto;
+}
+
+.bcaWelcome{
+    font-size: 20px;
+    text-align: center;
+    padding-top: 20px;    
+}
+
+.bcaColor{
+    color: #e11473;
+    text-decoration: none;
 }
