@@ -23,6 +23,7 @@
 * Light Grey (talbe row odd) #F8F8F8
 * grey (table row even) #EFEFEF
 * 
+* 
 **************/
 
 /************ CSS Reset *************/
@@ -127,7 +128,7 @@ a{
 }
 
 div#DDmenu a{
-	font-size: 16px;
+    font-size: 16px;
     line-height: 20px;
     display: block;
     text-align: center;
@@ -381,6 +382,43 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     text-decoration: none;
 }
 
+
+#banner {
+    background-size: cover;
+    width: 990px;
+    height: 202px;
+    display: block;
+    margin: 0 auto;
+}
+
+#pageBasket #specialbanner {
+    display: none;
+}
+
+#pageCheckoutPayment #specialbanner {
+    display: none;
+}
+
+#pageCheckoutAddresses #specialbanner {
+    display: none;
+}
+
+#pageCheckoutAddressesMulti #specialbanner {
+    display: none;
+}
+
+#pageCheckoutSplitAddress #specialbanner {
+    display: none;
+}
+
+#pageCheckoutReview #specialbanner {
+    display: none;
+}
+
+#pageCheckoutComplete #specialbanner {
+    display: none;
+}
+
 /****Main Navigation****/
 
 #menu {
@@ -407,7 +445,8 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     height: 20px;
     margin-top: 16px;
     margin-bottom: 20px;
-    padding: 4px 25px 0;
+    padding: 4px 15px 0;
+
 }
 
 .nav a{
@@ -442,7 +481,7 @@ div#DDmenu{
 
 div#DDmenu ul{
     margin: 8px auto;
-    width: 980px;
+    width: 1034px;
 }
 
 .restrictCat {
@@ -627,6 +666,24 @@ div.submenu ul{
 
 #footright a {
     color: #999 !important;
+}
+
+#terms-link {
+    width: 100px !important;
+    float: right !important;
+}
+
+#privacy-policy-link {
+    float: right !important;
+    width: 100px !important;
+}
+
+#terms-link a:hover{
+    text-decoration: underline !important;
+}
+
+#privacy-policy-link a:hover{
+    text-decoration: underline !important;
 }
 
 /****Mini Cart****/
@@ -1589,15 +1646,15 @@ float: right;
 #simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px;}
 
 #simplemodal-container a.modalCloseImg {
-	background:url("../images/x.png") no-repeat;
-	width:25px;
-	height:29px;
-	display:inline;
-	z-index:3200;
-	position:absolute;
-	top:-15px;
-	right:-18px;
-	cursor:pointer;
+    background:url("../images/x.png") no-repeat;
+    width:25px;
+    height:29px;
+    display:inline;
+    z-index:3200;
+    position:absolute;
+    top:-15px;
+    right:-18px;
+    cursor:pointer;
 }
 
 #new-address-modal {
