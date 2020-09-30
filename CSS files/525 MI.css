@@ -389,6 +389,42 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     padding: 5px 0 0 0;
 }
 
+#banner {
+    background-size: cover;
+    width: 960px;
+    height: 196px;
+    display: block;
+    margin: 0 auto;
+}
+
+#pageBasket #specialbanner {
+    display: none;
+}
+
+#pageCheckoutPayment #specialbanner {
+    display: none;
+}
+
+#pageCheckoutAddresses #specialbanner {
+    display: none;
+}
+
+#pageCheckoutAddressesMulti #specialbanner {
+    display: none;
+}
+
+#pageCheckoutSplitAddress #specialbanner {
+    display: none;
+}
+
+#pageCheckoutReview #specialbanner {
+    display: none;
+}
+
+#pageCheckoutComplete #specialbanner {
+    display: none;
+}
+
 /****Main Navigation****/
 
 #menu {
@@ -416,7 +452,7 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     height: 20px;
     margin-top: 27px;
     margin-bottom: 20px;
-    padding: 4px 25px 0;
+    padding: 4px 18px 0;
 }
 .nav a{
     display: block;
@@ -451,7 +487,7 @@ div#DDmenu{
 
 div#DDmenu ul{
     margin: 0px auto;
-    width: 1024px;
+    width: 1204px;
 }
 
 .restrictCat {
@@ -622,6 +658,21 @@ div.submenu ul{
 
 #footer .wrapper div a {
     color: #000;
+    text-decoration: none;
+}
+
+.footerlinks {
+    float: right;
+    width: 275px !important;
+    text-align: right;
+    margin: 36px 0 !important;
+}
+
+.footerlinks a {
+    color: #000;
+}
+
+.footerlinks a:hover {
     text-decoration: none;
 }
 
@@ -2130,8 +2181,8 @@ input#cvv{
     background: transparent url("../images/bags.jpg") no-repeat scroll left top;
 }
 
-.viewall{
-    background: transparent url("../images/viewall.jpg") no-repeat scroll left top;
+.milgard{
+    background: transparent url("../images/milgard.jpg") no-repeat scroll left top;
 }
 
 .giftcert{
@@ -2140,6 +2191,10 @@ input#cvv{
 
 .clearance{
     background: transparent url("../images/clearance.jpg") no-repeat scroll left top;
+}
+
+.viewall{
+    background: transparent url("../images/viewall.jpg") no-repeat scroll left top;
 }
 
 .productCategoryMenu{
