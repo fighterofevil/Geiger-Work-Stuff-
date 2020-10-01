@@ -508,7 +508,7 @@ div#DDmenu li a:hover{
     background-color: #0C0C31;
     box-sizing: border-box;
     height: 110px;
-    padding: 15px 15px;
+    padding: 15px 0px;
     width: 1024px;
     margin: 0 auto;
     display: flex;
@@ -536,7 +536,8 @@ div#DDmenu li a:hover{
 }
 
 #footer a:hover{
-    text-decoration: underline;
+    text-decoration: none;
+    color: #FF346E;
 }
 
 #footer p{
@@ -667,7 +668,7 @@ table a:visited {
 
 table a:active,
 table a:hover {
-    color: #bd5a35;
+    color: #A32246;
     text-decoration:underline;
 }
 
@@ -778,12 +779,12 @@ tfoot tr td{
 .btn {
     background-color: #fff;
     color: #3239CB;
-    padding: 5px 10px;
+    padding: 5px 20px;
     cursor: pointer;
     -moz-border-radius: 32px;
     -webkit-border-radius: 32px;
     border-radius: 32px;
-    height: 40px;
+    height: 30px;
     display: flex;
     align-items: center;
     min-width: 180px;
@@ -800,12 +801,12 @@ tfoot tr td{
 .btn-primary{
     background-color: #3239CB;
     color: #FFF;
-    padding: 5px 10px;
+    padding: 5px 20px;
     cursor: pointer;
     -moz-border-radius: 32px;
     -webkit-border-radius: 32px;
     border-radius: 32px;
-    height: 40px;
+    height: 30px;
     display: flex;
     align-items: center;
     min-width: 180px;
@@ -2370,7 +2371,7 @@ input#cvv{
 }
 
 #pageCheckoutComplete p{
-    widows: 720px;
+    width: 720px;
 }
 
 .simplemodal-container{
@@ -2403,4 +2404,17 @@ input#cvv{
 
 .productCategories{
     width: 110px;    
+}
+
+
+input[type="button" i]{
+    border-color: #3239CB !important;   
+}
+
+#pageLogin h2{
+    font-size: 19px;
+}
+
+#pageForgottenPassword .btn-primary{
+    margin-top: 15px;
 }
