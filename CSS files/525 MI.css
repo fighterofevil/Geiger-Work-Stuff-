@@ -262,8 +262,8 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 }
 
 #pageHome #container {
-    /*background: transparent url("../images/home_bg.jpg") no-repeat scroll 50% 50% / 100% auto;*/
-    background: transparent url("../images/spot-bg-BCA.JPG") no-repeat scroll 50% 50% / 100% auto;   
+    background: transparent url("../images/home_bg.jpg") no-repeat scroll 50% 50% / 100% auto;
+    /*background: transparent url("../images/spot-bg-BCA.JPG") no-repeat scroll 50% 50% / 100% auto;   */
     max-width: 100%;
     min-width: 1200px;
     height: 432px;
@@ -271,14 +271,14 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
 }
 
 #pageHome #content {
-    height: 429px !important;
+    min-height: 429px !important;
     background: transparent none;
     width: 1024px;
     box-shadow: none;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0px;
+    /* justify-content: space-between; */
+    /* padding: 0px; */
 }
 
 #header{
@@ -958,16 +958,16 @@ tfoot tr td{
 
 .home-content {
     width: 400px;
-    height: 278px;
-    /* background-color: rgba(255, 255, 255, 0.7); */
-    background-color: #fff;
+    height: 340px;
+    background-color: rgba(255, 255, 255, 0.7);
+    /* background-color: #fff; */
     padding: 10px;
     font-weight: bold;
     line-height: 1.5em;
     box-shadow: 0px 2px 8px 1px rgba(1,1,1,0.39);
     display: flex;
     align-items: center;
-    /*margin-top: 55px;*/
+    /* margin-top: 55px; */
 }
 
 /*Featured Products Carousel*/
