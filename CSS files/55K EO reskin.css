@@ -784,7 +784,7 @@ tfoot tr td{
     -moz-border-radius: 32px;
     -webkit-border-radius: 32px;
     border-radius: 32px;
-    height: 30px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     min-width: 180px;
@@ -806,7 +806,7 @@ tfoot tr td{
     -moz-border-radius: 32px;
     -webkit-border-radius: 32px;
     border-radius: 32px;
-    height: 30px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     min-width: 180px;
