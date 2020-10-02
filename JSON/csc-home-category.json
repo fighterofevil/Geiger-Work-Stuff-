@@ -1,0 +1,8 @@
+[
+  { "image": "accesories.png", "catID": "483022", "alt": "Accessories"},
+  { "image": "apparel.png", "catID": "482958", "alt": "Apparel"},
+  { "image": "bags.png", "catID": "482962", "alt": "Bags"},
+  { "image": "drinkware.png", "catID": "482891", "alt": "Drinkware"},
+  { "image": "giftcert.png", "catID": "483023", "alt": "Gift Certificate"},
+  { "image": "seasonal.png", "catID": "482933", "alt": "Seasonal"}
+]
