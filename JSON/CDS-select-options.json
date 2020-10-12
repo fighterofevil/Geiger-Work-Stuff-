@@ -262,6 +262,7 @@
      { "value": "1037", "region": "MW 3", "location": "Bloomfield, MI"},
      { "value": "1106", "region": "MW 3", "location": "Pittsfield, MI"},
      { "value": "1279", "region": "MW 3", "location": "Traverse City, MI"},
+     { "value": "1384", "region": "MW 3", "location": "Champaign, IL"},
      { "value": "343", "region": "MW 4", "location": "Avon, OH"},
      { "value": "344", "region": "MW 4", "location": "Mayfield Hts, OH"},
      { "value": "379", "region": "MW 4", "location": "Springdale, OH"},
@@ -634,5 +635,8 @@
      { "value": "1092", "region": "WC 3", "location": "Courtenay, BC"},
      { "value": "1343", "region": "MW 3", "location": "Meridian, ID"},
      { "value": "1415", "region": "NE 1", "location": "Cherry Hill, NJ"},
+     { "value": "1388", "region": "MW 3 ", "location": "Plainfield, IL"},
+     { "value": "1420", "region": "MW 3 ", "location": "Midland, MI"},
+     { "value": "1414", "region": "CC 3", "location": "Niagara Falls, ON"},
      { "value": "1375", "region": "SC 3", "location": "Surprise, AZ"}
 ]
