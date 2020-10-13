@@ -676,7 +676,7 @@ table {
 }
 
 .p-table.cart-table {
-    /*width: 95%;*/
+    width: 100%;
 }
 
 table th {
@@ -1609,7 +1609,7 @@ ul.radios-list li label{
 /*Simplemodal Styles*/
 
 #simplemodal-overlay {background-color:#000;}
-#simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px;}
+#simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px; height: 630px !important;}
 
 #simplemodal-container a.modalCloseImg {
     background:url("../images/x.png") no-repeat;
@@ -1625,7 +1625,7 @@ ul.radios-list li label{
 
 #new-address-modal {
     width:600px;
-    height: 550px;
+    height: 630px;
     padding: 0px 20px;
     background-color:#FFF;
     overflow:auto;  /* safe scroll for all browsers */
@@ -1887,13 +1887,15 @@ input#cvv{
     width: 400px;
     font-weight: bold;
     color: red;
+    display: none;
 }
 
-.shipArrow span {
+.shipArrow{
     float: right;
     margin: -20px 14px 0 0px;
     color: red;
     font-weight: bold;
+    display: none;
 }
 
 .shipSelectNote img {
