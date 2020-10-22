@@ -2758,3 +2758,12 @@ table.no-border tr, table.no-border td {
     color: #000;
     text-decoration: none;
 }
+
+#pageCategory .container, #pageSearchResults .container{
+    min-height: 275px;
+}
+
+#pageCategory .text, #pageSearchResults .text{
+    min-height: 72px;
+    line-height: 17px;    
+}
