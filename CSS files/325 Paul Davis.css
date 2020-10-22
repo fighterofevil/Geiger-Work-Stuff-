@@ -2737,15 +2737,21 @@ table.no-border tr, table.no-border td {
     background: url("../images/BreastCancerAwareness.png") no-repeat scroll center top #ffbad2;
     height: 120px;
     background-size: 55%;
+    background-position: left center;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #bcaBannerText{
     display: flex;
-    justify-content: center;
-    align-content: space-between;
-    height: 120px;
-    align-items: flex-end;    
+    align-items: center;
     font-weight: bold;
+    text-align: center;
+    color: white;
+    width: 40%;
+    font-size: 21px;
+    line-height: 1.2;
+    padding: 0px 35px;
 }
 
 .bcaA{
