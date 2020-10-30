@@ -1,0 +1,226 @@
+        body {
+            background-color: #FFFFFF;
+            background-repeat: repeat-x;
+            /*margin-bottom:48px;*/
+
+            font-family: Verdana,Geneva,sans-serif !important;
+        }
+        header {
+            padding-top: 0;
+        }
+        h2, h5 {
+            color: #128479;
+            margin-top: 14px;
+        }
+        label.field-label {
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            /* text-transform: uppercase; */
+            color: #111111;
+        }
+
+        .container {
+            padding-bottom: 16px;
+        }
+
+        .logo-area {
+            /*background-color: #1a1a1a;*/
+            padding-top: 4px;
+            padding-bottom: 24px;
+        }
+        .logo img {
+            height: 58px;
+            width: 150px;
+        }
+        .subtitle {
+            font-size: 20px;
+            color: #707070;
+        }
+        .order-form {
+            /*background-color: #f4f9ea;*/
+            /*border: 1px solid #CCCCCC;*/
+            padding: 16px;
+        }
+        .required-fields {
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+        .red-text {
+            color: #e60000;
+        }
+        .hide-required {
+            display: none;
+        }
+        .red-border {
+            border-color: #FF0000;
+        }
+        .image-container {
+            padding: 0;
+            padding-bottom: 15px;
+/*            border-left: 1px solid #1a1a1a;
+            border-right: 1px solid #1a1a1a;*/
+        }
+        .order-form-container {
+/*            border-left: 1px solid #1a1a1a;
+            border-right: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;*/
+        }
+        .size-pulldown {
+            width: 140px;
+            display: inline-block;
+            margin-right: 12px;
+        }
+
+        @media (max-width: 575.98px) {
+            h2 {
+                font-size: 12px;
+            }
+            h3 {
+                font-size: 18px;
+                text-align: center !important;
+            }
+            h5 {
+                font-size: 10px;
+            }
+            .logo {
+                text-align: center !important;
+            }
+            .subtitle {
+                text-align: center !important;
+                font-size: 12px;
+            }
+            .directions {
+                font-size: 12px;
+                text-align: center !important;
+            }
+        }
+
+
+.logoTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formTitle{
+    color: #1a1a1a;
+    font-size: 30px;
+    position: relative;
+    left: 43px;
+    font-weight: bold;   
+}
+
+.optionsImageDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+    /*width: 1100px;*/
+    min-width: 100vw;
+    border-bottom: 1px solid #CCCCCC;
+    background-color: #FAFAFA;
+}
+
+.tierOptions{
+    min-width: 400px;
+    padding-left: 10px;
+}
+
+.tierOptions p{
+    width: 360px;
+    font-size: 16px;
+}
+
+.btn-primary{
+    color: #1A1A1A !important;
+    background-color: #F27707 !important;
+    font-weight: bold !important;    
+    border: 0px !important;
+    border-radius: 5px !important;
+}
+
+.btn-primary:hover{
+    background-color: #F59239 !important;
+}
+
+.tierOptions label{
+    font-weight: bold !important;
+}
+
+.innerOptionsImageDiv{
+    display: flex;
+    align-items: center;
+    width: 1024px;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+label[for=selected_gift], #selected_gift{
+    display: none;
+}
+
+
+.customContainer{
+    min-width: 100vw;
+    background-color: #fafafa;
+}
+
+.customContainerFooter{
+    min-width: 100vw;
+    height: 71px;
+    background-color: #004593;
+
+    flex-shrink: 0;
+}      
+
+footer{
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;    
+}
+
+footer .footWrapper{
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 71px;
+}
+
+.copyright{
+    width: 500px;
+}
+
+footer a{
+    color: #fff;
+}
+
+footer a:hover{
+    text-decoration: underline;
+    color: #fff;
+}
+
+ol, ul, li {
+    list-style: none;
+    display: inline;
+}
+
+li{
+    padding-left: 27px;
+}
+
+
+html, body{
+    height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+}
