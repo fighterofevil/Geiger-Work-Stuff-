@@ -17,7 +17,7 @@
             font-size: 14px;
             font-weight: 400;
             /* text-transform: uppercase; */
-            color: #111111;
+            color: #1a1a1a;
         }
 
         .container {
@@ -26,7 +26,7 @@
 
         .logo-area {
             /*background-color: #1a1a1a;*/
-            padding-top: 4px;
+            padding-top: 30px;
             padding-bottom: 24px;
         }
         .logo img {
@@ -40,7 +40,7 @@
         .order-form {
             /*background-color: #f4f9ea;*/
             /*border: 1px solid #CCCCCC;*/
-            padding: 16px;
+            padding: 30px 16px 16px 16px;
         }
         .required-fields {
             text-transform: uppercase;
@@ -125,6 +125,8 @@
 .tierOptions{
     min-width: 400px;
     padding-left: 10px;
+    font-size: 14px;
+    color: #1a1a1a;
 }
 
 .tierOptions p{
@@ -138,6 +140,7 @@
     font-weight: bold !important;    
     border: 0px !important;
     border-radius: 5px !important;
+    padding: .5rem 1rem;
 }
 
 .btn-primary:hover{
@@ -151,7 +154,7 @@
 .innerOptionsImageDiv{
     display: flex;
     align-items: center;
-    width: 1024px;
+    width: 1110px;
     justify-content: space-between;
     margin: 0 auto;
 }
