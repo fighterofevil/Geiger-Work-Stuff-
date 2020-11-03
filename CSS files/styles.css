@@ -21,7 +21,7 @@
         }
 
         .container {
-            padding-bottom: 16px;
+            padding-bottom: 50px;
         }
 
         .logo-area {
@@ -130,7 +130,7 @@
 }
 
 .tierOptions p{
-    width: 360px;
+    width: 400px;
     font-size: 16px;
 }
 
@@ -154,7 +154,7 @@
 .innerOptionsImageDiv{
     display: flex;
     align-items: center;
-    width: 1110px;
+    width: 1095px;
     justify-content: space-between;
     margin: 0 auto;
 }
