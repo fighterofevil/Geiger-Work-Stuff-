@@ -638,5 +638,6 @@
      { "value": "1388", "region": "MW 3 ", "location": "Plainfield, IL"},
      { "value": "1420", "region": "MW 3 ", "location": "Midland, MI"},
      { "value": "1414", "region": "CC 3", "location": "Niagara Falls, ON"},
+     { "value": "1367", "region": "EC 1", "location": "Sherbrooke, QC"},
      { "value": "1375", "region": "SC 3", "location": "Surprise, AZ"}
 ]
