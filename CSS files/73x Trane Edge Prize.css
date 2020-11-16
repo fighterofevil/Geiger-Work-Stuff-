@@ -2727,3 +2727,9 @@ input:focus {
 .emptyCartBtn{
     margin-top: 15px;
 }
+
+.budgetButtonDiv{
+    display: flex;
+    justify-content: space-between;
+    width: 350px;    
+}
