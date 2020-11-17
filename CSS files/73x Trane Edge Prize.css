@@ -2733,3 +2733,7 @@ input:focus {
     justify-content: space-between;
     width: 350px;    
 }
+
+#pageItem .integer{
+    display: none;
+}
