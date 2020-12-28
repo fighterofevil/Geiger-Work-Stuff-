@@ -288,7 +288,6 @@ label, .label {
     background-position:2px -48px;
     text-decoration:none;
     font-size:12px;
-    color:#00acd4;
 }
 
 .facettitle.blue {
@@ -304,7 +303,7 @@ html{
 }
 
 body{
-    background: url("../images/backgroundImg.jpg") center 8px no-repeat fixed #262626;
+    /*background: url("../images/backgroundImg.jpg") center 8px no-repeat fixed #262626;*/
 }
 
 #container{
@@ -742,7 +741,7 @@ tfoot tr td{
     border-radius: 3px;
     font-weight: bold;
     border: 0px;
-    height: 45px;
+    height: 35px;
     min-width: 165px;
     display: flex;
     justify-content: center;
@@ -769,7 +768,7 @@ tfoot tr td{
     border-radius: 3px;
     font-weight: bold;
     border: 0px;
-    height: 45px;
+    height: 35px;
     min-width: 165px;
     display: flex;
     justify-content: center;
@@ -2124,6 +2123,10 @@ input#cvv{
     line-height: 40px;
 }
 
+.innerFreight-message{
+    margin-top: 18px;
+}
+
 #pageHome #spotlight{
     /*min-height: 435px;    */
     max-height: 500px;
@@ -2322,7 +2325,7 @@ input#cvv{
 
 .superWrapper{
     background-color: #0E1323;
-    height: 220px;
+    /*height: 220px;*/
 }
 
 .contentWrapper{
@@ -2425,7 +2428,7 @@ input#cvv{
 
 #pageCheckoutAddresses .address-options{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 450px;
 }
 .icon-arrow-right{
@@ -2461,3 +2464,8 @@ input#cvv{
 #pageCheckoutComplete .alert-success{
     width: 600px;
 }
+
+.ship-to-multiple{
+    margin-right: 10px;
+}
+
