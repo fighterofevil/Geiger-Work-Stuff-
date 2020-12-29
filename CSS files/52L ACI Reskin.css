@@ -114,6 +114,11 @@ h1,h2,h3,h4,h5,h6{
     font-size:100%;font-weight:normal;
 }
 
+h1{
+    font-size: 24px;
+    color: #0e1323;
+}
+
 strong{
     font-weight: bold;
 }
@@ -157,6 +162,8 @@ a:hover{
 #footer{
     font-size: 12px;
     height: 200px;
+
+    flex: 1;
 }
 
 #footer a{
@@ -314,6 +321,12 @@ body{
     width: 100%;
     /*min-height: 787px;*/
     /*background-color: #fff;*/
+
+    display: flex;
+    justify-content: center;
+    min-height: 69vh;
+    flex-direction: column;
+
 }
 
 #content{
@@ -328,7 +341,7 @@ body{
 }
 
 #pageHome #content{
-       min-height: 415px;
+       /*min-height: 415px;*/
 }
 
 #header{
@@ -2180,6 +2193,7 @@ input#cvv{
 
 #pageHome #container{
     width: 100%;
+    min-height: initial;
 }
 
 #pageHome #content{
