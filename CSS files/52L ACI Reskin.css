@@ -323,7 +323,7 @@ body{
     /*background-color: #fff;*/
 
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     min-height: 69vh;
     flex-direction: column;
 
@@ -338,6 +338,7 @@ body{
     background-color:#FFFFFF;
     min-height: 55vh;
     padding: 30px 0px;
+    /*margin-top: -100px;*/
 }
 
 #pageHome #content{
@@ -2202,6 +2203,7 @@ input#cvv{
     border-radius: 0px 0px 99px 0px;*/
     background-color:#FFFFFF;
     padding: 0px;
+    min-height: initial;
 }
 
 .blueWorld{
@@ -2482,4 +2484,3 @@ input#cvv{
 .ship-to-multiple{
     margin-right: 10px;
 }
-
