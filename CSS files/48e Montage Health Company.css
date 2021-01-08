@@ -2444,3 +2444,18 @@ div#DDmenu a::after{
 #pageCheckoutComplete .alert{
     width: 725px;
 }
+
+.promoAlert{
+    width: 1024px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #fdb515;
+    font-size: 20px;
+    height: 50px;
+    position: relative;
+    top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;    
+}
