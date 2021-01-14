@@ -28,6 +28,7 @@
 
 /************ CSS Reset *************/
 
+
 * {
     margin: 0;
 }
@@ -504,7 +505,7 @@ div#DDmenu{
     z-index: 100;
     padding-bottom: 20px;
     min-width: 227px;
-    top: 85px;
+    top: 84px;
 }
 
 li.productCategories:hover div#DDmenu{
@@ -1229,7 +1230,12 @@ a.view-all{
     display: none;
 }
 
-/****Item Page****/
+.saleCat {
+    color: #D8292F !important;
+    /* font-weight: bold !important; */
+}
+
+/****Item Page***/
 
 #itemForm > div {
     margin-bottom: 15px;
@@ -2385,7 +2391,7 @@ div#DDmenu a::after{
 }
 
 
-/* aussie modal errror definitions*/
+/* aussie modal definitions*/
 
 /* The Modal (background) */
 .modalAussie {
@@ -2406,13 +2412,13 @@ div#DDmenu a::after{
 
 }
 
-.modal-headerAussie h2{
+.modal-headerAussie h2. .modal-headerHiddenCategoryItem h2{
     color: #00A7B5;
     font-weight: bold;    
 }
 
 /* Modal Content */
-.modal-contentAussie {
+.modal-contentAussie, .modal-contentHiddenCategoryItem {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -2423,7 +2429,7 @@ div#DDmenu a::after{
 }
 
 /* The Close Button */
-.closeAussie {
+.closeAussie, .closeHiddenCategoryItem {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
@@ -2431,10 +2437,9 @@ div#DDmenu a::after{
 }
 
 .closecloseAussie:hover,
-.closecloseAussie:focus {
+.closecloseAussie:focus,
+.closeHiddenCategoryItem:hover.
+.closeHiddenCategoryItem:focus {
   color: #000;
   text-decoration: none;
 }
-
-
-
