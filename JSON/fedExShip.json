@@ -214,7 +214,13 @@
     "state": "TX",
     "fexEx": "101666166"
   },
-  {
+   {
+    "name": "LogisticsTX",
+    "city": "New Boston",
+    "state": "TX",
+    "fexEx": "101666166"
+  },
+    {
     "name": "LogisticsIL",
     "city": "Rock Island",
     "state": "IL",
@@ -237,6 +243,12 @@
     "city": "Dublin",
     "state": "OH",
     "fexEx": "101666166"
+  },
+    {
+    "name": "Auto Safety House",
+    "city": "Phoenix",
+    "state": "AZ",
+    "fexEx": "104054803"
   },
   {
     "name": "ESS",
