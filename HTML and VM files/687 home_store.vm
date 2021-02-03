@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+<html id="pageHome">
+    <head>
+        <title>#if($!pagetitle) $pagetitle  #else $!{htmlSiteName} - Welcome #end</title>
+        #parse('libMarkupHead.vm')
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+    </head>
+    <body>
+        #if($!$headerPosition == "OUTSIDE") #displayHeader(${displayCustomHeaderContent}) #end
+        <div id="spotlight">
+            <div id="spotlightWrapper">
+                <div id="spotlightcontent">
+                        <img class="spotShape" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/spotlightShape.png">   
+                        <img class="peopleImg" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/people.png">  
+                        <img class="shapeBG" src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/shape2.png"> 
+                </div>
+                <div class="spotlightMsgBox">
+                    <div class="spotlightMsg">
+                        <h1>Welcome to the<br/><span>$!{htmlSiteName}</span></h1>                            
+                        A selection of FastMed-branded merchandise
+                        <div>
+                            ## initializes the link for Start Shopping - 01.28.21 -kevin 
+                            #set($startShoppingLink="")
+                            ## counter used in determining if a user has 0 or more than 1 customer property - determines default link for Start Shopping -01.28.21 - kevin 
+                            #set($allPermissionsCheck=0)
+                            ## loops through $hiddenCat defined in siteConfig of hidden categories - 01.28.21 - kevin 
+                            #foreach($catOption in $hiddenCat)
+                                ## checks if the user has permission to access the category - 01.28.21 - kevin 
+                                #if($request.session.getAttribute("SessionCustomerDTO_${vendorSettingsDTO.vendorId}").getCustomerProperty($catOption)==true)
+                                    ## gets the category ID and creates the link for Start Shopping - 01.28.21 - kevin 
+                                    #set($catOptionID = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("categoryBOCommerce").find("$vendorSettingsDTO.vendorId", $catOption.toUpperCase()).getCategoryid()) ## Top-level Product Categories Category ID
+                                    #set($startShoppingLink="store.html?vid=$vendorSettingsDTO.vendorId&cid=$catOptionID")  
+                                    #set($allPermissionsCheck=$allPermissionsCheck+1)
+                                #end
+                            #end
+                            #if($allPermissionsCheck>1)
+                                ## if someone has permission to more than one hidden category, set default link to the Uniform category - 01.28.21 - kevin 
+                                #set($startShoppingLink="store.html?vid=$vendorSettingsDTO.vendorId&cid=$cidUniform")                                    
+                            #elseif($allPermissionsCheck==0)
+                                ## if someone has no permission to any category, set default link to the home page - 01.28.21 - kevin
+                                #set($startShoppingLink="store.html?vid=$vendorSettingsDTO.vendorId")
+                            #end
+                            <a href="$seourl.encodeURL($startShoppingLink)" class="btn-primary startShop">Start Shopping</a>
+                        </div>
+                    </div>    
+                </div>   
+            </div>    
+        </div>   
+        <div id="container">
+            #if($!$headerPosition == "INSIDE") #displayHeader(${displayCustomHeaderContent}) #end        
+            <div id="content" role="main">    
+                #if($displaySalesRepInfo == "YES")
+                    <div class="repInfo">
+                        #if(${htmlRepPhotoURL} != '')
+                            <img src="${htmlRepPhotoURL}" alt="$!{htmlRepName}">
+                        #end
+                        <p>
+                            Can't find what you're looking for?<br> Need a special product for your next event?<br>
+                            Contact $!{htmlRepName}, your $!{htmlSiteName} Special Order representative.
+                        </p>
+                        <p>
+                            <strong>$!{htmlRepName}</strong><br>
+                            $!{htmlRepPhone}<br>
+                            <a href="mailto:$!{htmlRepEmail}">$!{htmlRepEmail}</a>
+                        </p>
+                    </div>
+                #end
+                ## </div> --- what is this div end?
+                <div class="clearfix">          
+                
+                    <div class="featured-product-carousel">
+                        <H2>Featured Products</H2>
+                        <div class="featuredwrap">
+                            ## <a class="prev" id="featured_carousel_new_left"></a>
+                            <div class="items-wrapper" id="featured_carousel_new">
+                                <div class="listing">
+                                    #set($itemCounter = 0)
+                                    #foreach($temp in $StoreFeaturedItemsDTO.items)
+                                        #set($items = $pageTile.getItemObject($StoreFeaturedItemsDTO, $temp, "i"))
+                                        <div class="item">
+                                            <a href="$seourl.encodeURL("storeitem.html?vid=$vendorSettingsDTO.vendorId&iid=$items.itemid")">
+                                                #if($items.thumbnail && $items.thumbnail != "")
+                                                    <img src="store$items.thumbnail" alt="$items.title"/>
+                                                #else
+                                                    <img src="store/$vendorSettingsDTO.vendorId/assets/items/thumbnails/noimage.jpg" alt="$items.title"/>
+                                                #end 
+                                            </a>
+                                        </div>
+                                    #end
+                                </div>
+                            </div>
+                            ## <a class="next" id="featured_carousel_new_right"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearBoth">&nbsp;</div>
+            </div> <!--//#content -->
+            <div class="push"></div>
+            #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        </div> <!--//#container -->
+        #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end    
+        <script src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/js/jquery.jcarousellite.min.js"></script>
+        
+        <script>
+            jQuery(document).ready(function(){
+                jQuery('#featured_carousel_new').jCarouselLite({
+                    btnNext: "#featured_carousel_new_right",
+                    btnPrev: "#featured_carousel_new_left",
+                    visible: 6
+                });
+            });
+        </script>
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+        #parse("libMarkupFoot.vm")
+    </body>
+</html>
+
+
+
+                ## <div id="spotlightcontent">
+                ##   ## <div class="welcome-message">
+                ##   ## <h1><span>Welcome to the</span><br/>$!{htmlSiteName}</h1>
+                ##   ##<p>Welcome to the $!{htmlSiteName} where you can purchase logo’d items for business or personal use.</p>
+                ##   ##<p>If you are purchasing logo’d items for business use, please shop the "Bulk Sales" category. Please note that Bulk Sale items will be invoiced to the department and person placing the order so please ensure you have secured appropriate approval from your manager before placing an order.</p>
+                ##   ##<p>All FastMed employees and providers may also purchase logo’d items for personal use; at the time of purchase, you will be required to pay for your items with your personal debit or credit card. Items purchased for personal use should not be expensed.</p>        
+                ##   ##    <p>Welcome to the FastMed Store where you can purchase individual logo’d items for business or personal use.</p>
+                ##   ##    <p>If you are purchasing logo’d items in large quantities for business use, please shop the "Bulk Sales" category. Please note that Bulk Sale items will be invoiced to the department and person placing the order so please ensure you have secured appropriate approval from your manager before placing an order.</p>
+                ##   ##    <p>All FastMed employees and providers may also purchase logo’d items for business or personal use. If purchasing for personal use, you will be required to pay for your items with your personal debit or credit card when you place the order. Items purchased for personal use should not be expensed.</p>
+                ##   ##    <p>You may purchase individual items and receive an invoice if you have received approval from your department head or manager. The invoice will be sent to your department head for payment by FastMed. For these orders, you will also be required to input your department’s four-digit accounting code.</p>            
+                ## </div>
+                ##<div class="scrubstar"><a href="https://fastmedpinkscrubs.brandingbygeiger.com"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/PNK-Starburst.png" /></a></div>
+                
+                
+                
+                                    ##  <div class="popstorelink"> 
+                    ##      <p>Pink Scrub Tops – Blank with no logo. Ordering from now until September 24, 2018.</p>
+                    ##      <a href="https://fastmedpinkscrubs.brandingbygeiger.com">fastmedpinkscrubs.brandingbygeiger.com</a>
+                    ##  </div>
