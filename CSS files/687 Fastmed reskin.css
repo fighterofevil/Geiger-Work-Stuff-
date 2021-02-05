@@ -363,10 +363,8 @@ Place style here that define the global stturctre. Wrapper divs, one coloumn, tw
     margin: 0 auto;
     width: 1024px;
     display: flex;
+    background-color: #878CAA;
 }
-
-
-
 
 #footer .wrapper p{
     clear:both;
@@ -697,7 +695,8 @@ li.welcomemsg {
     float: right;
     height: 40px;
     display: flex;
-    align-items: center;    
+    align-items: center;   
+    background-color: #DCE1F0; 
 }
 
 .utilNav li::before {
@@ -1028,12 +1027,13 @@ tfoot tr td{
 }
 
 #spotlight{
-/*    height: 450px;
-    background-color: #DCE1F0;*/
+    /*width: 1710px;*/
+    height: 452px;
+    background-color: #DCE1F0;    
 }
 
 #spotlightWrapper{
-    height: 450px;
+    height: 452px;
     background-color: #DCE1F0;
 }
 
@@ -1045,7 +1045,7 @@ tfoot tr td{
 }
 
 #spotlightcontent {
-    /*background: url(../images/spotlightShape.png) no-repeat scroll left top;*/
+    /*background: url(../images/spot-graphics.png) no-repeat scroll left top;*/
 /*    height: 450px;
     background-position-y: 2px;
     width: 1024px;
@@ -1057,6 +1057,11 @@ tfoot tr td{
     display: flex;
     align-items: center;
 
+}
+
+#spotlightcontent img{
+    top: 2px;
+    position: relative;
 }
 
 .spotShape{
@@ -1111,12 +1116,12 @@ tfoot tr td{
     width: 1024px;
     margin: 0 auto;
     position: relative;
-    bottom: 400px;
+    bottom: 420px;
     /*z-index: 999;*/
 }
 
 .spotlightMsg{
-    left: 50px;
+    left: 35px;
     width: 440px;
     font-size: 18px;
     font-weight: initial;
@@ -1468,9 +1473,9 @@ td.ar{
 
 #pageCategory .item, #pageSearchResults .item{
     float: left;
-    height: 315px;
+    /*height: 315px;*/
     margin-right: 20px;
-    width: 150px;
+    width: 180px;
 }
 
 #pageCategory .badges, #pageSearchResults .badges{
@@ -1486,6 +1491,10 @@ td.ar{
 
 #pageCategory .name a:hover{
     text-decoration: underline !important;
+}
+
+#pageCategory .page{
+    width: 810px;
 }
 
 .sortView{
@@ -1522,7 +1531,8 @@ td.ar{
 .item .image img{
     border:1px solid #ccc;
     padding: 12px;
-    width: 125px;
+    /*width: 125px;*/
+    width: 155px;
 }
 
 .item .badges img{
@@ -2445,7 +2455,7 @@ input#cvv{
 }
 
 #pageCategory .container, #pageSearchResults .container{    
-    min-height: 275px;
+    /*min-height: 275px;*/
 }
 
 #pageCategory .text, #pageSearchResults .text {
@@ -2506,6 +2516,7 @@ input#cvv{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #6450C8;
 }
 
 .searchGlass{
@@ -2614,3 +2625,65 @@ input::placeholder{
     justify-content: space-between;
     width: 350px;
 }
+
+
+.spotWrapper{
+    height: 307px;    
+    background-color: #DCE1F0;
+}
+
+.leftSpotlight{
+    background-color: #DCE1F0;
+    height: 307px;
+    position: relative;
+    width: 1024px;
+    margin: 0 auto;
+    right: 1024px;    
+}
+
+.subwrap {
+    width: 1024px;
+    margin: 0 auto;
+    text-align: left;
+    position: relative;
+    bottom: 307px;
+}
+
+.centerSpotlight {
+    height: 307px;
+}
+
+#parallelogram{
+    background-color: #DCE1F0;
+    height: 307px;
+/*    -webkit-transform: skew(-20deg);
+    -moz-transform: skew(-20deg);
+    -o-transform: skew(-20deg);
+    -ms-transform: skew(-20deg);*/
+    position: relative;
+    right: 180px;
+}
+
+.centerSpotlight img{ 
+    position: absolute;
+    right: 0px;
+    bottom: 0px;   
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .ieOnly{
+        position: relative;
+        top: 180px;
+    }
+    #header{
+        height: auto;
+    }
+    #footer{
+        height: auto;
+    }
+
+    #headwrap{
+        display: none;
+    }
+}    
+
