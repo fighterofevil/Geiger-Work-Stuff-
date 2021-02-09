@@ -2418,3 +2418,9 @@ input[type="button" i]{
 #pageForgottenPassword .btn-primary{
     margin-top: 15px;
 }
+
+.scriptWarning{
+    font-size: 16px;
+    font-weight: 800;
+    color: red;    
+}
