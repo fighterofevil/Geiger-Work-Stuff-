@@ -1,0 +1,1798 @@
+
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+
+## Identify payment gateway codes that should not authorize or charge a credit card in C8
+#set( $pgcodenocc = ["NCC","GL","PP","IB","NOCHEX","UFS","DPS","ALIGNET","PCI2NONE","PCI2CC",""] )
+
+#########################################################################
+#macro ( showPriceOnCheckout $price)
+    #if($isPointStore && $isPointStore=='TRUE')
+        $regExp.currencyInteger($viewStoreCurrency.locale,  $price) #if ( $price==0) Point #else Points #end
+    #else
+        $number.format('currency', $price, $viewStoreCurrency.locale)
+    #end
+#end
+
+#macro ( showPriceOnCheckout2 $price)
+    #if($isPointStore && $isPointStore=='TRUE')
+        $regExp.currencyInteger($viewStoreCurrency.locale,  $price) 
+    #else
+        $number.format('currency', $price, $viewStoreCurrency.locale)
+    #end
+#end
+
+
+<html id="pageCheckoutPayment">
+    <head>
+        <title>#if($!pagetitle) $pagetitle  #else #springMessage("navPayment") - $!{htmlSiteName} #end</title>
+        #parse('libMarkupHead.vm')
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+        #parse('libpartcheckoutpaymentcssjs.vm ')
+        #parse('libpartpresetaddresseshead.vm')
+    </head>
+    <body>
+        #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        <div id="container">
+            #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+            
+            <div id="content" role="main">
+                #if($!{isPointStore}== 'TRUE')
+                    #parse('libpartcheckoutpaymentcontentpoints.vm')
+                #else
+                    ## #parse('libpartcheckoutpaymentcontent.vm')
+                    ## BEGIN    libpartcheckoutpaymentcontent
+
+                            #set($vm = $versions.put("libPartCheckoutPaymentContent", [1, 0, 1]))
+                            
+                            ## Main Checkout Payment Content
+                            ## 1.0.1
+                            ##
+                            ## Changelog:
+                            ## [1.0.1] - 05/19/2016
+                            ## ### Added
+                            ##  - Versioning now stored in $versions map.
+                            
+                            ## Settings:
+                            ## hidePaymentScriptQuestionsBottomSection          Hides the standard script questions section at the bottom.
+                            
+                            <h1>#springMessage("navPayment")</h1>
+                            
+                            #*================================
+                              Checkout Progress
+                            =================================*#
+                            <ul class="co-breadcrumb step2">
+                                <li class="yi"><a href="multibilltoaddr.html?vid=$vendorSettingsDTO.vendorId">Addresses</a></li>
+                                <li class="py active">Payment</li>
+                                <li class="rv">Review</li>
+                                <li class="ty">Order Confirmation</li>
+                            </ul>
+                            
+                            <form name="frm" action="payment.html" method="POST">
+                                #springBind( "checkoutViewDTO.*" )         
+                                
+                                #if($status.errors.errorCount > 0)
+                                    <div class="warning">
+                                        <p>#springMessage("vm.checkout_payment.warn"):</p>
+                                        
+                                        #if($status.errorMessages)
+                                            <ul>
+                                                #foreach($error in $status.errorMessages)
+                                                    <li>$error</li>
+                                                #end 
+                                            </ul>
+                                        #end
+                                    </div>
+                                #end
+                                
+                                <input type="hidden" name="t">
+                                <input type="hidden" name="productidx" value="0">
+                                <input type="hidden" name="addressidx" value="0">
+                                <input type="hidden" name="shipaddressid" value="0">
+                                <input type="hidden" name="mid" id="mid" value="demo">
+                                <input type="hidden" name="securitytoken" value="${tokenEntity.token}"/>
+                            
+                                ## SHIPPING OPTIONS SECTION #####################################################
+                                <h2>#springMessage("vm.checkout_payment.title2")</h2>
+                                #set($groupidx = 0)
+                                #set($itemCount = 0)
+                                      
+                                <div class="shipping-methods-section">
+                                    #foreach($productgroup in $checkoutViewDTO.details.shippinggroup)
+
+                                        <script>
+                                            console.log("$!velocityCount is the top level counter");
+                                        </script>
+                                        
+
+                                        #set($shippingAdress = $productgroup.address.address)
+
+                                        ## added the Free Freight if statement from original checkout template code for paul davis - kevin 10.20.20
+                                        ##  WHY IS THIS HERE? WHAT IS THE INTENT? IT IS BREAKING THE SITE 
+                                        ## BEGIN Free Freight
+                                        ## display shipping group if free shipping isn't an option
+
+                                        ##  locationIDClass is used to uniquely identify each shipping box object - kevin 10.22.20
+                                        #set($locationIDClass = 'shippingBox'+$velocityCount)
+
+                                        ## used to check if the shipping option has Free Freight. -kevin 10.22.20
+                                        ## rests tpo false on each item loop
+                                        #set($freeTrack = false)                                        
+                                        #if( $productgroup.shipmethods[0].shippingmethod.description == 'Free Freight')
+                                            #set($freeTrack = true)
+                                        #end
+
+                                        ## original Free Frieght line of code - commented out since it was breaking site - kevin 10.22.20
+                                        ## #if( $productgroup.shipmethods[0].shippingmethod.description != 'Free Freight')
+                                            <div class="location clearfix shippingBox$velocityCount">
+                                                <div class="location-items">
+                                                    #if($productgroup.address.addressid && $productgroup.address.addressid>0)
+                                                        <address>
+                                                            <span>$shippingAdress.firstname $shippingAdress.lastname </span><br/> 
+                                                            #if($shippingAdress.company && $shippingAdress.company!='')$shippingAdress.company <br/>#end  
+                                                            $shippingAdress.address1 <br/>
+                                                            #if($shippingAdress.address2 && $shippingAdress.address2!='')$shippingAdress.address2 <br/>#end  
+                                                            $!shippingAdress.city $!productgroup.address.province.a3, $!productgroup.address.country.a3  $!shippingAdress.postal 
+                                                        </address>
+                                                    #end
+                                                    <div class="js-click" onclick="show($groupidx);">#springMessage("vm.checkout_payment.veiwItem")</div>                                                
+                                                    <div id="$groupidx" class="items" style="display: none;">
+                                                        <ul>
+
+                                                            ## loopCounter is used to keep track of how many times the loop has occurred. this is used to identify if the shipping location box has an item with Custom Imprint items or if it is only Custom Impriint line items - keivn 10.22.20
+                                                            ## customImprintCheck is used to check if any of the items in the shipping location box contain any Custom Imprint line items - kevin 10.22.20
+                                                            ## both variables are resest to these values on each item in the cart
+                                                            #set($loopCounter=0) 
+                                                            #set($customImprintCheck=false) 
+
+                                                            #foreach($productitem in $productgroup.shipItems)                                                               
+                                                                #set($product =$productitem.product)
+                                                                <li>
+                                                                    ($productitem.shipaddr.qty)
+                                                                    <b>$product.title</b>
+
+                                                                    ## #if($velocityCount>=3)
+                                                                    ##     <script>
+                                                                    ##         console.log("the counter is now 3 or more");
+                                                                    ##     </script>
+                                                                    ## #end
+
+
+                                                                    ## cjhecks if Custom Imprint is present - kevin 10.22.20 
+                                                                    #if($product.title.contains("CUSTOM IMPRINT"))
+                                                                        #set($customImprintCheck=true) 
+                                                                        ## <script>
+                                                                        ##     console.log("VELOCITY FOUND IMPRINT");
+                                                                        ##     console.log("$!customImprintCheck is customImprintCheck");
+                                                                        ## </script>                                                                      
+                                                                    #end
+
+                                                                    ## <script>
+                                                                    ##     console.log("$!product.title is the product title");
+                                                                    ##     var testVar="$!product.title";    
+
+                                                                    ##     if(testVar.indexOf('CUSTOM IMPRINT')!==-1)
+                                                                    ##     {
+                                                                    ##         console.log("testVar has it");
+                                                                    ##         // $(".$!locationIDClass").hide();
+                                                                    ##     }
+                                                                    ##     else{
+                                                                    ##         console.log("NOPE");
+                                                                    ##     }                                                                                                                                    
+                                                                    ## </script>
+
+                                                                    #foreach($attribute in $product.attribute)
+                                                                        | <em>attribute</em>  
+                                                                    #end                 
+                                                                </li>
+                                                                
+                                                                #set($itemCount = $math.add($itemCount, 1))
+
+                                                                ## sets loopCounter to the current value of velocityCount. evaluated outside of the loop.  -kevin 10.22.20
+                                                                #set($loopCounter=$velocityCount)
+
+                                                                ## <script>
+                                                                ##     console.log("$!loopCounter is the loopCounter");
+                                                                ## </script>
+                                                            #end
+
+                                                            ## <script>
+                                                            ##     console.log("$!loopCounter is the loopCounter OUT of the loop");
+                                                            ##     console.log("$!customImprintCheck is customImprintCheck OUT of the loop");
+                                                            ## </script>
+
+                                                            ## hides the shipping location box if there are 3 or more items listed and Custom Imprint is present. 
+                                                            #if( ($loopCounter<=2) && ($customImprintCheck==true) && ($freeTrack==true) )
+                                                                <script>
+                                                                    console.log("this is something you want to hide");
+                                                                    $(".$!locationIDClass").hide();    
+                                                                </script>
+                                                            #else    
+                                                                <script>
+                                                                    console.log("DO NOT hide");
+                                                                </script>                                                            
+                                                            #end
+
+                                                        </ul>
+                                                    </div><!--/.items -->
+                                                </div><!--/.location-items-->
+                                                
+                                                ## RESTRICT_SHIPPING
+                                                ## Versrion 1.0.5
+                                                ##
+                                                ## Restricts shipping based on an item property
+                                                ##
+                                                ## Version 1.0.5 fixed functionality to work with split shipping, changed the location of
+                                                ##    the restricted shipping message, and added in functionality that removes the option
+                                                ##    select and continue button when no shipping options on a single item are available.
+                                                ## Version 1.0.4 fixed and issue where if a shipping method was restricted on one item across
+                                                ##    all providers and the same method was restricted one an item for only one provider, all
+                                                ##    shipping methods for all providers would parse in the message for the item with only one
+                                                ##    provider/method restriction.
+                                                ## Version 1.0.3 adds the ability to string together more than one method on a provider.
+                                                ##    EX: 1-UPS-DOMESTIC > RP > OP
+                                                ## Version 1.0.2 adds an addiontal message about removing item with restrictions from the cart
+                                                ##    if another item is present in the order.
+                                                ## Version 1.0.1 adds the ability to hide the restricted shipping message and allows for a
+                                                ##    custom restricted shipping message
+                                                ##
+                                                ## Expected value of RESTRICTED_SHIPPING: PROVIDER > METHOD | PROVIDER > METHOD > METHOD | METHOD
+                                                ## e.g. "1-UPS-PPD > BP | RP"
+                                                ##      The above would block the BP method for the 1-UPS-PPD provider, while the other
+                                                ##      would block the RP method on all providers.
+                                                ##
+                                                ##
+                                                ## Expected value RESTRICT_SHIPPING_HIDE_MESSAGE : true
+                                                ##      The above will hide the default message for a restricted shipping method on an item
+                                                ##
+                                                ##
+                                                ## Expecteed value of RESTRICT_SHIPPING_CUSTOM_MESSAGE: "Custom Message Here"
+                                                ## e. g. "This is a custom message that will be displayed for the restricted shipping message.
+                                                ##      The above will replace the default system message with a message of choice on a per
+                                                ##      item basis.
+                                                
+                                                
+                                                ## Structure:
+                                                ## {
+                                                ##     "productTitle": ["restrictedMethod", "restrictedMethod", ...],
+                                                ##     ...
+                                                ## }
+                                                #set($productsWithRestrictions = {})
+                                            
+                                                ## Structure:
+                                                ## {
+                                                ##     "methodCode": ["methodDescription", "methodDescription", ...],
+                                                ##     ...
+                                                ## }
+                                                #set($shippingNames = {})
+                                                
+                                                ## Structure:
+                                                ## {
+                                                ##     "productTitle": ["customMessage", "customMessage", ...],
+                                                ##     ...
+                                                ## }
+                                                #set($customMessages = {})
+                                                
+                                                #set($restrictedShippingMethods = [])
+                                                #set($hideRestirctMessage = [])
+                                                
+                                                #foreach($productitem in $productgroup.shipItems)
+                                                    #set($product = $productitem.product)
+                                                    
+                                                    #foreach($property in $product.properties)
+                                                        #set($propertyName = $property.getPropName())
+                                                        #set($productKey = "$product.title")
+                                                        #set($propertyValue = $property.getPropValue())
+                                                        
+                                                        #if($propertyName == "RESTRICT_SHIPPING")
+                                                            #set($methods = $propertyValue.split("[|]"))
+                                                    
+                                                            ## If the product isn't currently in the  $productsWithRestrictions hashmap, add it.
+                                                            #if($productsWithRestrictions.containsKey($productKey) == false)
+                                                                #set($temp = $productsWithRestrictions.put($productKey, []))
+                                                            #end
+                                                            
+                                                            #foreach($method in $methods)
+                                                                #set($providerCode = $method.split("[>]"))
+                                                                
+                                                                ## Restricted method, no matter the provider
+                                                                #if($providerCode.size() == 1)
+                                                                    #set($restrictedMethod = $providerCode.get(0).trim().toLowerCase())
+                                                                    
+                                                                    ## Set and add to $productsWithRestrictions hashmap
+                                                                    #set($productsRestrictedList = $productsWithRestrictions.get($productKey))
+                                                                    
+                                                                    #set($hash = $productsRestrictedList.add($restrictedMethod))
+                                                             
+                                                                    ## Set and add to $restrictedShippingMethods list
+                                                                    #set($list = $restrictedShippingMethods.add($restrictedMethod))
+                                                             
+                                                                #end
+                                                                
+                                                                ## Restricted method/s with a specific provider
+                                                                #if($providerCode.size() > 1)
+                                                                    
+                                                                    #set($restrictedProvider = $providerCode.get(0).trim().toLowerCase())
+                                                                    
+                                                                    #foreach($entry in $providerCode.subList(1, $providerCode.size()))
+                                                                        #set($restrictedMethod = $entry.trim().toLowerCase())
+                                                                        #set($restrictedProviderMethod = "$restrictedProvider | $restrictedMethod")
+                                                                        
+                                                                        ## Set and add to $productsWithRestrictions hashmap
+                                                                        #set($productsRestrictedList = $productsWithRestrictions.get($productKey))
+                                                                        #set($hash = $productsRestrictedList.add($restrictedProviderMethod))
+                                                                        
+                                                                        ## Set and add to $restrictedShippingMethods list
+                                                                        #set($list = $restrictedShippingMethods.add($restrictedProviderMethod))
+                                                                    #end
+                                                                #end
+                                                                
+                                                            #end
+                                                        #end
+                                                        
+                                                        ## <script>
+                                                        ##     console.log("$productsWithRestrictions");
+                                                        ## </script>
+                                                        
+                                                        #if($propertyName == "RESTRICT_SHIPPING_HIDE_MESSAGE")
+                                                            #if($hideRestirctMessage.contains($productKey) == false)
+                                                                #set($hide = $hideRestirctMessage.add($productKey))
+                                                            #end
+                                                        #end
+                                            
+                                                        #if($propertyName == "RESTRICT_SHIPPING_CUSTOM_MESSAGE")
+                                                            #if($customMessages.containsKey($productKey) == false)
+                                                                #set($custom = $customMessages.put($productKey, []))
+                                                                #set($customMessagesList = $customMessages.get($productKey))
+                                                                #set($hash = $customMessagesList.add($propertyValue))
+                                                            #end
+                                                        #end
+                                                    #end
+                                                #end
+                                
+                                                <div class="options">
+                                                    #if($productgroup.shipmethods.size()>0)
+                                                        <select name="SHIPTYP_${groupidx}" id="SHIPTYP_${groupidx}"  onchange="document.frm.submit()">
+                                                            #foreach($shipmethod in ${productgroup.shipmethods})
+                                                                #set($shippingMethodName = ${shipmethod.shippingmethod.getMethodname().trim().toLowerCase()})
+                                                                #set($shippingProviderCode = ${shipmethod.getShippinggroup().getCode().trim().toLowerCase()})
+                                                                #set($shippingDescription = ${shipmethod.shippingmethod.description})
+                                                                #set($shippingProviderMethod = "$shippingProviderCode | $shippingMethodName")
+                                                                
+                                                                ## Compare current shipping provider/method against list of restricted shipping
+                                                                #set($inMethodList = $restrictedShippingMethods.contains($shippingMethodName))
+                                                                #set($inProviderlist = $restrictedShippingMethods.contains($shippingProviderMethod) || $inMethodList)
+                                                                
+                                                                ## If current method is restricted add the shipping description to the $shippingNames hashmap
+                                                                #if($inMethodList)
+                                                                    #if($shippingNames.containsKey($shippingMethodName) == false)
+                                                                        #set($temp = $shippingNames.put($shippingMethodName, []))
+                                                                    #end
+                                                                                        
+                                                                    #set($shipDescription = $shippingNames.get($shippingMethodName))
+                                                                    #set($temp = $shipDescription.add($shippingDescription))
+                                                                #end
+                                                                                
+                                                                #if($inProviderlist)
+                                                                    #if($shippingNames.containsKey($shippingProviderMethod) == false)
+                                                                        #set($temp = $shippingNames.put($shippingProviderMethod, []))
+                                                                    #end
+                                                                    
+                                                                    #set($shipDescription = $shippingNames.get($shippingProviderMethod))
+                                                                    #set($temp = $shipDescription.add($shippingDescription))
+                                                                #end
+                                                                                
+                                                                ## If current method is not restricted, parse the shipping option as normal
+                                                                #if(!$inProviderlist)
+                                                                    #if( ${productgroup.shipmethod.shippingmethod.id} == ${shipmethod.shippingmethod.id})
+                                                                        <option value="${shipmethod.shippingmethod.id}" selected>
+                                                                            ${shipmethod.shippingmethod.description} 
+                                                                            ## Check if option is 'actual' (S&H or 3PB)
+                                                 
+                                                                            #if(${shipmethod.shippingRateDTO.totalcharges} == 0 && $displayCustomActualShippingText == "YES")
+                                                                                #set($CustomShippingText = 1) ## Only show the custom text if it is relevant for the selected option.
+                                                                                $actualShippingDropdownText
+                                                                            #else
+                                                                                ## sitewide variable for pricing on/off
+                                                                                #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                                                                                    - $number.format('currency',$checkoutViewDTO.formatter.currency(${shipmethod.shippingRateDTO.totalcharges}),$viewStoreCurrency.locale)
+                                                                                #end
+                                                                            #end
+                                                                        </option>
+                                                                    #else
+                                                                        <option value="${shipmethod.shippingmethod.id}">
+                                                                            ${shipmethod.shippingmethod.description}
+                                                                            ## Check if option is 'actual' (S&H or 3PB)
+                                                                            #if(${shipmethod.shippingRateDTO.totalcharges} == 0 && $displayCustomActualShippingText == "YES")
+                                                                                $actualShippingDropdownText
+                                                                            #else
+                                                                                ## sitewide variable for pricing on/off
+                                                                                #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                                                                                    - $number.format('currency',$checkoutViewDTO.formatter.currency(${shipmethod.shippingRateDTO.totalcharges}),$viewStoreCurrency.locale)
+                                                                                #end
+                                                                            #end
+                                                                        </option>
+                                                                    #end 
+                                                                #end
+                                                            #end
+                                                        </select>
+                                                                        
+                                                        <!-- Third Party Freight Account -->
+                                                        #if($productgroup.shipmethod.shippinggroup.couriercode == "3PF")
+                                                            <div id="thirdptyft">
+                                                                #if($productgroup.shipmethod.shippinggroup.option1 =="YES")  ##need input
+                                                                    #springBind("checkoutViewDTO.freightAccountNumberMap[${checkoutViewDTO.keyPrefix}${groupidx}]")
+                                                                    $productgroup.shipmethod.shippinggroup.option2:<input type="text" name="$status.expression" value="$!status.value">
+                                                                #else
+                                                                    #springBind("checkoutViewDTO.freightAccountNumberMap[${checkoutViewDTO.keyPrefix}${groupidx}]")
+                                                                    <input type="hidden" name="$status.expression" value="$productgroup.shipmethod.shippinggroup.option3">
+                                                                #end
+                                                            </div><!-- End 3PF Account -->
+
+
+
+
+                                                        #end
+                                                    #end
+                                                </div><!--options -->                                        
+
+                                                #if($CustomShippingText == 1)
+                                                    <div id="sh-shipping-info">
+                                                        #if($actualShippingInfoText)
+                                                            $actualShippingInfoText
+                                                            ## script reads the values of the shipping option drop down. 
+                                                            ## if there is a numerical value in the drop down indicating it is a PPD purchase, 
+                                                            ## it will hide the 'actual shipping' message that is shown for 3PB or Drop Ship items.
+                                                                
+                                                            <script>
+                                                                ## appends numeric value of groupidx to shipInfotxt to help target he correct shipInfotxt 
+                                                                document.getElementById("shipInfotxt").id="shipInfotxt_${groupidx}";
+                                                                    
+                                                                ## optionValue used to read the value of the drop down for shipping options. 
+                                                                var optionValue=$('#SHIPTYP_${groupidx} option:selected').text().trim();
+                                                                
+                                                                ## checks to see if there is a numerical value in the shipping option selected
+                                                                
+                                                               
+                                                                if ( /\d\.\d/.test(optionValue)==true){
+                                                                
+                                                                    $("#shipInfotxt_${groupidx}").hide();
+                                                                }
+                                                                
+                                                                ## add styling needed - not all sites have CSS coded as needed
+                                                                else{
+                                                                    $("#shipInfotxt_${groupidx}").css("float","right");
+                                                                    $("#shipInfotxt_${groupidx}").css("width","540px");
+                                                                    $("#shipInfotxt_${groupidx}").css("padding","15px 15px 1px");
+                                                                    $("#shipInfotxt_${groupidx}").css("margin","5px 0 0 0");
+                                                                    $("#shipInfotxt_${groupidx}").css("background-color","#DDDDDD");
+                                                                }
+                                                            </script>    
+                                                        #end
+                                                    </div>
+                                                #else
+                                                    ## checks to see if there is a Custom Currency Symbol being used, if so, replaces $ with 
+                                                    #if($customCurrencySymbol)
+                                                        <script>
+                                                            var replaceCurrency="$!customCurrencySymbol";
+                                                            $('select option:contains("$")').each(function(){
+                                                                var $this = $(this);
+                                                                $this.text($this.text().replace("$",replaceCurrency));    
+                                                            });                       
+                                                        </script>
+                                                    #end
+                                                #end            
+                                            </div> <!--//.location .clearfix-->
+                                        ## #end    
+
+                                        ## original Free Frieght line of code - commented out since it was breaking site - kevin 10.22.20
+                                        ## END Free Freight
+
+                                        ## Restricted Shipping Messages
+                                                
+                                        ## Uses the $productsWithRestrictions and $shippingNames hasmaps to pull in shipping descriptions for the associated restricted item
+                                        ## If the $productsWithRestrictions hashmap contains restricted shipping values, create the message center
+                                            
+                                        #if($productsWithRestrictions.size() > 0 && $shippingNames.size() > 0)
+                                            <div class="restrictedShippingMessages location clearfix" id="restrictedShippingMessages">
+                                                       
+                                                ## Loop through the $productsWithRestrictions hashmap, pulling out each item and restricted method.
+                                                #foreach($restricteditemEntry in $productsWithRestrictions.entrySet())                                    
+                                                    ## If the item does not contain the RESTRICT_SHIPPING_HIDE_MESSAGE, parse the message
+                                                    #if(!$hideRestirctMessage.contains($restricteditemEntry.key))                                        
+                                                        ## If the item has the RESTRICT_SHIPPING_CUSTOM_MESSAGE property, parse the custom message
+                                                        #if($customMessages.containsKey($restricteditemEntry.key))
+                                                            #foreach($customMessage in $customMessages.entrySet())
+                                                                #foreach($message in $customMessage.value)
+                                                                    <p>$message</p>
+                                                                #end
+                                                            #end
+                                                                    
+                                                            ## Parse the default message
+                                                        #else
+                                                            #foreach($restrictedShipMethod in $restricteditemEntry.value)
+                                                                #if($shippingNames.containsKey($restrictedShipMethod))
+                                                                                
+                                                                    #set($names = $shippingNames.get($restrictedShipMethod))
+                                                                                
+                                                                    #if($velocityCount == 1)
+                                                                        <p>We're sorry, the item <strong>"$restricteditemEntry.key"</strong> cannot be shipped using the following methods:</p>
+                                                                        <ul id="content-$restricteditemEntry.key" class="ship-method-list">
+                                                                    #end
+                                                
+                                                                    #foreach($name in $names)
+                                                                        <li> - $name</li>
+                                                                    #end
+                                                                                
+                                                                    #if($velocityCount == $restricteditemEntry.value.size())
+                                                                        </ul>
+                                                                    #end
+                                                                                
+                                                                    ## </br>
+                                                                #end
+                                                            #end
+                                                        #end      
+                                                    #end
+                                                #end
+                                                            
+                                                #if($itemCount > 1)
+                                                    </br>
+                                                    <p class="restricted-sub-message">There #if($itemCount > 2) are items #else is another item #end in your cart that may be able to ship to one of the restricted shipping methods. You'll need to split your order up to ship with these methods.</p>
+                                                #end
+                                            </div> <!--// #restrictedShippingMessages -->
+                                        #end
+                                            
+                                        #set($groupidx = $groupidx+1)
+                                    #end
+                                </div><!--//.shipping-methods-section-->
+                                
+                                <script>
+                                    jQuery(document).ready(function(){
+                                        jQuery('select[name^=SHIPTYP]').each(function(i, obj) {
+                                            if(this.length == 0){
+                                                jQuery('select[name^=SHIPTYP]').css("display", "none");
+                                                jQuery('#checkout-continue').css("display", "none");
+                                                //jQuery('.restricted-sub-message').css("display", "none");
+                                                jQuery('#thirdptyft').css("display", "none");
+                                                jQuery('.shipping-methods-section').before('<p style="color:red;"><strong>Due to restrictions on shipping we are unable to send your items to the listed shipping address. Please either select a different item or shipping address. For additional help please contact customer service at $htmlCSRPhone.</strong></p>')
+                                            }
+                                        });
+                                    });
+                                </script>
+                                
+                                
+                                ## END SHIPPING OPTIONS SECTION ####################################################
+                                
+                               
+                            
+                                      <h2>#springMessage("vm.checkout_payment.title1")</h2>
+                            
+                                      #parse('libPartCurbstoneError.vm')
+                            
+                                      <div class="payment-section">
+                                            <div class="tabs clearfix">
+                                              <ul>
+                                                    #springBind("checkoutViewDTO.radioButtonId")
+                                                    <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_radioid">  
+                                                    #springBind("checkoutViewDTO.inputFieldId")
+                                                    <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_inputid">
+                                                    #springBind("checkoutViewDTO.selectedPaymentGatewayId")
+                                                    <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_pgid">
+                                                    #springBind("checkoutViewDTO.selectedPaymentGatewayCode")
+                                                    <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_pgcode">
+                            
+                                                    #if($checkoutViewDTO.details.noAllowanceRecord)
+                                                      #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways})          
+                                                        <li  #if($velocityCount == 1) class="active" #end style="float:left" id="payment-list-tab-$!paymentgateway.code" >
+                                                          <a href="javascript:void(0)" onclick="showtab2('$!paymentgateway.code','$paymentgateway.paymentgatewayid','radio_$velocityCount','input_$velocityCount');">$!paymentgateway.displayname</a>
+                                                        </li>
+                                                      #end
+                                                    #else
+                                                      #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways}) 
+                                                          #if($paymentgateway.code == 'PLP')
+                                                              #set($PLPGatewayActive = true)
+                                                              <li  #if($velocityCount == 1) class="active" #end style="float:left" id="payment-list-tab-$!paymentgateway.code" >
+                                                                <a href="javascript:void(0)" onclick="showtab2('PLP','$paymentgateway.paymentgatewayid','radio_$velocityCount','input_$velocityCount');">#springMessage("vm.checkout_payment.budgetTab")</a>
+                                                              </li>
+                                                              <script>
+                                                                jQuery(document).ready(function() {
+                                                                    showtab2('PLP','$paymentgateway.paymentgatewayid','radio_$velocityCount','input_$velocityCount');
+                                                                });
+                                                              </script>
+                                                          #end
+                                                      #end
+                            
+                                                      ## If the PLP Payment Gateway isn't active, render the Budget tab the old way.
+                                                      #if(!$PLPGatewayActive)
+                                                        <li class="active" style="float:left">
+                                                          <a href="#tabl1" onclick="showtab(1);">#springMessage("vm.checkout_payment.budgetTab")</a>
+                                                        </li> 
+                                                      #end
+                            
+                                                    #end
+                                              </ul>
+                                              #if($checkoutViewDTO.details.noAllowanceRecord)
+                                                #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways})
+                                                  #if($velocityCount == 1)
+                                                    <script>
+                                                      var first_tab_id = '$paymentgateway.code' ;
+                                                    </script>
+                                                  #end
+                                                  <div id="tab_$paymentgateway.code" class="tab clearfix" style="display:none">
+                            
+                            
+                                                  #*================================
+                                                    PAYMENT GATEWAY: NONE
+                                                  =================================*#
+                            
+                                                  #if($paymentgateway.code == 'NONE')             
+                                                    <div class="columnOne">
+                                                      <div class="billing-address-section section">
+                                                        <h4>#springMessage("vm.checkout_payment.address")</h4>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                                                        <input type="hidden" name="$status.expression" value="$!status.value" />
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                                                          <div class="half">
+                                                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                                                            <input id="first-name" class="$paymentgateway.code" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                                                          <div class="half">
+                                                            <label for="last-name">#springMessage("vm.checkout_payment.lastname")</label>
+                                                            <input class="$paymentgateway.code" id="last-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                                                          </div>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                                                        <div>
+                                                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                                                          <select name="$status.expression" id="country_NONE" class="chzn-select NONE" style="width:220px;" data-placeholder="Select a Country..."  disabled >
+                                                            #foreach($country in $billingCountriesInUse)
+                                                              <option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                                                            #end
+                                                          </select>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                                                        <div id="province" class="chzn-container chzn-container-sigle" style="width:405px;">
+                                                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                                                            <select name="$status.expression" id="chznprovince_NONE" class="chzn-select NONE" style="width:220px;" data-placeholder="Select a Province..."  disabled >
+                                                              #foreach($country in $billingCountriesInUse)
+                                                                #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                                                  #foreach($prov in $country.provinces)
+                                                                    <option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                                                  #end
+                                                                #end
+                                                              #end              
+                                                            </select>
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                                                          <div>
+                                                            <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                                                            <input class="$paymentgateway.code" id="address1" type="text" maxlength="50" name="$status.expression" value="$!status.value"  disabled />
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                                                          <div>
+                                                            <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                                                            <input  class="$paymentgateway.code" id="address2" type="text" maxlength=30 name="$status.expression" value="$!status.value" disabled />
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                                                          <div>
+                                                            <input class="$paymentgateway.code" id="address3" type="text" maxlength=30  name="$status.expression" value="$!status.value"  disabled />
+                                                          </div>          
+                                                          <div class="clearfix">
+                                                            #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                                                            <div class="half">
+                                                              <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                                                              <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" disabled  />
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                                                          <div class="half">
+                                                              <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                                                              <input class="$paymentgateway.code" id="city" type="text" maxlength=40 name="$status.expression" value="$!status.value"  disabled />
+                                                          </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                                                          <div class="half">
+                                                            <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                                                            <input class="$paymentgateway.code" id="zip" type="text" maxlength="12"  name="$status.expression" value="$!status.value" disabled />
+                                                          </div>
+                                                          <div class="half">
+                                                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                                                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                                                            <input class="$paymentgateway.code" id="phone" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled />
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div><!--//.column-->
+                            
+                                                    <div class="columnTwo">
+                                                      <div class="credit-card-section section">
+                                                        <h4>Credit Card Information</h4>
+                                                        <div class="row">
+                                                          #springBind ("checkoutViewDTO.creditCard.ccType")
+                                                          <label for="$status.expression">#springMessage('vm.register.cctype')</label>
+                                                          <div class="f-field" >      
+                                                            <select name="$status.expression" id="$status.expression">
+                                                              <option value="0" selected>#springMessage('vm.register.selectcard')</option>
+                                                              #set ($cardtypekeys = $checkoutViewDTO.creditCard.ccTypes.keySet())
+                                                              #foreach ($cardtypekey in $cardtypekeys)
+                                                                #if ( $cardtypekey == 3 || $cardtypekey == 5 || $cardtypekey==6 || $cardtypekey==7)
+                                                                  #if ($cardtypekey == $status.value)
+                                                                    <option value="$cardtypekey" selected>$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                                                  #else
+                                                                    <option value="$cardtypekey">$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                                                  #end  
+                                                                #end
+                                                              #end
+                                                            </select>
+                                                          </div>
+                                                        </div> <!--//.row -->
+                                                        <div class="first-row">
+                                                          <label for="CARDNO" >#springMessage("vm.register.creditcard")</label>
+                                                          <div class="f-field vat" >
+                                                          #springBind ("checkoutViewDTO.creditCard.ccNumber")
+                                                            #if($checkoutViewDTO.creditCard.startYear == 1)
+                                                            <input type="text" name="$status.expression" id="CARDNO" value="$checkoutViewDTO.creditCard.ccSecureNumber"  autocomplete="off"/>
+                                                            #else
+                                                            <input type="text" name="$status.expression" id="CARDNO" value="$status.value"  autocomplete="off"/>
+                                                            #end
+                                                            <div class="info_needed">#springMessage("vm.register.msg5")</div>
+                                                          </div>
+                                                        </div><!--//.first-row-->
+                                                        <div class="row">
+                                                          <script language="javascript" type="text/javascript">
+                                                            function checkKey() {
+                                                              var keyword = document.getElementById('keyword');
+                                                              var key = document.getElementById('key');
+                            
+                                                              keyword.value = key.value;
+                                                              if (keyword.value.length==0)
+                                                                keyword.value = $vendorSettingsDTO.vendorId;
+                                                              }
+                                                          </script>    
+                                                          <label for="cvv">#springMessage('vm.register.securitycode')</label>
+                                                          <div class="f-field" >
+                                                            #springBind ("checkoutViewDTO.creditCard.level2Code")
+                                                            #if($checkoutViewDTO.creditCard.startYear == 1)
+                                                            <input type="text" name="$status.expression" id="cvv" value="***"  autocomplete="off"/>
+                                                            #else
+                                                            <input type="text" name="$status.expression" id="cvv" value="$status.value" maxlength="4" size="4"  autocomplete="off"/>
+                                                            #end
+                                                            <span class="info_needed whatsthis" id="securityCode_help">#springMessage('vm.register.msg6')</span>
+                                                            
+                                                            <div id="cvv-help-popup">
+                                                                <div id="cvv-help-close">x</div>
+                                                                <p><b>For Visa, MasterCard, and Discover Credit Cards:</b> The Security Code (or CVV) can be found on the back of the card. It is the last 3 digits to the right of the signature panel.</p>
+                                                                <p><b>For American Express Credit Cards:</b> The 4-digit Card Identification Number (CID) is located on the front of the card, to the right and just above the 15-digit account number.</p>
+                                                            </div>
+                                                            
+                                                          </div>
+                                                        </div><!--//row-->
+                                    
+                                                        <div class="row">
+                                                          #springBind ("checkoutViewDTO.creditCard.expMonth")
+                                                          <label for="$status.expression">#springMessage('vm.register.expirydate')</label>
+                                                          <div class="f-field">
+                                                            #springBind ("checkoutViewDTO.creditCard.expMonth")
+                                                            <select id="card-expiration-month" name="$status.expression">
+                                                              <option value="1" #if($status.value && $status.value == 1) selected #end>01 - January</option>
+                                                              <option value="2" #if($status.value && $status.value == 2) selected #end>02 - February</option>
+                                                              <option value="3" #if($status.value && $status.value == 3) selected #end>03 - March</option>
+                                                              <option value="4" #if($status.value && $status.value == 4) selected #end>04 - April</option>
+                                                              <option value="5" #if($status.value && $status.value == 5) selected #end>05 - May</option>
+                                                              <option value="6" #if($status.value && $status.value == 6) selected #end>06 - June</option>
+                                                              <option value="7" #if($status.value && $status.value == 7) selected #end>07 - July</option>
+                                                              <option value="8" #if($status.value && $status.value == 8) selected #end>08 - August</option>
+                                                              <option value="9" #if($status.value && $status.value == 9) selected #end>09 - September</option>
+                                                              <option value="10" #if($status.value && $status.value == 10) selected #end>10 - October</option>
+                                                              <option value="11" #if($status.value && $status.value == 11) selected #end>11 - November</option>
+                                                              <option value="12" #if($status.value && $status.value == 12) selected #end>12 - December</option>
+                                                            </select>
+                                                            #springBind ("checkoutViewDTO.creditCard.expYear")
+                                                            <select name="$status.expression">
+                                                              #foreach( $step in [0..10] )
+                                                                <option value="$math.add($date.getYear(),$step)" #if( $status.value && $status.value == $math.add($date.getYear(),$step)) selected #end> $math.add($date.getYear(),$step) </option>
+                                                              #end
+                                                            </select>
+                                                          </div>
+                                                        </div><!--//.row-->
+                                                        <div class="last-row">
+                                                          <label for="nameoncard" class="f-field">#springMessage('vm.register.nameoncard')</label>
+                                                          <div class ="f-field">
+                                                            #springBind ("checkoutViewDTO.creditCard.ccHolderName")
+                                                            <input type="text" name="$status.expression" id="nameoncard" value="$status.value" maxlength="50" size="20" />
+                                                          </div>
+                                                        </div><!--//.last-row-->
+                                                      </div><!--//.credit-card-section -->
+                                                    </div><!--//.column-->
+                                                  #end  ## end $paymentgateway.code == 'NONE'
+                            
+                                                  #*================================
+                                                    PAYMENT GATEWAY: PLP
+                                                  =================================*#
+                            
+                                                  #parse('libPartCurbstonePaymentTab.vm')
+                                                  
+                                                  
+                                                  #*================================
+                                                    PAYMENT GATEWAY: STPP
+                                                  =================================*#
+                                                  
+                                                  #if($paymentgateway.code =='STPP')
+                                                    <div class="columnOne">
+                                                      <div class="cc-note-about-pci">
+                                                    <div>Upon placing your order, you will be asked for your credit card through our secure trading gateway.</div>
+                                                      </div><!--//.cc-note-about-pci-->
+                                                      
+                                                      #if($giftCertGateways.contains("STPP"))
+                                                    #parse("libgiftcertificate.vm")
+                                                      #end
+                                                    </div><!--//.column-->
+                                                  #end 
+                            
+                            
+                                                  #*================================
+                                                    PAYMENT GATEWAY: PCI2CC
+                                                  =================================*#
+                            
+                                                  #if($paymentgateway.code == 'PCI2CC')
+                                                    <div class="columnOne">
+                                                      <div class="billing-address-section section">
+                                                        <h4>#springMessage("vm.checkout_payment.address")</h4>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                                                        <input type="hidden" name="$status.expression" value="$!status.value" />
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                                                          <div class="half">
+                                                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                                                            <input id="first-name" class="$paymentgateway.code" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                                                          <div class="half">
+                                                            <label for="last-name">#springMessage("vm.checkout_payment.lastname")</label>
+                                                            <input class="$paymentgateway.code" id="last-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                                                          </div>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                                                        <div>
+                                                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                                                          <select name="$status.expression" id="country_PCI2CC"    class="chzn-select" style="width:220px;" data-placeholder="Select a Country..."  disabled >
+                                                            #foreach($country in $billingCountriesInUse)
+                                                              <option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                                                            #end                                 
+                                                          </select>
+                                                        </div>   
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                                                        <div id="province" class="chzn-container chzn-container-sigle" style="width:405px;">
+                                                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                                                          <select name="$status.expression" id="chznprovince_PCI2CC" class="chzn-select" style="width:220px;" data-placeholder="Select a Province..."  disabled >
+                                                            #foreach($country in $billingCountriesInUse)
+                                                               #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                                                  #foreach($prov in $country.provinces)
+                                                                    <option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                                                #end
+                                                               #end
+                                                            #end              
+                                                          </select>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                                                        <div>
+                                                          <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                                                          <input class="$paymentgateway.code" id="address1" type="text" maxlength="30"   name="$status.expression" value="$!status.value"  disabled />
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                                                        <div>
+                                                          <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                                                          <input  class="$paymentgateway.code" id="address2" type="text" maxlength=30 name="$status.expression" value="$!status.value" disabled />
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                                                        <div>
+                                                          <input class="$paymentgateway.code" id="address3" type="text" maxlength=30  name="$status.expression" value="$!status.value"  disabled />
+                                                        </div>          
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                                                          <div class="half">
+                                                            <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                                                            <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" disabled  />
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                                                          <div class="half">
+                                                            <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                                                            <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value"  disabled />
+                                                          </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                                                          <div class="half">
+                                                              <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                                                              <input class="$paymentgateway.code" id="zip" type="text" maxlength="12"  name="$status.expression" value="$!status.value" disabled />
+                                                          </div>
+                                                          <div class="half">
+                                                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                                                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                                                            <input class="$paymentgateway.code" id="phone" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled />
+                                                          </div>
+                                                        </div>
+                                                      </div><!--//.billing-address-section -->
+                                                    </div><!--//column-->
+                            
+                                                    <div class="columnTwo">
+                                                      <div class="cc-note-about-pci">
+                                                        <div>We accept...</div>
+                                                        <ul>
+                                                          <li class="visa"><span>Visa</span></li>
+                                                          <li class="mastercard"><span>Mastercard</span></li>
+                                                          <li class="amex"><span>American Express</span></li>
+                                                          <li class="discover"><span>Discover</span></li>
+                                                        </ul>
+                                                        <div>Upon placing your order, you will be asked for your credit card through our secure PCI-DSS compliant gateway.</div>
+                                                      </div><!--//.cc-note-about-pci-->
+                                                    </div><!--//.column-->
+                                                  #end ## end pci2cc
+                            
+                            
+                                                  #*================================
+                                                    PAYMENT GATEWAY: INVOICE
+                                                  =================================*#
+                            
+                                                  #if($paymentgateway.code =='NCC-ACCOUNT')
+                                                    <div class="columnOne">
+                                                      <div class="order-number-section section">
+                                                        #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+                                                         #foreach($question in $popage.questions)
+                                                          #if($question.code =='purchaseOrder')
+                                                            #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/$question.template")
+                                                          #end
+                                                         #end 
+                                                        #end
+                                                        
+                                                        #if($showScriptQuestionsColumnOne)
+                                                            #set($hasQuestion = 'false')
+                                                                #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+                                                                    #foreach($question in $popage.questions)
+                                                                        #if($question.code !='purchaseOrder')
+                                                                            #set($hasQuestion = 'true')
+                                                                        #end
+                                                                    #end 
+                                                                #end
+                                                            
+                                                            #if ( $hasQuestion == 'true')
+                                                                <h4>Order Questions</h4>
+                                                                <div class="f-field">
+                                                                    <input type="hidden" name="mode" value="answerQuestion"/>
+                                                                        #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+                                                                            #foreach($question in $popage.questions)
+                                                                                #if($question.code !='purchaseOrder')
+                                                                                    <div class="question">
+                                                                                        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/$question.template")
+                                                                                    </div>
+                                                                                #end
+                                                                            #end 
+                                                                        #end
+                                                                </div>
+                                                            #end
+                                                        #end
+                                                        
+                                                      </div> 
+                                                       #if($giftCertGateways.contains("INV"))
+                                                            #parse("libgiftcertificate.vm")
+                                                        #end
+                                                    </div>
+                                                    <div class="columnTwo">
+                                                      <div class="credit-card-section section">
+                                                        <h4>Buyer Address</h4>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                                                          <div class="half">
+                                                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                                                            <input  class="$paymentgateway.code"  type="text" maxlength="28"  name="$status.expression" value="$!status.value"  disabled >
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                                                          <div class="half">
+                                                            <label for="first-name">#springMessage("vm.checkout_payment.lastname")</label>
+                                                            <input class="$paymentgateway.code" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled >
+                                                          </div>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                                                        <div>
+                                                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                                                          <select name="$status.expression" id="country_NCC-ACCOUNT" class="chzn-select $status.expression" style="width:220px;" data-placeholder="Select a Country..." disabled >
+                                                            #foreach($country in $billingCountriesInUse)
+                                                              <option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                                                            #end
+                                                          </select>
+                                                        </div>      
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                                                        <div id="province" class="chzn-container chzn-container-sigle" style="width:405px;">
+                                                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                                                          <select name="$status.expression" id="chznprovince_NCC-ACCOUNT" class="$status.expression chzn-select" style="width:220px;" data-placeholder="Select a Province..." disabled >
+                                                            #foreach($country in $billingCountriesInUse)
+                                                              #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                                                #foreach($prov in $country.provinces)
+                                                                  <option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                                                #end
+                                                              #end
+                                                            #end              
+                                                          </select>
+                                                        </div><!--//#province-->
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                                                        <div>
+                                                          <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                                                          <input class="$paymentgateway.code" id="address1" type="text" maxlength="30"   name="$status.expression" value="$!status.value" disabled />
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                                                        <div>
+                                                          <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                                                          <input class="$paymentgateway.code" id="address2" type="text" maxlength=30 name="$status.expression" value="$!status.value" disabled />
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                                                        <div>
+                                                          <input class="$paymentgateway.code" id="address3" type="text" maxlength=30  name="$status.expression" value="$!status.value"  disabled />
+                                                        </div>
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                                                          <div class="half">
+                                                            <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                                                            <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" disabled  />
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                                                          <div class="half">
+                                                            <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                                                            <input class="$paymentgateway.code" id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value"  disabled />
+                                                          </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                                                          <div class="half">
+                                                            <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                                                            <input class="$paymentgateway.code" id="zip" type="text" maxlength="12"  name="$status.expression" value="$!status.value" disabled />
+                                                          </div>
+                                                          <div class="half">
+                                                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                                                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                                                            <input class="$paymentgateway.code" id="phone" type="text" maxlength="28"  name="$status.expression" value="$!status.value" disabled />
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                        <p style="margin-top: 10px;">If the information above is wrong, please adjust your billing address <a href="myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId"><b>HERE</b></a></p>
+                                                    </div>
+                                                  #end  ## END INVOICE
+                                            </div>  <!-- end of payment gateway tab -->
+                                                #end ## END PAYMENT GATEWAYS
+                            
+                                              #else ## // $checkoutViewDTO.details.noAllowanceRecord
+                            
+                                                #*================================
+                                                  ACCOUNT HAS ALLOWANCE
+                                                =================================*#
+                            
+                                                <div id="tab1" class="tab clearfix">
+                                                  <div class="columnOne"> 
+                                                    <div class="budget-section section">
+                                                      <h4>#springMessage("vm.checkout_payment.budgetTab")</h4>
+                                                      <p>
+                                                        #springMessage("vm.checkout_payment.budgetInfo") $number.format('currency',$checkoutViewDTO.formatter.currency(${checkoutViewDTO.details.allowances}), $viewStoreCurrency.locale) 
+                                                      </p>
+                                                    </div>
+                                                    #set($left = $checkoutViewDTO.details.billTotal - $checkoutViewDTO.details.allowances)
+                                                    #if($left > 0)
+                                                      <div class="section warn">
+                                                        <strong>#springMessage("vm.checkout_payment.warningInfo1a") $number.format('currency',$checkoutViewDTO.formatter.currency(${checkoutViewDTO.details.billTotal}), $viewStoreCurrency.locale) #springMessage("vm.checkout_payment.warningInfo1b")</strong>
+                                                        <p>#springMessage("vm.checkout_payment.warningInfo2a")  $number.format('currency',$checkoutViewDTO.formatter.currency($left), $viewStoreCurrency.locale)  #springMessage("vm.checkout_payment.warningInfo2b")</p>
+                                                        <p>#springMessage("vm.chechout_payment.warningInfoc")</p>
+                                                      </div>
+                                                      
+                                                        #if($giftCertGateways.contains("BUD"))
+                                                            #parse("libgiftcertificate.vm")
+                                                            </br>
+                                                            </br>
+                                                        #end
+                            
+                                                      <div class="billing-address-section section">
+                                                        <h4>Buyer Address</h4>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.addressId")
+                                                        <input type="hidden" name="$status.expression" value="$!status.value" />
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.firstName")
+                                                          <div class="half">
+                                                            <label for="first-name">#springMessage("vm.checkout_payment.firstname")</label>
+                                                            <input id="first-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value" class="plp-first-name">
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.lastName")
+                                                          <div class="half">
+                                                            <label for="last-name">#springMessage("vm.checkout_payment.lastname")</label>
+                                                            <input id="last-name" type="text" maxlength="28"  name="$status.expression" value="$!status.value" class="plp-last-name">
+                                                          </div>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.countryId")
+                                                        <div>
+                                                          <label for="country">#springMessage("vm.checkout_address.country")</label>
+                                                          <select name="$status.expression" id="country" class="chzn-select" data-placeholder="Select a Country...">
+                                                            #foreach($country in $billingCountriesInUse)
+                                                              <option value="$country.country.id" #if($status.value==$country.country.id) selected #end>$country.country.name</option>
+                                                            #end                                 
+                                                          </select>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.provinceId")
+                                                        <div id="province" class="chzn-container chzn-container-sigle" >
+                                                          <label for="province">#springMessage("vm.checkout_address.region")</label>
+                                                          <select name="$status.expression" id="chznprovince" class="chzn-select" data-placeholder="Select a Province...">
+                                                            #foreach($country in $billingCountriesInUse)
+                                                              #if($country.country.id==$checkoutViewDTO.addresses.billingAddress.countryId)
+                                                                #foreach($prov in $country.provinces)
+                                                                  <option value="$prov.province.id" #if($status.value==$prov.province.id) selected #end>$prov.province.name</option>
+                                                                #end
+                                                              #end
+                                                            #end              
+                                                          </select>
+                                                        </div><!--//#province-->
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.company")
+                                                        <div>
+                                                          <label for="address1">#springMessage("vm.checkout_payment.company")</label>
+                                                          <input id="address1" type="text" maxlength="30"   name="$status.expression" value="$!status.value" class=""/>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.address1")
+                                                        <div>
+                                                          <label for="address2">#springMessage("vm.checkout_payment.address")</label>
+                                                          <input id="address2" type="text" maxlength=30 name="$status.expression" value="$!status.value" class="plp-address2"/>
+                                                        </div>
+                                                        #springBind("checkoutViewDTO.addresses.billingAddress.address2")
+                                                        <div>
+                                                          <input id="address3" type="text" maxlength=30  name="$status.expression" value="$!status.value" />
+                                                        </div>          
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.city")
+                                                          <div class="half">
+                                                            <label for="city">#springMessage("vm.checkout_payment.city")</label>
+                                                            <input id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" />
+                                                          </div>
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.email")
+                                                          <div class="half">
+                                                            <label for="city">#springMessage("vm.checkout_payment.email")</label>
+                                                            <input id="city" type="text" maxlength=28 name="$status.expression" value="$!status.value" />
+                                                          </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                          #springBind("checkoutViewDTO.addresses.billingAddress.postal")
+                                                          <div class="half">
+                                                            <label for="zip">#springMessage("vm.checkout_payment.zippostalcode")</label>
+                                                            <input id="zip" type="text" maxlength="12"  name="$status.expression" value="$!status.value" class="plp-zip"/>
+                                                          </div>
+                                                          <div class="half">
+                                                            #springBind("checkoutViewDTO.addresses.billingAddress.phone")
+                                                            <label for="phone">#springMessage("vm.checkout_payment.phone")</label>
+                                                            <input id="phone" type="text" maxlength="28"  name="$status.expression" value="$!status.value"/>
+                                                          </div>
+                                                        </div>
+                                                      </div><!--//.billing-address-section-->
+                                                    #end
+                                                  </div> <!--//.col.first-->
+                            
+                                                  #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways}) 
+                                                    #if($paymentgateway.code == "PLP") 
+                                                      #set($curbstonePaymentTabShowAsBudgetColumnTwo = true)
+                                                      #parse("libPartCurbstonePaymentTab.vm")
+                                                    #elseif($paymentgateway.code == "PCICC" || $paymentgateway.code == "PCINONE") 
+                                                      <!-- PCI Secure Form -->
+                                                      <div class="columnTwo">
+                                                        <div id="paymentGateway" class="credit-card-section section">
+                                                          <input type="hidden" name="selectedPaymentGatewayCode" value="PCI2CC"/>
+                                                          <div id="cc">
+                                                            <div class="horizontal custom-lbl-width">
+                                                              <div class="title">
+                                                                <div class="heading2">
+                                                                  #springMessage("vm.checkout_payment.creditcardinfo")
+                                                                </div>
+                                                              </div>
+                                                              <fieldset>
+                                                                <legend class="outer">*#springMessage("vm.checkout_payment.creditcard")</legend>
+                                                                <input id="reviewAndPay-cardType-visa" name="reviewAndPay-cardType" type="radio" class="radio" value="visa"/>
+                                                                <label class="visa" for="reviewAndPay-cardType-visa"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/visa.gif" alt="Visa"/></label>
+                                                                <input id="reviewAndPay-cardType-masterCard" name="reviewAndPay-cardType" type="radio" class="radio" value="masterCard"/>
+                                                                <label class="masterCard" for="reviewAndPay-cardType-masterCard"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/master_card.gif" alt="Master Card"/></label>
+                                                                <input id="reviewAndPay-cardType-discover" name="reviewAndPay-cardType" type="radio" class="radio" value="discover"/>
+                                                                <label class="discover" for="reviewAndPay-cardType-discover"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/discover.gif" alt="Discover"/></label>
+                                                              </fieldset>
+                                                              <div class="f-row">
+                                                                <label for="reviewAndPay-cardNumber">*Card Number</label>
+                                                                <input id="reviewAndPay-cardNumber" name="reviewAndPay-cardNumber" type="text" class="text"/>
+                                                              </div>
+                                                              #if($paymentgateway.code == "PCICC")
+                                                                <div class="f-row">
+                                                                  <label for="reviewAndPay-level2Code">*#springMessage('vm.register.securitycode')</label>
+                                                                  <div class="f-field">
+                                                                    <input id="reviewAndPay-level2Code" name="creditCard.level2Code" type="text" class="text"/>
+                                                                    <a href="#" onclick="return false;">What's this?</a>
+                                                                  </div>
+                                                                </div>
+                                                              #else 
+                                                                <input type="hidden" name="creditCard.level2Code" id="cvv" value="1234" autocomplete="off"/>
+                                                              #end 
+                                                              <input type="hidden" id="currencyCode" value="$paymentgateway.option9">
+                                                              <input type="hidden" id="authamt" value="$!checkoutViewDTO.authamt"/>
+                                                              <input type="hidden" id="saleamt" value="$!checkoutViewDTO.saleamt"/>
+                                                              <input type="hidden" id="zip" value="$!checkoutViewDTO.addresses.billingAddress.postal"/>
+                                                              <input type="hidden" id="regioncode" value="$!checkoutViewDTO.addresses.billingAddress.provinceCode"/>
+                                                              <input type="hidden" id="countrycode" value="$!checkoutViewDTO.addresses.billingAddress.countryCode"/>
+                                                              <input type="hidden" id="city" value="$!checkoutViewDTO.addresses.billingAddress.city"/>
+                                                              <input type="hidden" id="street" value="$!checkoutViewDTO.addresses.billingAddress.address1"/>
+                                                              <input type="hidden" id="firstName" value="$!checkoutViewDTO.addresses.billingAddress.firstName"/>
+                                                              <input type="hidden" id="middleName" value="$!checkoutViewDTO.addresses.billingAddress.middleName"/>
+                                                              <input type="hidden" id="lastName" value="$!checkoutViewDTO.addresses.billingAddress.lastName"/>
+                                                              <input type="hidden" id="address1" value="$!checkoutViewDTO.addresses.billingAddress.address1"/>
+                                                              <input type="hidden" id="address2" value="$!checkoutViewDTO.addresses.billingAddress.address2"/>
+                                                              <input type="hidden" id="phone" value="$!checkoutViewDTO.addresses.billingAddress.dphone"/>
+                                                              <input type="hidden" id="billingemail" value="$!checkoutViewDTO.addresses.billingAddress.email"/>
+                                                              <input type="hidden" name="email" value="$!checkoutViewDTO.addresses.billingAddress.email"/>
+                                                              <div class="f-row">
+                                                                <label for="reviewAndPay-expMonth">*Expiration Date</label>
+                                                                <div class="f-field">
+                                                                  <select class="month" id="reviewAndPay-expMonth" name="reviewAndPay-expMonth">
+                                                                    <option value="0">-Month-</option>
+                                                                    <option value="1">January</option>
+                                                                    <option value="2">February</option>
+                                                                    <option value="3">March</option>
+                                                                    <option value="4">April</option>
+                                                                    <option value="5">May</option>
+                                                                    <option value="6">June</option>
+                                                                    <option value="7">July</option>
+                                                                    <option value="8">August</option>
+                                                                    <option value="9">September</option>
+                                                                    <option value="10">October</option>
+                                                                    <option value="11">November</option>
+                                                                    <option value="12">December</option>
+                                                                  </select>
+                                                                  <select class="year" id="reviewAndPay-expYear" name="reviewAndPay-expYear">
+                                                                    <option value="0">-Year-</option>
+                                                                    <option value="2011">2011</option>
+                                                                    <option value="2012">2012</option>
+                                                                    <option value="2013">2013</option>
+                                                                    <option value="2014">2014</option>
+                                                                    <option value="2015">2015</option>
+                                                                    <option value="2016">2016</option>
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2018">2018</option>
+                                                                  </select>
+                                                                </div>
+                                                              </div>
+                                                              <div class="f-row">
+                                                                <label for="creditCard.ccHolderName">* #springMessage('vm.register.nameoncard')</label>
+                                                                #if($checkoutViewDTO.addresses.billingAddress.firstName && $checkoutViewDTO.addresses.billingAddress.firstName!="" && $checkoutViewDTO.addresses.billingAddress.lastName && $checkoutViewDTO.addresses.billingAddress.lastName!="") 
+                                                                  <input type="text" name="creditCard.ccHolderName" id="creditCard.ccHolderName" value="$!checkoutViewDTO.addresses.billingAddress.firstName $!checkoutViewDTO.addresses.billingAddress.lastName"/>
+                                                                #else 
+                                                                  <input type="text" name="creditCard.ccHolderName" id="creditCard.ccHolderName" value=""/>
+                                                                #end
+                                                              </div><!-- /end .f-row -->
+                                                            </div><!-- /end .horizontal custom-lbl-width-->
+                                                          </div>
+                                                          <!-- /end .cc -->
+                                                          <div class="secure" id="ccsubmitted">
+                                                            <div class="f-form horizontal custom-lbl-width">
+                                                              <div class="title">
+                                                                <div class="heading2">
+                                                                  Your Credit Card Information
+                                                                </div>
+                                                                <div class="legend">
+                                                                  *Required
+                                                                </div>
+                                                              </div>
+                                                              <div class="f-row">
+                                                                <label class="outer">*Credit Card</label>
+                                                                <div class="f-field">
+                                                                  <span class="visa">VISA</span>
+                                                                </div>
+                                                              </div>
+                                                              <div class="f-row">
+                                                                <input type="hidden" name="transactionid" id="transactionid" value=""/>
+                                                                <input type="hidden" id="pciorderid" value="$checkoutViewDTO.ccIdentifier"/>
+                                                                <input type="hidden" name="creditCard.ccNumber" id="CARDNO" value="" autocomplete="off"/>
+                                                                <input type="hidden" id="creditCard.ccType" name="creditCard.ccType" value="3"/>
+                                                                <input type="hidden" id="creditCard.expMonth" name="creditCard.expMonth" value="1"/>
+                                                                <input type="hidden" name="creditCard.expYear" value="2010"/>
+                                                                <label for="reviewAndPay-cardNumber">*Card Number</label>
+                                                                <div class="f-field">
+                                                                  <span>XXXX-XXXX-XXXX-</span><span id="last4cc"></span><a onclick="javascript:$('#ccsubmitted').css('display','none');$('#cc').css('display','block');" class="editCC">Edit Credit Card</a>
+                                                                </div>
+                                                              </div><!-- /end .f-row -->
+                                                              <div class="f-row">
+                                                                <label for="reviewAndPay-expMonth">*Expiration Date</label>
+                                                                <div style="float:left">
+                                                                  <span id="expDate"></span>
+                                                                </div>
+                                                              </div><!-- /end .f-row -->
+                                                            </div><!-- /end .f-form horizonal custom-lbl-width -->
+                                                          </div><!--//#ccsubmitted-->
+                                                        </div><!--#paymentGateway-->
+                                                      </div><!--//.col.last-->
+                                                    #elseif($paymentgateway.code.indexOf("NCC") == -1 && !$pgcodenocc.contains($paymentgateway.code) &&$paymentgateway.code != "ACH") 
+                                                      <!-- Credit Card Form -->
+                                                      <div class="columnTwo">
+                                                        <div id="paymentGateway" class="credit-card-section section">
+                                                          <input type="hidden" name="selectedPaymentGatewayCode" value="PCI2CC"/>
+                                                          <div id="payment_method" style="display:none">
+                                                            <div class="f-row">
+                                                              <label for="CARDNO">#springMessage("vm.register.creditcard")</label>
+                                                              <div class="f-field vat">
+                                                                #springBind ("checkoutViewDTO.creditCard.ccNumber") 
+                                                                #if($checkoutViewDTO.creditCard.startYear == 1) 
+                                                                  <input type="text" name="$status.expression" id="CARDNO" value="$checkoutViewDTO.creditCard.ccSecureNumber" autocomplete="off"/>
+                                                                #else 
+                                                                  <input type="text" name="$status.expression" id="CARDNO" value="$status.value" autocomplete="off"/>
+                                                                #end
+                                                                <div class="info_needed">
+                                                                  #springMessage("vm.register.msg5")
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              <script language="javascript" type="text/javascript">
+                                                                function checkKey() {
+                                                                var keyword = document.getElementById('keyword');
+                                                                var key = document.getElementById('key');
+                                                                keyword.value = key.value;
+                                                                if (keyword.value.length==0)
+                                                                  keyword.value = $vendorSettingsDTO.vendorId;
+                                                                }
+                                                              </script>
+                                                              <label for="cvv">#springMessage('vm.register.securitycode')</label>
+                                                              <div class="f-field">
+                                                                 #springBind ("checkoutViewDTO.creditCard.level2Code") 
+                                                                 #if($checkoutViewDTO.creditCard.startYear == 1) 
+                                                                  <input type="text" name="$status.expression" id="cvv" value="***" autocomplete="off"/>
+                                                                #else 
+                                                                  <input type="text" name="$status.expression" id="cvv" value="$status.value" maxlength="4" size="4" autocomplete="off"/>
+                                                                #end 
+                                                                <span class="info_needed whatsthis" id="securityCode_help">#springMessage('vm.register.msg6')</span>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              #springBind ("checkoutViewDTO.creditCard.ccType") <label for="$status.expression">#springMessage('vm.register.cctype')</label>
+                                                              <div class="f-field">
+                                                                <select name="$status.expression" id="$status.expression">
+                                                                  <option value="0" selected>#springMessage('vm.register.selectcard')</option>
+                                                                  #set ($cardtypekeys = $checkoutViewDTO.creditCard.ccTypes.keySet()) 
+                                                                  #foreach ($cardtypekey in $cardtypekeys) 
+                                                                    #if ( $cardtypekey == 3 || $cardtypekey == 5 || $cardtypekey==6 || $cardtypekey==7) 
+                                                                      #if ($cardtypekey == $status.value)
+                                                                        <option value="$cardtypekey" selected>$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                                                      #else
+                                                                        <option value="$cardtypekey">$checkoutViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+                                                                      #end 
+                                                                    #end
+                                                                  #end
+                                                                </select>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              #springBind("checkoutViewDTO.creditCard.expMonth") <label for="$status.expression">#springMessage('vm.register.expirydate')</label>
+                                                              <div class="f-field">
+                                                                #springBind("checkoutViewDTO.creditCard.expMonth")
+                                                                <select id="card-expiration-month" name="$status.expression">
+                                                                  <option value="1" #if($status.value && $status.value == 1) selected #end>01 - January</option>
+                                                                  <option value="2" #if($status.value && $status.value == 2) selected #end>02 - February</option>
+                                                                  <option value="3" #if($status.value && $status.value == 3) selected #end>03 - March</option>
+                                                                  <option value="4" #if($status.value && $status.value == 4) selected #end>04 - April</option>
+                                                                  <option value="5" #if($status.value && $status.value == 5) selected #end>05 - May</option>
+                                                                  <option value="6" #if($status.value && $status.value == 6) selected #end>06 - June</option>
+                                                                  <option value="7" #if($status.value && $status.value == 7) selected #end>07 - July</option>
+                                                                  <option value="8" #if($status.value && $status.value == 8) selected #end>08 - August</option>
+                                                                  <option value="9" #if($status.value && $status.value == 9) selected #end>09 - September</option>
+                                                                  <option value="10" #if($status.value && $status.value == 10) selected #end>10 - October</option>
+                                                                  <option value="11" #if($status.value && $status.value == 11) selected #end>11 - November</option>
+                                                                  <option value="12" #if($status.value && $status.value == 12) selected #end>12 - December</option>
+                                                                </select>
+                                                                #springBind("checkoutViewDTO.creditCard.expYear")
+                                                                <select name="$status.expression">
+                                                                  #foreach( $step in [0..10] )
+                                                                    <option value="$math.add($date.getYear(),$step)" #if( $status.value && $status.value == $math.add($date.getYear(),$step)) selected #end> $math.add($date.getYear(),$step) </option>
+                                                                  #end
+                                                                </select>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              <label for="nameoncard" class="f-field">#springMessage('vm.register.nameoncard')</label>
+                                                              <div class "f-field">
+                                                                 #springBind ("checkoutViewDTO.creditCard.ccHolderName") <input type="text" name="$status.expression" id="nameoncard" value="$status.value" maxlength="50" size="20"/>
+                                                              </div>
+                                                            </div>
+                                                          </div><!--//#payment_method-->
+                                                        </div><!--#paymentGateway-->
+                                                      </div><!--//.col.last-->
+                                                    #elseif($paymentgateway.code == "ACH" )
+                                                      <div class="columnTwo">
+                                                        <div id="paymentGateway" class="credit-card-section section">
+                                                          <input type="hidden" name="selectedPaymentGatewayCode" value="PCI2CC"/>
+                                                          <div id="payment_method_ach" style="display:none">
+                                                            <div class="f-row">
+                                                              <label for="bakname">#springMessage("vm.register.bankname")</label>
+                                                              <div class="f-field vat">
+                                                                 #springBind ("checkoutViewDTO.echecknet.bank_Name") <input type="text" name="$status.expression" id="bankname" value="$status.value"/>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              <label for="bakaccount">#springMessage("vm.register.bankaccount")</label>
+                                                              <div class="f-field vat">
+                                                                 #springBind ("checkoutViewDTO.echecknet.account_Name") <input type="text" name="$status.expression" id="account_name" value="$status.value"/>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              <label for="bankacctype">#springMessage("vm.register.bankacctype")</label>
+                                                              <div class="f-field vat">
+                                                                #springBind ("checkoutViewDTO.echecknet.bank_Account_Type")
+                                                                <select name="$status.expression" id="bank_acctype" value="$status.value">
+                                                                  <option value="CHECKING">Checking</option>
+                                                                  <option value="BUSINESSCHECKING">Business Checking</option>
+                                                                  <option value="SAVINGS">Savings</option>
+                                                                </select>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              <label for="bankaccnum">#springMessage("vm.register.bankaccnum")</label>
+                                                              <div class="f-field vat">
+                                                                 #springBind ("checkoutViewDTO.echecknet.bank_Account_Num") <input type="text" name="$status.expression" id="bank_account_num" value="$status.value"/>
+                                                              </div>
+                                                            </div>
+                                                            <div class="f-row">
+                                                              <label for="bankabacode">#springMessage("vm.register.bankabacode")</label>
+                                                              <div class="f-field vat">
+                                                                 #springBind ("checkoutViewDTO.echecknet.aba_Routing_Code") <input type="text" name="$status.expression" id="aba_routing_code" value="$status.value"/>
+                                                              </div>
+                                                            </div>
+                                                          </div><!--//#payment_method_ach-->
+                                                        </div><!--#paymentGateway-->
+                                                      </div><!--//.col.last-->
+                                                    #end
+                                                  #end  ## end foreach ($paymentgateway)
+                                                </div><!--//#tab1-->
+                                              #end  ## // $checkoutViewDTO.details.noAllowanceRecord
+                                            </div><!--//.tabs-->            
+                                      </div><!--//.payment-section-->
+                                       <!-- payment_gift -->
+            
+	<div id="GCert">
+            #if($checkoutViewDTO.giftCertificate.status.keySet() && ($checkoutViewDTO.giftCertificate.status.containsValue("0") || $checkoutViewDTO.giftCertificate.status.containsValue("1") || $checkoutViewDTO.giftCertificate.status.containsValue("2") || $checkoutViewDTO.giftCertificate.status.containsValue("3") || $checkoutViewDTO.giftCertificate.status.containsValue("4") || $checkoutViewDTO.giftCertificate.status.containsValue("5") || $checkoutViewDTO.giftCertificate.status.containsValue("6")  || $checkoutViewDTO.giftCertificate.status.containsValue("7") ) )
+            <div class="warning" style="color:red">
+              <ul>
+                #foreach($key in $checkoutViewDTO.giftCertificate.status.keySet())
+                  #set($statval=$checkoutViewDTO.giftCertificate.status.get($key))
+                  #if($statval == "0")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg1')</li>
+                  #end
+                  #if($statval == "1")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg2')</li>
+                  #end
+                  #if($statval == "2")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg3')</li>
+                  #end
+                  #if($statval == "3")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg4')</li>
+                  #end
+                  #if($statval == "4")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg4')</li>
+                  #end
+                  #if($statval == "5")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg5')</li>
+                  #end
+                  #if($statval == "6")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg6')</li>
+                  #end
+                  #if($statval == "7")
+                    <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg12')</li>
+                  #end
+                #end
+              </ul>
+            </div> 
+            <!-- end gc warning -->
+            #end 
+            
+                #if($g_showGiftCert=="YES")
+                <div id="payment_gift_card" style="clear:left; margin-top:40px;">
+                <h3>Gift Certificates</h3>
+                <ul class="no_top_margin">
+                	<li>
+                		<label style="width: 150px;">Gift Certificate Number</label>
+                		#springBind ("checkoutViewDTO.giftCertificateCodes")
+                		<input type="text" name="$status.expression"  value="$status.value" size="15"  maxlength="80" onKeyDown="if (event.keyCode==13){document.frm.t.value='prom';document.frm.submit();event.keyCode=9;}" />
+                		<span class="note">(Number found on Gift Certificate)</span>
+                	</li>
+                	<li>
+                		<label>&nbsp;</label>
+                		<a href="javascript:document.frm.t.value='gift';document.frm.submit();" >Apply Gift Certificate</a>
+                		<span class="note">
+                			#if($checkoutViewDTO.giftCertificate.giftCertificates && $checkoutViewDTO.giftCertificate.giftCertificates.size() > 0)
+                				#set ($totalgift=0)
+                				#set ($totalgiftAmount=0)
+                				#foreach($giftcert in $checkoutViewDTO.giftCertificate.giftCertificates)
+                					#set ($totalgift=$math.add(${totalgift},$math.add($giftcert.newAmountUsed,$giftcert.amountUsed)))
+                					#set ($totalgiftAmount=$math.add(${totalgiftAmount},$giftcert.amount))
+                				#end
+                				<b>Balance:  $$checkoutViewDTO.formatter.currency($math.sub($totalgiftAmount,$totalgift))</b>
+                			#end
+                		</span>
+                	</li>
+                </ul>
+                </div>
+             #end 
+             </div> <!--end GCert--->
+
+             <!--payment_gift_card-->
+                                      #*================================
+                                        SUBTOTALS
+                                      =================================*#
+                                    ## sitewide variable for pricing on/off
+                                      #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                                          <div class="cart-subtotals">
+                                            <div class="subtotal-line clearfix">
+                                              <b class="name">#springMessage("vm.checkout_payment.subtotal")</b>
+                                              
+                                              ## code block updated 01.25.18 for customCurrencySymbol - kevin  
+                                              ## <span class="value">$number.format('currency', $checkoutViewDTO.details.total, $viewStoreCurrency.locale)</span>
+                                              #if($customCurrencySymbol)
+                                                ##   <span class="value">$customCurrencySymbol $number.format("#0.00", $checkoutViewDTO.details.total)</span>
+                                                <span class="value">$customCurrencySymbol $number.format('#,##0.00', $checkoutViewDTO.details.total)</span>
+                                              #else   
+                                                  <span class="value">$number.format('currency', $checkoutViewDTO.details.total, $viewStoreCurrency.locale)</span>
+                                              #end                    
+                                              
+                                            </div>
+                                
+                                            ## may need to update this section for customCurrencySymbol later - kevin 
+                                            #if($math.round($checkoutViewDTO.details.allowances)> 0 && ($checkoutViewDTO.details.enableOrderAllowance =='ALLOWANCE' || $checkoutViewDTO.details.enableOrderAllowance =='POINT'))
+                                              <div class="subtotal-line clearfix">
+                                                <b class="name">#springMessage("vm.checkout_review.budget"):</b>
+                                                <span class="value">- $number.format('currency', $checkoutViewDTO.details.allowances, $viewStoreCurrency.locale)</span>
+                                              </div>
+                                            #end
+                                            
+                                            
+                                            <div class="subtotal-line clearfix">
+                                              <b class="name">#springMessage("vm.checkout_payment.shipping")</b>
+                                              
+                                              ## code block updated 01.25.18 for customCurrencySymbol - kevin 
+                                              ##   <span class="value">$number.format('currency',$checkoutViewDTO.details.shipTotal,$viewStoreCurrency.getLocale())</span>
+                                              #if($customCurrencySymbol)
+                                                ##  <span class="value">$customCurrencySymbol $number.format("#0.00", $checkoutViewDTO.details.shipTotal)</span>
+                                                <span class="value">$customCurrencySymbol $number.format('#,##0.00', $checkoutViewDTO.details.shipTotal)</span>
+                                              #else   
+                                                 <span class="value">$number.format('currency',$checkoutViewDTO.details.shipTotal,$viewStoreCurrency.getLocale())</span>
+                                              #end                   
+                                              
+                                            </div>
+                                            
+                                            ## may need to update this section for customCurrencySymbol later - kevin 
+                                            #if($checkoutViewDTO.details.perShippingDiscount>0)
+                                              <div class="subtotal-line clearfix">
+                                                <b class="name">#springMessage("vm.basket.shippingdiscount"):</b>
+                                                <span class="value">$number.format('currency', $checkoutViewDTO.details.perShippingDiscount,$viewStoreCurrency.locale)</span>
+                                            #end
+                                
+                                            <div class="subtotal-line clearfix">
+                                              <b class="name">#springMessage("vm.checkout_payment.tax")</b>
+                                              
+                                              ## code block updated 01.25.18 for customCurrencySymbol - kevin
+                                              ##   <span class="value">$number.format('currency', $checkoutViewDTO.details.taxTotal, $viewStoreCurrency.locale)</span>
+                                              #if($customCurrencySymbol)
+                                                ##   <span class="value">$customCurrencySymbol $number.format("#0.00", $checkoutViewDTO.details.taxTotal)</span>
+                                                <span class="value">$customCurrencySymbol $number.format('#,##0.00', $checkoutViewDTO.details.taxTotal)</span>
+                                              #else   
+                                                <span class="value">$number.format('currency', $checkoutViewDTO.details.taxTotal, $viewStoreCurrency.locale)</span>
+                                              #end                    
+                                            </div>
+                                
+                                            #set($tempgiftcert=0)
+                                            #if($checkoutViewDTO.giftCertificate.giftCertificates && $checkoutViewDTO.giftCertificate.giftCertificates.size() > 0 )
+                                              <div class="subtotal-line clearfix">
+                                                <b class="name">#springMessage("vm.register.giftapplied"):</b>
+                                                
+                                                ## code block updated 01.25.18 for customCurrencySymbol - kevin
+                                                ## <span class="value">$number.format('currency', $checkoutViewDTO.giftCertificate.totalAvailable, $viewStoreCurrency.locale)</span>
+                                                #if($customCurrencySymbol)
+                                                    ## <span class="value">$customCurrencySymbol $number.format('#0.00', $checkoutViewDTO.giftCertificate.totalAvailable, $viewStoreCurrency.locale)</span>
+                                                    <span class="value">$customCurrencySymbol $number.format('#,##0.00', $checkoutViewDTO.giftCertificate.totalAvailable, $viewStoreCurrency.locale)</span>
+                                                #else   
+                                                    <span class="value">$number.format('currency', $checkoutViewDTO.giftCertificate.totalAvailable, $viewStoreCurrency.locale)</span>
+                                                #end                    
+                                              </div>
+                                              #set($tempgiftcert=$checkoutViewDTO.giftCertificate.totalAvailable)
+                                            #end
+                                            
+                                            
+                                            #if($math.round($checkoutViewDTO.details.totalDiscount )> 0)
+                                              <div class="subtotal-line clearfix">
+                                                <b class="name">#springMessage("vm.register.discounts"):</b>
+                                                <span class="value">$number.format('currency', $checkoutViewDTO.details.totalDiscount, $viewStoreCurrency.locale)</span>
+                                              </div>
+                                            #end
+                                            
+                                            #set($totalwithdis=$math.sub($checkoutViewDTO.details.total,$checkoutViewDTO.details.totalDiscount))
+                                            <div class="subtotal-line total clearfix">
+                                              <b class="name">#springMessage("vm.checkout_payment.total")</b>
+                                              <span class="value"> 
+                                                #if($math.round($checkoutViewDTO.details.allowances)> 0 && ($checkoutViewDTO.details.enableOrderAllowance =='ALLOWANCE' || $checkoutViewDTO.details.enableOrderAllowance =='POINT')) <!-- permit to pay by allowance-->
+                                                  #set($total =$math.roundTo(2, $math.sub($math.sub($math.sub($math.add($math.add(${totalwithdis},${checkoutViewDTO.details.taxTotal}),${checkoutViewDTO.details.shipTotal}),${tempgiftcert}),$checkoutViewDTO.details.perShippingDiscount),$checkoutViewDTO.details.allowances)))
+                                
+                                                  #if($total>0)
+                                                    $number.format('currency',$total, $viewStoreCurrency.locale)
+                                                    </br>
+                                                    <span class="message">#springMessage("vm.checkout_review.amountinfo1"): $number.format('currency',0.00, $viewStoreCurrency.locale)</span>
+                                                  #else 
+                                                    $number.format('currency',0.00, $viewStoreCurrency.locale)
+                                                    </br>
+                                                    <span class="message" id="1">#springMessage("vm.checkout_review.amountinfo2"): $number.format('currency',$math.abs($total),$viewStoreCurrency.locale)</span>
+                                                  #end
+                                                #else <!--forbidden pay by allowance -->
+                                                  #set($total =$math.roundTo(2, $math.sub($math.sub($math.add($math.add(${totalwithdis},${checkoutViewDTO.details.taxTotal}),${checkoutViewDTO.details.shipTotal}),${tempgiftcert}),$checkoutViewDTO.details.perShippingDiscount))) 
+                                                  
+                                                  ## code block updated 01.25.18 for customCurrencySymbol - kevin
+                                                  ##   $number.format('currency',$total, $viewStoreCurrency.locale)
+                                                  #if($customCurrencySymbol)
+                                                    ##   <span class="value">$customCurrencySymbol $number.format("#0.00", $total)</span>
+                                                    <span class="value">$customCurrencySymbol $number.format('#,##0.00', $total)</span>
+                                                  #else   
+                                                    $number.format('currency',$total, $viewStoreCurrency.locale)
+                                                  #end                       
+                                                #end
+                                              </span>
+                                            </div>
+                                          </div><!--//.cart-subtotals-->
+                                      #end
+                                      <!--
+                                      totalwithdis: ${totalwithdis} <br/>
+                                      taxTotal: ${checkoutViewDTO.details.taxTotal}<br/>
+                                      shipTotal: ${checkoutViewDTO.details.shipTotal}<br/>
+                                      tempgiftcert: ${tempgiftcert}<br/>
+                                      perShippingDiscount: $checkoutViewDTO.details.perShippingDiscount<br/>
+                                      total: $total
+                                      -->
+                            
+                            
+                                      #*================================
+                                        ORDER (SCRIPT) QUESTIONS
+                                      =================================*#
+
+
+                                      ## imported custom script question code from original paul davis checkout template 
+
+                                      #set($hasItem = 'false')
+                                      #foreach($productgroup in $checkoutViewDTO.details.shippinggroup)            
+                                        #foreach($productitem in $productgroup.shipItems)
+                                                #set($product =$productitem.product)
+                                                #if($product.compCode == 'NFFF-000')
+                                                    #set($hasItem = 'true')
+                                                #end
+                                        #end
+                                      #end
+                                      #if($hasItem == 'true')
+                                        <h2>National Fallen Firefighters Foundation Kit</h2>
+                                        <div class="location clearfix checkoutQuestions">
+                                                <input type="hidden" name="mode" value="answerQuestion"/>
+                                                #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+                                                      #foreach($question in $popage.questions)
+                                                            #if($question.code !='purchaseOrder')
+                                                              <div class="question">
+                                                                #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/$question.template")
+                                                              </div>
+                                                            #end
+                                                      #end 
+                                                #end
+                                        </div>
+                                      #end 
+
+                                      ## orginal script question code. 
+                                      ## commented out to replace with custom script question code from original paul davis checkout temmplate - kevin 10.20.20
+                                      ## #if(!$hidePaymentScriptQuestionsBottomSection)
+                                      ##       #set($hasQuestion = 'false')
+                                      ##       #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+                                      ##           #foreach($question in $popage.questions)
+                                      ##               #if($question.code !='purchaseOrder')
+                                      ##                   #set($hasQuestion = 'true')
+                                      ##               #end
+                                      ##           #end 
+                                      ##       #end
+                                      ##       #if ( $hasQuestion == 'true')
+                                      ##           <h2>Order Questions</h2>
+                                      ##           <div class="location clearfix checkoutQuestions">
+                                      ##               <input type="hidden" name="mode" value="answerQuestion"/>
+                                      ##               #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+                                      ##                   #foreach($question in $popage.questions)
+                                      ##                       #if($question.code !='purchaseOrder')
+                                      ##                           <div class="question" id="$!question.code">
+                                      ##                               #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/$question.template")
+                                      ##                           </div>
+                                      ##                       #end
+                                      ##                   #end 
+                                      ##               #end
+                                      
+                                      ##               ## checks to see if promoCodeAssort exists before setting other values. - kevin 11.20.19
+                                      ##               #if($promoCodeAssort && $promoCodeAssort.size()!=0)
+                                      ##                   ## used in getting session attribute value set in basket.vm - 01.08.19 -kevin
+                                      ##                   #set($promoSession = "promoCode$vendorSettingsDTO.vendorId")   
+                                      ##                           #if( $session.getAttribute($promoSession).contains("yes") )
+                                      ##                               <script>
+                                      ##                                   $('$!promoCodeScriptQuestion').val("$!session.getAttribute($promoSession)"); 
+                                      ##                                   $( document ).ready(function() {                  
+                                                                          
+                                      ##                                       ## scriptQuestionID snipes out the script question numerical identifer
+                                      ##                                       var scriptQuestionID="#"+'$!promoCodeScriptQuestion'.substr(12,3);
+                                      ##                                       $(scriptQuestionID).hide();                                               
+                                      ##                                   });
+                                      ##                               </script>     
+                                      ##                           #end
+                                      ##               #end            
+                                      
+                                      ##           </div>
+                                      ##       #end
+                                      ## #end
+                            
+                            
+                                      #*================================
+                                        ACTION BUTTONS
+                                      =================================*#
+                                      <div class="actions clearfix">
+                                            #parse('libPartPaymentButton.vm')
+                                      </div>
+                            
+                            </form>          
+
+                            ## imported script from original paul davis checkout template -kevin 10.20.20
+                            <script>
+
+                                jQuery( document ).ready(function() {
+                                    console.log('ready!')   
+
+                                    $("#gender").on("change", function(e) { 
+                                        console.log($(this).val())
+                                        $("input[name='726_0_5354'").val($(this).val() + ' ' + $("#size").val())
+                                    });
+                                     $("#size").on("change", function(e) { 
+                                        console.log($(this).val())
+                                        $("input[name='726_0_5354'").val($("#gender").val() + ' ' + $(this).val() )
+                                    });                            
+                                });
+
+                               function validateForm() {
+
+                                    
+                                    var errortxt= "";
+                                    // if options haven't been selected
+                                    // CHECK IF SCRIPT QUESTION IS VISIBLE FIRST!!!
+                                    if ($('#gender').length > 0) { 
+                                        
+                                        if($("#gender").val() == null) {
+                                            errortxt += 'Please select gender \n';
+                                        }
+                                        if($("#size").val() == null) {
+                                            errortxt += 'Please select size \n';
+                                        }
+                                    }
+                                        
+                                    // No errors? Good to go!
+                                    if(errortxt == '') {
+                                        return true;
+                                    }
+                                    else {
+                                        alert(errortxt);
+                                        return false;
+                                    }
+
+                                } 
+                            </script>
+
+
+                    ## END      libpartcheckoutpaymentcontent
+                #end 
+            </div> <!--//#content -->
+            #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end
+            #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        </div> <!--//#container -->
+        #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        #parse("libpartcheckoutpaymentjsbottom.vm")
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+        #parse("libMarkupFoot.vm")
+    </body>
+</html>
