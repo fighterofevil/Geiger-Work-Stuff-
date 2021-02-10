@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+<!-- $request.getSession().getAttribute("ProductsDetiles_20140815195").offerCodeOnPrice  zzz -->
+
+#########################################################################
+
+#set($focusNum = $productsDetails.products.size())
+#if($crossSell.size())
+    #set($itemsCount = $crossSell.size() + $focusNum)
+#else
+    #set($itemsCount = $focusNum)
+#end
+#if($focusNum > 0) 
+  #set($focusNum = $focusNum - 1) 
+#end
+
+#########################################################################
+
+#macro ( showErrorMessage $status )
+        #if($status.errors.errorCount>0)
+          <div class="warning">
+            #foreach($error in $status.errorMessages)
+              #if ($error.indexOf("exceeded your purchase allowance")>0 && $isPointStore=='TRUE')
+                Sorry you have exceeded your purchase allowance remaining balance of $regExp.currencyInteger($viewStoreCurrency.locale,  $customerAllowances) #if ( $customerAllowances==0) Point #else Points #end
+. Please remove items from your basket first.
+              #else
+                 $error
+              #end
+            #end
+          </div>   
+        #end
+#end
+
+#macro (showPriceOnBasket $price)
+#if($isPointStore && $isPointStore=='TRUE')
+    $regExp.currencyInteger($viewStoreCurrency.locale,  $price)
+#else
+$$basketDTO.formatter.currency($price)
+#end
+#end
+
+#########################################################################
+
+## Determines if an item is in a category. Doesn't check sub-categories. 
+## @param   _iiic_itemID                Item ID.
+## @param   _iiic_categoryID            Category ID.
+#macro(isItemInCategory $_iiic_itemID, $_iiic_categoryID)#*
+	*##set($_iiic_intClass = $request.class.forName('java.lang.Integer'))#*
+	*##set($_iiic_return = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("itemCategoryLinksDAO").isItemInCategory($_iiic_intClass.parseInt("$_iiic_itemID"), $_iiic_intClass.parseInt("$_iiic_categoryID")))#*
+	*##if($_iiic_return == false || $_iiic_return == true)#*
+		*#$_iiic_return#*
+	*##end#*
+*##end
+#########################################################################
+
+<html id="pageBasket">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else #springMessage("basketTitle") - $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/kinto_en/plugins/yui/js/yahoo-dom-event.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/kinto_en/plugins/yui/js/container-min.js"></script>
+    ## <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/kinto_en/js/jquery.ui-effects.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/kinto_en/js/jqtouch.min.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/kinto_en/js/avetti.slider.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/kinto_en/js/lineItemAdd/lineItemAdd.js"></script>
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/kinto_en/js/lineItemAdd/lineItemAdd_event.js"></script>
+    <script src="assets/commercelib/basket/saveBasket.js"></script>
+    <script src="assets/commercelib/ajax/ajax_object.js"></script>
+    <script src="assets/commercelib/ajax/ajax_utils_jQuery.js"></script>
+    <script src="assets/commercelib/deliveryoption/deliveryoption.js"></script>
+    <script src="assets/commercelib/utils/formatCurrency.js"></script>
+    <script src="assets/plugins/yahooUI/build/calendar/calendar-min.js"></script>
+    <script src="assets/commercelib/basket/basket.js"></script>
+<script language="javascript" type="text/javascript">
+
+/* imgItemCounter is a global counter variable used later in the page to see if an image exists or not.  */
+var imgItemCounter=0;
+
+
+var recentlyViewedCategory= function(vid, cid){
+  jQuery.ajax({
+  url: 'getrecentlyviewedcategories.ajx?vid=' + vid + '&cid=${cidMenu1}',
+  dataType: 'json',
+  cache: false,
+  data: {},
+  success: function(response) {
+    var result = response['__Result'],
+    len = result.length,
+    i = 0;
+    if(len > 0){
+      var thenewURL = '';
+        for(i; i < 1; i+=1){
+          thenewURL = result[i]['url'];
+        }
+      }
+      else{
+        thenewURL = 'store.html?vid=${vendorSettingsDTO.vendorId}';
+      }
+      
+      window.location.href=thenewURL;
+    }
+   
+  });
+}
+</script>
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        
+      <div id="content" role="main">
+        <h1>#springMessage('vm.basket.title')</h1>  
+        #if($customerAllowances)
+          #set($cusalllowances=$math.roundTo(2,$!customerAllowances))
+        #else
+          #set($cusalllowances=0)
+        #end
+        #if($productsDetails.allowanceswarningmsg!='' && $productsDetails.enableOrderAllowance == 'ALLOWANCE')
+          <div class="warning">$productsDetails.allowanceswarningmsg</div>
+        #end
+        #springBind( "basketDTO.*" )
+        
+        
+        #if($!{isPointStore}== 'TRUE')
+            #showErrorMessage($status)
+        
+        #else
+            #if($status.errors.errorCount>0)
+              <div class="warning">
+                #foreach($error in $status.errorMessages)
+                  $error
+                #end
+              </div>   
+            #end
+        #end
+        
+        ## used to know if there is item in the basket from one of the hidden categories of $priceHide that require customer permissions to access
+        #set($hiddenCategoryItemChecker=false)
+        
+        <form name="VIEWCART" action="" method="post" onSubmit="javascript:updateQuantities();">
+          <input id="js-vid" type="hidden" value="$vendorSettingsDTO.vendorId">    
+          <input id="js-update-mode" type="hidden" value="refresh">    
+          <input type="hidden" name="_targetupdateBasket" value="basket.html?vid=$vendorSettingsDTO.vendorId"/>
+          <input type="hidden" name="mode" value=""/>
+          <input type="hidden" name="itemscount" value="$itemsCount"/>
+          <input type="hidden" name="securitytoken" value="${tokenEntity.token}"/>
+          #if($productsDetails.products.size()>0)
+            #if(!$currencyInUse)
+              #foreach($cur in $storeCurrencies)
+                #if($cur.def==1)
+                  <input type="hidden" name="c" value="$cur.id" />
+                #end
+              #end
+            #else
+              <input type="hidden" name="c" value="$currencyInUse" />
+            #end
+
+            #*================================
+              Start Cart Table
+            =================================*#
+            <table class="p-table cart-table">
+              <col class="col1" />
+              <col class="col2" />
+              <col class="col3" />
+              <col class="col4" />
+              <col class="col5" />
+              <col class="col6" />
+              <thead>
+                <tr>
+                  <th class="first" scope="col">&nbsp;</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">#springMessage('vm.basket.item')</th>
+                  <th scope="col">#springMessage('vm.basket.desc')</th>
+                  ##<th scope="col">#springMessage('vm.basket.listprice')</th>
+                  #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                        <th scope="col">#springMessage('vm.basket.price')</th>
+                  #end      
+                  <th scope="col">#springMessage('vm.basket.qty')</th>
+                  #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                        <th class="last" scope="col">#springMessage('vm.basket.total')</th>
+                  #end        
+                </tr>
+              </thead>
+              #set($key = 0)
+              #set($listpricetotal = $math.toDouble("0.00"))
+              #set($subtotal = $math.toDouble("0.00"))
+              #springBind( "basketDTO.basketItems.*" )
+              #if($status.errors.errorCount>0)
+                #set($bindStatus=true)
+              #else
+                #set($bindStatus=false)
+              #end
+              #set($totalQty = 0)
+              #set($regsubtotal = 0)
+              <tbody>
+              
+                <script>
+                    var productTitleArray=[];                
+                    ## console.log("$!productsDetails.products.size() is the size")
+                </script>
+                
+                ## creates a session variable to pass to the payment section of the page in order to hide or show script questions - kevin 10.30.20
+                #set($maskSession = "mask$vendorSettingsDTO.vendorId")                        
+                
+                ## tracker used to see if Mask item was in the cart already  - kevin 10.30.20
+                #set($maskTracker=false)
+                
+                ## #set($testProduct= $productsDetails.products[1])
+                
+                #foreach( $product in $productsDetails.products)
+                
+                    ## checks to see if a maskItem is in the cart and sets the session attribute - kevin 10.30.20
+                    #if( ($product.title==$maskItem) && ($maskTracker==false) )
+                        ## <script>
+                        ##     console.log("the mask Session is being set");
+                        ## </script>
+                        
+                        $session.setAttribute($maskSession, "yes")
+                        #set($maskTracker=true)
+                    #end
+                    
+                    #if( ($product.title!=$maskItem) && ($maskTracker==false) )
+                        ## <script>
+                        ##     console.log("the mask Session is being REset");
+                        ## </script>     
+                        
+                        $session.setAttribute($maskSession, "no")
+                    #end
+                
+                
+                    ## builds out a javascript array of all items in the basket to be used in validation for the Aussie t-shirt later in the code. - kevin 02.14.20
+                    <script>
+                        ## console.log("$!product.itemid");
+                        productTitleArray.push("$!product.title");                
+                    </script>
+                    
+                    ## if the cart truly only has the Aussie shirt, then the last item in the cart, is the Aussie shirt. 
+                    ## does not matter if there is a non-Aussue shirt item in the cart before it. 
+                    ## other validation prevents the user from moving forward with checkout process.  - kevin 02.14.20
+                    
+                    ## creates a session variable to pass to the payment section of the page in order to hide the gift certificate section from the user - kevin 02.14.20
+                    #set($aussieSession = "aussie$vendorSettingsDTO.vendorId")
+                                                
+                    #if($velocityCount ==  $productsDetails.products.size())
+                        ## <script>
+                        ##     console.log("at the last item which is $!product.title");
+                        ## </script>               
+                        
+                        ## assigns yes value if last item in the cart is the aussie shirt to the session variable - kevin - 02.14.20
+                        #if($product.title==$aussieItem)
+                            $session.setAttribute($aussieSession, "yes")
+                        #else
+                            $session.setAttribute($aussieSession, "no")
+                        #end
+                    #end    
+                    
+                  #set($myCount = $velocityCount - 1)
+                  <input type="hidden" id="compCode_$myCount" value="$product.compCode">
+                  <input type="hidden" name="basketItems[$myCount].itemId" value="$product.itemid"/>
+                  <input type="hidden" name="basketItems[$myCount].vendorId" value="$product.vendor"/>
+                  <input type="hidden" name="basketItems[$myCount].itemToProcess" value="true"/>
+                  <input type="hidden" name="basketItems[$myCount].editMode" value="true"/>
+                  <input type="hidden" name="basketItems[$myCount].basketItemId" value="$!product.basketItemId"/>
+                  <input type="hidden" id="basketItems[$myCount].inventoryHistoryId" name="basketItems[$myCount].inventoryHistoryId" value="$!product.inventoryHistory.invhistid"/>
+                  <input type="hidden" name="basketItems[$myCount].oldCompCode" value="$product.compCode"/>
+                  <input type="hidden" name="basketItems[$myCount].removal" value="false"/>
+                  <input type="hidden" value="P" name="orderType">
+                  #set ($basketItemDTO=$basketMap.get($product.basketItemId))
+                  #foreach($attribute in $product.attributesCollection)
+                    #set($rowNumber = $velocityCount - 1)
+                    <input type='hidden' name='basketItems[$myCount].attributes[$rowNumber].attributeId' value='$!attribute.attributeId' />
+                    <input type='hidden' name='basketItems[$myCount].attributes[$rowNumber].optionId' value='$!attribute.option.optionId'/>
+                    <input type='hidden' name='basketItems[$myCount].attributes[$rowNumber].value' value='$!attribute.value' />
+                  #end
+                  #set($customTextExists = 0)
+                  #set($customTextOutput = "")
+                  #foreach($custNote in $product.customizationNote)
+                    #set($customTextExists = 1)
+                    #set($rowNumber = $velocityCount - 1)
+                    <input type='hidden' name='basketItems[$myCount].customizationNote[$rowNumber]' value='$!custNote' />
+                    #set($customTextOutput = "$customTextOutput<br/>$!custNote")
+                  #end
+                  <input type='hidden' name='basketItems[$myCount].customized' value='true' />
+                  <tr>
+                    <td class="first">
+                      <p>
+                        #if (!$product.parentProduct)
+                          <a href="javascript:removeFromBasket($key)" class="icon-trash">
+                            &times;
+                          </a>
+                        #end
+                      </p>
+                    </td>
+                    <td>
+                      <div class="item-thumb" #if ($product.parentProduct) style="text-indent:2em;" #end>
+                        #if (!$product.parentProduct)
+                          <a href="$seourl.encodeURL("storeitem.html?iid=$product.itemid&vid=$vendorSettingsDTO.vendorId")?biid=$product.basketItemId">
+                        #end
+                        #if($product.cimage != "")       
+                            <img src="store$product.cimage" alt='$product.title' style="width:50px;" id="itemImg"/>
+                            ## script belows utilizes a global counter variable that will increase in value with each new item in the cart
+                            ## the counter is used in incrementing a new ID added to the img src above. 
+                            ## script then checks to see if there is or is not an image present to display, if there is not, the value is -1
+                            ## if the value is -1 then it hides the image, since it will appear as a broken image on checkout. 
+                            
+                            <script>
+                              document.getElementById('itemImg').id=("itemImg"+imgItemCounter); 
+                              if ( (document.getElementById('itemImg'+imgItemCounter).src).search("store$product.cimage") == -1)
+                                document.getElementById('itemImg'+imgItemCounter).style.display="none";
+                              imgItemCounter+=1;
+                            </script>  
+                            
+                            
+                        #else
+                          <img src="store/$vendorSettingsDTO.vendorId/assets/items/thumbnails/noimage.jpg" alt='$product.title' style="width:50px;"/>
+                        #end
+                        #if (!$product.parentProduct) </a> #end
+                      </div>
+                    </td>
+                    <td>
+                      #if ($product.parentProduct)
+                        <div class="item-desc custom-item">
+                          <p class="item-title">$product.title</p>
+                          #set($parentProduct = $product.parentProduct)
+                          #set ($isCustomizationItem = false)
+                          #if ($product.code.indexOf("CUSTOM")>=0)
+                            #set ($isCustomizationItem = true)
+                          #end
+                          <p class="code"> #springMessage('vm.basket.code'): $product.compCode
+                            #if ($isCustomizationItem)  
+                              <a href="$seourl.encodeURL("storeitem.html?iid=$parentProduct.itemid&vid=$vendorSettingsDTO.vendorId")?biid=$product.basketItemId">edit</a>
+                            #end
+                          </p>
+                          #if ($isCustomizationItem)
+                            <p>
+                              #foreach($custNote in $parentProduct.customizationNote)
+                                $!custNote <br/>
+                              #end
+                            </p>
+                          #end
+                        </div>
+                      #else
+                        <div class="item-desc">
+                          <p class="item-title">
+                            <a href="$seourl.encodeURL("storeitem.html?iid=$product.itemid&vid=$vendorSettingsDTO.vendorId")?biid=$product.basketItemId">$product.title</a>
+                          </p>
+                          <p class="code">
+                            #springMessage('vm.basket.code'):&nbsp;$product.compCode
+                          </p>
+                        </div>
+                        <div class="item-attributes">
+                          #if($product.attributesCollection)
+                            #foreach($productAttrib in $product.attributesCollection)
+                              #set($attype = $productAttrib.attype)
+                              #set($attrNum  = $velocityCount - 1)
+                              #if($attype && ($attype == 2 ||$attype == 1 ))
+                                <p class="attrib">
+                                  $productAttrib.prompt : $productAttrib.option.ddText
+                                </p>
+                              #end
+                              
+                              #if($attype && $attype == 3)
+                                <span>$productAttrib.dataName</span>
+                                <b>$productAttrib.textValue</b> 
+                              #end
+                            #end
+                            
+                            #if($customTextExists == 1)
+                                <p class="attrib customtext" style="width:225px">
+                                    CUSTOM IMPRINT:
+                                    $customTextOutput
+                                </p>
+                            #end
+                          #end
+                        </div>
+                        #foreach($error in $product.errors)
+<div class="error-text-area">
+                          $error.message
+</div>
+                        #end
+                      #end
+                    </td>
+                    <td>
+                      #if($product.inventoryHistory.deliveryoption && $product.inventoryHistory.deliveryoption!=4)                 
+                         <div class="item-desc">  
+                            <script>console.log("$product.code -- $product.qty -- $product.Itemid")</script>
+                          
+                            #if($product.code == "MM252R001BLK000" && $product.qty > 1)
+                                #set($max_order_exceeded = true)
+                                <p style="color: red;">Max Quantity of 1 exceeded</p>
+                            #end
+                            
+                            ## max10 is only for category Sales Professional Store.  Each item in the category can only have 10 max ordered. - 01.08.21 - kevin 
+                            #if($max10items.contains($product.code) && $product.qty >= 11)
+                                #set($max_order_exceeded = true)
+                                <p style="color: red;">Max Quantity of 10 exceeded</p>
+                            #end
+                      
+                            #foreach($hideCat in $priceHide)
+                                #set($itemStoreCheck="#isItemInCategory($product.Itemid,$hideCat)")
+                                #if($itemStoreCheck==true)
+                                
+                                    ## checks to see if the category is not 757659 [ Sales Professional Store ]. this Catgeory was added into the priceHide afterwards to take advantage of the previous code built to hide prices from hidden categories - 01.07.21 - kevin 
+                                    #if($hideCat.toString()!='757659')
+                                    
+                                        #set($hiddenCategoryItemChecker=true)
+                                    
+                                         <script>
+                                             jQuery(document).ready(function() {
+                                                console.log("$product.code is in a hidden category ");
+                                             });                           
+                                         </script>
+                                         
+                                        #if($product.qty >1)
+                                            #set($max_order_exceeded = true)
+                                            <p style="color: red;">Max Quantity of 1 exceeded</p>
+                                        #end
+                                        
+                                     #end
+                                #end
+                            #end                           
+                          
+                          
+                          #if ($product.parentProduct)  
+                            <p class="custom-item">
+                              $product.description
+                            </p>
+                          #else
+                          
+                            #if($product.code != "MM252R001BLK000")
+                                #if ($product.inventoryHistory)
+                                  <div class="qtyShipped" id="inlinecontainer${myCount}" >
+                                    #if( $product.deliveryOptions.size() > 1 )
+                                      You've ordered more than what's in stock.
+                                      <ul class="radios-list">
+                                        #foreach( $key in $product.deliveryOptions.keySet() )
+                                          <li>
+                                            <label>
+                                              <div class="input">
+                                                <input type="radio" onClick="if(checkQty('qty_${myCount}'))checkMinOrderQTYInLineDeliveryOption($myCount,1,'$vendorSettingsDTO.vendorId', 'dooks',this.value,'basketItems[$myCount].inventoryHistoryId','$product.qty','','' );" name="basketItems[$myCount].newDeliveryOption" value="$key" #if($key == $product.inventoryHistory.deliveryoption) checked #end >
+                                              </div>
+                                              <div class="label">
+                                                $product.deliveryOptions.get($key)
+                                              </div>
+                                            </label>
+                                          </li>
+                                        #end
+                                      </ul>
+                                    #else
+                                      #if($product.inventoryHistory.deliveryoption == 1)
+                                        #if ($product.inventoryHistory.ship2date)
+                                          <p>#springMessage('vm.basket.partialship') ${product.inventoryHistory.ship1qty} #springMessage('vm.basket.itemsafter') $date.format('MMMM dd, yyyy', $product.inventoryHistory.ship1date) #springMessage('vm.basket.andshiptheremaining') ${product.inventoryHistory.ship2qty} #springMessage('vm.basket.after') $date.format('MMMM dd, yyyy', $product.inventoryHistory.ship2date) #springMessage('vm.basket.whenavailable')</p>
+                                        #else
+                                          <p>#springMessage('vm.basket.partialship') ${product.inventoryHistory.ship1qty} #springMessage('vm.basket.itemsafter') $date.format('MMMM dd, yyyy', $product.inventoryHistory.ship1date) #springMessage('vm.basket.andshiptheremaining') ${product.inventoryHistory.ship2qty} #springMessage('vm.basket.whenavailable')</p>
+                                        #end
+                                      #end
+                                      #if($product.inventoryHistory.deliveryoption == 2)
+                                        #if ($product.inventoryHistory.ship1date)
+                                          <p>#springMessage('vm.basket.shipcomplete') ${product.inventoryHistory.ship1qty} #springMessage('vm.basket.itemsafter') $date.format('MMMM dd, yyyy', $product.inventoryHistory.ship1date) #springMessage('vm.basket.whenavailable')</p>
+                                        #else
+                                          <p>#springMessage('vm.basket.shipcomplete') ${product.inventoryHistory.ship1qty} #springMessage('vm.basket.items') #springMessage('vm.basket.whenavailable')</p>
+                                        #end
+                                      #end
+    
+                                      #if($product.inventoryHistory.deliveryoption == 3)
+                                        <p>#springMessage('vm.basket.dropship') ${product.inventoryHistory.ship1qty} #springMessage('vm.basket.itemsfrommanufacturerin') ${product.inventoryHistory.daystodeliver} #springMessage('vm.basket.days')</p>
+                                      #end
+                                    #end ## %end for if $product.deliveryOptions.size() > 1%
+                                  </div>  <!-- end qtyShipped -->
+                                #end
+                                
+                            #foreach($hideCat in $priceHide)
+                                #set($itemStoreCheck="#isItemInCategory($product.Itemid,$hideCat)")
+                                #if($itemStoreCheck==true)
+                                     <script>
+                                        jQuery(document).ready(function() {
+                                            $("#inlinecontainer${myCount}").hide();
+                                        });                           
+                                     </script>
+                                     
+                                #end
+                            #end                                    
+                                
+                            #end
+
+                            ## TODO: Fix conditional/element ordering below (not lining up)
+
+                            #if ($product.inventory.enableEditDeliveryDate)
+                              #if(!$product.comment || $product.comment=="")
+                                <div class="deliveryDate">
+                                  <div id="showEditDate$myCount">
+                                    #if($product.inventoryHistory.ship1date)
+                                      <a onclick="showCalendar(this, 'basketItems[$myCount].comment','$date.format('MMMM dd, yyyy', $product.inventoryHistory.ship1date)')" >#springMessage('vm.basket.editdate')</a>
+                                    #else
+                                      <a style="cursor:pointer" onclick="showCalendar(this, 'basketItems[$myCount].comment','')" >#springMessage('vm.basket.editdate')</a>
+                                    #end
+                                  </div>
+                                  <div id="showReqDate$myCount">
+                                    #else
+                                      <div id="showReqDate$myCount">
+                                        <p>
+                                          #springMessage('vm.basket.requestdate'):
+                                          <a style="cursor:pointer" onclick="showCalendar(this, 'basketItems[$myCount].comment','')" >
+                                            $!product.comment
+                                          </a>
+                                        </p>
+                                      #end
+                                    <input type="hidden" size="15" value="$!product.comment" name="basketItems[$myCount].comment" id="basketItems[$myCount].comment">
+                                  </div>
+                                #end
+                              #end
+                            </div>
+                          #end
+
+                          #if ($product.promotions.size() > 0)
+                            #set($fullProductDiscount = $math.toDouble("0.00"))
+                            #foreach($promotionUsageInfo in $product.promotions)
+                              #if($promotionUsageInfo.discount > 0)
+                                #set($fullProductDiscount = $math.add($fullProductDiscount, $promotionUsageInfo.discount))
+                              #else
+                                #foreach($getCondition in $promotionUsageInfo.promotion.get)
+                                  #if($getCondition.getbuyid==8)
+                                    #foreach($freeProduct in $productsDetails.products)
+                                      #if($freeProduct.code==$getCondition.name)
+                                        #set($fullProductDiscount = $math.add($fullProductDiscount, $freeProduct.discountPrice))
+                                        <!-- $freeProduct.code, $freeProduct.discountPrice -->
+                                      #end
+                                    #end
+                                  #end
+                                #end
+                              #end
+                            #end
+                            <br>
+                            <p class="unl">#springMessage('vm.basket.additionalsavings'):$$basketDTO.formatter.currency($fullProductDiscount)</p>
+                            <ul>
+                              #foreach ($promotionUsageInfo in $product.promotions)
+                                #if($promotionUsageInfo.discount > 0)
+                                  <li><strong>$promotionUsageInfo.promotion.name:</strong> $$basketDTO.formatter.currency($promotionUsageInfo.discount) </li>
+                                #else
+                                  #set($freeProductDiscount = $math.toDouble("0.00"))
+                                  #foreach($getCondition in $promotionUsageInfo.promotion.get)
+                                    #if($getCondition.getbuyid==8)
+                                      #foreach($freeProduct in $productsDetails.products)
+                                        #if($freeProduct.code==$getCondition.name)
+                                          #set($freeProductDiscount = $freeProduct.discountPrice)
+                                        #end
+                                      #end
+                                    #end
+                                  #end
+                                  #if($freeProductDiscount !=0)
+                                    <li><strong>$promotionUsageInfo.promotion.name.trim():</strong>  $$basketDTO.formatter.currency($freeProductDiscount)</li>
+                                  #end
+                                #end
+                              #end
+                            </ul>
+                          #end
+                        </div>  
+                        <!-- End item-desc -->
+                        <div id="description${myCount}"></div> <!-- End div description${myCount} -->
+                      </td>             
+                      ##<td class="ar">
+                      ## #if($math.toInteger($math.sub($product.listprice, $product.price)) > $math.toInteger(0))
+                      ##    <p class="list-price"><em>$$basketDTO.formatter.currency($product.listprice)</em></p>
+                      ##  #end
+                      ##</td>         
+                      #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                          <td class="ar">
+                            ## #if($math.toInteger($product.price)==$math.toInteger(0))
+                            ## ## --- If Price is less than $1.00, show "Free".
+                            ##   <p class="price">#springMessage('vm.basket.free')</p>
+                            ## #else
+                            ## ## --- Show normal price
+                            
+                            ## block of code for custom currency symbol - added 01.24.15 - kevin
+                            #if($customCurrencySymbol && $isPointStore=="FALSE") ##updated with isPointStore - kevin 03.28.19
+                                 <p class="price">$customCurrencySymbol $number.format("#0.00", $product.price)</p>   
+                            #else  
+                                 <p class="price">#showPriceOnBasket($product.price)</p> ## original line of code pre code block
+                            #end  
+                            
+                            ## #end  
+                          </td>
+                      #end
+                     
+                      
+                      
+                      <td class="ac">
+                        <!--QTY-->
+                        #if ($product.parentProduct)
+                          <input class="qty-input" type='text' NAME='basketItems[$myCount].quantity' ID='qty_${key}' VALUE='$product.qty' maxlength="5"  onKeyDown="if (event.keyCode==13){document.VIEWCART.mode.value='updateBasket';document.VIEWCART.submit();event.keyCode=9;}" DISABLED/>   
+                        #else
+                          <input class="qty-input" type='text' NAME='basketItems[$myCount].quantity' ID='qty_${key}' VALUE='$product.qty' maxlength="5"  onKeyDown="if (event.keyCode==13){document.VIEWCART.mode.value='updateBasket';document.VIEWCART.submit();event.keyCode=9;}" />
+                        #end
+                        #if ($product.parentProduct)
+                          &nbsp;
+                        #else
+                          <p>
+                            <a style="cursor:pointer" onclick="if(checkQty('qty_${key}'))checkMinOrderQTYWithoutPopup($myCount,1,'$vendorSettingsDTO.vendorId', 'checks','','basketItems[$myCount].inventoryHistoryId','$product.qty','redirect','document.VIEWCART.mode.value=\'updateBasket\';document.VIEWCART.submit();' ); return false;" >#springMessage('vm.basket.update')</a>
+                          </p>
+                        #end
+                      </td>
+                      #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                          <td class="ar last">
+                            
+                            ## block of code for custom currency symbol - added 01.24.15 - kevin
+                            #if($customCurrencySymbol && $isPointStore=="FALSE")  ##updated with isPointStore - kevin 03.28.19
+                                 <p class="total">$customCurrencySymbol$number.format("#0.00", $product.totalPrice)</p>    
+                            #else  
+                                <p class="total">#showPriceOnBasket($product.totalPrice)</p> ## original line of code pre code block
+                            #end 
+                            
+                          </td>
+                      #end
+                    </tr>
+                    #set($subtotal = $math.add($subtotal , $product.totalPrice))                
+                    #set($regtotal = $math.mul($product.listprice, $product.qty))
+                    #set($regsubtotal = $math.add($regsubtotal, $regtotal))
+                    #set($totalQty = $math.add($totalQty, $product.qty))
+                    #set($key = $key+1)
+                  #end
+                  <!-- this is the end of the product velocity loop -->
+                 </tbody>
+              <tfoot class="totals">
+                <tr class="subtotal hide">
+                  <td colspan="4" class="empty-cel">&nbsp;</td>
+                    #set($savings = $math.roundTo(2, $math.sub($regsubtotal, $subtotal)))
+                    #if($math.toInteger($savings) > $math.toInteger(0))
+                      <td class="ar vat lbl first">#springMessage('vm.basket.yoursave'):</td>
+                      <td class="ar vat val">$$basketDTO.formatter.currency($savings)</td>
+                    #else
+                      <td class="empty-cel first" colspan="2">&nbsp;</td>
+                    #end
+                      <td class="ar vat lbl">
+                        #springMessage('vm.register.subtotal') ($totalQty #if($totalQty > 1)#springMessage('vm.register.items')#else #springMessage('vm.register.item')#end):
+                      </td>
+                      <td class="ar vat val last">#showPriceOnBasket($subtotal)</td>
+                    </tr>
+                    <input type="hidden" value="$subtotal" id="subtotal" name="subtotal">
+                    #if($productsDetails.totalDiscount > 0)
+                      <tr class="discount">
+                        <td colspan="6" class="empty-cel">&nbsp;</td>
+                        <td class="ar vat lbl first">#springMessage('vm.basket.additionalsavings'):</td>
+                        <td class="ar vat val last">
+                          $$basketDTO.formatter.currency($productsDetails.totalDiscount)
+                          #set($subtotal = $math.roundTo(2,$math.sub($subtotal,$productsDetails.totalDiscount)))
+                          <input type="hidden" value="$productsDetails.totalDiscount" id="totalDiscount" name="totalDiscount">
+                      </td>
+                    </tr>
+                  #end
+                  <tr class="tax hide">
+                    <td colspan="6" class="empty-cel">&nbsp;</td>
+                    <td class="ar vat lbl first">
+                    #if($preLocationDTO.usebillingaddress=='true')
+                      <span id="taxlab1">#springMessage('vm.basket.tax'):</span>
+                      <span id="taxlab2" class="hide">#springMessage('vm.basket.tax'):</span>
+                    #else
+                      <span id="taxlab1">#springMessage('vm.basket.estimate.tax'):</span>
+                      <span id="taxlab2" class="hide">#springMessage('vm.basket.estimated.tax'):</span>
+                    #end
+                  </td>
+                  <td class="ar vat val last" id="estimatedtax"></td>
+                </tr>
+                #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))
+                    <tr class="total">
+                      <td colspan="5" class="empty-cel">&nbsp;</td>
+                      <td class="ar vat lbl first">#springMessage('estimatedTotal'):</td>
+                      <td class="ar vat val last" id="totalcost">                        
+                        #set($total=$math.sub($subtotal, 0))
+                        
+                        ## block of code for custom currency symbol - added 01.24.15 - kevin
+                        #if($customCurrencySymbol && $isPointStore=="FALSE")  ##updated with isPointStore - kevin 03.28.19
+                            ##  $customCurrencySymbol $total
+                             $customCurrencySymbol$number.format("#0.00", $total) ## original line of code pre code block
+                        #else  
+                          #showPriceOnBasket($total) 
+                        #end
+                        
+                      </td>
+                    </tr>
+                #end
+              </tfoot>
+            </table>
+            #*================================
+              End Cart Table
+            =================================*#
+
+            <div class="promos">
+              #if ($!displayCouponCode == "YES")
+                <div class="coupon f-form horizontal">
+                  <div class="f-row">
+                    <label><strong>#springMessage('vm.basket.promotionorcouponcode'):</strong></label>
+                    <div class="f-field">
+                      <input type="text" name="promotionCode" value=""/>
+                      <span class="f-buttons">
+                        <input type="button" value="#springMessage("button.APPLY")" onClick="javascript:document.VIEWCART.mode.value='updateBasket';removeItems($key);document.VIEWCART.submit();" class="promo-button btn" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                #end
+                #if ($!displayOfferCode == "YES")
+                <div class="f-row">
+                  <label><strong>#springMessage('vm.basket.offerocode'):</strong></label>
+                  <div class="f-field">
+                    <input type="text" name="offercode_${vendorSettingsDTO.vendorId}" value=""/>
+                    <span class="f-buttons">
+                      <input type="button" value="#springMessage("button.APPLY")" onClick="javascript:document.VIEWCART.mode.value='updateBasket';removeItems($key);document.VIEWCART.submit();" class="promo-button btn" />
+                    </span>
+                  </div>
+                </div>
+                #end
+              </div>
+
+#if ($!displaySaveCart == "YES")
+            #if(!${welcomeMatDTO.loggedIn})
+              <div class="f-buttons restoreBasket padding-b10">
+                <strong>#springMessage('vm.basket.logintorestoreasavedbasket'):</strong> 
+                <input type="button" onclick="JavaScript:window.location.href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'" class="proceed btnLogin btn" value="#springMessage("button.LOGIN")">
+              </div>
+            #else
+              #if ($availBasketList)
+                <!-- Start save basket -->
+                <div id="basketdata" class="f-form">
+                #if($basketDTO.basketdatamessage1!='')
+                  <div class="text">
+                    $basketDTO.basketdatamessage1
+                  </div>
+                #end
+                #if($basketDTO.basketdatamessage2!='')
+                  <div class="text">
+                    $basketDTO.basketdatamessage2
+                  </div>
+                #end                        
+                <input type="hidden" id="bd_nickname" name="bd_nickname" >
+                <input type="hidden" name="_targetupdateBasketData" value="basket.html?vid=$vendorSettingsDTO.vendorId"/>
+                <div id="warning"></div>
+                <div class="f-row">
+                  <input id="save" type="radio"  name="bd_mode" value="s" onclick="onSave()"/>
+                  <div class="f-field">
+                    <label for="save">#springMessage('vm.basket.savebasket')</label>
+                  </div>
+                <div id="nicknameInputBox" class="basketList hide">
+                  <div class="f-field">
+                    <label for="basketinputbox">#springMessage('vm.basket.promp1'):</label> 
+                  </div>
+                  <input id="basketinputbox" type="text" onblur="updateNickname(this.value)"/>
+                </div>
+              </div>
+              #if($availBasketList.size()>0)
+                <div class="f-row">
+                  <div class="f-field">
+                    <input id="delete" type="radio" name="bd_mode" value="d" onclick="onDelete()"/>
+                  </div>  
+                  <label for="delete">#springMessage('vm.basket.delbasket')</label>
+                  <div id="nicknameSelectList1" class="basketList hide">
+                    <label for="basketlist1">#springMessage('vm.basket.promp2'):</label> 
+                    <select id="basketlist1" onchange="updateNickname(this.value)">
+                      <option value="">#springMessage('vm.contact_us.select')</option>
+                      #foreach($nickname in $availBasketList)
+                        <option value="$nickname">$nickname</option>
+                      #end
+                    </select>
+                  </div> 
+                </div>
+                <div class="f-row">
+                  <div class="f-field">
+                    <input id="restore" type="radio"  name="bd_mode" value="r" onclick="onRestore()"/> 
+                  </div>  
+                  <label for="restore">#springMessage('vm.basket.restoresavedbasket')</label>
+                  <div id="nicknameSelectList2" class="basketList hide">
+                    <label for="basketlist2">#springMessage('vm.basket.promp2'):</label>  
+                    <select id="basketlist2" onchange="updateNickname(this.value)">
+                      <option value="">#springMessage('vm.contact_us.select')</option>
+                      #foreach($nickname in $availBasketList)
+                        <option value="$nickname">$nickname</option>
+                      #end
+                    </select>
+                  </div>
+                </div>
+              #end
+
+              <div class="f-buttons">   
+                <input type="button" name="updateBasket" class="btn" value="#springMessage("button.UPDATE")" onclick="submitUpdateBasket()"/>
+              </div>
+            </div>
+            <!-- End save basket -->
+#end
+          #end 
+        #end 
+
+
+        <input type="hidden" name="_targetcheckout" value="checkout.html?vid=$vendorSettingsDTO.vendorId"/>
+        <div class="f-buttons checkoutFlex">
+          <input type="button" id="continueShopBtn" class="btn" value="#springMessage('vm.basket.toshop')" onclick="recentlyViewedCategory('$vendorSettingsDTO.vendorId','1699'); "/>
+         ## if there is more than 1 of a special item [ mask or item from a hidden category that needs a customer property, will stop them from continuing with the order - 01.05.21 - updated - kevin 
+         #if((!$max_order_exceeded))
+            ## logic checks entire cart to make sure that one and only one item from a hidden category that needs a customer property to alow them to continue with checkout
+            #if( ($hiddenCategoryItemChecker==false) || ($hiddenCategoryItemChecker==true && $productsDetails.products.size()==1) )
+                <input id="checkoutbtn" class="btn btn-primary" type="button" value="#springMessage('vm.basket.tocheckout')" onclick="javascript:document.VIEWCART.mode.value='checkout';document.VIEWCART.submit();" style="float:right;" />
+            #end    
+         #end
+           ## <input type="button" id="continueShopBtn" class="btn" value="#springMessage('vm.basket.toshop')" onclick="javascript:document.location='store.html?vid=${vendorSettingsDTO.vendorId}'"/>
+           ## <input type="button" id="continueShopBtn" class="btn" value="#springMessage('vm.basket.toshop')" onclick="recentlyViewedCategory('$vendorSettingsDTO.vendorId','1699'); "/>
+        </div>
+
+        #if($crossSell.size()>0)
+          <div id="item_content_right">
+            <span><b>#springMessage('vm.basket.alsolike')</b></span>
+            #set($idx = 1)
+            #foreach($item in $crossSell)
+              #set($vendorID = $vendorSettingsDTO.vendorId)
+              #set($curItemId = $item.get("item").itemid) 
+              #set($curItemTitle = $item.get("item").title)          
+              <div class="item_content_right_con">
+                <div class="item_content_right_con_img">
+                  #if($item.get("item").cimage != "")
+                    <img src="store${item.get("item").cimage}" width="75" height="61"/>
+                  #else
+                    <img src="store/$vendorSettingsDTO.vendorId/assets/images/spacer.gif" width="75" height="61" />
+                  #end
+                </div>
+              </div>
+              <div class="item_content_right_con">
+                <span>
+                  <a href="$seourl.encodeURL("storeitem.html?iid=$curItemId&vid=$vendorID")" class="infoslink">${curItemTitle}</a>
+                </span>  
+                <span> $$regExp.showPrice($item.get("price").listprice)</span>
+                <br>
+                <a href="action.html?mode=addItems&iid${idx}=${curItemId}&qty${idx}=1&url=basket.html%3Fvid%3D$vendorSettingsDTO.vendorId">
+                  #springMessage('vm.basket.addtocart')
+                </a>
+              </div>
+            #end
+          </div><!-- //#item_content_right -->   
+        #end
+
+        ##TODO:  #else after #end? Test and fix
+
+        #else
+          <div class="basket-item-desc f-buttons">
+            <b>#springMessage('vm.basket.msg')</b>
+            <input type="button" id="continueShopBtn" class="btn" value="#springMessage('vm.basket.toshop')" onclick="recentlyViewedCategory('$vendorSettingsDTO.vendorId','1699'); "/>
+            #if ($!displaySaveCart == "YES")
+                <br/>
+            #if(!${welcomeMatDTO.loggedIn})
+              <strong>
+                <a href="https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}">
+                  #springMessage('vm.header.login')
+                </a> #springMessage('vm.basket.loginmsg')  
+              </strong>
+            #else
+              <!-- Start restore basket -->
+              #if($availBasketList.size()>0)
+                <div id="basketdata" class="f-form">   
+                  <input type="hidden" id="bd_nickname" name="bd_nickname" >
+                  <input type="hidden" name="_targetupdateBasketData" value="basket.html?vid=$vendorSettingsDTO.vendorId"/>
+                  <div class="f-row">
+                    <div class="f-field">
+                      <input id="restore" type="radio" checked="checked"  name="bd_mode" value="r" onclick="onRestore()"/> 
+                    </div>
+                    <label for="basketlist2">#springMessage('vm.basket.restoresavedbasket'):</label>  
+                    <div id="nicknameSelectList2" class="basketList">
+                      <select id="basketlist2" onchange="updateNickname(this.value)">
+                        <option value="">#springMessage('vm.contact_us.select')</option>
+                        #foreach($nickname in $availBasketList)
+                          <option value="$nickname">$nickname</option>
+                        #end
+                      </select>
+                    </div>
+                    <div id="warning"></div>
+                  </div>
+                  <div class="f-row">
+                    <input class="btnclass btn" type="button" name="updateBasket" value="#springMessage("button.UPDATE")" onclick="submitUpdateBasket()">
+                  </div>
+                </div>
+              #end
+            #end
+#end
+          </div> <!--//.basket-item-desc -->
+        #end
+
+        </form>
+        
+<!-- The Modal -->
+<div id="aussieModal" class="modalAussie">
+  <!-- Modal content -->
+  <div class="modal-contentAussie">
+      <div class="modal-headerAussie">
+        <span class="closeAussie">&times;</span>
+        <h2>Notice</h2>
+      </div>  
+    ## <span class="closeAussie">&times;</span>
+    <p>Cannot mix and match items in the basket that has the IDEXX Employees Australia Emergency Response shirts. </p>
+  </div>
+</div>        
+
+
+## new modal added that borrows from original modalAussie.  notifies the user if they have more than 1 item from a hidden category that needs a customer property or if they are mix and matching items - 01.05.21 - kevin 
+
+<!-- The Modal2 -->
+<div id="hiddenCategoryItemModal" class="modalAussie">
+  <!-- Modal content -->
+  <div class="modal-contentHiddenCategoryItem">
+      <div class="modal-headerHiddenCategoryItem">
+        <span class="closeHiddenCategoryItem">&times;</span>
+        <h2>Notice</h2>
+      </div>  
+    ## <span class="closeAussie">&times;</span>
+    <p>You can only order one special item. You cannot mix and match with other items. Please update your cart.</p>
+  </div>
+</div>      
+
+
+<script>
+        var modal2 = document.getElementById("hiddenCategoryItemModal");
+        var span2 = document.getElementsByClassName("closeHiddenCategoryItem")[0];
+        
+        #if($hiddenCategoryItemChecker==true && $productsDetails.products.size()>1)
+            modal2.style.display = "block";
+        #end    
+        
+        span2.onclick = function() {
+          modal2.style.display = "none";
+        }            
+</script>
+        
+        
+      <script>
+      
+        var modal = document.getElementById("aussieModal");
+        var span = document.getElementsByClassName("closeAussie")[0];
+         
+          ## checks to see if the Aussie item is in the array created of all item titles in the basket. 
+          if($.inArray("$!aussieItem", productTitleArray) !== -1){
+          
+            const testCase=productTitleArray[0];
+            
+            ## console.log("found the Aussie item");
+            ## console.log(testCase+" is the test case");
+            ## console.log(productTitleArray);
+            ## console.log(productTitleArray.every(x => x == testCase));  
+            
+            ## disables Continue to Checkout if there is a mix of items with the Australian shirt in the cart. 
+            if(productTitleArray.every(x => x == testCase)==false){
+                $('#checkoutbtn').css("pointer-events","none");
+                $('#checkoutbtn').css("background-color","#D8292F");
+                modal.style.display = "block";
+            }
+            else{
+                $('#checkoutbtn').css("pointer-events","");
+                $('#checkoutbtn').css("background-color","");
+            }
+          }
+          else{
+            ## console.log("NO Aussie item");
+          }
+          
+        span.onclick = function() {
+          modal.style.display = "none";
+        }          
+          
+      </script>        
+        
+        
+        <!-- Modal Containers -->
+        ## TODO:
+        ## Preferred method is to have the js module append to body (if it doesn't exist) during initialization.
+        ## With this method, the module breaks when the elements are missing. Not very portable.
+        <div id= "test" class="yui-skin-sam">
+          <div id="cal1Container"></div> 
+        </div>
+        <div id="deliverypopup" class="popup" style="visibility: hidden;"></div>
+
+      </div> <!--//#content -->
+      
+      #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end
+      #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    </div> <!--//#container -->
+    #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    
+    #if(${welcomeMatDTO.loggedIn})
+      <script>   
+        var Dom = YAHOO.util.Dom;
+        var itemsCount = ${itemsCount};
+        var maxBasket = 5; 
+        function BasketData(){
+          this.basketData = new Array($availBasketList.size());
+          #foreach($nickname in $availBasketList)
+            #set ($rowNumber = $velocityCount - 1)
+            this.basketData[$rowNumber]="$nickname";
+          #end
+        }  
+        
+        var basketData = new BasketData();
+        
+        BasketData.prototype.validateNickName = function(nickname){
+          #* checked option *#
+          var basket_modes=document.getElementsByName("bd_mode");
+          var selectbasket=false;
+          for(var i=0;basket_modes!=undefined&&i<basket_modes.length;i++){
+            if(basket_modes[i].checked){
+              selectbasket=true;
+            }
+          }
+          if(!selectbasket){
+            Dom.addClass('warning','warning');
+            document.getElementById("warning").innerHTML = "#springMessage("vm.basket.checkoption")";
+            return false;
+          }
+          if(document.getElementById("save")!=null){
+            if(document.getElementById("save").checked){
+              if (!validateString(nickname)){
+                Dom.addClass('warning','warning');
+                document.getElementById("warning").innerHTML = "#springMessage("vm.basket.validnickname")";
+                return false;
+              }
+            }
+          }
+          
+          if(document.getElementById("delete") && document.getElementById("delete").checked){
+            var value=document.getElementById("basketlist1").value;
+            if(value==""){
+              Dom.addClass('warning','warning');
+              document.getElementById("warning").innerHTML = "#springMessage("vm.basket.choosebasket")";
+              return false;
+            }
+          }
+          if(document.getElementById("restore") && document.getElementById("restore").checked){
+            var value=document.getElementById("basketlist2").value;
+            if(value==""){
+              Dom.addClass('warning','warning');
+              document.getElementById("warning").innerHTML = "#springMessage("vm.basket.choosebasket")";
+              return false;
+            }
+          }
+           
+          if (this.basketData.length<maxBasket){
+            return true;
+            
+            for(var i=0; i<this.basketData.length; i++){
+              if (this.basketData[i] == nickname)
+                return true;
+            }
+            
+            alert("The number of saved baskets could not exceed " + maxBasket);
+            Dom.addClass('warning','warning');
+            document.getElementById("warning").innerHTML = "#springMessage("vm.basket.maxnumberbaskets")";
+            return false;
+          }
+        }
+      </script>
+    #end
+
+    <script>
+      $(document).ready(function(){
+        createCalendar();
+        //loadRegion();
+      });
+    </script>
+
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+  </body>
+</html>
