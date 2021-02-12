@@ -1,0 +1,155 @@
+## Page & Quicklook handling. 
+## Not sure what's used in the "Page" scope. Not going to remove -Evan
+<input type="hidden" id="itemid_handler" value="">
+<input type="hidden" id="vendorId" value="${vendorSettingsDTO.vendorId}">
+<input type="hidden" id="js-vid" value="${vendorSettingsDTO.vendorId}"> 
+
+## Looks at the URI query string and sets hidden inputs on the page for each key/value.
+## Eg. http://www.site.com?this=that  =>  <input type="hidden" name="foo" value="bar">
+## Not sure why they use this. They probably shouldn't as it could create conflicts -Evan
+#macro (formParameters $param1Name $param2Name)
+  #set($hrefString = "") 
+  #if($request.getParameterMap().size()>0) 
+      #foreach($parName in $request.getParameterNames()) 
+          #set($oriv="") 
+          #foreach($parVal in $request.getParameterValues($parName)) 
+              #if($oriv=='' || $oriv!=$parVal) 
+                  #set($oriv=$parVal ) 
+                  #if(!$parName.equals($param1Name) && !$parName.equals($param2Name))
+                      #set($hrefString = "${hrefString}<input type='hidden' name='${parName}' value='${parVal}'>") 
+                  #end 
+              #end
+          #end
+      #end
+  #end 
+  $hrefString
+#end
+
+## Begin Layout
+<div id="headerWrap">
+    <div id="header">
+        <div class="wrapper">
+            <div class="utilNav">
+                <ul>
+                    #if($welcomeMatDTO)
+                        #if(${welcomeMatDTO.loggedIn}) 
+                            <li class="welcomemsg">
+                                <strong>Welcome ${welcomeMatDTO.firstName}!</strong>
+                            </li>
+                            #if($pageTileDictionaryDTO.templateName == "checkout_completed.vm")
+                                <li>
+                                    <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}'>
+                                        #springMessage("log_out")
+                                    </a>
+                                </li>
+                            #else 
+                                <li>
+                                    <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signout.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'> #springMessage("log_out") </a>
+                            #end
+                                </li>
+                        #else
+                            <li> 
+                                <a href='https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/signin.html?vid=${vendorSettingsDTO.vendorId}&mt=1&redirecturl=${welcomeMatDTO.currentEncodePage}'>
+                                    #springMessage("log_in")
+                                </a>
+                            </li> 
+                        #end
+                    #end
+                    <li>
+                        <a href="$seourl.encodeURL("myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId")">$!MyAccountNavName</a>
+                    </li>
+                    <li>
+                        <a href="$seourl.encodeURL("myaccount.html?mode=vieworder&vid=$vendorSettingsDTO.vendorId")">Order History</a>
+                    </li>
+                    #if($!{displayWishlist} == "YES")
+                        <li>
+                            <a href="wishlist.html?action=add&vid=$vendorSettingsDTO.vendorId">Wish List</a>
+                        </li>
+                    #end
+                    #if(${welcomeMatDTO.loggedIn} && $BrowserFromPost)
+                        <li>
+                            <form method="POST" action="$BrowserFromPost">
+                                <INPUT TYPE="HIDDEN" NAME="cXML-urlencoded" VALUE="$esc.html("$EmptyPunchoutOrderMessage")">
+                                <INPUT TYPE="SUBMIT" VALUE="Back To Procurement Site">
+                            </form>
+                        </li>    
+                    #end
+                    <li class="mini-cart">
+                        #if($!displayMiniCart == "YES")
+                            <a href="$seourl.encodeURL("basket.html?vid=$vendorSettingsDTO.vendorId")">
+                                ## <img src="store/20150831224/assets/themes/kinto_en/images/mini-cart.png"></img>
+                                <i class="material-icons" id="cart-icon">shopping_cart</i>
+                                <div class="summary"></div>
+                            </a>           
+                        #end       
+                    </li>        
+                </ul>
+            </div> <!--//.utilNav -->
+        </div> <!--//.wrapper -->
+    </div> <!--//#header -->
+</div><!--//#headerWrapper -->
+
+<div id="menu">
+    <ul class="nav">
+        <div class="logo">
+            <a href="store.html?vid=${vendorSettingsDTO.vendorId}"></a>
+        </div>
+        <li class="search">
+            <form action="asearch.html" onsubmit="checkKey();" id="searchForm">
+                #set($key="")
+                #set($brand_param="")
+                #set($cname="")
+                #if($advancedSolrSearchCommand)
+                    #if($advancedSolrSearchCommand.searchParameters.key)
+                        #set($key=$advancedSolrSearchCommand.searchParameters.key)
+                    #end
+                    #if($advancedSolrSearchCommand.searchParameters.brand)
+                        #set($brand_param=$advancedSolrSearchCommand.searchParameters.brand)
+                    #end
+                    #if($advancedSolrSearchCommand.searchParameters.cname)
+                        #set($cname=$advancedSolrSearchCommand.searchParameters.cname)
+                    #end
+                    #if($brand_param && $brand_param.length()>
+                        2)
+                        #set($brand_length = $math.sub($brand_param.length(),1))
+                        #set($brand_param = $brand_param.substring(1,$brand_length))
+                    #end
+                #end
+                <input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId"/>
+                <input type="hidden" name="securitytoken" value="${tokenEntity.token}"/>
+                <div>
+                    <!--<input type="text" name="key" value="$key" id="key" placeholder="Product Search...">-->
+                    <i class="material-icons" id="search-icon" onclick="checkKey(); jQuery('#key').val(jQuery('#key').val().toUpperCase()); document.forms['searchForm'].submit();">
+                        search
+                    </i>
+                    <input type="text" name="keyword" id="key" placeholder="Search Products"/>
+                    ##
+                   ## <input type="button" id="searchBtn" class="btn small" value="" onclick="checkKey(); jQuery('#key').val(jQuery('#key').val().toUpperCase()); document.forms['searchForm'].submit();"/>
+                </div>
+            </form>
+        </li>
+        <!-- //.search -->
+        ##
+        ## <li>
+        ##     <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId")">
+        ##         Home
+        ##     </a>
+        ## </li>    
+        <li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidInter")">International Orders</a></li> 
+        <li class="menulast"><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidContact")">Contact Us</a></li>
+        <li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidOrdering")">FAQs</a></li> 
+        #if($cidCustom != "")<li><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$cidCustom")">#springMessage("navCustom")</a></li> #end
+        <li class="productCategories"><a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&cid=$!cidMenu1")">Product Categories  <i class="material-icons" id="cart-icon">keyboard_arrow_down</i></a>
+            <div id="DDmenu">
+                <ul class="category-items">
+                    #foreach($menu1item in $Menu1DTO.items)
+                        #set($category = $pageTile.getItemObject($Menu1DTO, $menu1item, "c"))
+                        <li class="#if($velocityCount == 1) first #elseif($velocityCount == $Menu1DTO.items.size()) last #end">
+                            <a href="$seourl.encodeURL("store.html?cid=$category.categoryid&vid=$vendorSettingsDTO.vendorId")">$category.description</a>
+                        </li>
+                    #end
+                </ul>
+            </div>
+        </li>
+    </ul>     
+</div>
