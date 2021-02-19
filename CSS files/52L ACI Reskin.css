@@ -745,7 +745,7 @@ tfoot tr td{
 }
 
 .btn-primary {
-    background-color: #26DADD;
+    background-color: #FFCE00;
     border: 1px solid #777;
     color: #0E1323;
     padding: 5px 10px;
@@ -759,7 +759,7 @@ tfoot tr td{
     min-width: 165px;
     display: flex;
     justify-content: center;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -767,7 +767,7 @@ tfoot tr td{
 }
 
 .btn-primary:hover{
-    background-color: #00ced1;
+    background-color: #FFDF66;
 } 
 
 .btn{
@@ -786,7 +786,7 @@ tfoot tr td{
     min-width: 165px;
     display: flex;
     justify-content: center;
-    text-transform: uppercase;   
+    /*text-transform: uppercase;   */
     display: flex;
     justify-content: center;
     align-items: center;    
@@ -2241,7 +2241,7 @@ input#cvv{
 
 .circleText{
     font-family: Open Sans;
-    font-size: 38px;
+    font-size: 32px;
     text-transform: uppercase;
     font-weight: 800;
     color: #fff;
