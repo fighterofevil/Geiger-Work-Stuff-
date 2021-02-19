@@ -747,7 +747,7 @@ tfoot tr td{
 .btn-primary {
     background-color: #FFCE00;
     border: 1px solid #777;
-    color: #0E1323;
+    color: #000000;
     padding: 5px 10px;
     cursor: pointer;
     -moz-border-radius: 3px;
@@ -763,7 +763,7 @@ tfoot tr td{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .btn-primary:hover{
@@ -790,7 +790,7 @@ tfoot tr td{
     display: flex;
     justify-content: center;
     align-items: center;    
-    font-size: 16px; 
+    font-size: 15px; 
 }
 
 .btn:hover{
