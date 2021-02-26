@@ -146,30 +146,29 @@ p .pageItem{
 }
 
 a{ 
-    color:#E62700;
+    color:#B7202A;
     text-decoration: none;
 }
 
 a:hover{ 
-    color: #D62400;    
+    color: #911A22;    
     text-decoration: underline;
  }
 
 #footer{
-    font-size: 12px;
     position: relative;
     font-size: 13px;
-    font-weight: bold;
-    color: #000;
+    color: #54585A;
+    border-top: 4px solid #B7202B;
 }
 
 #footer a{
-    color:#000;
+    color:#54585A;
 }
 
 #footer a:hover{
-    text-decoration: underline;
-    color: #D62400;
+    text-decoration: none;
+    color: #B7202A;
 }
 
 .nav a{
@@ -192,7 +191,7 @@ h1, .termsH1, .welcome-message-H1{
     padding: 0;
     margin: 0px 0px 15px 0px;
     line-height: 30px;
-    color: #000;
+    color: #54585A;
 }
 
 #pageHome h1, .welcome-message-H1{
@@ -200,7 +199,7 @@ h1, .termsH1, .welcome-message-H1{
 }
 
 #pageCategory h1{
-    margin-top: 15px;
+    /*margin-top: 15px;*/
 }
 
 h2{ 
@@ -227,7 +226,25 @@ select{
 .bCrumbs, .bCrumbs a{
     font-size: 14px;
     color:#000;
-    margin-bottom: 20px;
+    background-color: #EAEAEB;
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+}
+
+.bCrumbsWrapper{
+    width: 1024px;
+    margin: 0 auto;
+    height: 38px;
+    display: flex;
+    align-content: center;    
+    padding-left: 32px;
+}
+
+.bCrumbsWrapper span{
+    position: relative;
+    top: 10px;    
+    padding-right: 5px;
 }
 
 .image .price-box{
@@ -275,7 +292,7 @@ label, .label {
     font-size: 14px;
     margin-top: 10px;
     text-transform: uppercase;
-    color: #000;
+    color: #54585A;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -288,7 +305,7 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#000;
+    color:#54585A;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
     font-size:13px
@@ -330,7 +347,7 @@ body{
 #content{
     z-index: 1;
     clear: both;
-    padding: 30px 20px 50px 20px;
+    padding: 20px 20px 50px 10px;
 }
 
 #header{
@@ -342,7 +359,6 @@ body{
 #header .wrapper{
     text-align: right;
     height: 40px;
-    background-color: #F2F2F2;
 }
 
 #footer .wrapper{
@@ -409,13 +425,10 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/tranecom-logo.svg") no-repeat scroll left top transparent;
+    background: url("../images/commonwealth-logo.svg") no-repeat scroll left top transparent;
     display: block;
-    /*float: left;*/
-    height: 54px;
-/*    margin: 15px 0px 0px 20px;
-    padding: 10px 8px 0px 0px;*/
-    width: 189px;
+    height: 100px;
+    width: 262px;
 }
 
 #header .logo span {
@@ -449,10 +462,9 @@ body{
 #menu{
     z-index:100;
     height: 45px;
-    /*margin-bottom: 15px;*/
-    /*background: #8E0215;*/
-    border-top: 1px solid #D9D9D6;
-    border-bottom: 1px solid #D9D9D6;
+    margin-top:  20px;
+    border-top: 2px solid #E4E4E4;
+    border-bottom: 6px solid #0B7AC0;
 }
 
 #menuWrapper{
@@ -517,7 +529,7 @@ div#DDmenu li a:hover{
     display: flex;
     justify-content: flex-end;
     height: 40px;
-    color: #000;
+    color: #54585A;
 }
 
 #header .wrapper .utilNav li{
@@ -529,13 +541,13 @@ div#DDmenu li a:hover{
 }
 
 #header .wrapper .utilNav li a{
-    color: #000;
+    color: #54585A;
     font-size: 14px;
-    font-weight: bold;
 }
 
 #header .wrapper .utilNav li a:hover{
-    color: #D62400;    
+    color: #B7202A;    
+    text-decoration: none;
 }
 
 .utilNav ul{
@@ -578,7 +590,7 @@ div#DDmenu li a:hover{
     float: left;
     font-size: 24px;
     margin: 0px 7px 0px 0px;
-    color: #E62700;
+    color: #B7202A;
 }
 
 .summary{
@@ -587,8 +599,8 @@ div#DDmenu li a:hover{
     font-weight: 300;
 }
 
-.summary strong{
-    font-weight: 300;
+.welcomemsg strong{
+    font-weight: 300 !important;
 }
 
 #cart-quantity, #cart-total{
@@ -608,18 +620,18 @@ div#DDmenu li a:hover{
 }
 
 #searchForm div{
-    border: 1px solid #D9D9D6;
+    border: 1px solid #B7202A;
     background-color: #fff;
     width: 210px;
     height: 35px;
     display: flex;
     position: relative;   
-
+    border-radius: 10px;
 }
 
 #searchForm input#key{
     border: none;
-    width: 190px;
+    width: 165px;
     float: left;
     padding-left: 2px;
 }
@@ -767,12 +779,10 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #B3B3B3;
+    background-color: #54585A;
     border: 0px;
-    color:#000;
-    /*padding: 5px 10px;*/
+    color:#fff;
     cursor: pointer;
-
     display: flex;
     align-items: center;
     justify-content: center;    
@@ -780,16 +790,18 @@ tfoot tr td{
     min-width: 150px;
     font-size: 16px;
     font-weight: bold;
-
+    border-radius: 20px;
 }
 
 .btn:hover{
-    background-color: #A0A0A0;
-
+    background-color: #fff;
+    color: #54585A;
+    border: 1px solid #54585A;
+    border-radius: 20px;    
 } 
 
 .btn-primary{
-    background-color: #E62700;
+    background-color: #B7202A;
     border: 0px;
     color: #FFF;
     font-weight: bold;
@@ -800,10 +812,14 @@ tfoot tr td{
     height: 40px;
     min-width: 150px;
     font-size: 16px;
+    border-radius: 20px;
 }
 
 .btn-primary:hover{
-    background-color: #D62400;
+    background-color: #fff;
+    color: #B7202A;
+    border: 1px solid #B7202A;
+    border-radius: 20px;
 }
 
 .gift-btn {
@@ -841,14 +857,35 @@ tfoot tr td{
 
 #spotlight{
     height: 400px;
-    background-color: #ff2c01;
+    background-color: #B7202A;
 }
 
 #spotlightBanner {
-    background: url("../images/spot-img.jpg") no-repeat scroll left top transparent;
+    background: url(../images/spot-overlay.png) no-repeat scroll left top;
     height: 400px;
     width: 1024px;
     margin: 0 auto;
+    background-position-x: -267px;
+    color: #FFFFFF;
+    font-size: 55px;    
+}
+
+#spotlightBanner img{
+    position: relative;
+    left: 541px;
+    bottom: 153px;
+    height: 100%;    
+}
+
+.spotText{
+    position: relative;
+    top: 122px;    
+    width: 320px;
+}
+
+.spotSubText{
+    position: relative;
+    top: 23px;    
 }
 
 .specialBanner {
@@ -1166,6 +1203,7 @@ td.ar{
 
 #pageCategory .name a, #pageSearchResults .name a{
     line-height: 1.15em;
+    font-weight: bold;
 }
 
 
@@ -1237,7 +1275,7 @@ td.ar{
 }
 
 .pagination-new a{
-    color: #D62400;
+    color: #B7202A;
 }
 
 a.view-all{
@@ -1513,7 +1551,7 @@ ul.radios-list li label{
 }
 
 .co-breadcrumb li.rv {
-  margin-left: 58px;
+  margin-left: 63px;
 }
 
 .co-breadcrumb li.ty {
@@ -2178,7 +2216,7 @@ input#cvv{
     float: left;
     cursor: pointer;
     font-size: 24px !important;
-    color: #E62700;
+    color: #B7202A;
     top: 4px;
     padding-left: 10px;    
 }
@@ -2204,7 +2242,7 @@ input#cvv{
     content: '\e5cf';
     position: absolute;
     font-size: 24px;
-    color: #E62700;
+    color: #B7202A;
 }
 
 div#DDmenu a::after{
@@ -2464,7 +2502,7 @@ input:focus {
 
 
 .featured-product-carousel-h2{
-    color: #000000;
+    color: #54585A;
     font-size: 30px;
     font-weight: bold;    
     margin-bottom: 20px;
@@ -2496,21 +2534,19 @@ input:focus {
 
 
 #spotlightBanner span{
-    color: #FFFFFF;
     font-weight: bold;
-    font-size: 60px;
-    position: relative;
-    float: left;
-    text-align: left;
+    /* position: relative; */
+    /* float: left; */
+    /* text-align: left; */
     /* height: 72%; */
-    width: 95%;
+    width: 110px;
     display: flex;
-    justify-content: left;
-    align-items: flex-end;
+    /* justify-content: left; */
+    /* align-items: flex-end; */
     /* bottom: 35px; */
-    left: 37px;
-    top: 55%;
-    line-height: 1.2;   
+    /* left: 37px; */
+    /* top: 55%; */
+    line-height: 1.2;
 }
 
 .productCategories{
@@ -2524,6 +2560,14 @@ input:focus {
     display: flex;
     align-items: center;
 }    
+
+.logoSearch{
+    width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;    
+}
 
 .promos{
     margin-bottom: 20px;
@@ -2574,8 +2618,8 @@ input:focus {
 }
 
 #pageItem h1{
-    font-size: 23px;
-    color: #000;
+    font-size: 26px;
+    color: #54585A;
     line-height: 1.15em;
 }
 
@@ -2713,7 +2757,7 @@ input:focus {
 }
 
 .ui-widget-content a {
-    color: #E62700 !important;
+    color: #B7202A !important;
 }
 
 #pageForgottenPassword .btn-primary{
