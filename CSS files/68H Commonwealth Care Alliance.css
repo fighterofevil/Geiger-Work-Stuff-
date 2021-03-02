@@ -70,6 +70,10 @@ body {
     color: black;
     background: white;
     min-width: 1024px;
+
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 ol, ul, li {
@@ -121,8 +125,8 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color:#000;
-    font-family: 'Public Sans';
+    color:#545859;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     font-size: 14px;
     line-height: 18px;
 }
@@ -215,17 +219,17 @@ h5{ }
 h6{ }
 
 #pageItem select{
-    font-family: 'Public Sans', sans-serif;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     text-transform: uppercase;
 }
 
 select{
-    font-family: 'Public Sans', sans-serif;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 
 .bCrumbs, .bCrumbs a{
     font-size: 14px;
-    color:#000;
+    color:#54585A;
     background-color: #EAEAEB;
     display: flex;
     align-items: center;
@@ -341,7 +345,9 @@ body{
     position: relative;
     text-align: left;
     width: 1024px;
-    min-height: 787px;
+    /*min-height: 787px;*/
+
+    flex: 1;
 }
 
 #content{
@@ -429,6 +435,7 @@ body{
     display: block;
     height: 100px;
     width: 262px;
+    margin-bottom: 20px;
 }
 
 #header .logo span {
@@ -626,12 +633,12 @@ div#DDmenu li a:hover{
     height: 35px;
     display: flex;
     position: relative;   
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 #searchForm input#key{
     border: none;
-    width: 165px;
+    width: 157px;
     float: left;
     padding-left: 2px;
 }
@@ -672,7 +679,7 @@ table a:hover {
 }
 
 table {
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     color:#666;
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
@@ -791,6 +798,8 @@ tfoot tr td{
     font-size: 16px;
     font-weight: bold;
     border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 20px;    
 }
 
 .btn:hover{
@@ -813,6 +822,8 @@ tfoot tr td{
     min-width: 150px;
     font-size: 16px;
     border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 20px;    
 }
 
 .btn-primary:hover{
@@ -879,7 +890,7 @@ tfoot tr td{
 
 .spotText{
     position: relative;
-    top: 122px;    
+    top: 90px;    
     width: 320px;
 }
 
@@ -986,7 +997,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #000;
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     font-size: 14px;
     margin: 0px;
     padding: 15px;
@@ -1007,7 +1018,7 @@ tfoot tr td{
 #pageFAQ .section p, #pageFAQ .faqsSection p {
 
     color: #313131;
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     font-size: 14px;
     line-height: 1.5em;
 }
@@ -1028,7 +1039,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     font-size: 12px;
     margin: 20px 0 20px 0;
     padding: 15px;
@@ -1039,7 +1050,7 @@ tfoot tr td{
 /****Login****/
 
 .login form{
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -1073,7 +1084,7 @@ a.forgotPassword{
 /****Register****/
 
 #registration form#registerForm{
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -1116,7 +1127,7 @@ a.forgotPassword{
 }
 
 #pageMyAccount form.myAccountForm{
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     color:#666;
     font-size:12px;
     /*text-shadow: 1px 1px 0px #fff;*/
@@ -1244,7 +1255,7 @@ td.ar{
 
 .image .price-box{
     position: absolute;
-    background: #000;
+    background: #54585A;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
@@ -1366,7 +1377,7 @@ input.qty-input{
 }
 
 .ui-tabs-panel{
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     color:#666;
     font-size:12px;
     background:#eaebec;
@@ -1646,7 +1657,7 @@ ul.radios-list li label{
 /*Simplemodal Styles*/
 
 #simplemodal-overlay {background-color:#000;}
-#simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px; height: 400px;}
+#simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px; height: 630px;}
 
 #simplemodal-container a.modalCloseImg {
     background:url("../images/x.png") no-repeat;
@@ -1732,7 +1743,7 @@ ul.radios-list li label{
 }
 
 #pageCheckoutPayment .js-click{
-    color:#E62700;
+    color:#b7202a;
 }
 
 .payment-section{
@@ -1752,7 +1763,7 @@ ul.radios-list li label{
 }
 
 .tabs .tab {
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     color:#666;
     font-size:12px;
     background:#FFFFFF;
@@ -1900,7 +1911,7 @@ input#cvv{
     text-align: center;
     font-size: 19px;
     line-height: 20px;
-    font-family: 'Public Sans';
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     color: #FFF;
     text-shadow: 0px 0px 2px #000;
     box-shadow: 0px 1px 1px 0px #aaa;
@@ -1950,7 +1961,7 @@ input#cvv{
 /****Checkout ????????? Review****/
 
 .location{
-        font-family: 'Public Sans';
+        font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
         color:#666;
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
@@ -2223,7 +2234,7 @@ input#cvv{
 
 .featuredwrap{
     display: flex;
-    justify-content: space-between;    
+    justify-content: center;    
     top: 14px;
     position: relative;    
     width: 1024px;
@@ -2235,6 +2246,10 @@ input#cvv{
 
 .cross-sell h3{
     margin-bottom: 5px;
+}
+
+.productCategories{
+    padding-right: 20px;
 }
 
 .productCategories a::after{
@@ -2648,8 +2663,8 @@ input:focus {
 }
 
 #singleAddy{
-    padding-left: 5px;
-    padding-right: 5px;    
+/*    padding-left: 5px;
+    padding-right: 5px;    */
 }
 
 #singleAddy:hover{
@@ -2708,7 +2723,7 @@ input:focus {
 }
 
 .lithium-ion-warning{
-    font-family: 'Public Sans' !important;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     font-size: 13px !important;
 }
 
@@ -2765,7 +2780,7 @@ input:focus {
 }
 
 #myaccount_menu a{
-    color: #D62400;
+    color: #B7202A;
 }
 
 .emptyCartBtn{
