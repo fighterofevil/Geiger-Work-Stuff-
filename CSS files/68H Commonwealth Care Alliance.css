@@ -806,7 +806,7 @@ tfoot tr td{
     background-color: #fff;
     color: #54585A;
     border: 1px solid #54585A;
-    border-radius: 20px;    
+    /*border-radius: 20px;    */
 } 
 
 .btn-primary{
@@ -830,7 +830,7 @@ tfoot tr td{
     background-color: #fff;
     color: #B7202A;
     border: 1px solid #B7202A;
-    border-radius: 20px;
+    /*border-radius: 20px;*/
 }
 
 .gift-btn {
