@@ -2661,3 +2661,8 @@ input:focus {
 #pageMyAccount table{
     width: 100%;
 }
+
+/*escape code needed to control the hiding of a script question that has id=#1012*/
+#\31 012{
+    display: none;
+}
