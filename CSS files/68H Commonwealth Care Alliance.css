@@ -468,7 +468,7 @@ body{
 
 #menu{
     z-index:100;
-    height: 45px;
+    min-height: 45px;
     margin-top:  20px;
     border-top: 2px solid #E4E4E4;
     border-bottom: 6px solid #0B7AC0;
@@ -2797,3 +2797,20 @@ input:focus {
 #pageItem .integer{
     display: none;
 }
+
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {  
+   /* IE10+ specific styles go here */  
+   #header, #footer{
+    flex-shrink: 0;
+   }
+   #body{
+        min-height: auto;
+        height: 100vh;
+   }
+   #spotlight,#container{
+        flex: 1 0 auto;
+    }
+}    
+
+
