@@ -888,6 +888,8 @@ tfoot tr td{
     font-size: 24px;
     font-family: nunito-sans, sans-serif;
     font-weight: 400;    
+    top: 12px;
+    position: relative;
 }
 
 .spotlightLandingBig{
@@ -2630,6 +2632,8 @@ input:focus {
     font-weight: bold;
     position: relative;
     top: 24px;
+    width: 100%;
+    text-align: center;
 }
 
 .clickAccess{
@@ -2650,6 +2654,19 @@ input:focus {
     text-decoration: none;
 }
 
+.buttonSection a {
+    width: 100%;
+}
+
+.storeSubTitle {
+    color: #FFF;
+    text-align: center;
+}
+
+.clickAccess {
+    margin: 0px auto 0;
+}
+
 #pageLanding #footer a:hover{
     text-decoration: underline;
 }
@@ -2665,4 +2682,36 @@ input:focus {
 /*escape code needed to control the hiding of a script question that has id=#1012*/
 #\31 012{
     display: none;
+}
+
+
+#pageComingSoon .utilNav, #pageComingSoon #menuWrapper, #pageComingSoon .spotlight, #pageComingSoon .buttonSection{
+    display: none;
+}
+
+.comingSoonBox{
+    background-color: #3C829B;
+    color: #fff;
+    width: 562px;
+    height: 215px;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    border-radius: 20px; 
+    margin: 0 auto;
+    text-transform: uppercase;
+    text-shadow: 1px 0px 4px rgb(1 2 2 / 56%);
+}
+
+.comingSoonBoxWrapper{
+    text-align: center;
+    line-height: 3.0em;    
+}
+
+.comingSoon1{
+    font-size: 40px;
+}
+
+.comingSoon2{
+    font-size: 20px;
 }

@@ -891,7 +891,7 @@ tfoot tr td{
 .spotText{
     position: relative;
     top: 90px;    
-    width: 320px;
+    width: 340px;
 }
 
 .spotSubText{
@@ -1330,7 +1330,7 @@ a.view-all{
 
 .estimate-calendar {
     margin-top: 5px;
-    display: none !important;
+    /*display: none !important;*/
 }
 
 .add-another-item  table {
@@ -2737,7 +2737,7 @@ input:focus {
 }
 
 .cross-sell{
-    display: none;
+    /*display: none;*/
 }
 
 #\39 29{
