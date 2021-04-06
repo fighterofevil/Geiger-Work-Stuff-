@@ -66,7 +66,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body {
-    line-height: 1;
+    line-height: 1.5em;
     color: black;
     background: white;
     min-width: 1024px;
@@ -112,6 +112,7 @@ address,button,caption,cite,code,dfn,em,input,optgroup,option,select,strong,text
 
 h1,h2,h3,h4,h5,h6{
     font-size:100%;font-weight:normal;
+    color: #1F344C;
 }
 
 strong{
@@ -121,10 +122,9 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 
 body{
-    color: #29323C;
+    color: #1f344c;
     font-family: 'Muli', sans-serif;
     font-size: 14px;
-    line-height: 18px;
 }
 
 #container{
@@ -151,7 +151,7 @@ a{
 }
 
 a:hover, #addAnother a:hover{
-    color: #4D85BC;
+    color: #4278ae;
 }
 
 #footer{
@@ -166,7 +166,8 @@ a:hover, #addAnother a:hover{
 }
 
 #footer a:hover{
-    color: #A5C1DE;
+    color: #adc6e1;
+    text-decoration: underline;
 }
 
 .nav a{
@@ -195,10 +196,10 @@ h1{
     font-weight: bold;
     font-size: 30px;
     padding: 0;
-    margin: 0px 0px 15px 0px;
+    margin: 0px 0px 20px 0px;
     line-height: 30px;
     font-family: 'PT Sans', sans-serif;
-    color: #29323C;
+    color: #1F344C;
 }
 
 #pageHome h1{
@@ -227,8 +228,8 @@ h5{ }
 h6{ }
 
 .bCrumbs, .bCrumbs a{
-    font-size: 12px;
-    color:#777;
+    font-size: 14px;
+    color:#464646;
 }
 
 .image .price-box{
@@ -248,6 +249,7 @@ h6{ }
     font-size: 18px;
     font-weight: bold;
     margin: 10px;
+    color: #1f344c;
 }
 
 #itemCodeList {
@@ -267,8 +269,9 @@ label, .label {
 }
 
 .add-another-item label, .add-another-item .col3 span{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+    color: #1f344c;
 } 
 
 .sidebar .title{
@@ -289,14 +292,14 @@ label, .label {
 .subcat-title a,#recentlyViewed a {
     padding:3px 2px 3px 33px;
     display:block;
-    color:#555;
+    color:#464646;
     background:url(../images/arrow-menu.png) 2px 1px no-repeat;
     text-decoration:none;
     font-size:12px
 }
 
 .subcat-title a:hover,#recentlyViewed a:hover {
-    color:#555;
+    color:#4278ae;
     background-position:2px -48px;
     text-decoration:none;
     font-size:12px;
@@ -317,6 +320,10 @@ html{
 
 body{
     background: #FFF;
+
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 #container{
@@ -324,20 +331,22 @@ body{
     position: relative;
     text-align: left;
     width: 1024px;
-    min-height: 787px;
+    /*min-height: 787px;*/
+
+    flex: 1;
 }
 
 #content{
     z-index: 1;
     clear: both;
-    padding: 40px 20px 50px 20px;
+    padding: 20px 20px 50px 20px;
 }
 
 #header{
     height: 115px;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     color: #1F344C;
-    border-bottom: 1px solid #064DA3;
+    border-bottom: 2px solid #064DA3;
 }
 
 #header .wrapper{
@@ -347,6 +356,8 @@ body{
     margin: 0 auto;
     top: 10px;
     position: relative;
+
+    height: 105px;
 }
 
 #footer .wrapper{
@@ -412,12 +423,12 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a {
-    background: url("../images/carlisle-logo.svg") no-repeat scroll left top transparent;
+    background: url("../images/carlisle-syntec-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 29px;
-    width: 177px;
-    margin-top: 34px;
+    height: 40px;
+    width: 194px;
+    margin-top: 27px;
 }
 
 #header .logo span {
@@ -483,6 +494,10 @@ body{
     padding: 20px 20px;
 }
 
+.nav a:hover{
+    color: #064DA3;
+}
+
 .nav li:hover{
     /*background-color: #b12936;*/
 }
@@ -543,11 +558,16 @@ div#DDmenu li a:hover{
 }
 
 .userbudget {
-    float: left !important;
-    margin: -15px 0 0 140px;
+    /* float: right !important; */
+    /* margin: -5px 20px 0 140px; */
     line-height: 10px;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    bottom: 5px;
+    width: 785px;
+    /* border: 1px solid;*/
 }
-
 /****footer nav****/
 
 #footer ul li{
@@ -576,7 +596,8 @@ div#DDmenu li a:hover{
 #cart-icon{
     float: left;
     font-size: 24px;
-    margin: 5px 5px 0px 0px
+    margin: 5px 5px 0px 0px;
+    color: #003591;
 }
 
 .summary{
@@ -661,7 +682,7 @@ table {
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
-    margin:20px;
+    margin:20px 0px;
     border:#ccc 1px solid;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -754,6 +775,10 @@ table.no-border tr, table.no-border td{
     padding: 5px 10px !important;
 } 
 
+.no-border{
+    margin: 0px 20px 0px 20px !important;
+}
+
 tfoot tr td{
     border-top: 1px solid #E0E0E0;
 }
@@ -770,12 +795,12 @@ tfoot tr td{
     background-color: #FFFFFF;
     border: 2px solid #064DA3;
     color: #064DA3;
-    font-weight: bold;
     font-size: 16px;
     min-height: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;  
+    font-family: 'PT Sans', sans-serif;
 }
 
 .btn:hover{
@@ -793,15 +818,15 @@ tfoot tr td{
     min-width: 150px;
     text-align: center;
     font-size: 16px;
-    font-weight: bold;
     height: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;   
+    font-family: 'PT Sans', sans-serif; 
 }
 
 .btn-primary:hover{
-    background-color: #4D85BC;
+    background-color: #4278ae;
 }
 
 .gift-btn {
@@ -930,7 +955,7 @@ tfoot tr td{
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
-    color: #666666;
+    color: #464646;
     font-family: 'Muli', sans-serif;
     font-size: 12px;
     margin: 0px;
@@ -1460,15 +1485,20 @@ ul.radios-list li label{
     text-align: right;
     margin: -5px 0 8px;
     float: right;
-    max-width: 400px;
-    min-width: 365px;
+    /*max-width: 400px;*/
+    /*min-width: 385px;*/
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+}
+
+.new-address{
+    margin-left:27px;
 }
 
 /****Checkout - Your Information Edit/New Shipping Address****/
 
 .select-single {
+    margin-top:20px;
     margin-bottom: 30px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -1542,7 +1572,7 @@ ul.radios-list li label{
 /*Simplemodal Styles*/
 
 #simplemodal-overlay {background-color:#000;}
-#simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px;}
+#simplemodal-container {background-color:#FFF; border:1px solid #444; padding:12px; height: 610px;}
 
 #simplemodal-container a.modalCloseImg {
     background:url("../images/x.png") no-repeat;
@@ -1558,7 +1588,7 @@ ul.radios-list li label{
 
 #new-address-modal {
     width:600px;
-    height: 550px;
+    height: 610px;
     padding: 0px 20px;
     background-color:#FFF;
     overflow:auto;  /* safe scroll for all browsers */
@@ -1894,7 +1924,7 @@ input#cvv{
 }
 
 .warningText{
-    color: red;
+    color: #e60000;
     font-weight: bold;
     font-size: 13px;
     text-align: center;
@@ -2085,20 +2115,20 @@ input#cvv{
     float: left;
     cursor: pointer;
     font-size: 24px !important;
-    color: #1F344C;
+    color: #003591;
     top: 10px;
     padding-left: 8px;    
 }
 
 .featuredwrap{
     display: flex;
-    justify-content: space-between;    
+    justify-content: center;    
     position: relative;
     top: 29px;
 }
 
 .featured-product-carousel h2{
-    color: #064DA3;
+    color: #1F344C;
     font-size: 36px;
     font-weight: bold;
     line-height: 0;
@@ -2112,7 +2142,7 @@ input#cvv{
     justify-content: flex-end;
     position: relative;
     float: right;
-    margin-top: 16px;
+    margin-top: 8px;
 }
 
 .spotlightImage{  
@@ -2121,7 +2151,7 @@ input#cvv{
 }
 
 .spotlightImageWrapper{
-    background: url("../images/spot-img.jpg") no-repeat scroll center transparent;
+    background: url("../images/spot-img-2.jpg") no-repeat scroll center transparent;
     height: 342px;
     width: 1024px;
     margin: 0 auto;    
@@ -2159,7 +2189,7 @@ input#cvv{
 }
 
 #pageHome #container{
-    min-height: 54vh !important;
+    /*min-height: 54vh !important;*/
 }
 
 .FAQ{
@@ -2172,11 +2202,16 @@ input#cvv{
 
 .ui-widget-content a{
     font-weight: bold;
+    color: #064da3;
+}
+
+.ui-widget-content a:hover{
+    color: #4278ae;
 }
 
 .show-estimate-calendar, #addAnother a{
     color: #064DA3;
-    font-weight: bold;
+    font-size: 16px;
 }
 
 .icon-arrow-right{
@@ -2189,7 +2224,7 @@ input#cvv{
 }
 
 #pageCategory .name a, .show-estimate-calendar, #addAnother a{
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .address-title{
@@ -2204,6 +2239,10 @@ input#cvv{
 #pagePoints table td{
     background: #eaebec;    
     border: initial;
+}
+
+#pagePoints h1{
+    margin-top: 15px;
 }
 
 .dpcol1{
@@ -2241,15 +2280,15 @@ input#cvv{
     text-decoration: none;
     line-height: 45px;
     text-transform: uppercase;
-    padding-right: 20px;
+    /*padding-right: 20px;*/
 }
 
-.productCategories a::after{
+/*.productCategories a::after{
     font-family: 'Material Icons';
     content: '\e5cf';
     position: absolute;
     font-size: 24px;
-}
+}*/
 
 div#DDmenu a:after{
     content: initial;
@@ -2425,4 +2464,20 @@ div#DDmenu a:after{
 
 #pageHome #shipping-modal h1 {
     line-height: 36px !important;
+}
+
+#pageForgottenPassword .btn-primary{
+    margin-top: 5px;
+}
+
+#continueShopBtn{
+    margin-top: 15px;
+}
+
+#instock_msg{
+    width: 650px;
+}
+
+.alert-success{
+    width: 725px;
 }
