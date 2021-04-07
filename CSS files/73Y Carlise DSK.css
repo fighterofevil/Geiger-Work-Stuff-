@@ -357,13 +357,13 @@ body{
     top: 10px;
     position: relative;
 
-    height: 105px;
+    height: 115px;
 }
 
 #footer .wrapper{
     box-sizing: border-box;
     height: 60px;
-    padding: 20px 15px;
+    padding: 20px 0px;
     margin: 0 auto;
     width: 1024px;
 
@@ -776,7 +776,7 @@ table.no-border tr, table.no-border td{
 } 
 
 .no-border{
-    margin: 0px 20px 0px 20px !important;
+    margin: 0px 20px 10px 0px !important;
 }
 
 tfoot tr td{
@@ -797,6 +797,7 @@ tfoot tr td{
     color: #064DA3;
     font-size: 16px;
     min-height: 40px;
+    max-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;  
@@ -818,7 +819,8 @@ tfoot tr td{
     min-width: 150px;
     text-align: center;
     font-size: 16px;
-    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;   
@@ -2480,4 +2482,8 @@ div#DDmenu a:after{
 
 .alert-success{
     width: 725px;
+}
+
+#singleAddy{
+    min-height: 36px !important
 }
