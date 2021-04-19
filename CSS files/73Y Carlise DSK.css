@@ -2458,6 +2458,24 @@ div#DDmenu a:after{
     .shoppingButton{
         max-height: none;
     }
+
+    #header{
+        height: auto;
+    }
+
+    #header .wrapper{
+        height: 115px;
+    }
+
+    .spotlightImage, #container{
+        flex: 1 0 auto;
+    }
+
+    .btn-primary:after, .btn:after{
+        content:'';
+        min-height: inherit;
+        font-size: 0;
+    }
 }
 
 #shipping-modal p {
@@ -2487,3 +2505,9 @@ div#DDmenu a:after{
 #singleAddy{
     min-height: 36px !important
 }
+
+.ui-datepicker{
+    width: 20em !important;
+}
+
+
