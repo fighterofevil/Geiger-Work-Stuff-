@@ -44,7 +44,8 @@
 	right: 5px;
 }
 
-#pageLogin .login h2:nth-of-type(2) { margin-top: 20px; }
+#pageLogin .login h2:nth-of-type(2) { margin-top: 20px;     display: flex;
+    justify-content: center;}
 .summary .def:nth-of-type(1) { margin-right: 8px; }
 #footer p { color: #fff; }
 #pageCheckoutAddress .select-single * { font-family: 'Source Sans Pro', sans-serif !important; }
@@ -253,7 +254,7 @@ body
 	line-height: 1;
 	color: black;
 	background: white;
-	min-width: 1024px;
+	min-width: 1500px;
 }
 
 ol, ul, li {
@@ -321,7 +322,7 @@ margin-bottom: 0px;
 a
 {
 	color: #4050A0;
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 a:hover { color: #04365b; }
@@ -734,9 +735,8 @@ div#DDmenu li a:hover, .adaNavLink
 	color: #FFFFFF;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 16px;
-	/* line-height: 0; */
 	text-align: right;
-	/* margin-right: 10px; */
+	text-decoration: none;
 }
 
 .utilNav ul
@@ -777,6 +777,7 @@ div#DDmenu li a:hover, .adaNavLink
 	color: #fff;
 	font-family: "news-gothic-std", sans-serif !important;
 	font-weight: 100;
+	text-decoration: none;
 }
 
 #footer li:hover { background: #404040 !important; }
@@ -1197,6 +1198,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 	-o-animation: fadein 0.5s;
 	/* Opera < 12.1 */
 	animation: fadein 0.5s;
+	text-decoration: none;
 }
 
 .banner .contain a:hover
@@ -1261,6 +1263,7 @@ tfoot tr td { border-top: 1px solid #E0E0E0; }
 	-o-animation: fadein 0.5s;
 	/* Opera < 12.1 */
 	animation: fadein 0.5s;
+	text-decoration: none;
 }
 
 .banner .contain2 a:hover
@@ -1730,6 +1733,10 @@ a.forgotPassword
 	margin: 10px 0 20px;
 	padding: 10px 5px;
 	text-align: center;
+}
+
+#myaccount_menu a{
+	text-decoration: none;
 }
 
 #pageMyAccount form.myAccountForm
@@ -2820,5 +2827,23 @@ input#cvv { width: 50px; }
 [tabindex="1"]:focus,
 a:focus,
 button:focus,
+.login .btn-primary:focus, 
+.login .btn:focus,
+#registerForm .btn-primary:focus,
+#registerForm .btn:focus,
 input:focus { outline: solid 2px black; }
 #updateDesc, #removeNotice, #offerCodeMsg { display: none; }
+
+.logoH1, .welcomeH2{
+    font-weight: initial;
+    font-size: initial;
+    padding: initial;
+    margin: initial;
+    line-height: initial;
+    font-family: initial;	
+}
+
+.welcomeH2{
+    display: flex;
+    justify-content: center;	
+}
