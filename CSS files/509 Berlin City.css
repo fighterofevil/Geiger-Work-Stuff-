@@ -345,7 +345,7 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/berlin-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/berlin-city.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 63px;
@@ -2055,4 +2055,4 @@ position: relative;
     clear: both;
    /* right: -486px;
     top: 65px; */
-}
+},
