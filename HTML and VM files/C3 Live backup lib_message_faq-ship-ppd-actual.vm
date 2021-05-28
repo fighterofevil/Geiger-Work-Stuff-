@@ -1,0 +1,143 @@
+<p>
+    Merchandise pricing does not include shipping. For invoice orders, actual freight charges will be assessed and added to your invoice upon shipment of your order.
+</p>
+<p>
+    For credit card purchases, please refer to the table below to calculate your shipping cost based on order total:
+</p>
+<table border='1' cellspacing='0' cellpadding='0'>
+    <tr>
+        <td width='228' colspan='2' valign='top'>
+            <p align='center'>
+                <strong>
+                    Order Total
+                </strong>
+            </p>
+        </td>
+        <td width='210' valign='top'>
+            <p align='center'>
+                <strong>
+                    Shipping Fee
+                </strong>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='228' colspan='2' valign='top'>
+            <p align='center'>
+                up to $25
+            </p>
+        </td>
+        <td width='210' valign='top'>
+            <p align='center'>
+                $8.00
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='228' colspan='2' valign='top'>
+            <p align='center'>
+                $25.01 - $50
+            </p>
+        </td>
+        <td width='210' valign='top'>
+            <p align='center'>
+                $9.00
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='228' colspan='2' valign='top'>
+            <p align='center'>
+                $50.01 - $75
+            </p>
+        </td>
+        <td width='210' valign='top'>
+            <p align='center'>
+                $10.00
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='228' colspan='2' valign='top'>
+            <p align='center'>
+                $75.01 - $100
+            </p>
+        </td>
+        <td width='210' valign='top'>
+            <p align='center'>
+                $11.00
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='228' colspan='2' valign='top'>
+            <p align='center'>
+                $100.01 - $200
+            </p>
+        </td>
+        <td width='210' valign='top'>
+            <p align='center'>
+                $19.00
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan='2' valign='top'>
+            <p align='center'>
+                $200.01 and UP
+            </p>
+        </td>
+        <td valign='top'>
+            <p align='center'>
+                $19 + Add $4 for every $50
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='438' colspan='3' valign='top'>
+            <p align='center'>
+                For expedited shipping, add the following upcharge to the standard rates above:
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='222' valign='top'>
+            <p align='center'>
+                3-Day Select
+            </p>
+        </td>
+        <td width='216' colspan='2' valign='top'>
+            <p align='center'>
+                $30
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='222' valign='top'>
+            <p align='center'>
+                2-Day Air
+            </p>
+        </td>
+        <td width='216' colspan='2' valign='top'>
+            <p align='center'>
+                $45
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width='222' valign='top'>
+            <p align='center'>
+                Next Day Air
+            </p>
+        </td>
+        <td width='216' colspan='2' valign='top'>
+            <p align='center'>
+                $145
+            </p>
+        </td>
+    </tr>
+</table>
+<p>
+    Please note that international shipments are subject to duties and customs fees above and beyond standard shipping charged by Geiger. These charges are the responsibility of the receiver and payment may be required before delivery of your package will be completed. Contact your local courier or customs office for details.
+</p>
+
