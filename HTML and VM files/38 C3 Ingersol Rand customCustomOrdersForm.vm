@@ -1,0 +1,582 @@
+
+## commented out original category code to bring in parsed code from C2 IR MTL - 06.01.21 - kevin 
+
+
+## ## Macros and configs.
+## #parse("lib_macros.vm")
+## #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/macros.vm")
+## #parse("lib_configs.vm")
+## #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/configs.vm")
+
+## #set($categoryID =                  $request.getParameter('cid'))
+## #set($childItemsViewDTO =           $multiPageViews.get("childItemsDTO"))
+## #set($subCategories =               $pageTile.getItemObject($childCategoriesDTO, $childCategoriesDTO.getItems(), "c"))
+
+
+## ## Load in partials, components, and dependencies.
+## #useDependency('skeleton-store-base')
+## #useDependency("${configCategoryTemplateBaseStyle}")
+## #useDependency('ss.categories')
+## ## #useDependency('v2')
+## #usePartials('header')
+## #usePartials('breadcrumbs')
+## #usePartials('category-header')
+## #usePartials('category-spotlight')
+## #usePartials('category-content')
+## #usePartials('category-sub-list')
+## #usePartials('pagination')
+## #usePartials('footer')
+
+
+## <!DOCTYPE html>
+## <html>
+    
+##     <head>
+##         #parse("lib_head_markup.vm")
+##         #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/head_markup.vm")
+
+##         #renderDependencies('headMarkup')
+##     </head>
+    
+##     <body class="${configCategoryTemplateBaseStyle} mdl-layout category-list">
+        
+##         #renderPartials('header')
+
+##         <main>
+##             ## #renderPartials('category-spotlight')
+##             #renderPartials('breadcrumbs')
+
+##             <div class='page-body'>
+##                 <div class='products-header'>
+
+##                     #renderPartials('category-header')
+
+##                 </div>
+
+##                 #renderPartials('category-sub-list')
+
+##                 <div class='products-container'>
+
+##                     <div class="grid-container">
+
+##                         #renderPartials('category-content')
+
+##                     </div>
+
+##                     #renderPartials('pagination')
+
+##                 </div>
+##             </div>
+##         </main>
+
+##         #renderPartials('footer')
+
+
+##         #renderDependencies('footMarkup')
+
+##         #parse("lib_foot_markup.vm")
+##         #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/foot_markup.vm") 
+        
+##     </body>
+    
+## </html>
+
+
+## commented out below in lieu of L3 Harris style of form - 06.23.21 - kevin 
+
+
+## <script src="store/20210601158/assets/themes/$vendorSettingsDTO.skinname/js/jquery.reveal.js" type="text/javascript"></script>
+## <link href="store/20210601158/assets/themes/$vendorSettingsDTO.skinname/css/customorder.css" rel="stylesheet">
+
+## ## GG Validator
+## <link href="store/20210601158/assets/themes/$vendorSettingsDTO.skinname/css/ggValidator.css" rel="stylesheet">
+## <script src="store/20210601158/assets/themes/$vendorSettingsDTO.skinname/js/ggValidator.js" type="text/javascript"></script>
+
+
+## ## ## code transplant from C2 38a IR MTL - categoryCustomOrdersForm.vm
+
+## ## NOTE: This template is parsed from this site onto other Ingersoll Rand sites.
+
+## ## #set($selectableBrands = [
+## ## 	"Ingersoll Rand Corporate",
+## ## 	"Ingersoll Rand Industrial",
+## ## 	"Trane (Residential)",
+## ## 	"Trane (Commercial)",
+## ## 	"Club Car",
+## ## 	"Thermo King",
+## ## 	"Trane Supply",
+## ## 	"Ameristar",
+## ## 	"Nexia",
+## ## 	"Health Progress",
+## ## 	"American Standard",
+## ## 	"ARO",
+## ## 	"Zeks",
+## ## 	"Start to Finish",
+## ## 	"Service First OEM",
+## ## 	"OXBOX"
+## ## ])
+
+## #set($selectableBrands = [
+## 	"Trane (Residential)",
+## 	"Trane (Commercial)",
+## 	"Thermo King",
+## 	"Trane Supply",
+## 	"Ameristar",
+## 	"Health Progress",
+## 	"American Standard",
+## 	"Start to Finish",
+## 	"OXBOX"
+## ])
+
+
+## #macro(renderBrandDropdownOptions)
+## 	## First, find initial selected option.
+## 	## We'll look at the name of the site, and compare to the branding options.
+## 	## If the branding option name is contained within the name of the site, choose that.
+## 	## Otherwise, attempt to find a closest match using a Levenshtein distance.
+## 	#foreach($brand in $selectableBrands)
+		
+## 		#if($brand.toLowerCase().indexOf($configCompanyName.toLowerCase()) > -1 || $configCompanyName.toLowerCase().indexOf($brand.toLowerCase()) > -1)
+## ## 		#if($brand.toLowerCase().indexOf($htmlCompanyName.toLowerCase()) > -1 || $htmlCompanyName.toLowerCase().indexOf($brand.toLowerCase()) > -1)
+## 			#set($selectedBrand = $brand)
+## 		#end
+## 	#end
+## 	#if(!$selectedBrand)
+## 		#set($selectedBrand = $selectableBrands.get(0))
+## 		#set($closestBrandDistance = 10000)
+## 		#foreach($brand in $selectableBrands)
+## 			#set($testDistance = "#getLevenshteinDistance($brand.toLowerCase(), $configCompanyName.toLowerCase())")
+## 			<!-- $number.toNumber($testDistance) < $closestBrandDistance -->
+## 			#if($number.toNumber($testDistance) < $closestBrandDistance)
+## 				#set($closestBrandDistance = $number.toNumber($testDistance))
+## 				#set($selectedBrand = $brand)
+## 			#end
+## 		#end
+## 	#end
+
+## 	## Render dropdown options.
+## 	#foreach($brand in $selectableBrands)
+## 		#if($brand == $selectedBrand)
+## 			<option value="$brand" selected>
+## 				$brand
+## 			</option>
+## 		#else
+## 			<option value="$brand">
+## 				$brand
+## 			</option>
+## 		#end
+## 	#end
+## #end
+
+
+## ## Get the Levenshtein distance between two strings.
+## ## @param   _gld_string_s               String 1.
+## ## @param   _gld_string_t               String 2.
+## #macro(getLevenshteinDistance $_gld_string_s, $_gld_string_t)#*
+## 	*##set($_gld_n = $_gld_string_s.length())#*
+## 	*##set($_gld_m = $_gld_string_t.length())#*
+## 	*##set($_gld_string_s = $_gld_string_s.toLowerCase())#*
+## 	*##set($_gld_string_t = $_gld_string_t.toLowerCase())#*
+## 	*##set($_gld_matrix = [])#*
+## 	*##if($_gld_n == 0)#*
+## 		*#$_gld_m#*
+## 	*##elseif($_gld_m == 0)#*
+## 		*#$_gld_n#*
+## 	*##else#*
+## 		*##foreach($_gld_i in [0..$_gld_n])#*
+## 			*##set($_gld_cost = 0)#*
+## 			*##set($_gld_temp = $_gld_matrix.add([]))#*
+## 			*##foreach($_gld_j in [0..$_gld_m])#*
+## 				*##set($_gld_cost = 0)#*
+## 				*##if($_gld_i > 0 && $_gld_j > 0)#*
+## 					*##if($_gld_string_s.charAt($math.sub($_gld_i, 1)) != $_gld_string_t.charAt($math.sub($_gld_j, 1)))#*
+## 						*##set($_gld_cost = 1)#*
+## 					*##end#*
+## 				*##end#*
+## 				*##set($_gld_vals = [])#*
+## 				*##if($_gld_i > 0)#*
+## 					*##set($_gld_temp = $_gld_vals.add($math.add($_gld_matrix.get($math.sub($_gld_i, 1)).get($_gld_j), 1)))#*
+## 				*##end#*
+## 				*##if($_gld_j > 0)#*
+## 					*##set($_gld_temp = $_gld_vals.add($math.add($_gld_matrix.get($_gld_i).get($math.sub($_gld_j, 1) ), 1)))#*
+## 				*##end#*
+## 				*##if($_gld_i > 0 && $_gld_j > 0)#*
+## 					*##set($_gld_temp = $_gld_vals.add($math.add($_gld_matrix.get($math.sub($_gld_i, 1)).get($math.sub($_gld_j, 1)), $_gld_cost)))#*
+## 				*##end#*
+## 				*##if($_gld_i == 0 && $_gld_j == 0)#*
+## 					*##set($_gld_temp = $_gld_vals.add(0))#*
+## 				*##end#*
+## 				*##set($_gld_min = $_gld_vals.get(0))#*
+## 				*##foreach($_gld_min_test in $_gld_vals)#*
+## 					*##if($_gld_min_test < $_gld_min)#*
+## 						*##set($_gld_min = $_gld_min_test)#*
+## 					*##end#*
+## 				*##end#*
+## 				*##set($_gld_temp = $_gld_matrix.get($_gld_i).add($_gld_min))#*
+## 			*##end#*
+## 		*##end#*
+## 		*#$_gld_matrix.get($_gld_n).get($_gld_m)#*
+## 	*##end#*
+## *##end
+
+## #if($welcomeMatDTO && $welcomeMatDTO.loggedIn)
+## 	#if(${appSettingsDTO.appName} != "preview")
+		
+## ## 		PHP commented out for now since it needs to updated with c3 information - 06.03.21 - kevin 
+		
+## 		## Production environment.
+## 		## NOTE: These are hard-coded URLs to a single PHP script, which is used by multiple sites.
+## ## 		#set($formURL = "store/20170619266/assets/customorders/customorder.php")
+## 	#else
+## 		## Preview environment.
+## ## 		#set($formURL = "store/20170619266/assets/customorders/customorder.php")
+## 	#end
+## 	<form method="post" id="suggestion_form" class="suggestion_form">
+## 	<input type="hidden" name="securitytoken" value="${tokenEntity.token}"/>
+
+## 		<h1>Custom Orders Inquiry</h1>
+		
+## 		#if(${appSettingsDTO.appName} != "preview")
+## 			## Production environment
+## 			<input type="hidden" name="e" value="No" />		
+## 		#else
+## 			## Preview environment
+## 			<input type="hidden" name="e" value="Yes" />
+## 		#end
+
+## 		<div class="suggestion_form_content">
+## 			<label for="firstname">First Name</label>
+## 			<input class="suggestion_form__textbox nonempty" id="firstname" name="firstname" value="$request.session.getAttribute("SessionCustomerInfo_$vendorSettingsDTO.vendorId").customer.firstname" type="text">
+## ## 			<label for="middlename">Middle Name</label>
+## ## 			<input class="suggestion_form__textbox nonempty" id="middlename" name="middlename" value="$request.session.getAttribute("SessionCustomerInfo_$vendorSettingsDTO.vendorId").customer.middlename" type="text">
+## 			<label for="lastname">Last Name</label>
+## 			<input class="suggestion_form__textbox nonempty" id="lastname" name="lastname" value="$request.session.getAttribute("SessionCustomerInfo_$vendorSettingsDTO.vendorId").customer.lastname" type="text">
+## 			<label for="lastname">Email</label>
+## 			<input class="suggestion_form__textbox nonempty" id="useremail" name="useremail" value="$request.session.getAttribute("SessionCustomerInfo_$vendorSettingsDTO.vendorId").customer.email" type="text">
+## 			<label for="phone">Phone Number</label>
+## 			<input class="suggestion_form__textbox nonempty" id="phone" name="phone" value="" type="text">
+## 			<label for="brand">Brand</label>
+## 			## <input class="suggestion_form__textbox nonempty" id="brand" name="brand" value="" type="text">
+			
+
+##             ## commented out to test since it was breaking the page - 06.03.21-kevin 
+## 			<select class="suggestion_form__dropdown" id="brand" name="brand">
+## 				#renderBrandDropdownOptions()
+## 			</select>
+			
+			
+## 			<label for="reason">Reason for Event</label>
+## 			## <input class="suggestion_form__textbox nonempty" id="reason" name="reason" value="" type="text">
+## 			<textarea class="suggestion_form__textarea nonempty" id="reason" name="reason"></textarea>
+## 			<label for="items">Specific Items Inquiry</label>
+## 			## <input class="suggestion_form__textbox nonempty" id="items" name="items" value="" type="text">
+## 			<textarea class="suggestion_form__textarea nonempty" id="items" name="items"></textarea>
+## 			<input name="vendorid" value="$vendorSettingsDTO.vendorId" type="hidden">
+## 			<input name="sitename" value="$request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("simplepreferencesBO").readPreferences($vendorSettingsDTO.vendorId).sitename" type="hidden">
+## 			<input name="ci" value="$request.session.getAttribute("SessionCustomerDTO_$vendorSettingsDTO.vendorId").clientId" type="hidden" />
+## 			<input name="email" value="$request.session.getAttribute("SessionCustomerInfo_$vendorSettingsDTO.vendorId").customer.email" type="hidden">
+## 			<button class="btn-primary suggestion_form__button--submit">Submit</button>
+## 			## <button class="btn-primary suggestion_form__button--cancel">Cancel</button>
+## 			<p class="antispam">
+## 				<input type="text" class="suggestion_form__textbox" id="url" name="url" />
+## 			</p>
+## 		</div>
+
+## 		<script type="text/javascript">
+
+## 			jQuery(document).ready( function() {
+
+## 				// Add IE8 support for the String.trim() function.
+## 				if(typeof String.prototype.trim !== 'function') {
+## 				  String.prototype.trim = function() {
+## 				    return this.replace(/^\s+|\s+$/g, ''); 
+## 				  }
+## 				}
+
+## 				var contentArea = jQuery(".question-dialog-content");
+## 				var loadingArea = jQuery(".suggestion_form_loading");
+## 				var messageArea = jQuery(".suggestion_form_message");
+## 				var messageBox = jQuery(".suggestion_form_message_box");
+
+## 				// Create the loading image.
+## 				var loadingImg = jQuery("<div class='loader'>Loading...</div>");
+## 				loadingArea.append(loadingImg);
+
+## 				// Setup validator.
+## 				var validator = new ggValidator("validator1");
+## 				validator.addRuleset("#firstname", "minlen=1", "Please enter a name.");
+## 				// validator.addRuleset("#eEmail", "email", "Please enter a valid email.");
+## 				// validator.addRuleset("#eBranchLoc", "minlen=1", "Please enter a branch location.");
+## 				// validator.addRuleset("#eSuggestion", "minlen=1", "Please enter a suggestion.");
+
+
+## 				// Closes the "Suggestion Idea" form.
+## 				var reloadForm = function() {
+## 					// jQuery('#suggestion_form').trigger('reveal:close');
+## 					location.reload();
+## 				}
+
+
+## 				// Function to reset form.
+## 				var resetForm = function () {
+## 					validator.clearTooltips();
+## 					jQuery("#suggestion_form")[0].reset();
+## 				}
+
+
+## 				// Function to hide all suggestion form states.
+## 				var hideAllSections = function () {
+## 					contentArea.hide();
+## 					loadingArea.hide();
+## 					messageArea.hide();
+## 				}
+
+
+## 				// Shows the message area with a given message.
+## 				var showMessage = function(msg) {
+## 					hideAllSections();
+## 					messageBox.html(msg);
+## 					messageArea.fadeIn();
+## 				}
+
+
+## 				// Shows an error message.
+## 				var showError = function(msg) {	
+## 					messageBox.html("");
+## 					showMessage(msg);
+## 					messageBox.append("<br/><button class=\"suggestion_form__button suggestion_form__button--cancel\">Okay</button>");
+## 				}
+
+
+## 				// Click event - Open suggestion form
+## 				jQuery("#show_contact_form").on("click", function(event) {
+## 					event.preventDefault();
+## 					hideAllSections();
+## 					contentArea.show();
+## 		            jQuery('#suggestion_form').reveal({ // The item which will be opened with reveal
+## 					    animation: 'fadeAndPop', // fade, fadeAndPop, none
+## 					    animationspeed: 400, // how fast animtions are
+## 					    closeonbackgroundclick: false, // if you click background will modal close?
+## 					    closeOnEsc: false, // if you click background will modal close?
+## 					    dismissmodalclass: 'close' // the class of a button or element that will close an open modal
+## 					});
+## 					jQuery("#phone").focus();
+## 					return false;
+## 				});
+
+
+## 				// Click event - Submit
+## 				jQuery(".suggestion_form__button--submit").on("click", function(event) {
+## 					event.preventDefault();
+## 					if (validator.validate() === true) {
+## 						jQuery('#reveal-question-dialog').reveal({ // The item which will be opened with reveal
+## 						    animation: 'fadeAndPop', // fade, fadeAndPop, none
+## 						    animationspeed: 400, // how fast animtions are
+## 						    closeonbackgroundclick: false, // if you click background will modal close?
+## 						    closeOnEsc: false, // if you click background will modal close?
+## 						    dismissmodalclass: 'close' // the class of a button or element that will close an open modal
+## 						});
+## 					}
+## 				});
+
+## 				jQuery(".suggestion_form__button--confirm").on("click", function(event) {
+## 					event.preventDefault();
+## 					var postAjax = jQuery.post("$formURL", jQuery("#suggestion_form").serialize());
+## 					hideAllSections();
+## 					loadingArea.show();
+## 					postAjax.done(function(data) {
+## 						console.log("response: " + data.toString().trim());
+## 						if (data.toString().trim() === "OKAY") {
+## 							showMessage("Thank you for your custom order inquiry!");
+## 							resetForm();
+## 							setTimeout(reloadForm, 3000);
+## 						} else {
+## 							showError("An error occurred while submitting custom orders inquiry: " + data.toString().trim() + ".");
+## 						}
+## 					});
+## 					postAjax.fail(function() {
+## 						showError("Error while sending submitting custom orders inquiry.");
+## 					});
+## 					postAjax.always(function() {
+
+## 					});
+## 				});
+
+
+## 				// Button to cancel form
+## 				jQuery(".suggestion_form__button--cancel").on("click", function(event) {
+## 					event.preventDefault();
+## 					jQuery('#reveal-question-dialog').trigger('reveal:close');
+## 				});
+
+## 			});
+## 		</script>
+
+## 	</form>
+## 	<div class="reveal-question-dialog" id="reveal-question-dialog">
+## 		<div class="question-dialog-content">
+## 			<p>Confirm submission of the custom order inquiry?</p>
+## 			<div class="question-dialog-buttons">
+## 				<button class="btn-primary suggestion_form__button--confirm">Confirm</button>
+## 				<button class="btn-primary suggestion_form__button--cancel">Cancel</button>
+## 			</div>
+## 		</div>
+## 		<div class="suggestion_form_loading" style="display: none; position: absolute;"></div>
+## 		<div class="suggestion_form_message" style="display: none; position: absolute;">
+## 			<span class="suggestion_form_message_box"></span>
+## 		</div>
+## 	</div>
+## 	<div class="reveal-modal-bg"></div>
+	
+## #else
+
+##     <p style="float: left; font-style: italic; margin-left: 20px; margin-top: 40px;">
+##         <em>Please login to place a custom order inquiry.</em>
+##     </p>
+
+## #end
+
+
+
+## -----> L3 Harris form 
+
+
+## #set($htmlRepPronoun = $configRepPronoun)
+
+## 	#set($customOrderContacts = [])
+## 	#if(!$htmlRepPronoun2)
+## 		#if($htmlRepPronoun.toLowerCase() == "she")
+## 			#set($htmlRepPronoun2 = "Her")
+## 		#elseif($htmlRepPronoun.toLowerCase() == "he")
+## 			#set($htmlRepPronoun2 = "Him")
+## 		#else
+## 			#set($htmlRepPronoun2 = "Their")
+## 		#end
+## 	#end
+## 	#if($configRepPhone && $configRepPhone != "")
+## 		#if ($configRepPhoneExt && $configRepPhoneExt != "")
+##             #set($temp = $customOrderContacts.add("by phone at <a href='tel:$!configRepPhone'>$!configRepPhone</a> - Ext. $!configRepPhoneExt"))
+##         #else
+##             #set($temp = $customOrderContacts.add("by phone at <a href='tel:$!configRepPhone'>$!configRepPhone</a>"))
+##         #end
+## 	#end
+## 	#if($configRepEmail && $configRepEmail != "")
+## 		#set($temp = $customOrderContacts.add("by email at <a href=""mailto:${configRepEmail}"">${configRepEmail}</a>"))
+## 	#end
+## 	#if($htmlRepWebsite && $htmlRepWebsite != "")
+## 		#set($temp = $customOrderContacts.add("by visiting $htmlRepPronoun2.toLowerCase() website at <a href=""$htmlRepWebsite"">$htmlRepWebsite</a>"))
+## 	#end
+## 	#set($i = 1)
+## 	#foreach ($contactData in $customOrderContacts)
+## 		#if($customOrderContacts.size() > 1 && $i < $customOrderContacts.size())
+## 			#if ($customOrderContacts.size() == 2)
+## 				$contactData or
+## 			#else
+## 				#if($math.sub($customOrderContacts.size(), 1) == $i)
+## 					$contactData, or
+## 				#else
+## 					$contactData, 
+## 				#end
+## 			#end
+## 		#else
+## 			$contactData.
+## 		#end
+## 		#set($i = $math.add($i, 1))
+## 	#end
+## </p>
+
+	</br>
+
+    <div class="custom-order-form">
+        ## <form>
+            <input name="first-name" placeholder="First Name"></input>
+            <input name="last-name"placeholder="Last Name"></input>
+            
+            ## <select name="location" placeholder="Please select your location">
+            <select name="brand" placeholder="Brand">
+                ## <option value="">Please select your location</option>
+                <option value="">Brand</option>
+                <option value="Trane (Residential)">Trane (Residential)</option>
+                <option value="Trane (Commercial)">Trane (Commercial)</option>
+                <option value="Thermo King">Thermo King</option>
+                <option value="Trane Supply">Trane Supply</option>
+                <option value="Ameristar">Ameristar</option>
+                <option value="Health Progress">Health Progress</option>
+                <option value="American Standard">American Standard</option>
+                <option value="Start to Finish">Start to Finish</option>
+                <option value="OXBOX">OXBOX</option>
+            </select>
+
+            <input name="email"placeholder="Email"></input>
+            
+            ## <input name="confirm-email"placeholder="Confirm Email"></input>
+            
+            ## <input name="phone" placeholder="Phone"></input>
+            
+            ## <select name="prefer-contact" placeholder="How would you like to be contacted?">
+            ##     <option value="">How would you like to be contacted?</option>
+            ##     <option value="email">Email</option>
+            ##     <option value="phone">Phone</option>
+            ## </select>
+
+
+            ## <textarea name="comment" rows="4" cols="30" placeholder="Custom Order Request"></textarea>
+            
+            <textarea name="reason" rows="4" cols="30" placeholder="Reason for the Event"></textarea>
+            <textarea name="inquiry" rows="4" cols="30" placeholder="Specific Items Inquiry"></textarea>
+            <button class="submit-form-button btn--primary" id="submit-custom-order-form">Submit</button>
+        ## </form>
+    </div>
+<script>
+    
+    var siteOrigin="";
+    
+    ## set up new vids for the email subject lines here - 06.24.21 - kevin 
+    if ($vendorSettingsDTO.vendorId==20210517052){
+        siteOrigin="*38B Thermo King";
+    }
+
+    $('.submit-form-button').click(function() {
+         console.log('submit clicked')
+         /* instantiate object which we'll send to php script */
+         var form = {}
+         
+         /* map a 'key' to a value. Here, we map 'comment' to the value of a <input name="comment" /> field */
+         form['subjectLine']=siteOrigin+" Custom Order Submission";
+         form['firstName'] = $('input[name="first-name"]').val()
+         form['lastName'] = $('input[name="last-name"]').val()
+         // form['location'] = $('select[name="location"]').val()
+         form['brand'] = $('select[name="brand"]').val()
+         form['email'] = $('input[name="email"]').val()
+         // form['phone'] = $('input[name="phone"]').val()
+         // form['preferContact'] = $('select[name="prefer-contact"]').val()
+         // form['comment'] = $('textarea[name="comment"]').val()
+         form['reason'] = $('textarea[name="reason"]').val()
+         form['inquiry'] = $('textarea[name="inquiry"]').val()
+         
+         /* use jQuery's ajax method to send POST request to php script */
+         
+        ##  #parse("/20210601158/5952/categoryCustomOrdersForm.vm")		
+        ## url: "store/$vendorSettingsDTO.vendorId/assets/custom_orders_form.php",
+         
+         $.ajax({
+             type: 'POST',
+             url: "store/20210601158/assets/custom_orders_form.php",
+             data: {form : JSON.stringify(form)},
+            // contentType: "application/json",
+            dataType: 'json',
+                    
+            complete: function(response) {
+                console.log(JSON.stringify(response))
+                if(response.responseText == "success\n") {
+                    alert('Your Comment has been submitted!')
+                    /* redirect them home if ya want */
+                    window.location.href = "$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId")"
+                    } else {
+                        /* let customer know something wacky happened */
+                        alert('An unknown error occured. Please try again soon or contact customer service.')
+                    }
+                }
+             })
+         })
+</script>
