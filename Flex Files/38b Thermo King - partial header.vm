@@ -1,0 +1,96 @@
+
+## Components, dependencies, partials.
+#useDependency('ss.categories')
+#usePartials('header-top-nav')
+#usePartials('header-main-nav-left')
+#usePartials('header-main-nav-right')
+#usePartials('header-desktop-drawer')
+#usePartials('header-mobile-drawer')
+
+
+## Dynamically generated based on entries in $configMainMenuNav.
+## This is used in header-main-nav-left and header-desktop-drawer.
+#set($mainMenuNavDrawers = [])
+
+
+#*
+## Main Header
+*#
+
+<header class="header-nav-container">
+
+	## Top navigation menu.
+	#renderPartials('header-top-nav')
+	
+## commented out main-nav and moved to partial_header-top.vm - 05.21.21 - kevin 
+## 	<div class='main-nav'>
+		
+## 		## Left main navigation - logo and category links
+		#renderPartials('header-main-nav-left')
+	
+## 		## Right main navigation - search and mini-cart
+		#renderPartials('header-main-nav-right')
+
+## 	</div>
+
+</header>
+
+
+#*
+## Desktop Drawer navigation menu.
+*#
+
+#renderPartials('header-desktop-drawer')
+
+
+#*
+## Mobile Drawer navigation menu.
+*#
+
+#renderPartials('header-mobile-drawer')
+
+
+#*
+## Hide site for disabled JavaScript
+*#
+
+<noscript>
+	<style>
+		html, body {
+			margin: 0 !important;
+			padding: 0 !important;
+			overflow: hidden !important;
+		}
+		.noscript-container {
+			position: fixed !important;
+			top: 0 !important;
+			left: 0 !important;
+			width: 100% !important;
+			height: 100% !important;
+			padding: 0 !important;
+			margin: 0 !important;
+			border: 0 !important;
+			z-index: 9999 !important;
+			background: #fff !important;
+			text-align: center !important;
+		}
+		.noscript-text {
+			position: relative !important;
+			margin: 0 !important;
+			padding: 0 !important;
+			border: 0 !important;
+			top: 50% !important;
+			font-style: Arial, sans-serif !important;
+			font-weight: normal !important;
+			font-style: normal !important;
+			font-size: 24px !important;
+			line-height: 24px !important;
+			color: #333 !important;
+		}
+	</style>
+	<div class="noscript-container">
+		<span class="noscript-text">
+			This site requires a JavaScript-enabled browser.
+		</span>
+	</div>
+</noscript>

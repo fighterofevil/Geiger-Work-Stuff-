@@ -1,0 +1,151 @@
+
+#usePartials('header-main-nav-left')
+#usePartials('header-main-nav-right')
+
+
+#useComponent('price')
+#useComponent('nav_menu')
+
+<div class="nav-1">
+	<div class='welcome'>
+
+		#if($welcomeMatDTO && $welcomeMatDTO.loggedIn)
+			<span>
+				#showMessage('nav.welcome', {
+					'firstname': $welcomeMatDTO.firstName
+				}) 
+				##if($displayAllowances && $displayAllowances==true)Balance: $customerAllowances #end
+				#if($configHeaderShowAllowance && $customerAllowances)
+					#if(!$configAllowanceRenderPattern)
+						#setComponentSetting('price', 'renderPattern', " (<% price %>)")
+					#else
+						#setComponentSetting('price', 'renderPattern', "$configAllowanceRenderPattern")
+					#end
+					#setComponentSetting('price', 'value', $customerAllowances)
+					#renderComponent('price')
+				#end
+			</span>
+		#end
+	</div>
+
+	#setComponentSetting('nav_menu', 'links', $configTopMenuNav)
+	#setComponentSetting('nav_menu', 'class', "")
+	#renderComponent('nav_menu')
+</div>
+
+<div class='site-header'>
+	<div class='desktop-logo' >
+		#useComponent('category_link')
+		#useComponent('sub_category_list')
+	    #setComponentSetting('category_link', 'source', 'Home')
+
+	    #set($logo = "store/$vendorSettingsDTO.vendorId/assets/themes/blaze_en/images/logo.png")
+	    #if("$configHeaderLogo" != '$configHeaderLogo' && $configHeaderLogo != '')
+	        #if($configHeaderLogo.startsWith('store/'))
+	            #set($logo = $configHeaderLogo)
+	        #else
+	            #set($logo = "store/$vendorSettingsDTO.vendorId/assets/themes/blaze_en/images/$configHeaderLogo")
+	        #end
+	    #end
+
+	    #setComponentSetting('category_link', 'renderPattern', "
+	        <a href=""<% category_url %>"">
+	            <img class='logo logo--desktop' src='$logo' alt=""$configCompanyName"" />
+	        </a>
+	    ")
+	    
+	    #renderComponent('category_link')
+
+	</div>
+
+
+## ## moved from  header = 05.21.21- kevin 
+<div class='main-nav'>
+	
+	## Left main navigation - logo and category links
+## 	#renderPartials('header-main-nav-left')
+
+	## Right main navigation - search and mini-cart
+## 	#renderPartials('header-main-nav-right')
+
+</div>
+
+
+	<div class='site-header__left'>
+		#if($storeCurrencies && $storeCurrencies.size() > 1)
+			#set($currentCurrency = $session.getAttribute("storeCurrency_${vendorSettingsDTO.vendorId}"))
+			<div class="mdl-textfield mdl-js-textfield currency-dropdown">
+				<select class="mdl-textfield__input" id="currency_dropdown" onchange="ss.price.changeCurrency(this.value);">
+					#foreach($currency in $storeCurrencies)
+						<option value="$!{currency.id}"
+							#if($currency.id == $currentCurrency)
+								selected
+							#end
+						>
+							$!{currency.description}
+						</option>
+					#end
+				</select>
+				<label class="mdl-textfield__label" for="currency_dropdown">Currency</label>
+			</div>
+		#end
+	</div>
+
+	<div class='nav-right main-nav__right desktop'>
+		<nav class='side-nav'>
+			#set($mainMenuNavLine = 1)
+			#foreach($mainMenuNavGroup in $configSideMenuNav)
+			    <ul>
+			        #foreach($mainMenuNavEntry in $mainMenuNavGroup)
+
+			            #set($mainMenuNavEntryType = 'link')
+			            #if($mainMenuNavEntry.containsKey('type'))
+			                #set($mainMenuNavEntryType = "$mainMenuNavEntry.get('type')")
+			            #end
+			            
+			            #if($mainMenuNavEntryType == 'link')
+			                #setComponentSetting('category_link', 'source', $mainMenuNavEntry.get('source'))
+			                <li>
+			                    <div>
+			                        #renderComponent('category_link')
+			                    </div>
+			                </li>
+			            #end
+			        #end
+			    </ul>
+			    #set($mainMenuNavLine = $mainMenuNavLine + 1)
+			#end
+		</nav>
+		<div class="search-desktop">
+			<div class='search-textfield-container'>
+				<form method="GET" action="asearch.html">
+					<input type="hidden" name="vid" value="$vendorSettingsDTO.vendorId" />
+					<div class='mdl-textfield mdl-js-textfield mdl-textfield--expandable'>
+						<label class='mdl-button mdl-js-button mdl-button--icon mdl-button--search' for='searchField'>
+							<i class='material-icons'>search</i>
+						</label>
+						<div class="mdl-textfield__expandable-holder">
+							<label class="mdl-textfield__label" for="searchField"></label>
+							<input class='mdl-textfield__input' type='search' id='searchField' value='' name='keyword' />
+						</div>
+						<label class='mdl-button mdl-js-button mdl-button--icon mdl-button--search' for='searchField'>
+							<i class='material-icons'>search</i>
+						</label>
+					</div>
+				</form>
+			</div>
+			
+	##this is located in the header-main-nav-right		
+			## <div class='cart'>
+			## 	<button id="cart" class='cart-container mdl-button mdl-js-button mdl-button--icon'>
+			## 		<i class='material-icons mdl-badge mdl-badge--overlap'>shopping_cart</i>
+			## 	</button>
+			## 	<div id="minicart-dropdown" class="shopping-cart mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="cart">
+					
+			## 		## NOTE: This is populated from lib_ajax_basket.vm and ss.minicart.js.
+
+			## 	</div>
+			## </div>
+		</div>
+	</div>
+</div>
