@@ -1,0 +1,277 @@
+
+<script>
+    console.log("correct place !!!!!!!!!!!!!!!!!!!!!!!!");
+</script>
+
+
+## parses in configs from IR MTL in order to control modal messaging for all IR sites - 07.28.21 - kevin 
+
+#parse("/20210601158/5952/ir-mtl-configs.vm")
+
+## Macros and configs.
+#parse("lib_macros.vm")
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/macros.vm")
+#parse("lib_configs.vm")
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/configs.vm")
+
+
+## Load in partials, components, and dependencies.
+#useDependency('skeleton-store-base')
+#useDependency('v1')
+#useDependency('ss.checkout-address')
+#usePartials('header')
+#usePartials('breadcrumbs')
+#usePartials('checkout-errors')
+#usePartials('checkout-progress')
+#usePartials('checkout-addresses-shipping')
+#usePartials('checkout-addresses-controls')
+#usePartials('checkout-addresses-billing')
+#usePartials('checkout-addresses-order-type')
+#usePartials('checkout-addresses-continue')
+#usePartials('footer')
+
+
+<!DOCTYPE html>
+<html>
+    
+    <head>
+
+        #parse("lib_head_markup.vm")
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/head_markup.vm")
+
+        #renderDependencies('headMarkup')
+
+    </head>
+    
+    <body class="v1 mdl-layout checkout checkout-addresses">
+        
+        #renderPartials('header')
+        
+        <main class="mdl-layout__content">
+        	<div class='page-header'></div>
+        	#renderPartials('breadcrumbs')
+
+        	<div class="page-body">
+
+		        <h1>
+		        	#showMessage('checkout.addresses.title')
+		        </h1>
+
+		        #renderPartials('checkout-errors')
+	            #renderPartials('checkout-progress')
+
+		        <div class="checkout-container">
+		        	<div class="checkout-main">
+
+		        		<div class="checkout-main-top mdl-shadow--2dp">
+		        			<h2>
+		        				#showMessage('checkout.addresses.subtitle')
+		        			</h2>
+		        			#renderPartials('checkout-addresses-shipping')
+		        			#renderPartials('checkout-addresses-controls')
+		        		</div>
+
+		        		<div class="checkout-main-bottom mdl-shadow--2dp">
+							<h2>
+								#showMessage('checkout.addresses.billing.subtitle')
+							</h2>
+		        			#renderPartials('checkout-addresses-billing')
+		        		</div>
+
+		        	</div>
+		        	<div class="checkout-side">
+
+		        		#if($configAllowBusinessOrders == true && $configAllowPersonalOrders == true)
+							<div class="checkout-side-top checkout-side-top--addresses mdl-shadow--2dp">
+								<h2>
+									#showMessage('checkout.ordertype.subtitle')
+								</h2>
+								#renderPartials('checkout-addresses-order-type')
+								</div>
+						#else
+							#if($configAllowBusinessOrders == true)
+								<input type="hidden" name="order-type" value="B" checked />
+							#else
+								<input type="hidden" name="order-type" value="P" checked />
+							#end
+						#end
+
+		        		<div class="checkout-side-bottom">
+		        			#renderPartials('checkout-addresses-continue')
+		        		</div>
+		        		
+		        	</div>
+	        	</div>
+        	
+        	</div>
+	    </main>
+	    
+	    
+	    
+	    <script>
+
+	        $( document ).ready(function() {
+	            console.log("TESTING TESTING TESTING");
+	             ##  $('#shipping-modal').css("display:initial");
+	             $('#shipping-modal').removeAttr('open');
+	             
+	             $('#shipping-modal').css("z-index","9999");
+	             
+	        });       
+
+  
+            init_lithium();  
+  
+            $('.checkout-main-top input').click(function(e) {
+                
+                ## console.log("XXXXXXXXX FIRED WHEN CHOOSING AN ADDRESS OPTION XXXXXXXXXXX");
+                
+                init_lithium();
+            });  	   
+            
+            
+            function init_lithium() { 
+            
+                var shipMsgBody="";
+            
+                #foreach($productgroup in $checkoutViewDTO.details.shippinggroup)
+                    #foreach($productitem in $productgroup.shipItems)
+                        #set($product = $productitem.product)
+                        #foreach($property in $product.properties)
+                            #set($propertyName = $property.getPropName());
+                            #if($propertyName == 'LITHIUM_ION')
+                                ## <script>
+                                    console.log("FOUND AN ITEM WITH A BATTERY XXXXXXXXXXXXXXXXXXXXXXXXXX");
+                                    
+                                    ## $('.mdl-dialog__content').html("semaj");
+                                    
+                                    #set($shipMsgBody=$shipMsgBody+$lithIonPopUpMsg)
+                                    
+                                    shipMsgBody+="<p>$!lithIonPopUpMsg</p>";
+                                    
+                                    ## console.log("$!lithIonPopUpMsg");
+                                    
+                                    ## console.log( $('.mdl-dialog__content').html("$!shipMsgBody") );
+                                    
+                                    $('.mdl-dialog__content').html(shipMsgBody);
+                                    
+                                    $( document ).ready(function() {
+                                        var labelCheck= $('li label.is-checked:eq( 0 )').attr('for');
+                                        
+                                        if (labelCheck==undefined){
+                                            ## console.log("YUP it is undefined");
+                                            labelCheck="address-1";
+                                            ## console.log(labelCheck+" is the address selected");
+                                        }
+                                        else{
+                                            ## console.log(labelCheck+" is the address selected");
+                                        }  
+                                        
+                                        ## successful selection of item
+                                        ## console.log($(".checkout-address-list__description[for='"+labelCheck+"'] .city-state-zip").text());
+                                        
+                                        var addressText=$(".checkout-address-list__description[for='"+labelCheck+"'] .city-state-zip").text();
+                                        
+                                        ## console.log(addressText);
+                                        
+                                        var countryString= (addressText.substr(addressText.indexOf(",")+2)).substr(0, 2);
+                                        var stateString= (addressText.substr(addressText.indexOf(",")-2)).substr(0, 2); 
+                                        
+                                        ## console.log(countryString+" , "+stateString);
+                                        
+                                        if ( ((countryString!="US") && (countryString!=" E")) || ( (stateString=="PR") || (stateString=="GU") ) ) {
+                                            console.log('International address');
+                                            
+                                            shipMsgBody+="<p>$!internationalPopUpMsg $!lithIonPopUpMsgInternational</p>";
+                                            
+                                            $('.mdl-dialog__content').html(shipMsgBody);
+                                            
+                                            ## insert logic to check if new message is populated before opening it. 
+                                            
+                                            $('#shipping-modal').attr('open','');
+                                        }    
+                                        else{   
+                                            console.log('US address');
+                                            $('#shipping-modal').removeAttr('open');
+                                        }    
+                                    });                                    
+                                    
+                                ## </script>
+                            #else
+                                ## <script>
+                                    console.log("NO BATTERY XXXXXXXXXXXXXXXXXXXXXXXXXX");
+                                ## </script>                    
+                            #end
+                        #end
+                    #end
+                #end            
+            
+                ## original location for address checks
+                ## $( document ).ready(function() {
+                ##     var labelCheck= $('li label.is-checked:eq( 0 )').attr('for');
+                    
+                ##     if (labelCheck==undefined){
+                ##         ## console.log("YUP it is undefined");
+                ##         labelCheck="address-1";
+                ##         ## console.log(labelCheck+" is the address selected");
+                ##     }
+                ##     else{
+                ##         ## console.log(labelCheck+" is the address selected");
+                ##     }  
+                    
+                ##     ## successful selection of item
+                ##     ## console.log($(".checkout-address-list__description[for='"+labelCheck+"'] .city-state-zip").text());
+                    
+                ##     var addressText=$(".checkout-address-list__description[for='"+labelCheck+"'] .city-state-zip").text();
+                    
+                ##     ## console.log(addressText);
+                    
+                ##     var countryString= (addressText.substr(addressText.indexOf(",")+2)).substr(0, 2);
+                ##     var stateString= (addressText.substr(addressText.indexOf(",")-2)).substr(0, 2); 
+                    
+                ##     ## console.log(countryString+" , "+stateString);
+                    
+                ##     if ( ((countryString!="US") && (countryString!=" E")) || ( (stateString=="PR") || (stateString=="GU") ) ) {
+                ##         console.log('International address');
+                ##     }    
+                ##     else{   
+                ##         console.log('US address');
+                ##     }    
+                ## });
+            }
+            
+            
+	    </script>
+	    
+	    
+	    ## original location of test code to test check for lith ion battery 
+        ## #foreach($productgroup in $checkoutViewDTO.details.shippinggroup)
+        ##     #foreach($productitem in $productgroup.shipItems)
+        ##         #set($product = $productitem.product)
+        ##         #foreach($property in $product.properties)
+        ##             #set($propertyName = $property.getPropName());
+        ##             #if($propertyName == 'LITHIUM_ION')
+        ##                 <script>
+        ##                     console.log("FOUND AN ITEM WITH A BATTERY XXXXXXXXXXXXXXXXXXXXXXXXXX");
+        ##                 </script>
+        ##             #else
+        ##                 <script>
+        ##                     console.log("NO BATTERY XXXXXXXXXXXXXXXXXXXXXXXXXX");
+        ##                 </script>                    
+        ##             #end
+        ##         #end
+        ##     #end
+        ## #end
+	    
+	    
+
+		#renderPartials('footer')
+
+        #renderDependencies('footMarkup')
+
+        #parse("lib_foot_markup.vm")
+    	#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/foot_markup.vm")   
+        
+    </body>
+    
+</html>
