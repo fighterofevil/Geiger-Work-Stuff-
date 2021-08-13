@@ -1,0 +1,244 @@
+#*
+## lib_macros_checkout.vm
+##
+## Checkout Macros Library
+##
+## Changelog:
+## [1.0.3] - 12/09/2020
+## ### Added:
+##  - #set($temp = $_gcbim_basketItem.put('priceFormatted', "#_showBareFormattedPrice($product.price)")) to productDetails
+##  - to display proper tier pricing in the basket
+## [1.0.2] - 09/22/20
+## ### Added:
+##  - daystodeliver to generatecompletebasketdata macro
+## [1.0.1] - 07/08/19
+## ### Added:
+##  - New macro: #emptyBasket() - empties the basket when called.
+## [1.0.0] - 03/28/18
+## ### Added:
+##  - Changelog added to header.
+*#
+
+
+## Empties the items in the basket for the current session.
+#macro(emptyBasket)#*
+	*#$session.getAttribute("ProductsDetiles_$vendorSettingsDTO.vendorId").emptyBasket()#*
+*##end
+
+
+## Generates a map of basic product information for a product in the basket. Stores in $result.
+## @param   _gbbim_productBeanImpl      ProductBeanImpl object from basket's $productsDetails.products.
+## @result 								Dictionary of basic product information.
+#macro(generateBasicBasketItemMap $_gbbim_productBeanImpl)#*
+	*##set($result = {})#*
+	*##set($temp = $result.put('itemId', $_gbbim_productBeanImpl.itemid))#*
+	*##set($temp = $result.put('vendorId', $_gbbim_productBeanImpl.vendor))#*
+	*##set($temp = $result.put('code', $_gbbim_productBeanImpl.code))#*
+	*##set($temp = $result.put('compCode', $_gbbim_productBeanImpl.compCode))#*
+	*##set($temp = $result.put('title', $_gbbim_productBeanImpl.title))#*
+	*##set($temp = $result.put('basketItemId', $_gbbim_productBeanImpl.basketItemId))#*
+	*##set($temp = $result.put('inventoryHistoryId', "$!{_gbbim_productBeanImpl.inventoryHistory.invhistid}"))#*
+*##end
+
+
+## Show formatted price. Used to provide correct formatting versus using a standard decimal or
+## USD format.
+## @param   _sfp_price                  Price.
+## @return                              Formatted price, excluding HTML markup.
+#macro(_showBareFormattedPrice $_sfp_price)#*
+	#setComponentSetting('price', 'renderPattern', '<% price %>')
+	*##setComponentSetting('price', 'value', $_sfp_price)#*
+	*##renderComponent('price')#*
+*##end
+
+
+## Generate full basket data from the $productsDetails object, present on basket.vm.
+## NOTE: This macro should be used only at the top of templates, just after config parsing.
+## @result 								Dictionary of basket data.
+#macro(generateCompleteBasketData)
+	
+	## NOTE: #useComponent() macro isn't typically used within macros but is placed here
+	##       because of expectations of where this macro is utilized.
+	#useComponent('price')
+
+	#set($_gcbim_basketData = {
+		'quantity': 0,
+		'parentedQuantity': 0,
+		'unparentedQuantity': 0,,
+		'subTotal': 0.0,
+		'subTotalFormatted': '${esc.D}0.00',
+		'subTotalDiscounted': 0.0,
+		'subTotalDiscountedFormatted': '${esc.D}0.00',
+		'showPricing': "#getComponentDefaultSetting('price', 'display')",
+		'items': [],
+		'allowanceWarning': '',
+		'errors': []
+	})#*
+
+	*##set($_gcbim_quantity = 0)#*
+	*##set($_gcbim_subTotal = 0.0)#*
+	*##set($_gcbim_subTotalDiscounted = 0.0)#*
+
+	##
+    ## Warning/Error messages
+	##
+
+    *##if($productsDetails.allowanceswarningmsg != '' && $productsDetails.enableOrderAllowance == 'ALLOWANCE')#*
+        *##set($temp = $_gcbim_basketData.put('allowanceWarning', $productsDetails.allowanceswarningmsg))#*
+    *##end#*
+
+	*##springBind("basketDTO.*")#*
+
+    ## After spring binding to basketDTO, check for errors.
+    *##if($status.errors.errorCount > 0)#*
+        *##foreach($error in $status.errorMessages)#*
+            *##set($temp = $_gcbim_basketData.get('errors').add($error))#*
+        *##end#*
+    *##end#*
+
+	## Construct the product data within a map. This map can either be returned as a JSON response
+	## or as an HTML response.
+	*##foreach($product in $productsDetails.products)#*
+
+		*##generateBasicBasketItemMap($product)#*
+		*##set($_gcbim_basketItem = $result)#*
+		*##set($temp = $_gcbim_basketItem.put('errors', []))#*
+		*##set($temp = $_gcbim_basketItem.put('description', "$!{product.description}"))#*
+
+		## Quantities and totals.
+		*##set($temp = $_gcbim_basketItem.put('price', $product.price))#*
+		*##set($temp = $_gcbim_basketItem.put('priceFormatted', "#_showBareFormattedPrice($product.price)"))#*
+		*##set($temp = $_gcbim_basketItem.put('totalPrice', $product.totalPrice))#*
+		*##set($temp = $_gcbim_basketItem.put('totalPriceFormatted', "#_showBareFormattedPrice($product.totalPrice)"))#*
+		*##set($temp = $_gcbim_basketItem.put('listPrice', $product.listprice))#*
+		*##set($temp = $_gcbim_basketItem.put('listPriceFormatted', "#_showBareFormattedPrice($product.listprice)"))#*
+		*##set($temp = $_gcbim_basketItem.put('quantity', $product.qty))#*
+
+		*##set($_gcbim_quantity = $_gcbim_quantity + $product.qty)#*
+		*##set($_gcbim_subTotal = $_gcbim_subTotal + $math.mul($product.listprice, $product.qty))#*
+		*##set($_gcbim_subTotalDiscounted = $_gcbim_subTotalDiscounted + $product.totalPrice)#*
+		
+		## Product attributes.
+		*##set($_gcbim_basketItemAttributes = [])#*
+		*##foreach($attribute in $product.attributesCollection)#*
+			*##set($_gcbim_basketItemAttribute = {})#*
+			*##set($temp = $_gcbim_basketItemAttribute.put('attributeId', "$!{attribute.attributeId}"))#*
+			*##set($temp = $_gcbim_basketItemAttribute.put('optionId', "$!{attribute.option.optionId}"))#*
+			*##set($temp = $_gcbim_basketItemAttribute.put('value', "$!{attribute.value}"))#*
+			*##if($product.attype)#*
+				*##set($temp = $_gcbim_basketItemAttribute.put('attype', $attribute.attype))#*
+				*##if($attribute.attype == 1 || $attribute.attype == 2)#*
+					*##set($temp = $_gcbim_basketItemAttribute.put('prompt', "$attribute.prompt"))#*
+					*##set($temp = $_gcbim_basketItemAttribute.put('option.ddText', "$attribute.option.ddText"))#*
+				*##end#*
+				*##if($attribute.attype == 3)#*
+					*##set($temp = $_gcbim_basketItemAttribute.put('dataName', "$attribute.dataName"))#*
+					*##set($temp = $_gcbim_basketItemAttribute.put('textValue', "$attribute.textValue"))#*
+					*##set($temp = $_gcbim_basketItemAttribute.put('value', "$attribute.textValue"))#*
+				*##end#*
+			*##end#*
+			*##set($temp = $_gcbim_basketItemAttribute.put('attype', $attribute.attype))#*
+			*##set($temp = $_gcbim_basketItemAttributes.add($_gcbim_basketItemAttribute))#*
+		*##end#*
+		*##set($temp = $_gcbim_basketItem.put('attributes', $_gcbim_basketItemAttributes))#*
+
+		## Custom imprints.
+		*##set($customizationNotes = [])#*
+		*##foreach($customizationNote in $product.customizationNote)#*
+			*##set($temp = $customizationNotes.add($customizationNote))#*
+		*##end#*
+		*##set($temp = $_gcbim_basketItem.put('customizationNotes', $customizationNotes))#*
+
+		## Parent products. Present on imprints and setup charges.
+		*##if(!$product.parentProduct)#*
+			*##set($temp = $_gcbim_basketItem.put('seoURL', "#getItemSEOURL($product, $product.basketItemId)"))#*
+			*##set($temp = $_gcbim_basketItem.put('hasParentProduct', false))#*
+			*##set($temp = $_gcbim_basketItem.put('parentProduct', {}))#*
+			*##set($temp = $_gcbim_basketData.put('unparentedQuantity', $math.add($_gcbim_basketData.get('unparentedQuantity'), $product.qty)))#*
+		*##else#*
+			*##set($temp = $_gcbim_basketItem.put('hasParentProduct', true))#*
+			*##generateBasicBasketItemMap($product.parentProduct)#*
+			*##set($temp = $_gcbim_basketItem.put('parentProduct', $result))#*
+			*##set($temp = $_gcbim_basketData.put('parentedQuantity', $math.add($_gcbim_basketData.get('parentedQuantity'), $product.qty)))#*
+		*##end#*
+
+		## Product thumbnail image.
+		*##if($product.cimage && $product.cimage != '')#*
+			*##if($product.cimage.startsWith('store'))#*
+				*##set($temp = $_gcbim_basketItem.put('thumbnail', "$product.cimage"))#*
+			*##else#*
+				*##set($temp = $_gcbim_basketItem.put('thumbnail', "store$product.cimage"))#*
+			*##end#*
+		*##else#*
+			*##set($temp = $_gcbim_basketItem.put('thumbnail', $configNoItemImageThumbnail))#*
+		*##end#*
+
+		## Error messages.
+		*##foreach($error in $product.errors)#*
+			*##set($temp = $_gcbim_basketItem.get('errors').add($error.message))#*
+		*##end#*
+
+		## Inventory history and delivery options.
+		*##set($_gcbim_inventoryHistory = {})#*
+		*##if($product.inventoryHistory.deliveryoption)#*
+			*##set($temp = $_gcbim_inventoryHistory.put('deliveryOption', $product.inventoryHistory.deliveryoption))#*
+			*##set($temp = $_gcbim_inventoryHistory.put('ship1date', "$!{product.inventoryHistory.ship1date}"))#*
+			*##set($temp = $_gcbim_inventoryHistory.put('ship2date', "$!{product.inventoryHistory.ship2date}"))#*
+			*##set($temp = $_gcbim_inventoryHistory.put('daystodeliver', $product.inventoryHistory.daystodeliver))#*
+			*##if($product.inventoryHistory.ship1qty)#*
+				*##set($temp = $_gcbim_inventoryHistory.put('ship1qty', $product.inventoryHistory.ship1qty))#*
+			*##else#*
+				*##set($temp = $_gcbim_inventoryHistory.put('ship1qty', 0))#*
+			*##end#*
+			*##if($product.inventoryHistory.ship2qty)#*
+				*##set($temp = $_gcbim_inventoryHistory.put('ship2qty', $product.inventoryHistory.ship2qty))#*
+			*##else#*
+				*##set($temp = $_gcbim_inventoryHistory.put('ship2qty', 0))#*
+			*##end#*
+		*##end#*
+		*##set($temp = $_gcbim_basketItem.put('inventoryHistory', $_gcbim_inventoryHistory))#*
+		*##set($temp = $_gcbim_basketItem.put('deliveryOptions', $product.deliveryOptions))#*
+		*##set($temp = $_gcbim_basketItem.put('comment', "$!{product.comment}"))#*
+		*##if($product.inventory.enableEditDeliveryDate)#*
+			*##set($temp = $_gcbim_basketItem.put('enableEditDeliveryDate', true))#*
+		*##else#*
+			*##set($temp = $_gcbim_basketItem.put('enableEditDeliveryDate', false))#*
+		*##end#*
+
+		## Promotions/discounts.
+		*##set($_gcbim_promotions = [])#*
+		*##set($_gcbim_fullProductDiscount = $math.toDouble("0.00"))#*
+		*##foreach($promotion in $product.promotions)#*
+			*##set($_gcbim_promotion = {})#*
+			*##set($temp = $_gcbim_promotion.put('discount', $promotion.discount))#*
+			*##set($temp = $_gcbim_promotion.put('discountFormatted', $promotion.discount))#*
+			*##set($temp = $_gcbim_promotion.put('name', $promotion.promotion.name))#*
+			*##if($promotion.discount > 0)#*
+				*##set($_gcbim_fullProductDiscount = $math.add($_gcbim_fullProductDiscount, $promotion.discount))#*
+			*##else#*
+				*##foreach($_gcbim_getCondition in $promotion.promotion.get)#*
+					*##if($_gcbim_getCondition.getbuyid == 8)#*
+						*##foreach($_gcbim_freeProduct in $productsDetails.products)#*
+							*##if($_gcbim_freeProduct.code == $_gcbim_getCondition.name)#*
+								*##set($_gcbim_fullProductDiscount = $math.add($_gcbim_fullProductDiscount, $_gcbim_freeProduct.discountPrice))#*
+							*##end#*
+						*##end#*
+					*##end#*
+				*##end#*
+			*##end#*
+		*##end#*
+		*##set($temp = $_gcbim_basketItem.put("promotions", $_gcbim_promotions))#*
+		*##set($temp = $_gcbim_basketItem.put("fullProductDiscount", $_gcbim_fullProductDiscount))#*
+		*##set($temp = $_gcbim_basketItem.put('fullProductDiscountFormatted', "#_showBareFormattedPrice($_gcbim_fullProductDiscount)"))#*
+		
+		*##set($temp = $_gcbim_basketData.get('items').add($_gcbim_basketItem))#*
+
+	*##end#*
+
+	*##set($temp = $_gcbim_basketData.put('quantity', $_gcbim_quantity))#*
+	*##set($temp = $_gcbim_basketData.put('subTotal', $math.div($math.round($math.mul($_gcbim_subTotal, 100)), 100) ))#*
+	*##set($temp = $_gcbim_basketData.put('subTotalFormatted', "#_showBareFormattedPrice($_gcbim_subTotal)"))#*
+	*##set($temp = $_gcbim_basketData.put('subTotalDiscounted', $math.div($math.round($math.mul($_gcbim_subTotalDiscounted, 100)), 100) ))#*
+	*##set($temp = $_gcbim_basketData.put('subTotalDiscountedFormatted', "#_showBareFormattedPrice($_gcbim_subTotalDiscounted)"))#*
+	*##set($result = $_gcbim_basketData)#*
+*##end
