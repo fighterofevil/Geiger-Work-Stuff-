@@ -1,0 +1,14 @@
+[
+  { "image": "monroinc-logo.svg", "catID": "745841", "alt": "Monro"},
+  { "image": "allentire-logo.svg", "catID": "745842", "alt": "Allen Tire Company"},
+  { "image": "carx-logo.svg", "catID": "745843", "alt": "Car X Tire and Auto "},
+  { "image": "kentowery-logo.svg", "catID": "745844", "alt": "Ken Tire and Autocare Towery's"},
+  { "image": "monro-logo.svg", "catID": "745845", "alt": "Monro Auto Service and Tire Centers"},
+  { "image": "rmonro-comm-logo.svg", "catID": "745846", "alt": "Monro Commerical Solutions"},
+  { "image": "mountainview-logo.svg", "catID": "745847", "alt": "MountainView Tire and Auto Service"},
+  { "image": "mrtire-logo.svg", "catID": "745848", "alt": "Mr Tire Auto Service Centers"},
+  { "image": "tire-barn-logo.svg", "catID": "745849", "alt": "Tire Barn Warehouse"},
+  { "image": "tirechoice-logo.svg", "catID": "745850", "alt": "Tire Choice Auto Service Centers"},
+  { "image": "tiresnow-logo.svg", "catID": "745851", "alt": "Tires Now"},
+  { "image": "tirewarehouse-logo.svg", "catID": "745852", "alt": "Tire Warehouse"}
+]
