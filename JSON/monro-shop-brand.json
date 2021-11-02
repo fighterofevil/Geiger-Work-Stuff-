@@ -9,6 +9,8 @@
   { "image": "mrtire-logo.svg", "catID": "745848", "alt": "Mr Tire Auto Service Centers"},
   { "image": "tire-barn-logo.svg", "catID": "745849", "alt": "Tire Barn Warehouse"},
   { "image": "tirechoice-logo.svg", "catID": "745850", "alt": "Tire Choice Auto Service Centers"},
-  { "image": "tiresnow-logo.svg", "catID": "745851", "alt": "Tires Now"},
-  { "image": "tirewarehouse-logo.svg", "catID": "745852", "alt": "Tire Warehouse"}
+  { "image": "tiresnow-logo.svg", "catID": "745852", "alt": "Tires Now"},
+  { "image": "tirewarehouse-logo.svg", "catID": "745851", "alt": "Tire Warehouse"}
 ]
+
+
