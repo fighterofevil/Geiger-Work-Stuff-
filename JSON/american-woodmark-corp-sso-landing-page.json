@@ -1,0 +1,37 @@
+[
+  {
+    "logo": "awc-corp-logo",
+    "storeName": "Woodmark Shop",
+    "buttonColor": "#2B6CFD",
+    "buttonTextColor": "#fff",
+    "vid": "20220105002"
+  },
+  {
+    "logo": "awc-carpentry-logo",
+    "storeName": "Cabinetry Shop",
+    "buttonColor": "#5EB598",
+    "buttonTextColor": "#000",
+    "vid": "20220105004"
+  },
+  {
+    "logo": "waypoint-logo",
+    "storeName": "Waypoint Shop",
+    "buttonColor": "#F9BE00",
+    "buttonTextColor": "#000",
+    "vid": "20220105002"
+  },
+  {
+    "logo": "timberlake-logo",
+    "storeName": "Timberlake Shop",
+    "buttonColor": "#7E746C",
+    "buttonTextColor": "#fff",
+    "vid": "20220105002"
+  },
+  {
+    "logo": "shenandoah-logo",
+    "storeName": "Shenandoah Shop",
+    "buttonColor": "#001E61",
+    "buttonTextColor": "#fff",
+    "vid": "20220105003"
+  }
+]
