@@ -1,37 +1,32 @@
 [
   {
-    "logo": "awc-corp-logo",
-    "storeName": "Woodmark Shop",
-    "buttonColor": "#2B6CFD",
-    "buttonTextColor": "#fff",
-    "vid": "20220105002"
+    "logo": "awc-corp-logo.svg",
+    "storeName": "Corporate Shop",
+    "buttonClass":"corpClass",
+    "vid": "awco.geigershops.com"
   },
   {
-    "logo": "awc-carpentry-logo",
-    "storeName": "Cabinetry Shop",
-    "buttonColor": "#5EB598",
-    "buttonTextColor": "#000",
+    "logo": "awc-carpentry-logo.svg",
+    "storeName": "Woodmark Cabinetry Shop",
+    "buttonClass":"carpClass",
     "vid": "20220105004"
   },
   {
-    "logo": "waypoint-logo",
+    "logo": "waypoint-logo.svg",
     "storeName": "Waypoint Shop",
-    "buttonColor": "#F9BE00",
-    "buttonTextColor": "#000",
+    "buttonClass":"wayClass",
     "vid": "20220105002"
   },
   {
-    "logo": "timberlake-logo",
+    "logo": "timberlake-logo.svg",
     "storeName": "Timberlake Shop",
-    "buttonColor": "#7E746C",
-    "buttonTextColor": "#fff",
+    "buttonClass":"timClass",
     "vid": "20220105002"
   },
   {
-    "logo": "shenandoah-logo",
+    "logo": "shenandoah-logo.svg",
     "storeName": "Shenandoah Shop",
-    "buttonColor": "#001E61",
-    "buttonTextColor": "#fff",
+    "buttonClass":"shenClass",
     "vid": "20220105003"
   }
 ]
