@@ -83,7 +83,9 @@ var points_admin = {};
 			}
 		}
 
-		if (!args.firstName && !args.lastName && args.username) {
+		// if (!args.firstName && !args.lastName && args.username) {
+		// updated if statement per Ray at Avetti to fix budget tool to look up user names - kevin 02.18.22		
+		if (!args.firstName && !args.lastName && !args.username) {	
 			if (args.callback) {
 				response.success = false;
 				response.response = "Must provide either a first name, last name, or username";
