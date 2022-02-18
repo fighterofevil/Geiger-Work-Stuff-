@@ -1,0 +1,483 @@
+/*#*
+** Budget Tool Plugin for Skeleton Store
+** Skeleton Store Global Library
+*#*/
+ss.points_admin = (function() {
+
+var points_admin = {};
+
+	points_admin.defaultConfigs = {
+		'managerID': "" // Populated in lib_js_points-admin.vm
+	};
+
+
+	/*#*
+	** Initialization function.
+	*#*/
+	points_admin.init = function(configs) {
+
+		jQuery("#customerslist").on('change focus blur keypress', points_admin.handleCustomerDropdownChange);
+
+	};
+
+
+	/*#*
+	** Handles whenever the "Find Account" button is pressed.
+	*#*/
+	points_admin.handleFindCustomerClick = function() {
+		var firstName = jQuery('#fname').val();
+		var lastName = jQuery('#lname').val();
+		var username = jQuery('#cid').val();
+		var vid = ss.configs.vendorId;
+
+		jQuery("#findButton").spin('small');
+
+		points_admin.hideErrors();
+
+		points_admin.findCustomer(firstName, lastName, username, vid, points_admin.buildCustomersList);
+	};
+
+
+	/*#*
+	** Finds a customer based on given criteria and execute a callback based on response.
+	** @param firstName 	First name of customer.
+	** @param lastName 		Last name of customer.
+	** @param username		Username of customer.
+	** @param vendorId 		Vendor ID of customer.
+	** @param callback 		Callback to execute when completed. {'success': true|false, 'response': {'customers': [...] } }
+	*#*/
+	points_admin.findCustomer = function(firstName, lastName, username, vendorId, callback) {
+		var targetvid = ss.configs.vendorId;
+		var args = {};
+		var response = {
+			'success': true,
+			'response': {}
+		};
+		var requestURL;
+
+		// Normalize arguments.
+		if (typeof firstName == 'string') {
+			// String-based arguments
+			args.firstName = firstName;
+			args.lastName = lastName;
+			args.username = username;
+			args.callback = callback;
+			args.vendorId = vendorId;
+		} else if(typeof firstName == 'object') {
+			// Object-based argument
+			args = firstName;
+		}
+		if (typeof args.callback !== 'function') {
+			args.callback = null;
+		}
+		args.firstName = args.firstName ? args.firstName : '';
+		args.lastName = args.lastName ? args.lastName : '';
+		args.username = args.username ? args.username : '';
+
+		if (!args.vendorId) {
+			if (args.callback) {
+				response.success = false;
+				response.response = "Must provide a vendorId";
+				args.callback(response);
+				return;
+			}
+		}
+
+		if (!args.firstName && !args.lastName && args.username) {
+			if (args.callback) {
+				response.success = false;
+				response.response = "Must provide either a first name, last name, or username";
+				args.callback(response);
+				return;
+			}
+		}
+
+		// Build request and fire off. Expected XML response, which is handled
+		// by the custom Avetti class, XMLHandler.
+		requestURL =  "findcustinfo.ajx?vid=" + encodeURIComponent(args.vendorId);
+		requestURL += "&cid=" + encodeURIComponent(args.username);
+		requestURL += "&fname=" + encodeURIComponent(args.firstName);
+		requestURL += "&lname=" + encodeURIComponent(args.lastName);
+		requestURL += "&rand=" + encodeURIComponent(Math.random());
+
+		new XMLHandler.ContentLoader(requestURL, function() {
+
+			var content = '';
+			var root = this.req.responseXML.documentElement;
+			var record;
+
+			response['response']['customers'] = [];
+			customers = root.getElementsByTagName("customer");
+
+			for (var i = 0; i < customers.length; i++) {
+				record = {};
+				if (customers[i].childNodes[0].firstChild != null) {
+					record['name'] = customers[i].childNodes[0].firstChild.nodeValue;
+				} else {
+					record['name'] = '';
+				}
+				if (customers[i].childNodes[1].firstChild != null) {
+					record['profitcenter'] = customers[i].childNodes[1].firstChild.nodeValue;
+				} else {
+					record['profitcenter'] = '';
+				}
+				if (customers[i].childNodes[2].firstChild != null) {
+					record['balance'] = customers[i].childNodes[2].firstChild.nodeValue;
+				} else {
+					record['balance'] = '';
+				}
+				if (customers[i].childNodes[3].firstChild != null) {
+					record['clientid'] = customers[i].childNodes[3].firstChild.nodeValue;
+				} else {
+					record['clientid'] = '';
+				}
+				if (customers[i].childNodes[4].firstChild != null) {
+					record['loginname'] = customers[i].childNodes[4].firstChild.nodeValue;
+				} else {
+					record['loginname'] = '';
+				}
+				response['response']['customers'].push(record);
+			}
+
+			if (args.callback) {
+				args.callback(response);
+			}
+
+		}, "get", "text", null);
+	};
+
+
+	/*#*
+	** Confirms the customer account can be accessed.
+	** This also examines the webservice and if not configured, will produce an error reply.
+	** @param 	clientID 				The client ID to check.
+	*#*/
+	points_admin.checkCustomer = function(clientID) {
+		var vid = ss.configs.vendorId;
+		var url;
+
+		if (!clientID)
+			clientID = $("#customerslist").val();
+
+		url =  "awardpoint.ajx?";
+		url += "vid=" + encodeURIComponent(vid);
+		url += "&cid=" + encodeURIComponent(clientID);
+		url += "&action=checkws";
+		url += "&rand=" + encodeURIComponent(Math.random());
+
+		console.log("Checking customer account...");
+
+		jQuery("#confirm-button").spin('small');
+
+		jQuery.ajax({
+			method: 'GET',
+			url: url,
+			success: function(response) {
+				var parsedResponse = eval("(" + response + ")");  // Couldn't parse as JSON - response is JSON-like, but uses single quotes instead of double
+				if (parsedResponse.status == 'success') {
+					// if (callback)
+					// 	callback(parsedResponse);
+					ss.points_admin.handleSuccessfulConfirmation();
+				} else {
+					points_admin.displayErrors(parsedResponse.message);
+				}
+			},
+			error: function(response) {
+				console.log('Error during request.');
+				console.log(response);
+			},
+			complete: function() {
+				jQuery("#confirm-button").data('spinner').stop();
+				jQuery("#confirm-button").text("Confirm");
+			}
+		});
+	};
+
+
+	/*#*
+	** Handles whenever the Confirm button is clicked on the Find Account section.
+	*#*/
+	points_admin.handleSuccessfulConfirmation = function() {
+		var selected = jQuery("#customerslist :selected");
+		var clientID = selected.val();
+		var balance = selected.attr('data-balance');
+		var name = selected.attr('data-name');
+		var loginName = selected.attr('data-loginname');
+
+		points_admin.showAwardPointsSection(clientID, name, loginName, balance)
+	};
+
+
+	/*#*
+	** Displays the awards points section.
+	** @param 	clientID				Client ID.
+	** @param 	userName				User's name.
+	** @param 	accountLogin			Account loginname.
+	** @param 	balance					Account balance.
+	*#*/
+	points_admin.showAwardPointsSection = function(clientID, userName, accountLogin, balance) {
+		jQuery("#awardpoints").attr('data-clientid', clientID);
+		jQuery("#award-user-name").text(userName);
+		jQuery("#award-account-login").text(accountLogin);
+		jQuery("#award-balance").text(balance);
+
+		jQuery("#awardpoints").attr('data-balance', balance);
+		jQuery("#awardpoints").attr('data-loginname', accountLogin);
+		jQuery("#awardpoints").attr('data-name', userName);
+		jQuery("#awardpoints").attr('data-clientid', clientID);
+
+		jQuery("#findcustomer").hide();
+		jQuery("#awardpoints").show();
+		points_admin.hideErrors();
+	};
+
+
+	/*#*
+	** Shows the customer search dialog.
+	*#*/
+	points_admin.showFindCustomerSection = function() {
+		jQuery("#awardpoints").hide();
+		jQuery("#awarded-section").hide();
+		jQuery("#customerslist").hide();
+		jQuery("#customer-info-section").hide();
+		jQuery("#confirm-button").hide();
+		jQuery("#lname").val('');
+		jQuery("#fname").val('');
+		jQuery("#findcustomer").show();
+		jQuery("#lname").focus();
+		points_admin.hideErrors();
+	};
+
+
+	/*#*
+	** Shows the awarded points section.
+	*#*/
+	points_admin.showAwardedSection = function() {
+		var pointAdjust = jQuery("#awarded").val();
+		var balance = jQuery("#awardpoints").attr('data-balance');
+		var userName = jQuery("#awardpoints").attr('data-name');
+		var newBalance = parseInt(balance) + parseInt(pointAdjust);
+
+		jQuery("#awarded-section").find(".awarded-text").text("The account for " + userName + " has been adjusted by " + pointAdjust + " points, bringing their balance from " + balance + " points to " + newBalance + " points.");
+
+		jQuery("#awardpoints").hide();
+		jQuery("#awarded-section").show();
+		jQuery("#findcustomer").hide();
+		points_admin.hideErrors();
+	};
+
+
+	/*#*
+	** Called whenever user clicks to confirm point adjustment.
+	*#*/
+	points_admin.confirmAwardPoints = function() {
+		var clientID = jQuery("#awardpoints").attr('data-clientid');
+		var pointAdjust = jQuery("#awarded").val();
+		var balance = jQuery("#awardpoints").attr('data-balance');
+
+		jQuery("#apply-award").spin('small');
+
+		points_admin.adjustAllowance(clientID, pointAdjust, balance, function(results) {
+			jQuery("#apply-award").data('spinner').stop();
+			jQuery("#apply-award").text("Award Points");
+
+			if (results.status == 'fail') {
+				points_admin.displayErrors(results.message);
+			} else {
+				points_admin.showAwardedSection();
+			}
+		});
+	}
+
+
+	/*#*
+	** Makes the request to adjust a user's allowance.
+	** @param 	clientID				Client ID of account to adjust.
+	** @param 	pointAdjust				Amount to change points by.
+	** @param 	balance					Balance before adjustment.
+	** @param 	callback				Callback to execute when completed.
+	*#*/
+	points_admin.adjustAllowance = function(clientID, pointAdjust, balance, callback) {
+		var targetVID = ss.configs.vendorId;
+		var type = 1;
+		var managerID = points_admin.configs.managerID;
+		var url = "awardpoint.ajx";
+
+		url += "?vid=" + encodeURIComponent(targetVID);
+		url += "&cid=" + encodeURIComponent(clientID);
+		url += "&action=" + encodeURIComponent("updatews");
+		url += "&type=1";
+		url += "&points=" + encodeURIComponent(pointAdjust);
+		url += "&balanceBefore=" + encodeURIComponent(balance);
+		url += "&managerid=" + encodeURIComponent(managerID);
+		url += "&rand=" + encodeURIComponent(Math.random());
+
+		jQuery.ajax({
+			method: 'GET',
+			url: url,
+			success: function(response) {
+				var parsedResponse = eval("(" + response + ")");
+				if (callback)
+					callback(parsedResponse);
+			},
+			error: function(response) {
+				console.log('Error during request.');
+				console.log(response);
+			}
+		});
+	}
+
+
+	/*#*
+	** Builds DOM elements of customers from a .findCustomers() response.
+	**
+	** Elements that must exist:
+	** #customerslist 		<select> element to contain list.
+	** 
+	**
+	** @param 	response 				Response from .findCustomers() 
+	*#*/
+	points_admin.buildCustomersList = function(response) {
+		var newOption;
+		var customersList;
+		var customersDOM = jQuery("#customerslist");
+
+		jQuery("#findButton").data('spinner').stop();
+		jQuery("#findButton").text("Find Account");
+
+		if (!response.success) {
+			points_admin.displayErrors(response.response);
+			return;
+		}
+
+		customersList = response.response.customers;
+
+		if (customersList.length == 0) {
+			jQuery("#customer-info-section").hide();
+			jQuery("#customerslist").hide();
+			points_admin.displayErrors("No customer found.");
+			return;
+		}
+
+		jQuery("#customerslist").html('');
+
+		for (var i = 0; i < customersList.length; i++) {
+			newOption = jQuery("<option/>");
+			newOption.text(customersList[i].name + " (" + customersList[i].loginname + ")");
+			newOption.val(customersList[i].clientid);
+			newOption.attr('data-balance', customersList[i].balance);
+			newOption.attr('data-name', customersList[i].name);
+			newOption.attr('data-loginname', customersList[i].loginname);
+			customersDOM.append(newOption);
+		}
+
+		jQuery("#customerslist").show();
+		customersDOM.trigger('change');
+	};
+
+
+	/*#*
+	** Handler for whenever the customer dropdown is changed.
+	*#*/
+	points_admin.handleCustomerDropdownChange = function() {
+		var selected = jQuery("#customerslist :selected");
+
+		points_admin.displayCustomerRecord(selected.attr('data-name'), selected.attr('data-loginname'), selected.attr('data-balance'));
+	};
+
+
+	/*#*
+	** Displays a customer's info.
+	*#*/
+	points_admin.displayCustomerRecord = function(customerName, customerLogin, customerBalance) {
+		jQuery("#customer-info-name").text(customerName).show();
+		jQuery("#customer-info-login").text(customerLogin).show();
+		jQuery("#customer-info-balance").text(customerBalance).show();
+		jQuery("#customer-info-section").show();
+		jQuery("#confirm-button").show();
+	};
+
+
+	/*#*
+	** Displays errors generated during a point tool process.
+	** @param 	errorMessage 			Message to display.
+	*#*/
+	points_admin.displayErrors = function(errorMessage) {
+		jQuery(".awarded-error-text").html(errorMessage).show();
+		// alert(errorMessage);
+	};
+
+
+	/*#*
+	** Hides the error message box.
+	*#*/
+	points_admin.hideErrors = function() {
+		jQuery(".awarded-error-text").hide();
+	}
+
+
+	/*#*
+	** XML Content-loading Object
+	*#*/
+	var XMLHandler = new Object();
+
+	XMLHandler.READY_STATE_UNINITALIZED = 0;
+	XMLHandler.READY_STATE_LOADING = 1;
+	XMLHandler.READY_STATE_LOADED = 2;
+	XMLHandler.READY_STATE_INTERACTIVE = 3;
+	XMLHandler.READY_STATE_COMPLETE = 4;
+
+	XMLHandler.ContentLoader = function(url,onload,method,type,content) {
+		this.url=url;
+		this.req=null;
+		this.onload=onload;
+		this.method=method;
+		this.type=type;
+		this.content=content;
+		this.loadXMLDoc(url,method,content);
+	};
+
+	XMLHandler.ContentLoader.prototype = {
+		loadXMLDoc:function(url,method,content)
+		{
+			if (window.XMLHttpRequest){
+				this.req = new XMLHttpRequest();
+			} else if(window.ActiveXObject){
+				this.req = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			if (this.req) {
+				try {
+					var loader = this;
+					this.req.onreadystatechange=function(){
+						loader.onReadyState.call(loader);
+					}
+					if(method == "post"){
+						this.req.open("post",url,true);
+						this.req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+						this.req.send(content);
+					} else {
+						this.req.open("get",url,true);
+						this.req.send(null);
+					}
+				} catch(e) {
+					alert("unknown error");
+				}
+			}
+		},
+		onReadyState:function()
+		{
+			var req = this.req;
+			var ready = req.readyState;
+			if (ready == XMLHandler.READY_STATE_COMPLETE) {
+				var httpStatus = req.status;
+				if (httpStatus == 200) {
+					this.onload.call(this);
+				}
+			}
+		}
+	};
+
+	return points_admin;
+
+})();

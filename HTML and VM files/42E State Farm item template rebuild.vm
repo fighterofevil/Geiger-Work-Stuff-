@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+#set($itemRow = $singleItemDTO.getItem(0))
+#set($item = $pageTile.getItemObject($singleItemDTO, $itemRow , "i"))
+#set($price = $item.itemPrice)
+#set($mainItemPrice = $item.itemPrice)
+#set($printitemid = $pageTile.getItemObject($singleItemDTO, $itemRow , "itemid"))
+
+#if(!$pageTileDictionaryDTO)
+  #if($_commandName)
+    #springBind( "${_commandName}.pageTileDictionaryDTO")
+    #set ($pageTileDictionaryDTO = ${status.value})
+  #end
+#end
+
+#if($pageTileDictionaryDTO)
+  #set($childItemsHomeDTO=$pageTileDictionaryDTO.getPageTile("childItemsHomeDTO"))
+  #set($catDropMenuDTO=$pageTileDictionaryDTO.getPageTile("catDropMenuDTO"))
+#end
+
+#set($metadescription= $item.metadescription)
+#set($keywords= $item.keywords)
+#set($pagetitle= $item.pagetitle)
+
+## Determines if an item is in a category. Doesn't check sub-categories. 
+## @param   _iiic_itemID                Item ID.
+## @param   _iiic_categoryID            Category ID.
+#macro(isItemInCategory $_iiic_itemID, $_iiic_categoryID)#*
+    *##set($_iiic_intClass = $request.class.forName('java.lang.Integer'))#*
+    *##set($_iiic_return = $request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT").getBean("itemCategoryLinksDAO").isItemInCategory($_iiic_intClass.parseInt("$_iiic_itemID"), $_iiic_intClass.parseInt("$_iiic_categoryID")))#*
+    *##if($_iiic_return == false || $_iiic_return == true)#*
+        *#$_iiic_return#*
+    *##end#*
+*##end
+
+#########################################################################
+
+<html id="pageItem">
+    <head>
+        ## <title>#if($!pagetitle) $pagetitle  #else $!{item.title} - $!{htmlSiteName} #end</title>
+        <title>$item.title - $!{htmlSiteName}</title>
+        #parse('libMarkupHead.vm')
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+        #parse('libitempgjavascript.vm')
+    </head>
+    <body>
+        #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+        <div id="container">
+            #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+            <div id="content" role="main">
+                ## #parse('libpartitempgcontent.vm')
+                ##  BEGIN  libpartitempgcontent
+
+                    <div class="messages">
+                              ##if($!{addwishilistsuccess} != "")<div class="message success">$addwishilistsuccess</div> #end
+                              <div class="message success" id="globmsg" style="display:none;"></div>
+                            </div>
+
+                        <div class="bCrumbs">
+                              #parse("libpartCategoryBreadcrumbs.vm")
+                        </div>
+                         <div class="clearfix itemContent"> 
+                              <div class="sidebar">
+                                #parse('libpartItemBadges.vm')
+                                <div id="imageWindow">
+                                  <a href="store$item.largeimage" title="$item.title" class="product-image-zoom MagicZoomPlus" rel="zoom-position: inner" onclick="adaFunction()">
+                                    <img  src="store$item.largeimage" width="300" alt="$!{item.title}"/>
+                                  </a>
+                                  
+                                  ## function needed to augment MagicZoom Plus plug in to be ADA compliant - kevin 11.19.19  
+                                  <script>
+                                    function adaFunction() {
+                                        $(document).ready(function() {
+                                            $(".MagicThumb-expanded" ).attr("role","dialog");
+                                            $("a[title|='Close']").attr("tabindex","-1");
+                                        });                            
+                                    }
+                                  </script>                  
+                                  
+                                </div>
+                                <div id="suggestedItems"><!-- you may also like section --> </div>
+                                #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/youMayAlsoLike.vm")
+                                
+                              </div>
+                              <div class="page">
+                                <h1 id="js-item-title-${item.itemid}">$!{item.title}</h1>
+                                #springMessage('itemCode'):<span id="itemCodeList"> <span id="js-item-code-${item.itemid}">$item.code</span></span>
+                                <input type="hidden" id="formName" value="F$item.itemid"> ## What's this?
+                                #parse($item_topDTO.getItems().get(0).get('item_top')) ## What's this?
+                                #parse("libpartItemTabInfo.vm")  ## Tabs to show description, tiers, longdesc2...
+                                
+                     
+                                    #if($!{isPointStore} == 'TRUE')
+                                        ## sitewide variable for pricing on/off
+                                        #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))   
+                                            #parse("libpartitempoints.vm") ## Item Price
+                                        #end
+                                        <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                                        #if($item.itemid)
+                                          #set($formName = "F$item.itemid")
+                                        #end
+                                    #else
+                                        ## original location of pricing on/off if statement
+                                        #if(($priceOnOff && $priceOnOff == 1) || (!$priceOnOff))     
+                                            #parse("libpartItemPrice.vm") ## Item Price
+                                        #end
+                                        <div id="js-item-minorderqty4pitem-${item.itemid}"></div>
+                                        #if($item.itemid)
+                                          #set($formName = "F$item.itemid")
+                                        #end
+                                    #end
+                         
+
+                                ## get the min order qty required out of the above div innerHTML and rewrites minQtyNum used in the tiered pricing table
+                                ## minQtyNum and minQtyNumRow are located within libpartItemTabInfo.vm
+                                #if($quantityBreakOut && $quantityBreakOut=='y')
+                                    <script>
+                                            $( document ).ready(function() {
+                                                var actualMinQtyNum=(document.getElementById("js-item-minorderqty4pitem-${item.itemid}").innerHTML).replace(/[^0-9]/g,'');
+                                                if (actualMinQtyNum>0)
+                                                    document.getElementById("minQtyNum").innerHTML=actualMinQtyNum;
+                                                else
+                                                    document.getElementById("minQtyNumRow").style.display="none";
+                                            });   
+                                    </script> 
+                                #end    
+
+                                #*================================
+                                  Errors
+                                =================================*#
+                                  #springBind( "storeItemDTO.*" )
+                                  #if($status.errors.errorCount>0)
+                                    <div class="msg">
+                                      #foreach($error in $status.errorMessages)
+                                        <div class="error">$error</div>
+                                      #end
+                                    </div>   
+                                  #end
+
+                                <form id="itemForm" class="vertical" method="POST" name="$formName" action="storeitem.html?$vendorSettingsDTO.vendorId&iid=$item.itemid">
+                                  <input type="hidden" name="productoption" value="productoption.html?vid=$vendorSettingsDTO.vendorId&cid=891&qp=0"> ##TODO: variable for cid
+                                  <input type="hidden" id="compCode_0" value="$item.code"/>
+                                  <input type="hidden" id="securitytoken" name="securitytoken" value="${tokenEntity.token}"/>
+                                  #set ($found = 'false')
+
+                                  ## #parse("libpartItemAddAnother.vm")  ## Add Another
+                                  ##  BEGIN     libpartItemAddAnother
+                                        <div id="itemListTable">
+                                            <div id ="add-another-item" class="add-another-item">
+                                                <table cellspacing="0">
+                                                    <tr id="add-another">
+                                                        <td class="col1">
+                                                            <div id="js-item-attributes-$item.itemid" class="item-attr-section"></div>
+
+                                                            ## ADA update - detects if there is a select box, if so, adds a tabindex attribute so the screen reader can see and read it -04.29.21 -kevin
+
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    if ($('.add-another-item select').length){
+                                                                        $('.add-another-item select').attr("tabindex","0");
+                                                                    }                                    
+                                                                });
+                                                            </script>                      
+
+                                                        </td>
+                                                        <td class="col2">
+                                                            <div class="f-row">
+                                                                <label for="qty_0">#springMessage("vm.itemTemplate.quantity" ):</label> 
+                                                                <input class="qty-input" type='text' id="js-item-qtybox-$item.itemid" maxlength="4" aria-describedby='QuantityDesc' disabled />
+                                                                <p id="QuantityDesc" style="display:none">Please Enter in the Quantity to Purchase</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col3">
+                                                            <div id="js-item-inventory-$item.itemid"></div>  <div id="js-item-minorderqty-$item.itemid"></div>
+
+                                                            ## inserts ADA update into Available column to describe what is available - 04.28.21 - kevin 
+
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    $('#js-item-inventory-$item.itemid .f-row').attr('tabindex','0');
+                                                                    $('#js-item-inventory-$item.itemid .f-row').attr('aria-described', 'AvailableColumn');
+                                                                    $('#js-item-inventory-$item.itemid .f-row').append("<p id='AvailableColumn' style='display:none'>Available: "+$('#js-item-inventory-$item.itemid .f-field').text()+"</p>");
+                                                                });
+                                                            </script>           
+                                                            
+                                                        </td>
+                                                        <td class="col4">
+                                                            <div id="remove-item-${item.itemid}" class="removeLink" style="float:right">
+                                                                <a href="javascript:void(0)" aria-label="Remove $!item.title" role="alert" aria-live="assertive" aria-describedby="removeNotice">remove</a>
+                                                                <p id="removeNotice" style="display:none">$item.title has been removed from the shopping cart.</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div id="estimateCalendar" class="estimate-calendar"></div>
+                                            </div>
+                                        </div>
+
+                                        <div id="js-item-uploadplugin"></div>
+
+                                        ## Check to see if the store properties for logo upload is present and if not empty.
+                                        #if($storePropertyHelper.getCustomUploadFilePath($vendorSettingsDTO.vendorId) != "" && $storePropertyHelper.getCustomUploadFileSize($vendorSettingsDTO.vendorId) != "" && $storePropertyHelper.getCustomUploadFileType($vendorSettingsDTO.vendorId) != "")
+                                            
+                                            #foreach($property in $item.properties)
+                                                #set($propertyName = $property.propname)
+                                                #set($propertyValue = $property.propvalue)
+                                                
+                                                ## Check for the necessary item properties
+                                                #if($propertyName == "Sys_Uploaders")
+                                                  
+                                                    <div id="item-uploadplugin-message">
+                                                        
+                                                        ## Divides by 1000 to get the Mb value of file size limit
+                                                        #set($uploadFileSize = $math.div($storePropertyHelper.getCustomUploadFileSize($vendorSettingsDTO.vendorId), 1000))
+                                                           
+                                                        ## Raw string from the store property, will look something like image/jpg,image/png,image/gif
+                                                        #set($uploadRawFileTypes = $storePropertyHelper.getCustomUploadFileType($vendorSettingsDTO.vendorId))
+                                                                        
+                                                        <p id="item-uploadplugin-types">
+                                                            Accepted file types: (
+                                                                
+                                                            ## Split each file type into an indvidual string (enters an array).
+                                                            #set($splitUploadString = $uploadRawFileTypes.split(","))
+                                                                
+                                                            #foreach($uploadString in $splitUploadString)
+                                                                    
+                                                                ## Starts each string at the "/" essentially removing the file type (image, application)
+                                                                #set($stringRemoveSlash = $uploadString.indexOf("/"))
+                                                                #set($uploadStringSub = $uploadString.substring($stringRemoveSlash))
+                                                                    
+                                                                ## Replaces the "/" with a "." for proper file extension format
+                                                                $uploadStringSub.replace("/", ".")
+                                                            #end )
+                                                        </p>
+                                                                        
+                                                        <p id="item-uploadplugin-size">File size limit: $uploadFileSize Mb</p>
+                                                    </div>
+                                                #end
+                                            #end
+                                        #end
+
+                                        <div class="actions">
+                                            <span id="addAnother">
+                                                <a href="javascript:void(0)" aria-label="Add Another">Add Another...</a>
+                                            </span>
+                                        </div>
+
+                                        ##added script for ADA compliance - kevin 11.18.19
+                                        
+                                        <script>
+                                            $( document ).ready(function() {
+                                                 $("select").attr("role","listbox");
+                                            });
+                                        </script>                
+
+                                  ##  END       libpartItemAddAnother
+
+                                  #parse("libpartItemCustomization.vm") ## Customization
+                                  
+                                  ## forces customization to checked by default and to show imprint options. 
+                                  ## added 01.03.19 - kevin   
+                                  #if($forceImprint && $forceImprint == true) 
+                                      <script>
+                                        $( document ).ready(function() {
+                                            $("#customize").prop("checked",true);
+                                            $(".custom-input").show();
+                                        });                              
+                                      </script>
+                                  #end      
+
+                                  ## ADA update - for items added with add another, when the drop down is chosen and there is an inventory update, the column loses its tabindex.  
+                                  ## this will reattach a tabindex to that column. tabFocusFunc is called from local_libpartitempgjsbottom.vm  - 05.07.21 - kevin 
+                                  
+                                  <script>
+                                      function tabFocusFunc(parentIDname){
+                                          $(parentIDname+" .f-row").attr('tabindex','0');
+                                      }
+                                  </script>                      
+                                
+                                  <div id="js-item-hiddenfields-$item.itemid"></div> ## What's this used for? Container for multiple "add another" items?
+
+                                  #parse("libpartItemAddToWishlist.vm")  ## Add To Wishlist
+
+                                  #*
+                                   * RedirectMode = true: navigate to wishlist after add
+                                   * RedirectMode = false: stay on page, display message
+                                  *#
+                                  <input type="hidden" name="redirectMode" value="true">
+
+                                            #foreach($error in $product.errors)
+                                            <div class="error-text-area">
+                                               $error.message
+                                            </div>
+                                            #end
+
+                                  #*================================
+                                      Add to Cart Button
+                                    =================================*#
+                                  <div class="addToCartBtn_removed btn-primary right" id="js-item-addtocartbtn-$item.itemid" onClick="addToCartValidate();" role="button" tabindex="0">
+                                    #springMessage('addToCart')
+                                  </div>
+                                </form>
+                              </div><!--//.page -->
+                            </div><!--//.clearfix-->
+                            
+                            
+                            ## code to update the DS messages for SWEDA items only. BEGIN
+                            #if($swedaCat)
+                                #set($swedaCheck="#isItemInCategory($item.getItemId(),$swedaCat)")
+                                #if($swedaCheck==true)
+                                    <script>
+                                        $( document ).ready(function() {
+                                             document.getElementsByClassName('DSMessage')[0].innerHTML="$!swedaMsg";
+                                        });
+                                    </script>
+                                #end
+                            #end
+                            ## END                
+                ##  END    libpartitempgcontent 
+            
+                ## this script is set to change the wishlist button class.  Defined in template for newer stores. 
+                ## not changed in MTL as to not affect all stores - kevin 12.21.18
+                <script>
+                    $( document ).ready(function() {
+                        $('*[id*="wishlistbtn"]').each(function() {
+                            $(this).removeClass("btn-primary");
+                            $(this).addClass("btn");
+                        });    
+                        
+                        $( "#addwishlistdiv" ).insertBefore( ".actions" );
+                    });
+                </script>
+
+            </div> <!--//#content -->
+            #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end        
+            #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        </div> <!--//#container -->
+        #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+        #parse("libpartitempgjsbottom.vm")
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/dynamic_item_images.vm")
+        #renderDynamicItemImagesScript()
+        
+        #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+        #parse("libMarkupFoot.vm")
+
+
+    </body>
+</html>
