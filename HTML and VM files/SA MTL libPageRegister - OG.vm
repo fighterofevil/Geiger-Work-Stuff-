@@ -1,0 +1,1069 @@
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<h1>Registration</h1>
+           <div class="heading1"></div>
+           
+ <div class="yui3-g main">
+
+            <form name="registerForm" method="post" action="" id="registerForm" class="f-group horizontal custom-lbl-width">
+              <input type="hidden" name="mid" id="mid" value="demo"/>
+              <input type="hidden" name="mode" id="mode" value="register"/>
+              <input type="hidden" id="anchorName_id" name="anchorName" value="">
+              <input type="hidden" id="securitytoken" name="securitytoken" value="${tokenEntity.token}"/>
+#springBind("registerViewDTO.doSubmit")
+              <input type="hidden" id="hiddensubmit" name="$status.expression">
+              <input type="hidden"  name="register" value="$authenticationSubmitURL">
+#springBind( "registerViewDTO.*" )
+
+#if($status.errors.errorCount&&$status.errors.errorCount>0)
+              <div class="yui3-u-1 error-text-area uppercase" id="postErrors">#springMessage("vm.register.error"):
+                <ul>
+  #foreach($error in $status.errorMessages)
+                <li>$error</li>
+  #end
+                </ul>
+              </div>
+#end
+<div class="yui3-u-1 error-text-area uppercase" id="registerErrors" style="display:none"></div>  
+<!-- start input Fields -->
+                      <div class="yui3-u-1-2">
+ <h2>Your  Information</h2>
+                   <div class="required">All fields with an asterisk(*) must be entered. </div>
+
+#springBind("registerViewDTO.customerDTO.firstName")
+                  <div class="f-row">
+                    <label for="customerDTO.firstName">#springMessage("vm.register.firstname")<span class="needed_star">*</span></label>
+                    <div class="f-field"><input size="30" maxlength="20" value="${status.value}" name="customerDTO.firstName" id="customerDTO.firstName" type="text" onBlur="initCap(this)" onSubmit="initCap(this)"/></div>
+                  </div>
+
+#springBind("registerViewDTO.customerDTO.lastName")
+                  <div class="f-row">
+                    <label for="customerDTO.lastName">#springMessage("vm.register.lastname")<span class="needed_star">*</span></label>
+                    <div class="f-field"><input size="30" maxlength="30" value="${status.value}" id="customerDTO.lastName" name="customerDTO.lastName" type="text" onBlur="initCap(this)" onSubmit="initCap(this)"/></div>
+                  </div>
+#if($registerViewDTO.memberType != '1')
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].phone")
+                  <div class="f-row">
+                    <label for="customerDTO.customerAddresses['1'].phone">#springMessage("vm.register.phone")<span class="needed_star">*</span></label>
+                    <div class="f-field"><input id="cname" value="${status.value}" id="customerDTO.customerAddresses['1'].phone" size="30" name="customerDTO.customerAddresses['1'].phone" size="30" maxlength="18" type="text"></div>
+                    </div>
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].company")
+                  <div class="f-row">
+                    <label for="customerDTO.customerAddresses['1'].company">#springMessage("vm.register.company")</label>
+                    <div class="f-field"><input id ="customerDTO.customerAddresses['1'].company" name="customerDTO.customerAddresses['1'].company" value="${status.value}" type="text" size="50"  onBlur="initCap(this)" onSubmit="initCap(this)"/></div>
+                  </div>
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].address1")
+                  <div class="f-row">
+                    <label for="${status.expression}">#springMessage("vm.register.address") 1<span class="needed_star">*</span></label>
+                    <div class="f-field" ><input  value="${status.value}" id="${status.expression}" name="${status.expression}" type="text" size="30" onblur="javascript:fieldBlurred(this,1);initCap(this)"  onSubmit="initCap(this)"/></div>
+                  </div>
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].address2")
+                  <div class="f-row">
+                    <label for="${status.expression}">#springMessage("vm.register.address")2</label>
+                      <div class="f-field"><input  value="${status.value}" id="${status.expression}" name="${status.expression}" type="text" size="30" onBlur="initCap(this)" onSubmit="initCap(this)"/></div>
+                  </div>
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].city")
+                  <div class="f-row"> 
+                    <label for="${status.expression}">#springMessage("vm.register.city")<span class="needed_star">*</span></label>
+                    <div class="f-field"><input  value="${status.value}" id="${status.expression}" name="${status.expression}" type="text" size="30" onblur="javascript:fieldBlurred(this,2);initCap(this);#if($registerViewDTO.onepagecheckout && !$registerViewDTO.islogin)#end"   onSubmit="initCap(this)"/></div>
+                  </div>
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].countryId")
+  #set($curcountry=$status.value)
+<!-- curcountry=$status.value -->
+                  <div class="f-row">
+                    <label for="country_id">#springMessage("vm.register.country") <span class="needed_star">*</span></label>
+                    <div class="f-field">
+                      <select size="1" id="country_id" class="chzn-select" data-placeholder="#springMessage('vm.register.chosecountry')" name="customerDTO.customerAddresses['1'].countryId"  style="width:215px;">
+                        <option value="0"></option>
+  #foreach($country in $registerViewDTO.countriesInUse)
+    #if($curcountry == 0 && ${country.defcountry} || $country.country.id==${status.value})
+      #set($curcountry=$country.country.id)
+    #end
+                        <option value="$country.country.id" #if($country.country.id==${curcountry})selected#end>$country.country.name</option>
+  #end
+                      </select>
+                    </div>
+                  </div>
+  #set($state="inline-block")
+  #set($province="none")
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].countryId")
+  #foreach($country in $registerViewDTO.countriesInUse)
+    #if($country.id && $country.id==${status.value}&&${status.value})
+      #if($country.a2 == "US")
+        #set($state="inline-block")
+        #set($province="none")
+      #end
+
+    #end
+  #end
+                  <div class="f-row">
+                    <label for="$status.expression" id="state" style="display:$state" >#springMessage("vm.register.state")<span class="needed_star">*</span></label>
+                    <label for="$status.expression" id="province" style="display:$province" >#springMessage("vm.register.province")<span class="needed_star">*</span> </label>
+                    <div class="f-field">
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].provinceId" )
+  #if(${status.value}&&${status.value}!=0)
+                      <select size="1" name="$status.expression" id="region" class="chzn-select" data-placeholder="#springMessage('vm.register.choseprovince')"  style="width:215px;">
+                        <option value="0"></option>
+    #foreach($country in $registerViewDTO.countriesInUse)
+      #if(${curcountry} == ${country.country.id})     
+        
+        #foreach($province in ${country.provinces}) 
+          #if( ${province.province.id} == ${status.value}&&${status.value})
+                            <option value="${province.province.id}" selected>${province.province.name}</option>
+          #else
+                            <option value="${province.province.id}">${province.province.name}</option>
+          #end    
+        #end
+      #end
+    #end            
+                        </select>
+
+    #springBind("registerViewDTO.customerDTO.customerAddresses['1'].anotherProvince")
+                      <input id="otherregionForBilling" size="30" maxlength="9" value="${status.value}" name="customerDTO.customerAddresses['1'].anotherProvince" type="text" onblur="fieldBlurred(this,4)" style="display: none">
+  
+  #else
+                      <select size="1" name="$status.expression" id="region" class="chzn-select" data-placeholder="Choose State/Province" style="width:215px;">
+                        <option value="0"></option>
+  #foreach($country in $registerViewDTO.countriesInUse)
+    #if(${curcountry} == ${country.country.id}) 
+     
+      #foreach($province in ${country.provinces}) 
+        #if( ${province.province.id} == ${status.value}&&${status.value})
+                          <option value="${province.province.id}" selected>${province.province.name}</option>
+        #else
+                          <option value="${province.province.id}">${province.province.name}</option>
+        #end    
+      #end
+    #end
+  #end            
+                      </select>
+                      
+  #springBind("registerViewDTO.customerDTO.customerAddresses['1'].anotherProvince")
+                      <input id="otherregionForBilling" size="30" maxlength="9" value="${status.value}" style="display:none;" name="customerDTO.customerAddresses['1'].anotherProvince" type="text" onblur="fieldBlurred(this,4)">
+#end
+                    </div>
+                  </div>
+                  
+#springBind("registerViewDTO.customerDTO.customerAddresses['1'].postal")
+                  <div class="f-row">
+                    <label for="customerDTO.customerAddresses['1'].postal">#springMessage("vm.register.postal")<span class="needed_star"> *</span></label>
+                    <div class="f-field"><input size="30" maxlength="10" value="${status.value}" id="customerDTO.customerAddresses['1'].postal" name="customerDTO.customerAddresses['1'].postal" type="text" onblur="fieldBlurred(this,3);#if($registerViewDTO.islogin) shippingAddressListenerAfterReg(${vendorSettingsDTO.vendorId},this.form,1,2);#else shippingAddressListener(${vendorSettingsDTO.vendorId},this.form,1,2,false);#end"/></div>
+                  </div>
+#end
+#springBind("registerViewDTO.customerDTO.loginname")
+                  <div class="f-row">
+                      <label for="customerDTO.loginname">#springMessage("word.email")<span class="needed_star">*</span></label>
+                      <div class="f-field"><input size="30" maxlength="50" value="${status.value}" id="customerDTO.loginname" name="customerDTO.loginname" type="text"/></div>
+                  </div>
+#springBind("registerViewDTO.confirmLogin")
+                  <div class="f-row">
+                      <label for="confirmLogin">#springMessage("vm.register.confirmemail")<span class="needed_star">*</span></label>
+                    <div class="f-field"><input size="30" maxlength="50" value="${status.value}" id="confirmLogin" name="confirmLogin" type="text"/></div>
+                  </div>
+
+#springBind("registerViewDTO.customerDTO.loginpassword")
+                  <div class="f-row">
+                    <label for="customerDTO.loginpassword">#springMessage("word.password")<span class="needed_star">*</span></label>
+                    <div class="f-field vat"><input value="${status.value}" size="30" maxlength="20" id="customerDTO.loginpassword" name="customerDTO.loginpassword" type="password" />
+                      <div class="info_needed">#springMessage("vm.register.msg1")</div>
+                    </div>
+                        
+                  </div>
+#springBind("registerViewDTO.confirmPassword")
+                  <div class="f-row">
+                    <label for="confirmPassword">#springMessage("vm.register.confirmpassword")<span class="needed_star">*</span></label>
+                    <div class="f-field"><input value="${status.value}" size="30" maxlength="20" id="confirmPassword" name="confirmPassword" type="password"></div>
+                  </div>
+
+
+
+#if($registerViewDTO.memberType&&$registerViewDTO.memberType != '1')
+                  <div class="f-row">
+                    <label for="${status.expression}">#springMessage("vm.register.question")<span class="needed_star">*</span></label>
+  #springBind("registerViewDTO.securityQuestion")
+                    <div class="f-field">
+                                  <select size="1" id="${status.expression}" name="${status.expression}" style="width:215px;" class="chzn-select"/>
+                           <option value="#springMessage("vm.register.securitymessage1")">#springMessage("vm.register.securitymessage1")</option>
+                           <option value="#springMessage("vm.register.securitymessage2")">#springMessage("vm.register.securitymessage2")</option>
+                           <option value="#springMessage("vm.register.securitymessage3")">#springMessage("vm.register.securitymessage3")</option>
+                           <option value="#springMessage("vm.register.securitymessage4")">#springMessage("vm.register.securitymessage4")</option>
+                      </select>
+                    </div>
+                  </div>
+  #springBind("registerViewDTO.securityAnswer")
+                  <div class="f-row">
+                    <label for="securityAnswer">#springMessage("vm.register.answer")<span class="needed_star">*</span></label>
+                    <div class="f-field"><input size="30" maxlength="50" value="${status.value}" id="securityAnswer" name="securityAnswer" type="text"></div>
+                  </div>  
+<!-- end of input fields--> 
+
+#if($productsDetails.products.size() > 0)
+                 #set($authenticationSubmitURL="store.html")
+    <input type="hidden" name="customerDTO.allCustomerProperties['SHIP_WHERE']" value="0">
+                          
+  #if($registerViewDTO.allNoneShippableItems)
+            #if($registerViewDTO.billingandshippinginonepage)
+                      <input id="rdoDiffAddr" style="display:none;" type="radio" name="customerDTO.customerProperties['SHIP_WHERE']" value="2" checked >
+           #else
+                   <input id="rdoThisAddr" style="display:none;" type="radio" name="customerDTO.customerProperties['SHIP_WHERE']" value="1" checked >
+           #end
+  #else
+    <div class="shipped-to">
+      <div class="f-row">#springMessage("vm.register.msg2"):</div>
+      
+      #springBind("registerViewDTO.customerDTO.customerProperties['SHIP_WHERE']")            
+      <div class="f-row" #if($registerViewDTO.billingandshippinginonepage)  style="display:none;" #end>
+        <div class="f-field"><input id="rdoThisAddr" name="$status.expression" value="1" #if(${status.value}&&"${status.value}"=="1") checked #end type="radio" onclick="javascript:setregister('payment.html?vid=$vendorSettingsDTO.vendorId');showhidepayment_info(this.value);"> </div>
+        <label for="rdoThisAddr" class="radiobtn">#springMessage("vm.register.this")</label><br>  <!-- Send to payment if this is selected -->
+      </div>
+    
+      <div class="f-row">
+        <div class="f-field"><input id="rdoDiffAddr" name="$status.expression" value="2" #if(${status.value}&&"${status.value}"=="2") checked #end type="radio" onclick="javascript:setregister('pickaddress.html?vid=$vendorSettingsDTO.vendorId');showhidepayment_info(this.value);"> </div>
+        <label for="rdoDiffAddr" class="radiobtn">#springMessage("vm.register.another")</label><br> <!-- Send to single address pick if this is selected -->
+      </div>
+      #set($itemindex= 0)
+      #foreach($product in $productsDetails.products)
+        #set($itemindex= $itemindex+ $product.qty)
+      #end
+      #if($itemindex>1)
+        <div class="f-row">
+          <div class="f-field">
+            <input id="rdoMultAddr" name="$status.expression" value="3" #if(${status.value}&&"${status.value}"=="3") checked #end type="radio" onclick="javascript:setregister('shipping.html?vid=$vendorSettingsDTO.vendorId');showhidepayment_info(this.value);"> 
+          </div>
+          <label for="rdoMultAddr" class="radiobtn">#springMessage("vm.register.multiple")</label>
+        </div>
+      #end
+      #foreach($recount  in $registerViewDTO.retailers)
+        #set($retailcount=$recount)
+      #end
+      #if($retailcount)
+        <div class="f-row">
+          <div class="f-field">
+            <input id="rdoMultAddr" name="$status.expression" value="4" type="radio" #if($status.value&&$status.value==4)checked#end onclick="javascript:setregister('payment.html?vid=$vendorSettingsDTO.vendorId');showhidepayment_info(this.value);">
+          </div>
+          <label for="rdoMultAddr" class="valign-top">#springMessage("vm.register.shipretailers")&nbsp;</label>
+          #springBind( "registerViewDTO.retailerid")
+          <select id="selretailer"  name="$status.expression">
+            <option value="0">#springMessage("vm.register.plselectretailer")</option>
+            #foreach($retail  in $registerViewDTO.retailers)
+              <option value="$retail.retailer.id" #if($status.value&&$status.value==$retail.retailer.id) selected  #end>$retail.retailer.name</option>
+            #end
+          </select>
+        </div>
+      #end
+    </div>
+
+  #end
+</div>
+
+#if($registerViewDTO.billingandshippinginonepage)
+ <div class="yui3-u-1-2" id="shippingInfo" style="display:none">
+              <h2>Your Shipping Infomation</h2>
+<br>
+                   <div class="required"><span class="star">*</span> required information</div>
+<br>
+#springBind( "registerViewDTO.customerDTO.shippingAddress.addressId" ) 
+                  <input type="hidden" id="$status.expression" name="$status.expression" value="$!{status.value}">
+#springBind( "registerViewDTO.billingandshippinginonepage" ) 
+                  <input type="hidden" id="$status.expression" name="$status.expression" value="$!{status.value}">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.clientId" ) 
+                  <input type="hidden" name="$status.expression" value="$!{status.value}">
+  <div class="f-row">
+#springBind("registerViewDTO.sameAsBillingAddress")
+<input id="sameasbilling" name="$status.expression" #if($registerViewDTO.allNoneShippableItems  || $status.value==true) checked="checked" #end type="checkbox" onclick="showhideShipping();showhidepayment_info(2);"/>Same as billing address
+ </div>
+<div id = "notSameAsBilling">
+
+  <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.nickName" )
+                      <label for="nickName">#springMessage("vm.editshippingaddress.nickname")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <input id="nickName" name="$status.expression" type="text" value="$!{status.value}" size="30" />
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.firstname" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.firstname")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="30" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.middlename" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.middlename")</label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="3" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.lastname" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.lastname")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="30" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.company" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.company")</label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="30" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.address1" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.adress") 1<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="30" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.address2" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.adress") 2</label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="30" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.city" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.city")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="30" onBlur="initCap(this)" onSubmit="initCap(this)"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.countryId" )
+  #set($curcountryS=$status.value)
+                      <label for="$status.expression">#springMessage("vm.checkout_address.country")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <select size="1" name="$status.expression" id="shippingCountry" class="chzn-select" data-placeholder="#springMessage('vm.checkout_address.selectcountry')">
+                          <option value="0"></option>
+#foreach($country in ${registerViewDTO.countriesInUse})
+    #if($curcountryS == 0 && ${country.defcountry} || $country.country.id==${status.value})
+      #set($curcountryS=$country.country.id)
+    #end
+                            <option #if($country.country.id == $curcountryS) selected="selected" #end value="$country.country.id">
+                            $country.country.name
+                          </option>
+#end
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="f-row">
+#springBind("registerViewDTO.customerDTO.shippingAddress.provinceId")
+                      <label for="$status.expression">#springMessage("vm.checkout_address.region")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+#if(${registerViewDTO.customerDTO.shippingAddress.provinceId}!=0)
+                        <select name="$status.expression" id="provinces" class="chzn-select" data-placeholder="#springMessage('vm.register.choseprovince')" style="width:215px;">
+#else
+                       <select name="$status.expression" id="provinces" style="width:215px;display:none" class="chzn-select" data-placeholder="#springMessage('vm.register.choseprovince')" >
+#end
+                          <option value="0"></option>
+#set($showAnotherProvince=true)
+#foreach($country in ${registerViewDTO.countriesInUse})
+  #if(${curcountryS} == ${country.country.id})
+    #foreach($province in ${country.provinces}) 
+      #if( ${province.province.id} == ${status.value})
+                          <option value="${province.province.id}" selected>${province.province.name}</option>
+      #else
+                          <option value="${province.province.id}">${province.province.name}</option>
+      #end
+    #set($showAnotherProvince=false)
+    #end
+  #end
+#end
+                        </select>
+#springBind("registerViewDTO.customerDTO.shippingAddress.anotherProvince")
+  #if(!$showAnotherProvince)
+                       <input id="otherregionForShipping" size="30" maxlength="9" value="${status.value}" name="$status.expression" type="text" style="display:none">
+  #else
+                       <input id="otherregionForShipping" size="30" maxlength="9" value="${status.value}" name="$status.expression" type="text">
+  #end
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.postal" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.zippostalcode")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}" size="30" maxlength="9"/>
+                      </div>
+                    </div>
+                    <div class="f-row">
+#springBind( "registerViewDTO.customerDTO.shippingAddress.phone" )
+                      <label for="$status.expression">#springMessage("vm.checkout_address.phone")<span class="needed_star">*</span></label>
+                      <div class="f-field">
+                        <input id="$status.expression" name="$status.expression" type="text" value="$!{status.value}"  maxlength="18" size="30" />
+                      </div>
+                    </div>
+</div>
+
+
+</div>
+#end
+</div>
+
+</div>
+
+  #if($registerViewDTO.onepagecheckout)
+                  <!-- one page checkout -->
+                  <div id="payment_info" >
+                    <a name="payment"></a>
+    #if($registerViewDTO.islogin)
+                    <table id="productItems" class="p-table">
+                      <colgroup>
+                        <col class="col1"/>
+                        <col class="col2"/>
+                        <col class="col3"/>
+                        <col class="col4"/>
+                        <col class="col5"/>
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>#springMessage("vm.register.description")</th> 
+                          <th #if($registerViewDTO.allNoneShippableItems) style="visibility:hidden;" #end >#springMessage("vm.register.shipto")</th>
+                          <th #if($registerViewDTO.allNoneShippableItems) style="visibility:hidden;" #end >#springMessage("vm.register.shipmethod") </th>
+                          <th class="ac">#springMessage("vm.register.qty")</th>
+                          <th class="ac">#springMessage("vm.register.total")</th>
+                        </tr>
+                      </thead>
+                      <tfoot id="cost-container" class="totals">
+                        <tr class="subtotal" id="subtotal_row_id">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">#springMessage("vm.register.subtotal") ($registerViewDTO.details.totalQty #if($registerViewDTO.details.totalQty > 1)#springMessage("vm.register.items")#else #springMessage("vm.register.item")#end):</td>
+                          <td class="ar vat val">$number.format('currency', $registerViewDTO.details.total, $viewStoreCurrency.locale)</td>
+                        </tr>
+                        <input type="hidden" value="$subtotal" id="subtotal" name="subtotal">
+#if($registerViewDTO.details.totalDiscount&&$math.round($registerViewDTO.details.totalDiscount )> 0)
+                        <tr class="discount">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">#springMessage("vm.register.discounts"):</td>
+                          <td class="ar vat val">$number.format('currency', $registerViewDTO.details.totalDiscount, $viewStoreCurrency.locale)</td>
+                        </tr>
+#end
+
+#if($registerViewDTO.details.shipTotal&&$registerViewDTO.details.shipTotal > 0)
+                        <tr class="shipping">
+                          <td colspan="3" class="empty-cel ar f-buttons"><input type="button" value="recalculate" onclick="calcShippingAndTax();"/></td>
+                          <td class="ar vat lbl">
+                            <span id="taxlab1">#springMessage("vm.register.shipping"):</span>
+                          </td>
+                          <td class="ar vat val" id="register_shipping_id">$number.format('currency', $registerViewDTO.details.shipTotal, $viewStoreCurrency.locale)</td>
+                        </tr>
+#end
+#if($registerViewDTO.details.taxTotal&&$registerViewDTO.details.taxTotal > 0)
+                        <tr class="tax">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">
+                            <span id="taxlab1">#springMessage("vm.register.tax"):</span>
+                          </td>
+                          <td class="ar vat val" id="register_tax_id">$number.format('currency', $registerViewDTO.details.taxTotal, $viewStoreCurrency.locale)</td>
+                        </tr>
+#end
+
+#set($tempgiftcert=0)
+#if($registerViewDTO.giftCertificate.giftCertificates && $registerViewDTO.giftCertificate.giftCertificates.size() > 0 )
+                        <tr class="discount">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">#springMessage("vm.register.giftapplied"):</td>
+                          <td class="ar vat val" id="register_giftcert_id">$number.format('currency', $registerViewDTO.giftCertificate.totalAvailable, $viewStoreCurrency.locale)</td>
+                        </tr>
+  #set($tempgiftcert=$registerViewDTO.giftCertificate.totalAvailable)
+#end
+                        <tr class="total">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">#springMessage("vm.register.totalbill"):</td>
+                          <td class="ar vat val" id="register_total_bill_id">
+                             #set($totalwithdis=$math.sub($registerViewDTO.details.total,$registerViewDTO.details.totalDiscount))
+                             $number.format('currency', $math.abs($math.sub($math.add($math.add(${totalwithdis},${registerViewDTO.details.taxTotal}),${registerViewDTO.details.shipTotal}),${tempgiftcert})), $viewStoreCurrency.locale) 
+                          </td>
+                        </tr>
+#if($registerViewDTO.details.usepoints&&$registerViewDTO.details.usepoints!=0)
+                        <tr class="balance">           
+  #if($registerViewDTO.details.usepoints==2)
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">    #springMessage('vm.basket.balancedue'):</td>
+  #elseif($registerViewDTO.details.usepoints==1)
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">    #springMessage('vm.basket.pointsneed'):</td>   
+  #end 
+                          <td class="ar vat val" >
+
+  $#if($registerViewDTO.details.allowances >= $math.add($math.add($registerViewDTO.details.totalWithDiscount,$registerViewDTO.details.shipTotal),$registerViewDTO.details.taxTotal))
+                      $0.00
+  #else
+                      $$registerViewDTO.formatter.currency($math.abs($math.sub($math.sub($math.add($math.add(${registerViewDTO.details.totalWithDiscount},${registerViewDTO.details.taxTotal}),${registerViewDTO.details.shipTotal}),${tempgiftcert}),$registerViewDTO.details.allowances)))
+  #end 
+
+                          </td>
+                        </tr>  
+#end
+                      </tfoot>
+                      <tbody>
+    #set($groupidx = 0)
+      #foreach($productgroup in $registerViewDTO.details.shippinggroup)
+        #set($itemidx = 0)
+        #foreach($productitem in $productgroup.shipItems)
+          #set ($product = $registerViewDTO.details.products.get($productitem.get(0) ))
+          #set ($shipaddr= $product.shipAddress.get($productitem.get(1) ))
+          #set($creditneed = "N")
+                        <tr>                          
+                          <td >${productitem.product.title}</td>
+                          <td #if($registerViewDTO.allNoneShippableItems) style="visibility:hidden;" #end>
+          #set($invalidAddress="false")                       
+          #if($itemidx == 0 )
+            $productgroup.address.address.nickname &nbsp;&nbsp; <a href="shipping.html?vid=$registerViewDTO.vendorId" class="edit">#springMessage("word.edit")</a><br/>      
+            #if($productgroup.address.address.address1 && $productgroup.address.address.postal && $productgroup.address.country.name ) 
+              #if($productgroup.address.province.name || $productgroup.address.address.anotherprovince)
+                $productgroup.address.address.address1  $!productgroup.address.address.address2<br/>
+                $productgroup.address.address.city<br>
+                $!productgroup.address.province.name #if(!$productgroup.address.province.name)$!productgroup.address.address.anotherprovince #end
+                $productgroup.address.country.name<br/>  
+                $productgroup.address.address.postal 
+              #else
+                            <div class="warning">#springMessage("vm.register.invalid")</div>
+                #set($invalidAddress="true")
+              #end
+            #end
+          #end
+                          </td>
+                          <td #if($registerViewDTO.allNoneShippableItems) style="visibility:hidden;" #end>                    
+          #if($itemidx == 0 )
+            #if($productgroup.singleship)
+              ${productgroup.shipmethod.shippingmethod.methodname}
+            #else
+                            <select name="SHIPTYP_${groupidx}" ID="SHIPTYP_${groupidx}"  onchange="document.registerForm.submit()"  style="width:200px;">
+              #foreach($shipmethod in ${productgroup.shipmethods}) 
+                #if( ${productgroup.shipmethod.shippingmethod.id} == ${shipmethod.shippingmethod.id})
+                              <option value="${shipmethod.shippingmethod.id}" selected>${shipmethod.shippingmethod.methodname}- $ $registerViewDTO.formatter.currency(${shipmethod.shippingRateDTO.totalcharges})</option>
+                #else
+                              <option value="${shipmethod.shippingmethod.id}">${shipmethod.shippingmethod.methodname}- $ $registerViewDTO.formatter.currency(${shipmethod.shippingRateDTO.totalcharges})</option>
+                #end 
+              #end
+                            </select>
+            #end
+          #end
+                          </td> 
+                          <td class="ac">${productitem.shipaddr.qty}</td>
+                          <td class="ar">&#36;$registerViewDTO.formatter.currency(${productitem.shipaddr.totalPrice})</td>
+                        </tr>
+      #set($itemidx = $itemidx + 1)
+    #end
+    #set($groupidx = $groupidx+1)
+  #end
+
+                        </tbody>
+                      </table>
+#else ##end if($registerViewDTO.islogin)
+  #if($productsDetails)
+
+                   <table id="productItems" class="p-table">
+                     <colgroup>
+                      <col class="col1"/>
+                      <col class="col2"/>
+                      <col class="col3"/>
+                      <col class="col4"/>
+                      <col class="col5"/>
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th>#springMessage("vm.register.description")</th> 
+                        <th #if($registerViewDTO.allNoneShippableItems) style="visibility:hidden;" #end >#springMessage("vm.register.shipto")</th>
+                        <th #if($registerViewDTO.allNoneShippableItems) style="visibility:hidden;" #end >#springMessage("vm.register.shipmethod") </th>
+                        <th>#springMessage("vm.register.qty")</th>
+                        <th>#springMessage("vm.register.total")</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+    #set($subtotal = $math.toDouble("0.00"))
+    #foreach( $product in $productsDetails.products)
+                        <tr>
+                          <td>$product.title</td>
+                          <td></td>
+                          <td></td>
+                          <td class="ac">$product.qty</td>
+                          <td class="ar">&#36;$registerViewDTO.formatter.currency($product.price)</td>
+        #set($subtotal = $math.add($subtotal , $product.totalPrice))
+                        </tr>
+    #end
+                      </tbody>
+                      <tfoot class="totals">
+                        <tr class="subtotal" id="subtotal_row_id">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">#springMessage("vm.register.subtotal")($productsDetails.totalQty #springMessage("vm.register.item")#if($productsDetails.totalQty > 1)s#end):</td>
+                          <td class="ar vat val">$$registerViewDTO.formatter.currency($subtotal)</td>
+                        </tr>
+                        <tr class="subtotal">
+                          <td colspan="3" class="empty-cel ar f-buttons"><input type="button" value="recalculate"  onclick="calcShippingAndTax();"/></td>
+                          <td class="ar vat lbl">#springMessage("vm.register.shipping"):</td>
+                          <td id="register_shipping_id" class="ar vat val"></td>
+                        </tr>
+                        <tr class="subtotal">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">#springMessage("vm.register.tax"):</td>
+                          <td id="register_tax_id" class="ar vat val"></td>
+                        </tr>
+                        <tr class="subtotal">
+                          <td colspan="3" class="empty-cel">&nbsp;</td>
+                          <td class="ar vat lbl">#springMessage("vm.register.totalbill"):</td>
+                          <td id="register_total_bill_id" class="ar vat val"></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+  #else
+                    <br><b>#springMessage("vm.register.msg3")</b> <br><br>
+  #end
+#end
+                    <!--======================-->
+                    <div id="paymentGateway">
+                    <h2>#springMessage("vm.register.msg4")</h2>
+          #springBind("registerViewDTO.radioButtonId")
+                      <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_radioid">
+          #springBind("registerViewDTO.inputFieldId")
+                      <input type="hidden" name="$status.expression" value="$!status.value" id="hidden_inputid">
+          #springBind("registerViewDTO.selectedPaymentGatewayId")
+                      <input type="hidden" name="$status.expression" value="$status.value" id="hidden_pgid">
+
+          #foreach($paymentgateway in ${registerViewDTO.ccPreferencesDTO.paymentgateways})
+                      <div class="f-row"> 
+                        <input type="radio" name="selectedPaymentGatewayCode" id="radio_$velocityCount" onClick="showhide('$paymentgateway.paymentgatewayid',this.value,this.id,'input_$velocityCount');" value="$paymentgateway.code" #if($registerViewDTO.selectedPaymentGatewayCode && $paymentgateway.code==$registerViewDTO.selectedPaymentGatewayCode) checked #end>
+            #if($paymentgateway.logo && $paymentgateway.logo!="")
+                            <div class="f-field"> 
+                              <label for="radio_$velocityCount"> <img src="$paymentgateway.logo" alt="$paymentgateway.displayname"/> </label> 
+                            </div>
+            #else
+              <div class="f-field">
+                #if($paymentgateway.inputtype && $paymentgateway.inputtype==1)
+                  #springBind("registerViewDTO.customerInput")
+                  <label for="radio_$velocityCount">$paymentgateway.displayname</label>
+                  <input type="text" name="$status.expression" id="input_$velocityCount" value="$!status.value" style="display:none" disabled>
+                #else
+                  <label for="radio_$velocityCount">$paymentgateway.displayname</label>
+                #end
+                          </div>
+
+            #end
+###############################################################
+    #if($paymentgateway.code == "PCICC" || $paymentgateway.code == "PCINONE")
+        <!-- PCI Secure Form -->
+      <div id="cc">
+                              <div class="horizontal custom-lbl-width">    
+                                <div class="title">
+                                  <div class="heading2">#springMessage("vm.checkout_payment.creditcardinfo")</div>
+                                </div>
+                                <fieldset class="f-row">
+                                  <legend class="outer">*#springMessage("vm.checkout_payment.creditcard")</legend>
+                                  <input id="reviewAndPay-cardType-visa" name="reviewAndPay-cardType" type="radio" class="radio" value="visa" />
+                                  <label class="visa ccards" for="reviewAndPay-cardType-visa"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/visa.gif" alt="Visa" /></label>
+                                  <input id="reviewAndPay-cardType-masterCard" name="reviewAndPay-cardType" type="radio" class="radio" value="masterCard" />
+                                  <label class="masterCard ccards" for="reviewAndPay-cardType-masterCard"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/master_card.gif" alt="Master Card" /></label>
+                                  <input id="reviewAndPay-cardType-discover" name="reviewAndPay-cardType" type="radio" class="radio" value="discover" />
+                                  <label class="discover ccards" for="reviewAndPay-cardType-discover"><img src="store/$vendorSettingsDTO.vendorId/assets/themes/theme2_en/images/icons/discover.gif" alt="Discover" /></label>    
+                                </fieldset>
+                                <div class="f-row">
+                                    <label for="reviewAndPay-cardNumber">*#springMessage("vm.checkout_payment.cardnumber")</label>
+                                    <input id="reviewAndPay-cardNumber" name="reviewAndPay-cardNumber" type="text" class="text" />
+                                </div>
+     
+
+        #if($paymentgateway.code == "PCICC")
+                                    <div class="f-row">
+                                        <label for="reviewAndPay-level2Code">*#springMessage('vm.register.securitycode')</label>
+                                        <input id="reviewAndPay-level2Code" name="creditCard.level2Code" type="text" class="text" />
+                                    </div>
+        #else
+          <input type="hidden" name="creditCard.level2Code" id="cvv" value="1234"  autocomplete="off"/>
+        #end
+                                <input type="hidden" id="currencyCode" value="$paymentgateway.option9">
+                                <input type="hidden" id="authamt" value="$!registerViewDTO.authamt"/>
+                                <input type="hidden" id="saleamt" value="$!registerViewDTO.saleamt"/>
+                                <input type="hidden" id="zip" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').postal">
+                                <input type="hidden" id="regioncode" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').provinceCode">
+                                <input type="hidden" id="countrycode" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').countryCode">
+                                <input type="hidden" id="city" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').city">
+                                <input type="hidden" id="street" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').address1">
+                                <input type="hidden" id="firstName" value="$!registerViewDTO.customerDTO.firstName">
+                                <input type="hidden" id="middleName" value="$!registerViewDTO.customerDTO.middleName">
+                                <input type="hidden" id="lastName" value="$!registerViewDTO.customerDTO.lastName">
+                                <input type="hidden" id="address1" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').address1">
+                                <input type="hidden" id="address2" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').address2">
+                                <input type="hidden" id="phone" value="$!registerViewDTO.customerDTO.customerAddresses.get('1').phone">
+                                <input type="hidden" id="billingemail" value="$!registerViewDTO.customerDTO.loginname">
+                               <input type="hidden" name="email" value="$!registerViewDTO.customerDTO.loginname"/>
+                          
+    
+                                <div class="f-row">
+                                  <label for="reviewAndPay-expMonth">*#springMessage("vm.checkout_payment.expirationdate")</label>
+                                  <div class="f-field">
+                                    <select class="month" id="reviewAndPay-expMonth" name="reviewAndPay-expMonth">
+                                      <option value="0">-Month-</option>
+                                      <option value="1">January</option>
+                                      <option value="2">February</option>
+                                      <option value="3">March</option>
+                                      <option value="4">April</option>
+                                      <option value="5">May</option>
+                                      <option value="6">June</option>
+                                      <option value="7">July</option>
+                                      <option value="8">August</option>
+                                      <option value="9">September</option>
+                                      <option value="10">October</option>
+                                      <option value="11">November</option>
+                                      <option value="12">December</option>
+                                    </select>
+                                    <select class="year" id="reviewAndPay-expYear" name="reviewAndPay-expYear">
+                                      <option value="0">-Year-</option>
+                                      <option value="2011">2011</option>
+                                      <option value="2012">2012</option>
+                                      <option value="2013">2013</option>
+                                      <option value="2014">2014</option>
+                                      <option value="2015">2015</option>
+                                      <option value="2016">2016</option>
+                                      <option value="2017">2017</option>
+                                      <option value="2018">2018</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="f-row">
+                                    <label for="creditCard.ccHolderName">* #springMessage('vm.register.nameoncard')</label>
+                                    #if($registerViewDTO.customerDTO.firstName && $registerViewDTO.customerDTO.firstName!=""
+                                          && $registerViewDTO.customerDTO.lastName && $registerViewDTO.customerDTO.lastName!="")
+                                    <input type="text" name="creditCard.ccHolderName" id="creditCard.ccHolderName" value="$!registerViewDTO.customerDTO.firstName $!registerViewDTO.customerDTO.lastName" />
+                                    #else
+                                    <input type="text" name="creditCard.ccHolderName" id="creditCard.ccHolderName" value="" />
+                                    #end
+                                </div><!-- /end .f-row -->
+
+                            </div><!-- /end .horizontal custom-lbl-width-->
+                         </div><!-- /end .cc -->
+
+                        <div class="secure" id="ccsubmitted">
+              <div class="f-form horizontal custom-lbl-width">
+                <div class="title">
+                  <div class="heading2">#springMessage("vm.checkout_payment.creditcardinfo")</div>
+                </div>
+                            <div class="f-row">
+                              <label class="outer">*#springMessage("vm.checkout_payment.creditcard")</label>
+                              <div class="f-field">
+                                  <span class="visa">#springMessage("vm.profile_membership.visa")</span>
+                              </div>
+                            </div>
+                            <div class="f-row">
+                              <input type="hidden" name="transactionid" id="transactionid" value=""/>
+                              <input type="hidden" id="pciorderid" value="0" />
+                              <input type="hidden" name="creditCard.ccNumber" id="CARDNO" value=""  autocomplete="off"/>
+                              <input type="hidden" id="creditCard.ccType" name="creditCard.ccType" value="3" />
+                              <input type="hidden" id="creditCard.expMonth" name="creditCard.expMonth" value="1"/>
+                              <input type="hidden"  name="creditCard.expYear" value="2010" />
+                              <label for="reviewAndPay-cardNumber">*#springMessage("vm.checkout_payment.cardnumber")</label>
+                              <div class="f-field">
+                                <span>XXXX-XXXX-XXXX-</span><span id="last4cc"></span><a onclick="javascript:$('#ccsubmitted').css('display','none');$('#cc').css('display','block');" class="editCC">#springMessage("vm.checkout_payment.editcreditcard")</a>
+                              </div>
+                            </div><!-- /end .f-row -->
+                            <div class="f-row">
+                                <label for="reviewAndPay-expMonth">*#springMessage("vm.checkout_payment.expirationdate")</label>
+                                <div style="float:left">
+                                <span id="expDate"></span>
+                                </div>
+                            </div><!-- /end .f-row -->
+
+            </div><!-- /end .sleeve -->
+                    </div><!-- End secure with prepop CC# and Exp Date-->
+
+  #elseif($paymentgateway.code.indexOf("NCC") == -1 && !$pgcodenocc.contains($paymentgateway.code) && $paymentgateway.code != "ACH")
+         <!-- Credit Card Form -->
+          <div id="payment_method" style="display:none" >
+  <div class="f-row">
+    <label for="CARDNO" >#springMessage("vm.register.creditcard")</label>
+    <div class="f-field vat" >
+    #springBind ("registerViewDTO.creditCard.ccNumber")
+      #if($registerViewDTO.creditCard.startYear == 1)
+      <input type="text" name="$status.expression" id="CARDNO" value="$registerViewDTO.creditCard.ccSecureNumber"  autocomplete="off"/>
+      #else
+      <input type="text" name="$status.expression" id="CARDNO" value="$status.value"  autocomplete="off"/>
+      #end
+      <div class="info_needed">#springMessage("vm.register.msg5")</div>
+    </div>
+  </div>
+  <div class="f-row">
+    <script language="javascript" type="text/javascript">
+      function checkKey() {
+        var keyword = document.getElementById('keyword');
+        var key = document.getElementById('key');
+
+        keyword.value = key.value;
+        if (keyword.value.length==0)
+          keyword.value = $vendorSettingsDTO.vendorId;
+        }
+    </script>    
+    <label for="cvv">#springMessage('vm.register.securitycode')</label>
+    <div class="f-field" >
+      #springBind ("registerViewDTO.creditCard.level2Code")
+      #if($registerViewDTO.creditCard.startYear == 1)
+      <input type="text" name="$status.expression" id="cvv" value="***"  autocomplete="off"/>
+      #else
+      <input type="text" name="$status.expression" id="cvv" value="$status.value" maxlength="4" size="4"  autocomplete="off"/>
+      #end
+      <span class="info_needed whatsthis" id="securityCode_help">#springMessage('vm.register.msg6')</span>
+    </div>
+  </div>  
+  <div class="f-row">
+    #springBind ("registerViewDTO.creditCard.ccType")
+    <label for="$status.expression">#springMessage('vm.register.cctype')</label>
+    <div class="f-field" >      
+      <select name="$status.expression" id="$status.expression">
+        <option value="0" selected>#springMessage('vm.register.selectcard')</option>
+      #set ($cardtypekeys = $registerViewDTO.creditCard.ccTypes.keySet())
+      #foreach ($cardtypekey in $cardtypekeys)
+        #if ( $cardtypekey == 3 || $cardtypekey == 5 || $cardtypekey==6 || $cardtypekey==7)
+          #if ($cardtypekey == $status.value&& $status.value)
+        <option value="$cardtypekey" selected>$registerViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+          #else
+        <option value="$cardtypekey">$registerViewDTO.creditCard.ccTypes.get($cardtypekey)</option>
+        #end  
+      #end
+    #end
+      </select>
+    </div>
+  </div>
+    
+  <div class="f-row">
+#springBind ("registerViewDTO.creditCard.expMonth")
+    <label for="$status.expression">#springMessage('vm.register.expirydate')</label>
+    <div class="f-field">
+#set ( $months = [1,2,3,4,5,6,7,8,9,10,11,12])
+      <select id="$status.expression" name="$status.expression">
+#foreach( $month in $months)
+        <option value="$month" #if($status.value && $status.value == $month) selected #end> $month </option>
+#end
+      </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#springBind ("registerViewDTO.creditCard.expYear")
+      <select name="$status.expression">
+#foreach( $step in [0..10] )
+        <option value="$math.add($date.getYear(),$step)" #if( $status.value && $status.value == $math.add($date.getYear(),$step)) selected #end> $math.add($date.getYear(),$step) </option>
+#end
+      </select>
+    </div>
+  </div>
+  
+  <div class="f-row">
+    <label for="nameoncard" class="f-field">#springMessage('vm.register.nameoncard')</label>
+    <div class ="f-field">
+    #springBind ("registerViewDTO.creditCard.ccHolderName")
+      <input type="text" name="$status.expression" id="nameoncard" value="$status.value" maxlength="50" size="20" />
+    </div>
+  </div>
+</div>
+<!-- end of payment_method -->
+
+<!--start ach  -->
+ #elseif($paymentgateway.code == "ACH" )
+    <div id="payment_method_ach" style="display:none" >
+  <div class="f-row">
+    <label for="bakname" >#springMessage("vm.register.bankname")</label>
+    <div class="f-field vat" >
+    #springBind ("registerViewDTO.echecknet.bank_Name")     
+      <input type="text" name="$status.expression" id="bankname" value="$status.value" />        
+    </div>
+  </div>
+<div class="f-row">
+    <label for="bakaccount" >#springMessage("vm.register.bankaccount")</label>
+    <div class="f-field vat" >
+    #springBind ("registerViewDTO.echecknet.account_Name")     
+      <input type="text" name="$status.expression" id="account_name" value="$status.value" />        
+    </div>
+  </div>
+  <div class="f-row">
+    <label for="bankacctype" >#springMessage("vm.register.bankacctype")</label>
+    <div class="f-field vat" >
+    #springBind ("registerViewDTO.echecknet.bank_Account_Type")   
+    <select name="$status.expression" id="bank_acctype" value="$status.value">
+      <option value="CHECKING">Checking</option>
+      <option value="BUSINESSCHECKING">Business Checking</option>
+      <option value="SAVINGS">Savings</option>
+    </select>  
+    </div>
+  </div>
+  <div class="f-row">
+    <label for="bankaccnum" >#springMessage("vm.register.bankaccnum")</label>
+    <div class="f-field vat" >
+    #springBind ("registerViewDTO.echecknet.bank_Account_Num")     
+      <input type="text" name="$status.expression" id="bank_account_num" value="$status.value" />        
+    </div>
+  </div>
+  <div class="f-row">
+    <label for="bankabacode" >#springMessage("vm.register.bankabacode")</label>
+    <div class="f-field vat" >
+    #springBind ("registerViewDTO.echecknet.aba_Routing_Code")     
+      <input type="text" name="$status.expression" id="aba_routing_code" value="$status.value" />        
+    </div>
+  </div> 
+</div>
+<!--end ach  -->
+
+  #end
+#################################################################  
+               </div>
+          
+#end
+                    </div><!-- -end of paymentGateway-->
+
+  
+                          
+
+<!--============================-->
+
+
+<div class="promos">
+#if(!$hiddenGiftApplyButton || $hiddenGiftApplyButton!='true')
+    <div class="gift-card">
+#springBind ("registerViewDTO.giftCertificateCodes")
+      <div class="f-row">
+        <label for="$status.expression" ><b>#springMessage('vm.register.giftnumber')</b></label>
+        <div class="f-field" >
+          <input type="text" id="giftCertificateCode" name="$status.expression"  value="$status.value" size="15"  maxlength="80" onKeyDown="if (event.keyCode==13){document.frm.t.value='prom';document.frm.submit();event.keyCode=9;}" />
+          <p><a href="javascript:document.getElementById('hiddensubmit').value='gift';setAnchorName('payment');document.registerForm.submit();" >#springMessage('vm.register.applygift')</a></p>
+#if($registerViewDTO.giftCertificate.status.keySet() && ($registerViewDTO.giftCertificate.status.containsValue("0") || $registerViewDTO.giftCertificate.status.containsValue("1") || $registerViewDTO.giftCertificate.status.containsValue("2") || $registerViewDTO.giftCertificate.status.containsValue("3") || $registerViewDTO.giftCertificate.status.containsValue("4") || $registerViewDTO.giftCertificate.status.containsValue("5") || $registerViewDTO.giftCertificate.status.containsValue("6")  || $registerViewDTO.giftCertificate.status.containsValue("7")) )
+                  <div class="warning" style="color:red">
+                    <ul>
+    #foreach($key in $registerViewDTO.giftCertificate.status.keySet())
+      #set($statval=$registerViewDTO.giftCertificate.status.get($key))
+      #if($statval == "0")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg1')</li>
+      #end
+      #if($statval == "1")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg2')</li>
+      #end
+      #if($statval == "2")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg3')</li>
+      #end
+      #if($statval == "3")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg4')</li>
+      #end
+      #if($statval == "4")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg4')</li>
+      #end
+      #if($statval == "5")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg5')</li>
+      #end
+      #if($statval == "6")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg6')</li>
+      #end
+      #if($statval == "7")
+                      <li>{ <b>$key</b> } ---  #springMessage('vm.checkout_payment.msg12')</li>
+      #end
+    #end
+                    </ul>
+                  </div> 
+                  <!-- end gc warning -->
+#end 
+        </div>
+      </div>
+      <div class="f-row">
+#if($registerViewDTO.giftCertificate.giftCertificates && $registerViewDTO.giftCertificate.giftCertificates.size() > 0)
+  #set ($totalgift=0)
+  #set ($totalgiftAmount=0)
+  #foreach($giftcert in $registerViewDTO.giftCertificate.giftCertificates)
+    #set ($totalgift =  $math.add(${totalgift},$math.add($giftcert.newAmountUsed,$giftcert.amountUsed)))
+    #set ($totalgiftAmount =  $math.add(${totalgiftAmount},$giftcert.amount))
+  #end
+        <label><strong>#springMessage('vm.register.balance'):</strong></label>
+        <div class="f-field">
+          <strong>$$registerViewDTO.formatter.currency($math.sub($totalgiftAmount,$totalgift))</strong>
+        </div>
+#end
+      </div>  
+    </div><!-- gift-card -->
+#end
+#if(!$hiddenPromApplyButton || $hiddenPromApplyButton!='true')
+#springBind("registerViewDTO.promotionCode")
+    <div class="coupon">
+      <div class="f-row">
+        <label for="$status.expression"><strong>#springMessage('vm.register.couponcode')</strong></label>
+        <div class ="f-field">
+          <input type="text" id="promotionCode" name="$status.expression" maxlength="20" value="$status.value"  size="15" onKeyDown="if (event.keyCode==13){document.frm.t.value='prom';document.frm.submit();event.keyCode=9;}" />
+         <p> <a href="javascript:document.getElementById('hiddensubmit').value='prom';setAnchorName('payment');document.registerForm.submit();">#springMessage('vm.register.applycoupon')</a></p>
+        </div>
+      </div>  
+    </div><!-- coupon -->
+#end
+</div><!-- promos -->
+<!--  end of gift certificates-->
+</div>
+<!-- one page checkout end -->
+#end
+#end
+#if($checkOutQuestionDTO.productOptionPageDTOs && $productsDetails.products.size() > 0)
+  <div class="question">
+  <!-- START QUESTION CONTENT -->
+    <input type="hidden" name="mode" value="answerQuestion"/>
+  #foreach($popage in $checkOutQuestionDTO.productOptionPageDTOs)
+    #foreach($question in $popage.questions)
+       <div class="f-row">
+      #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/$question.template")
+    </div>
+    #end
+  #end
+  <!-- END QUESTION CONTENT -->
+  </div>
+#end
+
+#end  <!-- END OF mt=3 elements -->
+        #if ($reCaptchaEnabled)
+         <div class="form-group">
+            <span class="col-sm-3 control-label customLabel"></span>
+              <div class="col-sm-9">
+                 <div class="g-recaptcha" data-sitekey="$reCaptchaSiteKey"></div>
+              </div>
+          </div>  
+        #end
+  <br />
+  #if($registerViewDTO.memberType == '1' || !($productsDetails.products.size() > 0) || !$productsDetails)
+  <div class="f-buttons">
+    <input type="button" class="btnLogin btn-primary" value="#springMessage('button.CONTINUE')" onclick="javascript:document.getElementById('hiddensubmit').value='register';document.registerForm.submit();"/>
+    <input type="button" class="btnLogin btn" value="#springMessage('button.CANCEL')" onclick="javascript:document.location='signin.html?vid=$vendorSettingsDTO.vendorId&mt=$registerViewDTO.memberType'"/>
+  </div>
+  #else
+  <div class="f-buttons">  
+    <input type="hidden" id="onepagecheckout" name="onepagecheckout" value="${registerViewDTO.onepagecheckout}" />  
+#if($registerViewDTO.onepagecheckout)         
+    <input type="button" value="#springMessage('button.CONTINUE')" onclick="javascript:submitWithAsynRegister();"/>
+#else
+    <input type="button" value="#springMessage('button.CONTINUE')" onclick="javascript:document.getElementById('hiddensubmit').value='register';document.registerForm.submit();"/>
+
+#end
+    <input type="button" value="#springMessage('button.CANCEL')" onclick="javascript:document.location='signin.html?vid=$vendorSettingsDTO.vendorId&mt=$registerViewDTO.memberType'"/>
+  </div>
+  #end
+
+
+<!-- External Login -->
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.firstName")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.lastName")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.email")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.userName")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.userId")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.systemName")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.externalLocationDTO.country")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.externalLocationDTO.state")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+
+#springBind("registerViewDTO.customerDTO.externalLoginDTO.externalLocationDTO.city")
+<input type="hidden" name="$status.expression" value="$status.value" id="$status.expression">
+<!-- END OF External Login -->
+      </form>
+</div></div>
