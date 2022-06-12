@@ -130,7 +130,8 @@ a{
     font-size: 12px;
 }
 #footer a{
-    color:#444;
+    color: #fff;
+    text-decoration: none;
 }
 .nav a{
     color: #3C3C3C;
@@ -285,6 +286,7 @@ body{
     border-top: 5px solid #F1372A;
     padding: 20px;
     width: 984px;
+    background-color: #565656;
 }
 #footer .wrapper{
 
