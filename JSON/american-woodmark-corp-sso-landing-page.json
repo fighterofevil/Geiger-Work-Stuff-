@@ -1,0 +1,37 @@
+[
+  {
+    "logo": "awc-corp-logo.svg",
+    "storeName": "Corporate Shop",
+    "buttonClass":"corpClass",
+    "siteActive":"y",
+    "vid": "awco.geigershops.com"
+  },
+  {
+    "logo": "awc-carpentry-logo.svg",
+    "storeName": "Woodmark Cabinetry Shop",
+    "buttonClass":"carpClass",
+    "siteActive":"n",
+    "vid": "20220202161"
+  },
+  {
+    "logo": "waypoint-logo.svg",
+    "storeName": "Waypoint Shop",
+    "buttonClass":"wayClass",
+    "siteActive":"n",
+    "vid": "20220105002"
+  },
+  {
+    "logo": "timberlake-logo.svg",
+    "storeName": "Timberlake Shop",
+    "buttonClass":"timClass",
+    "siteActive":"n",
+    "vid": "20220105002"
+  },
+  {
+    "logo": "shenandoah-logo.svg",
+    "storeName": "Shenandoah Shop",
+    "buttonClass":"shenClass",
+    "siteActive":"n",
+    "vid": "awsh.geigershops.com"
+  }
+]

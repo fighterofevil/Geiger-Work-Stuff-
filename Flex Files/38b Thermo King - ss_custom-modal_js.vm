@@ -1,0 +1,222 @@
+
+<script>
+
+
+ console.log("+++++++++++ in ss.custom-modal_js +++++++++++ ");
+
+    /*
+     * Custom Modals Library
+     * Skeleton Store Global Library
+     */
+    
+ 
+    
+    ss.custom_modals = (function (){
+    
+    	var custom_modals = {};
+    
+    	custom_modals.defaultConfigs = {};
+    
+    	// Populated by Velocity when dependency is rendered.
+    	custom_modals.showModal = false;
+    	custom_modals.displayToGuests = true;
+    	custom_modals.minutesBetweenDisplay = 3600;
+    	custom_modals.oncePerLogin = false;
+    	custom_modals.expiresDate = "";
+    	custom_modals.startsDate = "";
+    	custom_modals.cookiesKey = "";
+    	custom_modals.lastLoginTime = "0";
+    	custom_modals.title = '';
+    	custom_modals.body = '';
+    	custom_modals.ID = '';
+    	custom_modals.cls = '';
+    	custom_modals.style = '';
+    	/*
+    	 * Initialization function.
+    	 *
+    	 * @param configs       Configurations.
+    	 */
+    	custom_modals.init = function(configs) {
+    
+    		if (custom_modals.showModal == false)
+    			return;
+    
+    		var showModal = true;
+    		var showModalAfterPolicy = false;
+    		var cookiesModal;
+    		var modalDialog = jQuery('.custom-popup');
+    		var modalSettings;
+    		var epochMinutes = parseInt((new Date().getTime() / 1000) / 60);
+    		var useLocalStorage = typeof localStorage != 'undefined' && typeof localStorage.setItem == 'function' && typeof localStorage.getItem == 'function';
+    		var storedAcceptanceKey = 'cookie-policy-acceptance-$!{vendorSettingsDTO.vendorId}';
+    		var storedAcceptance = ss.localStorage.getItem(storedAcceptanceKey);
+    
+    
+    		/*#*
+    		     Let's grab any stored settings specific to this modal, or instantiate them
+    		     if they don't exist.
+    		 *#*/
+    
+    		if (ss.localStorage.getItem('customModals') !== null) {
+    			cookiesModal = JSON.parse(ss.localStorage.getItem("customModals"));
+    		} else {
+    			ss.localStorage.setItem("customModals", "{}");
+    			cookiesModal = {};
+    		}
+    		if(typeof cookiesModal[custom_modals.cookiesKey] == "undefined") {
+    			cookiesModal[custom_modals.cookiesKey] = {
+    				"lastLoginTime": "0",
+    				"lastDisplay": 0
+    			};
+    		}
+    		modalSettings = cookiesModal[custom_modals.cookiesKey];
+    
+    		/*#* Run through the criteria to determine if we'll display or not. *#*/
+    
+    		if (!custom_modals.displayToGuests) {
+    			if(lastLoginTime == "0") {
+    				ss.debug("Suppressed modal: displayToGuests");
+    				showModal = false;
+    			}
+    		}
+    		
+    		console.log("------------------------>custom_modals.minutesBetweenDisplay is "+custom_modals.minutesBetweenDisplay);
+    		
+    		if (custom_modals.minutesBetweenDisplay > 0) {
+    			if (epochMinutes - modalSettings["lastDisplay"] < custom_modals.minutesBetweenDisplay) {
+    				ss.debug("Suppressed modal: epochMinutes");
+    				showModal = false;
+    			}
+    		}
+    		
+    		if (custom_modals.oncePerLogin) {
+    			if (modalSettings["lastLoginTime"] == custom_modals.lastLoginTime) {
+    				ss.debug("Suppressed modal: lastLoginTime");
+    				showModal = false;
+    			}
+    		}
+    		if (custom_modals.expiresDate.length > 0) {
+    			if (new Date().getTime() > new Date(custom_modals.expiresDate).getTime()) {
+    				ss.debug("Suppressed modal: expiresDate");
+    				showModal = false;
+    			}
+    		}
+    		if (custom_modals.startsDate.length > 0) {
+    			if (new Date().getTime() < new Date(custom_modals.startsDate).getTime()) {
+    				ss.debug("Suppressed modal: startsDate");
+    				showModal = false;
+    			}
+    		}
+    
+    		// Keep this on bottom of set-showModal control blocks.
+    		// if (_cookie_policy_enabled) {
+    		// 	if (!storedAcceptance) {
+    		// 		// The cookie policy should be displaying. In this case, we'll need to
+    		// 		// display the modal after the policy has been accepted.
+    		// 		if (showModal) {
+    		// 			showModal = false;
+    		// 			showModalAfterPolicy = true;
+    		// 		}
+    		// 	}
+    		// }
+    
+    		if (showModal || showModalAfterPolicy) {
+    			// if (!modalDialog[0].showModal) {
+    			// 	dialogPolyfill.registerDialog(modalDialog[0]);
+    			// }
+    
+    			// modalDialog.find('.close-container').on('click', function() {
+    			// 	modalDialog[0].close();
+    			// });
+    
+    			// modalDialog[0].showModal();
+    			var showModalDialog = function() {
+    				custom_modals.showModalDialog({
+    					'title': 		custom_modals.title,
+    					'id': 			custom_modals.ID,
+    					'class': 		custom_modals.cls,
+    					'style': 		custom_modals.style,
+    					'message': 		custom_modals.message,
+    				});
+    				modalSettings["lastLoginTime"] = custom_modals.lastLoginTime;
+    				modalSettings["lastDisplay"] = epochMinutes;
+    				cookiesModal[custom_modals.cookiesKey] = modalSettings;
+    				ss.localStorage.setItem("customModals", JSON.stringify(cookiesModal));
+    			};
+    
+    			if (showModal) {
+    				showModalDialog();
+    			} else {
+    				ss.debug('Showing modal after cooking policy acceptance');
+    				jQuery("#cookie-policy-agree-button").on("click", showModalDialog);
+    			}
+    
+    		}
+    	};
+    
+    	/*
+    	 * Shows a custom modal dialog.
+    	 *
+    	 * modalSettings:
+    	 * 'title' 				Title of the modal.
+    	 * 'id' 				ID of the modal.
+    	 * 'class' 				Class of the modal.
+    	 * 'style' 				Style attribute of the modal.
+    	 * 'message' 			Modal message.
+    	 *
+    	 * @param 	modalSettings 			Hash map of modal settings.
+    	 */
+    	custom_modals.showModalDialog = function(modalSettings) {
+    		modalSettings = modalSettings ? modalSettings : {};
+    		var title = modalSettings['title'] ? modalSettings['title'] : '';
+    		var ID = modalSettings['id'] ? modalSettings['id'] : '';
+    		var cls = modalSettings['class'] ? modalSettings['class'] : '';
+    		var message = modalSettings['message'] ? modalSettings['message'] : '';
+    		var style = modalSettings['style'] ? modalSettings['style'] : '';
+    		var modalDialog = jQuery('.custom-popup');
+    
+    		if (modalDialog.length == 0) {
+    			ss.debug("cannot execute showModal(); no dialog element found");
+    			return;
+    		}
+    
+    		modalDialog.addClass(cls);
+    		modalDialog.attr('id', ID);
+    		modalDialog.attr('style', style);
+    		modalDialog.find('.modal-title__major').html(title);
+    		modalDialog.find('.mdl-dialog__content').html(message);
+    
+    		if (!modalDialog[0].showModal) {
+    			dialogPolyfill.registerDialog(modalDialog[0]);
+    		}
+    
+    		modalDialog.find('.close-container').on('click', function() {
+    			modalDialog[0].close();
+    		});
+    
+    		modalDialog[0].showModal();
+    	};
+    
+    
+    	/*
+    	 * Hides the currently displayed modal dialog.
+    	 */
+    	custom_modals.hideModalDialog = function() {
+    		var modalDialog = jQuery('.custom-popup');
+    
+    		if (modalDialog.length == 0) {
+    			ss.debug("cannot execute showModal(); no dialog element found");
+    			return;
+    		}
+    		if (!modalDialog[0].showModal) {
+    			dialogPolyfill.registerDialog(modalDialog[0]);
+    		}
+    
+    		modalDialog[0].close();
+    	};
+    
+    	return custom_modals;
+    
+    })();
+
+</script>

@@ -1,0 +1,267 @@
+
+<link rel="stylesheet" href="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/css/demo/simplemodal.css">
+    <link rel="stylesheet" href="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/css/demo/chosen.css">
+    <link rel="stylesheet" href="store/$checkoutViewDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/plugins/jquery/jquery.jqModal.css">
+
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/js/demo/chosen.js"></script>
+    #SRI_Hash('<script type="text/javascript" src="https://c3plp.net/curbstone/plp/scripts/plp.js"></script>')
+
+    <script>
+      function show(id){
+         var v = document.getElementById(id).style.display;
+         if(v=="none"){
+           document.getElementById(id).style.display="";
+         }else{
+          document.getElementById(id).style.display="none";
+         }
+      }
+
+      function doContinue(frmName,actFieldName,btn,todo){
+        $("input[name='"+actFieldName+"'][type='hidden']").val(todo);
+        $("form[name='"+frmName+"']").unbind('submit');
+        $("form[name='"+frmName+"']").submit();
+      }
+
+      var CountryAndProvinceInfo = {
+        billingCountries : new Array()      
+      };
+        
+      var CountryDTO = function(name,id,a2,a3,a4,provinces){
+        this.name = name;
+        this.id = id;
+        this.a2 = a2;
+        this.a3 = a3;
+        this.a4 = a4;
+        this.provinces = provinces;
+      };
+        
+      var ProvinceDTO = function(name,id,a2,a3,a4){
+        this.name = name;
+        this.id = id;
+        this.a2 = a2;
+        this.a3 = a3;
+        this.a4 = a4;      
+      };
+        
+      #foreach($country in ${billingCountriesInUse})
+        var provinces = new Array();
+      #foreach($prov in $country.provinces)
+        var province = new ProvinceDTO("$prov.province.name",$prov.province.id,"$prov.province.a2","$prov.province.a3","$prov.province.a4");
+        provinces.push(province);
+      #end
+        CountryAndProvinceInfo.billingCountries.push(new CountryDTO("$country.country.name",$country.country.id,"$country.country.a2","$country.country.a3","$country.country.a4",provinces));
+      #end
+
+      function loadProvinces(provinceElID,provinceDTOs){
+        var provinceEl = document.getElementById(provinceElID);
+        provinceEl.length=0;
+        provinceEl.options[0]=new Option("");
+        for(var i=0;provinceDTOs!=undefined && i<provinceDTOs.length;i++){
+           var province = provinceDTOs[i];
+           var option = new Option(province.name,province.id);      
+           provinceEl.options[provinceEl.length] = option;
+        }          
+      }
+
+      function showhidepayment(){
+        #if($checkoutViewDTO.hidePaymentMethod)
+          document.getElementById("paymentGateway").style.display="none";
+        #else if(document.getElementById("paymentGateway")!==null)
+          document.getElementById("paymentGateway").style.display="";
+        #end
+        #set($paymentnumber = ${checkoutViewDTO.ccPreferencesDTO.paymentgateways.size()})
+        #if($paymentnumber<=1)
+          document.getElementsByName("selectedPaymentGatewayCode")[0].style.display ="none";
+        #end    
+      }
+
+      function showhidecc(pgcode,radioid){
+        #set($arraystr="")
+        #foreach( $a in $pgcodenocc ) 
+          #if($velocityCount!=$pgcodenocc.size())
+            #set($arraystr=$arraystr+'"'+$a+'"'+',')
+          #else
+            #set($arraystr=$arraystr+'"'+$a+'"')
+          #end
+        #end
+          
+        var noshowccinput = new Array($arraystr);
+          var flag=false;
+          for(var i=0;i<noshowccinput.length;i++){
+            if( noshowccinput[i]==pgcode || pgcode.indexOf("NCC")==0){
+              flag=true;
+              break;
+            }
+          }
+
+          if(flag){
+            $("#cc").hide();
+            $("#ccsubmitted").hide();
+            $("#payment_method").hide();
+            $("#payment_method_ach").hide(); 
+            clearccinfo();
+          } else{
+            if(pgcode=="ACH"){
+              $("#payment_method_ach").show();
+              $("#payment_method").hide();
+           }else{
+            if(pgcode=='PCICC' || pgcode=='PCINONE'){
+              showhidelast4cc();
+              $("#payment_method_ach").hide();
+            }else{
+              $("#payment_method").show();
+              $("#payment_method_ach").hide();
+            }
+          }        
+        }
+        document.getElementById("hidden_radioid").value=radioid;  
+      }
+
+      function showhide(pgid,pgcode,radioid,inputid){
+        document.getElementById("hidden_pgid").value=pgid;
+        #if($!checkoutViewDTO.details.noAllowanceRecord)
+          document.getElementById("hidden_pgcode").value=pgcode;
+        #end
+        showhidecc(pgcode,radioid);
+        showhideci(inputid);
+      }
+
+      function showhideci(inputid){
+        var allciinput=new Array();
+        #foreach($paymentgateway in ${checkoutViewDTO.ccPreferencesDTO.paymentgateways})
+          #if($paymentgateway.inputtype && $paymentgateway.inputtype==1)
+            allciinput.push("input_$velocityCount");
+          #end
+        #end
+        var inputfield=document.getElementById(inputid);
+        document.getElementById("hidden_inputid").value=inputid;
+        if(inputfield){
+          inputfield.style.display="";
+          inputfield.disabled=false;
+        }
+
+        for(var i=0;i<allciinput.length;i++){
+          if(allciinput[i]!= inputid){
+            var tempfield=document.getElementById(allciinput[i]);
+            tempfield.disabled=true;
+            tempfield.style.display="none";
+            tempfield.value="";
+          }
+        }
+      }
+
+      function clearccinfo(){
+        //clear normal cc form data
+        $("#CARDNO").val("");
+        $("#nameoncard").val("");
+        $("input[id=cvv][type=text]").val("");
+
+        //clear pci form data
+        $("#reviewAndPay-cardNumber").val("");
+        $("#reviewAndPay-level2Code").val("");
+        $("#creditCard.ccHolderName").val("");
+      }
+
+      function enable(code){
+        if(code =='NONE'){
+         $('#chznprovince_NONE').attr("disabled",false);
+         $("#country_NONE").attr("disabled",false);
+         $('.NONE').attr("disabled",false);
+         $('.PCI2CC').attr("disabled","disabled");
+         $('#chznprovince_PCI2CC').attr("disabled","disabled");
+         $("#country_PCI2CC").attr("disabled","disabled");
+         $('.NCC-ACCOUNT').attr("disabled","disabled");
+         $('#chznprovince_NCC-ACCOUNT').attr("disabled","disabled");
+         $("#country_NCC-ACCOUNT").attr("disabled","disabled");
+		 $('.PLP').attr("disabled","disabled");
+		 $('#chznprovince_PLP').attr("disabled","disabled");
+		 $("#country_PLP").attr("disabled","disabled");
+        } 
+        else if(code =='NCC-ACCOUNT'){
+          $('#chznprovince_NONE').attr("disabled","disabled");
+          $("#country_NONE").attr("disabled","disabled");
+          $('.NONE').attr("disabled","disabled");
+          $('.PCI2CC').attr("disabled","disabled");
+          $('#chznprovince_PCI2CC').attr("disabled","disabled");
+          $("#country_PCI2CC").attr("disabled","disabled");
+          $('.NCC-ACCOUNT').attr("disabled",false);
+          $('#chznprovince_NCC-ACCOUNT').attr("disabled",false);
+          $("#country_NCC-ACCOUNT").attr("disabled",false);
+		  $('.PLP').attr("disabled","disabled");
+		  $('#chznprovince_PLP').attr("disabled","disabled");
+		  $("#country_PLP").attr("disabled","disabled");
+        }
+        else if(code =='PCI2CC'){
+          $('#chznprovince_NONE').attr("disabled","disabled");
+          $("#country_NONE").attr("disabled","disabled");
+          $('.NONE').attr("disabled","disabled");
+          $('.PCI2CC').attr("disabled",false);
+          $('#chznprovince_PCI2CC').attr("disabled",false);
+          $("#country_PCI2CC").attr("disabled",false); 
+          $('.NCC-ACCOUNT').attr("disabled","disabled");
+          $('#chznprovince_NCC-ACCOUNT').attr("disabled","disabled");
+          $("#country_NCC-ACCOUNT").attr("disabled","disabled");
+		  $('.PLP').attr("disabled","disabled");
+		  $('#chznprovince_PLP').attr("disabled","disabled");
+		  $("#country_PLP").attr("disabled","disabled");
+        }
+		else if(code =='PLP'){
+		  $('#chznprovince_NONE').attr("disabled","disabled");
+		  $("#country_NONE").attr("disabled","disabled");
+		  $('.NONE').attr("disabled","disabled");
+		  $('.PCI2CC').attr("disabled","disabled");
+		  $('#chznprovince_PCI2CC').attr("disabled","disabled");
+		  $("#country_PCI2CC").attr("disabled","disabled");
+		  $('.NCC-ACCOUNT').attr("disabled","disabled");
+		  $('#chznprovince_NCC-ACCOUNT').attr("disabled","disabled");
+		  $("#country_NCC-ACCOUNT").attr("disabled","disabled");
+		  $('.PLP').attr("disabled",false);
+		  $('#chznprovince_PLP').attr("disabled",false);
+		  $("#country_PLP").attr("disabled",false);
+		}
+      }
+
+      function showtab2(code,pgid,rdo_id,inputid){
+        showhide(pgid,code,rdo_id,inputid)
+        $('div.payment-section li').removeClass('active');
+        $('#payment-list-tab-'+code).addClass('active');
+        if(code =='NONE'){
+          $("#tab_NONE").show();
+          $("#tab_NCC-ACCOUNT").hide();
+          $("#tab_PCI2CC").hide();
+          $("#tab_PLP").hide();
+          enable('NONE');
+        }
+        else if(code =='NCC-ACCOUNT'){
+          $("#tab_NCC-ACCOUNT").show();
+          $("#tab_PCI2CC").hide();
+          $("#tab_NONE").hide();
+          $("#tab_PLP").hide();
+          enable('NCC-ACCOUNT');
+        }
+        else if(code =='PCI2CC'){
+          $("#tab_PCI2CC").show();
+          $("#tab_NCC-ACCOUNT").hide();
+          $("#tab_NONE").hide();  
+          $("#tab_PLP").hide();
+          enable('PCI2CC');
+        }
+		else if(code =='PLP'){
+		  $("#tab_PLP").show();
+		  $("#tab_PCI2CC").hide();
+		  $("#tab_NCC-ACCOUNT").hide();
+		  $("#tab_NONE").hide();
+		  enable('PLP');
+		}
+      }
+      
+    /**** CVV/CID Security Code Help Pop-up ****/
+    jQuery(function() {
+        jQuery("#securityCode_help").bind("click",function() {
+            jQuery("#cvv-help-popup").toggle();
+        });
+        jQuery("#cvv-help-close").bind("click", function() {
+            jQuery("#cvv-help-popup").hide();
+        });
+    });
+    </script>

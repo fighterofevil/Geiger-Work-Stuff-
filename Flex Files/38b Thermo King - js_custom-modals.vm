@@ -1,0 +1,126 @@
+
+#*
+## lib_js_custom-modals.vm
+##
+## Handles Velocity-generated settings for the ss.custom_modals module.
+*#
+
+<script>
+       console.log("+++++++++++ in js_custom-modals  +++++++++++ ");
+</script>
+
+#mergeGlobalConfig('globalCustomModalPopups', 'configCustomModalPopups')
+
+#if($configCustomModalPopups)
+	## Look for any comma-delimited keys and break out.
+	#set($customModalPopupsConfigKeys = $configCustomModalPopups.keySet())
+	#set($customModalPopupsConfigSplitKeys = {})
+	#foreach($customModalPopupsConfigKey in $customModalPopupsConfigKeys)
+		#set($customModalPopupsConfigKeySplit = $customModalPopupsConfigKey.split(','))
+		#foreach($customModalPopupsConfigKeyPart in $customModalPopupsConfigKeySplit)
+			#set($temp = $customModalPopupsConfigSplitKeys.put($customModalPopupsConfigKeyPart.trim(), $customModalPopupsConfigKey))
+		#end
+	#end
+
+	## Do we have a match on either the category name or template name?
+	#if($customModalPopupsConfigSplitKeys.containsKey($pageTileDictionaryDTO.getTemplateName().trim()))
+		#set($customPopupMessage = $configCustomModalPopups.get($customModalPopupsConfigSplitKeys.get($pageTileDictionaryDTO.getTemplateName().trim())))
+	#elseif($request.getParameter('cid'))
+		#set($categoryName = "#getCategoryName($request.getParameter('cid'))")
+		#if($customModalPopupsConfigSplitKeys.containsKey($categoryName))
+			#set($customPopupMessage = $configCustomModalPopups.get($customModalPopupsConfigSplitKeys.get($categoryName)))
+		#end
+	#end
+#end
+
+#if($customPopupMessage)
+	<script>
+		#set($customPopupMessageTitle = $customPopupMessage.get("title"))
+		#set($customPopupMessageBody = $customPopupMessage.get("message"))
+		#set($customPopupMessageClass = "")
+		#set($customPopupMessageStyle = "")
+		#set($customPopupMessageID = "")
+		#set($customPopupBottomButton = "")
+		#if($customPopupMessage.containsKey("class") == true)
+			#set($customPopupMessageClass = $customPopupMessage.get("class"))
+			ss.custom_modals.cls = "$esc.javascript("$customPopupMessage.get('class')")";
+		#end
+		#if($customPopupMessage.containsKey("style"))
+			#set($customPopupMessageStyle = $customPopupMessage.get("style"))
+			ss.custom_modals.style = "$esc.javascript("$customPopupMessage.get('style')")";
+		#end
+		#if($customPopupMessage.containsKey("id"))
+			#set($customPopupMessageID = $customPopupMessage.get("id"))
+			ss.custom_modals.ID = "$esc.javascript("$customPopupMessage.get('id')")";
+		#end
+		#if($customPopupMessage.containsKey("expiresDate"))
+			ss.custom_modals.expiresDate = "$customPopupMessage.get("expiresDate").trim()";
+		#end
+		#if($customPopupMessage.containsKey("startsDate"))
+			ss.custom_modals.startsDate = "$customPopupMessage.get("startsDate").trim()";
+		#end
+		#if($customPopupMessage.containsKey("minutesBetweenDisplay"))
+			ss.custom_modals.minutesBetweenDisplay = $customPopupMessage.get("minutesBetweenDisplay");
+		#end
+		#if($customPopupMessage.containsKey("displayToGuests"))
+			ss.custom_modals.displayToGuests = $customPopupMessage.get("displayToGuests");
+		#end
+		#if($customPopupMessage.containsKey("oncePerLogin"))
+			ss.custom_modals.oncePerLogin = ( $customPopupMessage.get("oncePerLogin") == true) || ( "$customPopupMessage.get("oncePerLogin")".toLowerCase() == "true");
+		#end
+		#if($customPopupMessage.containsKey("bottomButton"))
+			#set($customPopupBottomButton = $customPopupMessage.get('bottomButton'))
+			ss.custom_modals.bottomButton = "$esc.javascript($customPopupMessage.get('bottomButton'))";
+		#end
+		#if($welcomeMatDTO && $welcomeMatDTO.loggedIn)
+			ss.custom_modals.lastLoginTime = "$session.getAttribute("SessionCustomerInfo_$vendorSettingsDTO.vendorId").getCustomer().getLastlogintime()";
+		#end
+		#end
+		ss.custom_modals.title = "$esc.javascript("$customPopupMessage.get('title')")";
+		ss.custom_modals.message = "$esc.javascript("$customPopupMessage.get('message')")";
+		ss.custom_modals.cookiesKey = "$!{vendorSettingsDTO.vendorId}-$!{pageTileDictionaryDTO.getTemplateName().trim()}-$!{customPopupMessageID}";
+		ss.custom_modals.showModal = true;
+	</script>
+
+    ## added customShipBattery class to control display of popup - kevin 08.02.21
+	<dialog
+	     class="mdl-dialog custom-popup customShipBattery $!{customPopupMessageClass}"
+	     style="$!{customPopupMessageStyle}"
+	     #if($customPopupMessageID != "")
+	         id="$!{customPopupMessageID}"
+	     #end
+	>
+		<div class="close-container mdl-button mdl-js-button mdl-button--icon">
+			<i class="material-icons close-btn">close</i>
+		</div>
+		<div class="title modal-title">
+			<span class="modal-title__major">$!{customPopupMessageTitle}</span>
+		</div>
+		<div class="mdl-dialog__content">
+			$!{customPopupMessageBody}
+		</div>
+		#if($customPopupBottomButton != '')
+			<div class="mdl-dialog__actions">
+				<button class="mdl-button mdl-js-button btn--secondary"
+				        id="custom-modal-bottom-button"
+				        onclick="ss.custom_modals.hideModalDialog()"
+				>
+					$customPopupBottomButton
+				</button>
+			</div>
+		#end
+	</dialog>
+
+#else
+
+	<dialog class="mdl-dialog custom-popup">
+		<div class="close-container mdl-button mdl-js-button mdl-button--icon">
+			<i class="material-icons close-btn">close</i>
+		</div>
+		<div class="title modal-title">
+			<span class="modal-title__major"></span>
+		</div>
+		<div class="mdl-dialog__content"></div>
+	</dialog>
+
+#end

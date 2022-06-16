@@ -1,0 +1,508 @@
+
+#*
+## Site-level Configurations
+##
+## Changelog:
+## [1.4.0] 09/26/19
+## ### Added:
+##  - New setting: $configMessagePriorityPrefix. Setting this will append the given prefix in front
+##                 of all message names used with the showMessage macro, if the message's appended 
+##                 name name exists.
+##  - New settings: $configContactUs*. These hold various Contact Us verbiage.
+##  - New setting: $configCompanyBranch. This designates which branch (i.e. geiger or geigerbtc)
+##                 the site represents, and affects things such as partial parsing.
+## [1.3.0] 08/13/19
+## ### Added:
+##  - New setting: $configHideAddToWishList. Toggling this to true will hide the Add to Wishlist
+##                 button from the item page.
+##  - New setting: $configSearchFiltering. This defines rules for filtering search results.
+## [1.2.0] 07/26/19
+## ### Added:
+##  - New setting: $configCustomItemVerbiage. This allows for custom item template veriage.
+##  - New setting: $configDependencies. This holds site-level dependency definitions.
+##  - New setting: $configComponentDefaultSettings. This holds default settings for components that
+##                 will override the original default settings.
+## ### Changed:
+##  - The calls to #changeComponentDefaultSetting() have been replaced with the config variable
+##    $configComponentDefaultSettings.
+## [1.1.0] 04/18/19
+## ### Added:
+##  - New setting: $configAllowedCustPropsAdmin. Controls the type of customer properties allowed to be adjusted with Customer Property Admins.
+##  - New setting: $configFooterImage. Setting this to a non-empty value will include an image next to the copyright in the footer.
+##  - New setting: $configIsPointsStore. If set to true, store is considered a points store.
+##  - New setting: $configHeaderShowAllowance. If true, will display customer allowance balances in the header.
+## [1.0.0] 01/15/18
+## ### Added:
+##  - Changelog added to header.
+*#
+
+
+
+#*
+## General/Access Controls
+*#
+#set($configMaintenanceMode =       false)                                     ## If true, will redirect all traffic to the maintenance screen.
+#set($configMaintenanceIPBypass =   [])                                        ## List of IPs to ignore on a maintenance mode redirect.
+#set($configMaintenanceUsers =      ['admin'])                                 ## List of users to ignore on a maintenance mode redirect.
+#set($configRequireLogin =          false)
+#set($configRequireLoginAccessibleTemplates = ["logincustomer.vm", "forgot_password_login.vm", "register.vm"])
+#set($configAllowRegistration =     true)
+#set($configAllowedCustPropsAdmin = ['Invoicing Admin', 'Points Admin'])       ## Customer properties that can be managed by the customer properties admin. ['*'] will allow everything.
+#set($configIsPointsStore =         false)                                       ## If true, store is considered a points store.
+#set($configIsPreviewEnvironment =  $request.contextPath.indexOf('preview') > -1) ## Dynamically set to either true or false, based on the current environment (true == preview, false == shop/production)
+#set($configNoItemImageThumbnail =  "store/$vendorSettingsDTO.vendorId/assets/items/thumbnails/noimage.jpg")
+#set($configNoItemImageLarge =      "store/$vendorSettingsDTO.vendorId/assets/items/largeimages/noimage.jpg")
+#set($configUseGoogleAnalytics = 	false)
+#set($configGoogleAnalyticsID = 	"UA-54265716-3")
+#set($configGoogleAnalyticsDomain = "geigershops.com")
+#set($configCategoryTemplateBaseStyle = 'v1')                                  ## Base style type of the search template. Options are 'v1' and 'v2'.
+#set($configSearchTemplateBaseStyle = 'v1')                                    ## Base style type of the search template. Options are 'v1' and 'v2'.
+#set($configHomeTemplateBaseStyle = 'v1')                                      ## Base style type of the home template. Options are 'v1', 'v2', 'v3', and 'v4'.
+#set($configItemTemplateBaseStyle = 'v1')                                      ## Base style type of item templates. Options are 'v1' and 'v2'.
+#set($configJavascriptDebugging =   $configIsPreviewEnvironment)               ## If true, will show Javascript debugging logs for Skeleton Store library, ss.js. By default, is true for preview environment.
+## #set($configJavascriptTracing =     true)                                   ## If true, will show source/line in Javascript debug messages. $configJavascriptDebugging must be true as well.
+## #set($configJavascriptTracingDepth = 2)                                     ## How far into the call stack to include the stack trace in the message. Requires $configJavascriptTracing = true.
+## #set($configVelocityDebugging =     $configIsPreviewEnvironment)            ## If true, will use extra debugging functionality of Velocity. This will significantly impact page loading time. Any logs from the #log/#error/#trace/#warn macros are immediately captured in the session variable vtl_logs.
+#set($configDisplayPartialsHTMLComments = $configIsPreviewEnvironment)         ## If true, will wrap partials rendering with <!-- Part: name --> and <!-- //Part: name// -->.
+#set($configDisplayComponentsHTMLComments = $configIsPreviewEnvironment)       ## If true, will wrap components rendering with <!-- Comp: name --> and <!-- //Comp: name// -->.
+
+
+#*
+## International
+*#
+#set($configCompanyBranch =         'geiger')                                  ## Company branch (geiger, geigerbtc). This setting can aid in determining which partials to show, such as Terms and Conditions.
+#set($configMessagePriorityPrefix = '')                                        ## The priority prefix to use with a message (i.e. faq.customerservice becomes eu.faq.customerservice [if it exists] for a prefix of 'eu')
+#set($configEmailDateFormat =       'MM/dd/yyyy')                              ## The date format (MM/dd/yyyy, dd/MM/yyyy) used within emails.
+
+
+#*
+## Verbiage
+*#
+#set($configCompanyName =           "Thermo King Standard")
+#set($configSiteName =              "Thermo King Brand Merchandise Store")
+#set($configCopyright =             "Thermo King Brand Merchandise Store")
+#set($configRepName =               "The PSG Elite Service Team'")
+#set($configRepPronoun =            'We')                                    ## He/She/They     
+#set($configRepEmail =              "psgeliteservice@geiger.com")
+#set($configRepPhone =              "1-207-755-2282") 
+#set($configRepPhoneExt =           '')
+#set($configCSPhone =               "1-800-318-3810")
+#set($configCSEmail =               "cs@geiger.com")
+
+#set($configContactUsRepName =      "Jennifer Garvin")
+#set($configContactUsRepEmail =     "jgarvin@geiger.com")
+#set($configContactUsRepPhone =     "1-207-755-2028")
+#set($configContactUsRepPhoneExt =  "$!{configRepPhoneExt}")
+
+#*
+## Checkout Survey email
+*#
+
+#set($showSurvey = "false")
+#set($surveyEmail = "cpweb@geiger.com")
+#set($surveyEmailCC = "") ## This can be left empty if there is no CC email required
+
+#*
+## Header
+*#
+#set($configHeaderLogo = 'thermoking-logo.svg')                                                   ## If set, will use the following filename for the header logo: store/$vendorSettingsDTO.vendorId/assets/themes/blaze_en/images/$configHeaderLogo
+#set($configHeaderShowAllowance =   $configIsPointsStore)                      ## If true, will display allowance in header.
+#set($configAllowanceRenderPattern = " (<% price %>)")                         ## Render pattern to use with allowance in header.
+#set($configTopMenuNav = [
+	'login',
+	'myaccount_billing',
+	'wishlist',
+	'mobile:currency',
+	'webdev'
+])
+
+#set($configMainMenuNav = [
+	[
+	    {'source':                  'Products', 'type':'list'},
+		{'source':                  'Custom Orders'},
+		{'source':                  'FAQs'},
+		{'source':                  'Contact Us'}
+	]
+])
+
+## Nav next to the search bar
+## #set($configSideMenuNav = [
+## 	[
+## 	    {'source':                  'Custom Orders'},
+## 		{'source':                  'FAQs'},
+## 		{'source':                  'Contact Us'}
+## 	]
+## ])
+
+
+#*
+## Footer
+*#
+#set($configFooterNav = [
+	'home',
+	'myaccount_billing',
+	'myaccount_orders',
+	'faqs',
+	'contact_us',
+	'terms_of_use'
+])
+
+#set($configFooterImage = "store/$vendorSettingsDTO.vendorId/assets/themes/blaze_en/images/logo_footer.png")
+
+
+#*
+## Checkout
+*#
+#set($configUsePromo =              false)                                     ## If true, will show promo codes at the checkout basket.
+#set($configUseGiftCertificates =   true)                                      ## If true, will show gift certificates at the 
+#set($configAllowBusinessOrders =   true)
+#set($configAllowPersonalOrders =   true)
+#set($configShowPOQuestion =        false)                                      ## If true, will display the 'purchaseOrder' scripted question on invoicing during checkout.
+#set($configDefaultOrderType =      '')                                        ## Default order types. Can either be set to 'B' for business or 'P' || !'B' for personal.
+#set($configActualShippingDropdownText = '')                                   ## Default: blank. Message text to display in the dropdown instead of the price (if price = $0.00). Ignored if blank.
+#set($configHideZeroCostShippingPrice = true)                                  ## If true, will hide the price on zero-cost shipping methods (actual/3PB shipping). Typically, these prices are determined after the order is placed.
+#set($emailDisplayQuestions  =      true)
+#set($useQuestionAsPOField   =      true)
+
+#*
+## Home
+*#
+#set($configHomeMainFeatureCategory = 'APPAREL')                                       ## Home: Category name of main feature area. 
+#set($configSpotlightButtonLink = 'MENS')											## Sets the link to the "Shop" button on the Main Feature to the category specified
+#set($configFeaturedProductSource = 'HOME4')                                    
+                                                                                ## Default: blank. Will link to Home page
+
+#*
+## Item
+*#
+#set($configHideAddToWishList =     false)                                      ## If true, 'Add to Wishlist' button will not render on the item page
+#set($configSavedForLater = true)
+
+
+## commented out since there is an IR MTL that will parse these message updates in - 06.04.21 - kevin 
+
+## #set($configCustomItemVerbiage = [
+## 	{
+## 		"targetItemIDs":       [],
+## 		"targetItemCodes":     [],
+## 		"targetCategoryIDs":   [],
+## 		"targetCategoryNames": ['DSSWEDA'],
+## 		'dropShipWarningVerbiage':      "This is an on-demand item but it will ship 24 hours after order is processed. Please add up to 5 business days for transit.",
+## 		'sizingChartWarningVerbiage':   "#springMessage('item.sizingchartwarning')"
+## 	},
+## 	{
+## 		"targetItemIDs":       [],
+## 		"targetItemCodes":     [],
+## 		"targetCategoryIDs":   [],
+## 		"targetCategoryNames": [],
+## 		'quantityVerbiage':             "Order amount is 3"
+## 	}
+## ])
+## #set($configCustomizations = [
+## 	{
+## 		"targetItemIDs":       [],
+## 		"targetItemCodes":     ["DI8005069"],
+## 		"targetCategoryIDs":   [],
+## 		"targetCategoryNames": [],
+## 		"title":               "Edit Details Below",
+## 		"defaultFieldValues":  "",
+## 		"fields": [
+## 			{
+## 				"label": "Custom Line {{line}}",
+## 				"ID": "",
+## 				"hidden": false,
+## 				"required": true,
+## 				"pattern": "",
+## 				"defaultValue": ""
+## 			}
+## 		]
+## 	}
+## ])
+
+
+#set($configSearchFiltering = [
+	{
+		"targetItemIDs":       [],
+		"targetItemCodes":     ["WY8342002"],
+		"targetCategoryIDs":   [],
+		"targetCategoryNames": [],
+		"requiredCustomerProperties": ['Points Admin'],
+		"filteringMacros":     ['searchFilteringTest']
+	}
+])
+
+#*
+## Max Item Qty Feature
+*#
+
+## #set($configMaxItemQty = {
+##     "ITEM HEADER SKU"	: 50,
+##     "ITEM HEADER SKU"	: 5,
+##     "ITEM HEADER SKU"   :3
+## })
+
+#*
+## Category
+*#
+
+#*
+## Sort Options for Categories
+## {
+##   "labelOfSortOption":   "hqlOrderByClause"
+## }
+*#
+#set($configSortOptions = {
+	'Alphabetical':			        'stitle ASC',
+	'Price: Low to High':	        'price ASC',
+	'Price: High to Low':	        'price DESC',
+	'Popular':				        'topsellers ASC',
+	'Best Sellers':			        'orderscount DESC'
+})
+#set($configChildrenShowParentSubCategories = true)                            ## If true, all sub-categories with no child categories will display the sub-category listings of their parent.
+
+#*
+# Custom Modals
+*#
+
+
+## #*
+## ## Custom Modals
+## *#
+## #set($configCustomModalPopups = {
+## 	"checkout_multibilltoaddr.vm": {
+## 		"title":                  "Attention",
+## 		"message":                  "<p>
+## 		                                Please note that you have selected international shipping for this order.<br><br>Your order confirmation will show no shipping total as we will send you an email quote for approval after your order is placed.<br><br>Duties and Taxes will not be included in the quote but will be approximately 20% of your order total and will be billed separately (invoice will be sent out within 30-45 days after the order has shipped).<br><br>For all International orders please allow an additional 7 business days to account for transit and customs.<br><br>
+## 		                            </p>",
+## 		"id":                     "shipping-modal",
+## 		"style":                  "padding:20px;",
+## 		"startsDate":             "",
+##         "expiresDate":            "",
+## 		"minutesBetweenDisplay":  0,
+## 		"displayToGuests":        true,
+## 		"oncePerLogin":           false
+## 	}
+##  })
+
+
+## #set($configCustomModalPopups = {
+## "logincustomer.vm": {
+## 		"title":                  "This site is in Development!",
+## 		"message":                "<p>This site is currently in development. Please note that any errors on the site will be fixed before final release of the site.</p>",
+## 		"class":                  "simplemodal-data",
+## 		"style":                  "padding:20px; width:400px;",
+## 		"id":                     "developement-modal",
+## 		"startsDate":             "",
+## 		"expiresDate":            "",
+## 		"minutesBetweenDisplay":  3600,
+## 		"displayToGuests":        true,
+## 		"oncePerLogin":           false
+## 	}
+## }
+
+## ## "checkout_multibilltoaddr.vm": {
+## ## 		"title":                  "Attention",
+## ## 		"message":                "<p>
+## ## 									<i class='material-icons'>report_problem</i> 
+## ## 		                           	Dear Team: In order to avoid costly international shipping fees, all Geiger orders will be routed to Alexis Pellerin at International Headquarters in Bethany, CT. When filling out the shipping address field, please list your country after Alexis' name. If you do not, then IHQ does not know where to ship to and this will cause delays. IHQ will then place your Geiger order on your next container, unless there is a special request from the BU, where IHQ would then send it to you either DHL or FED EX. Please note your respective BU will be chared accordingly for air shipment. If you have any questions or requests, please contact Alexis Pellerin at <a href='mailto:apellerin@laticrete.com'>apellerin@laticrete.com</a>.
+## ## 		                           </p>",
+## ## 		"id":                     "shipping-modal",
+## ## 		"bottomButton":           "I Understand How International Shipping Will Work",
+## ## 		"minutesBetweenDisplay":  3
+## ## 	},
+
+
+## ## "checkout_payment.vm": {
+## ## 		"title":                  "Delivery Time Notification",
+## ## 		"message":                "<p>
+## ## 		                           	This is our busiest time of the year with strong inventory fluctuations as well as extended production and transit times.
+## ## 		                           </p>
+## ## 		                           <p>
+## ## 		                           	Please contact <a href='mailto:jruler@geiger.com'>Jen Ruler</a> if your order is needed for a specific event date.
+## ## 		                           	We appreciate your business and would like to ensure good customer service at this busy time of the year!
+## ## 		                           </p>",
+## ## 		"id":                     "shipping-modal",
+## ## 		"minutesBetweenDisplay":  3
+## ## 	}
+## }
+
+
+
+
+
+#*
+## Site-level Component Settings
+*#
+
+#set($configComponentDefaultSettings = {
+	'price': {
+		'display':        true,
+		'priceFormat':    '$#,##0.00',
+		'priceAtNoCost':  '$0.00'
+	},
+	'nav_menu': {
+		'invoicingAdminCategorySource':    'INVOICE_ADMIN',
+		'custPropsAdminCategorySource':    'CUSTPROPS_ADMIN',
+		'pointsAdminCategorySource':       'POINTS_ADMIN'
+	},
+	'boldchat': {
+		'display':        false,
+		'websiteID':      ''
+	},
+		'rep_section': {
+		'name':     "$configRepName",
+		'email':    "$configRepEmail",
+		'phone':    "$configRepPhone",
+		'image':    "store/$vendorSettingsDTO.vendorId/assets/themes/blaze_en/images/demo/store-rep.jpg"
+	},
+	'product_card': {
+		'noThumbnailSource':   "$configNoItemImageThumbnail"
+	},
+	'nav_menu': {
+		'groups':   [$configCompanyBranch]
+	}
+})
+
+#if($configIsPointsStore)
+	$configComponentDefaultSettings.get('price').putAll({
+		'priceFormat':    '#,##0 Points',
+		'priceAtNoCost':  '0 Points',
+		'roundingUp':     true
+	})
+#end
+
+
+## #defineDependency('cookie-policy', {
+## 	'requires': [],
+## 	'footMarkup': [
+## 		"/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_cookie-policy.vm"
+## 	]
+## })
+
+
+#*
+## Site-level Dependency Settings
+## (Originally Defined in lib_configs.vm)
+*#
+
+## #defineDependency('basket-delivery-options', {
+## 		'requires': ['jquery'],
+## 		'footMarkup': [
+## 			"/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_basket-delivery-options.vm"
+## 		]
+## })
+
+
+#set($configDependencies = {
+	'Open Sans' : {
+		'headMarkup': [
+		'<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">'
+		]
+	},
+	'fonts': {
+		'requires': ['Open Sans', 'favicon']
+	},
+	'validation-payment': {
+		'requires': ['ggValidator'],
+		'footMarkup': [
+			"/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_validation-payment.vm"
+		]
+	},
+	'forget-password': {
+		'requires': ['jquery'],
+		'headMarkup': [
+			"/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_forget-password.vm"
+		]
+	},
+	'append-category-link': {
+		'requires': ['jquery'],
+		'footMarkup': [
+			"/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_append-category-link.vm"
+		]
+	},
+
+	'basket-delivery-options': {
+		'requires': ['jquery'],
+		'footMarkup': [
+			"/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_basket-delivery-options.vm"
+		]
+	},
+	'ss.checkout-address' : {
+		'requires': ['jquery', 'select2', 'ss', 'ss.minicart', 'validation-checkout-address'],
+		'footMarkup': [
+			"<script src='store/$configMTLVID/assets/js/ss.checkout-address.js'></script>",
+			'lib_js_checkout-address.vm',
+			"/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/checkout-address-modal.vm"
+		]
+	},'ss.product-detail': {
+        'requires': ['ss', 'ss.cache', 'ss.price', 'ss.minicart', 'dialog-polyfill', 'jquery', 'magic-zoom-plus', 'ss.message-box', 'spin'],
+        'footMarkup': [
+            "/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/ss_product_detail_js.vm",
+            "/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_product_detail.vm"
+        ]
+    },'ss.custom-modals': {
+        'requires': ['ss', 'jquery', 'material-design-lite'],
+        'footMarkup': [
+            "/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/ss_custom-modal_js.vm",
+            "/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/js_custom-modals.vm"
+        ]
+    }
+})
+
+
+
+
+
+## 'skeleton-store-base': {
+## 		'requires': ['ss',
+## 		             'ss.navBuilder',
+## 		             'ss.global',
+## 		             'ss.minicart',
+## 		             'ss.custom-modals',
+## 		             'ss.price',
+## 		             'ss.date',
+## 		             'dialog-polyfill',
+## 		             'resize-sensor',
+## 		             'jquery',
+## 		             'material-design-lite',
+## 		             'ggValidator',
+## 		             'ie11-support',
+## 		             'cookie-policy',re
+## 		             'append-category-link'
+## 		            ]
+## 	}
+
+
+## <script>
+##     console.log(${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)});
+##     console.log(${appSettingsDTO.AppName});
+##     console.log(https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName});
+## </script>
+
+
+## Landing Page Feature
+#set($configLandingPage = "") ##Set to the landing page template name EX: landing.vm, or leave empty
+
+
+#if($configLandingPage != "")
+	#set($template = $pageTileDictionaryDTO.getTemplateName().trim().toLowerCase())
+
+	#if($template == ${configLandingPage} && !$session.getAttribute("landed_$vendorSettingsDTO.vendorId"))
+
+		#set($landedTrue = $session.setAttribute("landed_$vendorSettingsDTO.vendorId", true))
+
+	#elseif($template != ${configLandingPage} && !$session.getAttribute("landed_$vendorSettingsDTO.vendorId"))
+
+		#set($CatID = "#getCategoryID('Landing')")
+		$session.setAttribute('redirect_reason', 'Landing page')
+		#redirectInsideHeadTag($CatID, false)
+
+	#end
+#end
+
+
+#set($updateShipingCost=true) ## used to update FAQ in MTL for shipping rate increases
+
+
+#set($customIRInventoryMessage = "This item will ship 24-48 hours after order has been processed and stock confirmed + transit time.")	## If set along with $customIRDropShipMessage, hides shipping calendar and replaces DS messages.
+#set($customIRDropShipMessage = "This is produced on-demand and takes 5-7 business days + transit time.")
