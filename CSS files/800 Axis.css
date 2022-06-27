@@ -161,6 +161,7 @@ a:hover{
    /* background-color: #221F1F;*/
     text-transform: uppercase;
     color: #fff;
+    background: url("../images/MarketingStoreFooter.jpg") no-repeat scroll left top transparent;
 }
 
 #footer a{
@@ -354,6 +355,7 @@ body{
     height: 118px;
     margin: 0 auto;
     border-bottom: 5px solid #000;    
+    background: url("../images/MarketingStoreBanner.jpg") no-repeat scroll left top transparent;
 }
 
 #header .wrapper{
@@ -374,7 +376,7 @@ body{
 }
 
 #footer .leftWrapper{
-    background-color: #221F1F;
+    /*background-color: #221F1F;*/
     height: 60px;
     width: 1024px;
 }
@@ -387,14 +389,14 @@ body{
     min-width: 1024px;
     display: flex;
     justify-content: space-between;   
-    background-color: #221F1F;    
+    /*background-color: #221F1F;    */
 }
 
 #footer .rightWrapper{
     height: 60px;
     width: 1024px;
     /*background-color: #fff;    */
-    background: #221F1F url("../images/Axis-slice-tiny.png") no-repeat scroll right top;
+    /*background: #221F1F url("../images/Axis-slice-tiny.png") no-repeat scroll right top;*/
 }
 
 #footer .wrapper p{
@@ -863,7 +865,8 @@ tfoot tr td{
 }
 
 .spotlight {
-
+    background: url(../images/MarketingStoreMainBanner.png) no-repeat scroll center center transparent;
+    background-size: cover;
 }
 
 .spotlightWrapper{
@@ -881,6 +884,7 @@ tfoot tr td{
     width: 1024px;
     /*margin: 0 auto;*/
     /*right: 1024px;*/
+    display: none;
 }
 
 .spotlightCenter{
@@ -889,6 +893,7 @@ tfoot tr td{
     text-align: left;
     position: relative;
     /*bottom: 350px;*/
+    display: none;
 }
 
 
@@ -924,6 +929,7 @@ tfoot tr td{
     width: 1024px;
     /*margin: 0 auto;*/
     /*left: 877px;*/
+    display: none;
 }
 
 .spotlightRightBG{
