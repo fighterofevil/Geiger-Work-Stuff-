@@ -2516,7 +2516,7 @@ input:focus {
 /*******/
 
 #catItemSpotlight{
-    background: url("../images/MarketingStoreBanner.jpg") no-repeat scroll left top transparent;
+    /*background: url("../images/MarketingStoreBanner.jpg") no-repeat scroll left top transparent;*/
     display: block;
     height: 140px;
     background-position: center center;
