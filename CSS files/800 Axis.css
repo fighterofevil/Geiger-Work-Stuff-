@@ -162,6 +162,7 @@ a:hover{
     text-transform: uppercase;
     color: #fff;
     background: url("../images/MarketingStoreFooter.jpg") no-repeat scroll left top transparent;
+    background-size: cover;
 }
 
 #footer a{
@@ -356,6 +357,7 @@ body{
     margin: 0 auto;
     border-bottom: 5px solid #000;    
     background: url("../images/MarketingStoreBanner.jpg") no-repeat scroll left top transparent;
+    background-size: cover;
 }
 
 #header .wrapper{
@@ -865,7 +867,7 @@ tfoot tr td{
 }
 
 .spotlight {
-    background: url(../images/MarketingStoreMainBanner.png) no-repeat scroll center center transparent;
+    background: url(../images/Marketing-Storev3.png) no-repeat scroll center center transparent;
     background-size: cover;
 }
 
@@ -2514,7 +2516,7 @@ input:focus {
 /*******/
 
 #catItemSpotlight{
-    background: url("../images/catspot-bg.jpg") no-repeat scroll left top transparent;
+    background: url("../images/MarketingStoreBanner.jpg") no-repeat scroll left top transparent;
     display: block;
     height: 140px;
     background-position: center center;
