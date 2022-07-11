@@ -630,7 +630,17 @@ div#DDmenu li a {
     color: #505050 !important;
 }
 
-div#DDmenu li:nth-of-type(7) a::after{
+/*div#DDmenu li:nth-of-type(7) a::after{
+    content: "Talent Development Only";
+    position: relative;
+    font-size: .7rem;
+    color: red;
+    top: -15px;
+    left: -65px;
+}*/
+
+
+.PromoStoreCat li:nth-of-type(7) a::after{
     content: "Talent Development Only";
     position: relative;
     font-size: .7rem;
@@ -638,6 +648,8 @@ div#DDmenu li:nth-of-type(7) a::after{
     top: -15px;
     left: -65px;
 }
+
+
 
 div#DDmenu li a:hover{
    background: #F2F2F2;
