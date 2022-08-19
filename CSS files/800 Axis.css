@@ -161,6 +161,8 @@ a:hover{
    /* background-color: #221F1F;*/
     text-transform: uppercase;
     color: #fff;
+    background: url("../images/MarketingStoreFooter.jpg") no-repeat scroll left top transparent;
+    background-size: cover;
 }
 
 #footer a{
@@ -268,7 +270,11 @@ h6{ }
 }
 
 .show-estimate-calendar img{
-    vertical-align: text-top;
+    /* vertical-align: text-top; */
+} 
+
+#estimateCalendar a {
+    font-size: 20px;
 }
 
 .ui-widget-content.ui-tabs{
@@ -350,6 +356,8 @@ body{
     height: 118px;
     margin: 0 auto;
     border-bottom: 5px solid #000;    
+    background: url("../images/MarketingStoreBanner.jpg") no-repeat scroll left top transparent;
+    background-size: cover;
 }
 
 #header .wrapper{
@@ -370,7 +378,7 @@ body{
 }
 
 #footer .leftWrapper{
-    background-color: #221F1F;
+    /*background-color: #221F1F;*/
     height: 60px;
     width: 1024px;
 }
@@ -383,14 +391,14 @@ body{
     min-width: 1024px;
     display: flex;
     justify-content: space-between;   
-    background-color: #221F1F;    
+    /*background-color: #221F1F;    */
 }
 
 #footer .rightWrapper{
     height: 60px;
     width: 1024px;
     /*background-color: #fff;    */
-    background: #221F1F url("../images/Axis-slice-tiny.png") no-repeat scroll right top;
+    /*background: #221F1F url("../images/Axis-slice-tiny.png") no-repeat scroll right top;*/
 }
 
 #footer .wrapper p{
@@ -464,8 +472,8 @@ body{
 }
 
 #js-popup-message.popup, #deliverypopup{
-	background-color: #FDE3E7;
-	border: 1px solid #9E091C;
+    background-color: #FDE3E7;
+    border: 1px solid #9E091C;
     box-shadow: 1px 1px 5px #ADADAD;
     left: 40% !important;
     padding: 20px;
@@ -859,7 +867,8 @@ tfoot tr td{
 }
 
 .spotlight {
-
+    background: url(../images/Marketing-Storev3.png) no-repeat scroll center center transparent;
+    background-size: cover;
 }
 
 .spotlightWrapper{
@@ -877,6 +886,7 @@ tfoot tr td{
     width: 1024px;
     /*margin: 0 auto;*/
     /*right: 1024px;*/
+    display: none;
 }
 
 .spotlightCenter{
@@ -885,6 +895,7 @@ tfoot tr td{
     text-align: left;
     position: relative;
     /*bottom: 350px;*/
+    display: none;
 }
 
 
@@ -920,6 +931,7 @@ tfoot tr td{
     width: 1024px;
     /*margin: 0 auto;*/
     /*left: 877px;*/
+    display: none;
 }
 
 .spotlightRightBG{
@@ -930,6 +942,19 @@ tfoot tr td{
     border-top: 5px solid #231F1F;
     bottom: 5px;
 }
+
+.comingBrands {
+    width: 500px;
+    margin: 40px auto 40px;
+    border: 1px solid #aaa;
+    padding: 20px 25px 10px;
+}
+
+.comingBrands img {
+    width: 500px;
+    margin: 0 auto;
+}
+
 /*Featured Products Carousel*/
 
 .featured-product-carousel{
@@ -1392,6 +1417,11 @@ input.qty-input{
 
 .add-another-item .col3 span{
     padding-bottom: 7px;    
+}
+
+#add-another-item .DSMessage {
+    color: #e60000;
+    font-weight: bold;
 }
 
 .ui-tabs-panel{
@@ -2256,7 +2286,7 @@ div#DDmenu a::after{
 }
 
 #registration #content input::placeholder, #pageLogin #content input::placeholder{
-	color: #607070;
+    color: #607070;
 }
 
 
@@ -2414,27 +2444,27 @@ div#DDmenu a::after{
  * https://www.paciellogroup.com/blog/2012/05/html5-accessibility-chops-hidden-and-aria-hidden/
  */
 .visually-hidden {
-	clip: rect(1px 1px 1px 1px); /* IE 6/7 */
-	clip: rect(1px, 1px, 1px, 1px);
-	height: 1px;
-	overflow: hidden;
-	position: absolute;
-	white-space: nowrap;
-	width: 1px;
-	margin: -1px;
+    clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    margin: -1px;
 }
 
 /*
  * For `.visually-hidden` elements that should be visible when it gains focus.
  */
 .visible-when-focused:focus {
-	clip: auto;
-	height: auto;
-	overflow: visible;
-	position: static;
-	white-space: normal;
-	width: auto;
-	margin: auto;
+    clip: auto;
+    height: auto;
+    overflow: visible;
+    position: static;
+    white-space: normal;
+    width: auto;
+    margin: auto;
 }
 
 /*
@@ -2442,11 +2472,11 @@ div#DDmenu a::after{
  * a `.bypass-block-target` element.
  */
 .bypass-block-link {
-	position: absolute;
-	text-decoration: none;
-	background: #ffffcc;
-	padding: 0.2em;
-	z-index: 10;
+    position: absolute;
+    text-decoration: none;
+    background: #ffffcc;
+    padding: 0.2em;
+    z-index: 10;
 }
 
 /*
@@ -2486,7 +2516,7 @@ input:focus {
 /*******/
 
 #catItemSpotlight{
-    background: url("../images/catspot-bg.jpg") no-repeat scroll left top transparent;
+    /*background: url("../images/MarketingStoreBanner.jpg") no-repeat scroll left top transparent;*/
     display: block;
     height: 140px;
     background-position: center center;
@@ -2705,4 +2735,40 @@ input:focus {
 
 #pageLanding #footer ul{
     display: none;
+}
+
+.moreBtn p {
+    width: 250px;
+    margin: 30px auto;
+}
+
+.moreBtn a:hover {
+    text-decoration: none;
+}
+
+.theBigRedNote {
+    padding: 20px 70px 10px;
+    border: 1px double #666;
+    margin: 20px 0px;
+    background: #EEE;
+}
+
+.theBigRedNote p {
+    /* color: #CC0000; */
+    font-weight: bold;
+}
+
+.theBigRedNote li {
+    LIST-STYLE: disc;
+    margin-left: 40px;
+    /* color: #CC0000; */
+    padding-bottom: 10px;
+}
+
+.theBigRedNote .noteFootNote {
+    font-weight: normal !important;
+}
+
+.noteLine1 {
+    color: #CC0000;
 }
