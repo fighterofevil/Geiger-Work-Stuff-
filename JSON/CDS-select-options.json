@@ -650,5 +650,5 @@
      { "value": "1414", "region": "CC 3", "location": "Niagara Falls, ON"},
      { "value": "1367", "region": "EC 1", "location": "Sherbrooke, QC"},
      { "value": "1375", "region": "SC 3", "location": "Surprise, AZ"},
-     { "value": "1375", "region": "1614", "location": "College Station, TX"}
+     { "value": "1614", "region": "TX", "location": "College Station, TX"}
 ]
