@@ -1,0 +1,281 @@
+
+#useDependency('ss.checkout-basket')
+#useComponent('product_card')
+
+
+    #if($wishListVectorDTO.items.size()!= 0)
+        #if($configSavedForLater != false)
+    	    <p>These items are also viewable in the Saved For Later section on the <a href="basket.html?vid=$vendorSettingsDTO.vendorId">cart page</a>.</p>
+        #end
+        <p>#springMessage("wishlist.checkbox.info")</p>
+    #end
+    
+    ## #springMessage("wishlist.checkbox.info")
+    ## Select an item by clicking the checkbox on the right.
+    ## <br/>
+    ## <strong>
+    ##     Please note that items with options (such as size, color, etc) cannot be added to the cart from the wish list.
+    ## </strong>
+
+#if($itemMultiPageView && $itemMultiPageView.getPreviousUrl())
+    #set($previousUrl=$itemMultiPageView.getPreviousUrl())
+    <a href="$previousUrl">
+        <img src="store/${vendorSettingsDTO.vendorId}/assets/images/tl.gif" alt="#springMessage("vm.wishlist.lastpage")"/>
+    </a>
+#end
+#if($itemMultiPageView.pagesCount && $itemMultiPageView.pagesCount > 1)
+    <span>
+        #springMessage("vm.category_template.page")
+    </span>
+    #foreach($pageItem in $itemMultiPageView.indexList)
+        #if($itemMultiPageView)
+            #if($velocityCount == $itemMultiPageView.currentPageIndex)
+                <a>
+                    $itemMultiPageView.currentPageIndex
+                </a>
+            #else
+                #if($velocityCount < $itemMultiPageView.pagesCount + 1)
+                    #set($pageurl=$itemMultiPageView.multiPageURL)
+                    <a class="navleftlink" href="${pageurl}$velocityCount">
+                        $velocityCount
+                    </a>
+                #end
+            #end
+        #end
+    #end
+#end
+#springBind( "wishListDTO.*" )
+#if($wishListVectorDTO.items)
+    #foreach($error in $status.errorMessages)
+        #set($err = 1)
+    #end
+    #if($err == 1)
+        <div class="warning">
+            #foreach($error in $status.errorMessages) $error
+                <br/>
+            #end
+        </div>
+    #end
+    #if($wishListVectorDTO.items)
+        #if($wishListVectorDTO.items.size()!= 0)
+            #if($wishListDTO.owner)
+                #if(!$wishListDTO.openEmail)
+                    <a href="wishlist.html?vid=$wishListDTO.vendorId&clientId=$wishListDTO.clientId&openEmail=true">
+                        #springMessage("wishlist.clickinfor")
+                    </a>
+                #end
+            #end
+        #end
+    #end
+#end
+
+
+#*
+##	Email Wish List Form
+*#
+
+<form action="wishlist.html?vid=$vendorSettingsDTO.vendorId" class="horizontal" method="post" name="wishlist">
+    <input type="hidden" id="vid" name="vid" value="$wishListDTO.vendorId"/>
+    <input type="hidden" name="clientId" value="$wishListDTO.clientId"/>
+    <input type="hidden" name="openEmail" value="$wishListDTO.openEmail"/>
+    <input type="hidden" name="emailSubject" value="Wish list"/>
+    <input type="hidden" id="securitytoken" name="securitytoken" value="${tokenEntity.token}"/>
+    #if($wishListDTO.owner && $wishListDTO.openEmail)
+        <div class="f-row">
+            <label>
+                <b>
+                    #springMessage("vm.wishlist.email"):
+                </b>
+            </label>
+            <div class="f-field">
+                ## if user has customer property browseOnly=true, then email address field is pre-populated with email address $browseOnlyWishlistApprover that is set in configs and is not editable by user - kevin 11.15.22
+                #if($request.session.getAttribute("SessionCustomerDTO_${vendorSettingsDTO.vendorId}").getCustomerProperty('browseOnly') == true)
+                    <input type="text" name="emailAddr" readonly value="$!browseOnlyWishlistApprover"/>
+                #else
+                    <input type="text" name="emailAddr" value="$wishListDTO.emailAddr"/>
+                #end
+
+            </div>
+        </div>
+        <div class="f-row">
+            <label>
+                <b>
+                    #springMessage("vm.wishlist.message"):
+                </b>
+                &nbsp;&nbsp;
+            </label>
+            <div class="f-field">
+                ## if user has customer property browseOnly=true, then message area is pre-populated with first and last name of the user to let the approve know who it came from - kevin 11.15.22
+                #if($request.session.getAttribute("SessionCustomerDTO_${vendorSettingsDTO.vendorId}").getCustomerProperty('browseOnly') == true)
+                    <textarea cols="30" rows="3" name="emailText">
+                        #if($welcomeMatDTO && $welcomeMatDTO.loggedIn)
+                           This is an order for  $welcomeMatDTO.firstName $welcomeMatDTO.lastName 
+                        #end                        
+                    </textarea>
+                #else
+                    <textarea cols="30" rows="3" name="emailText">
+                        $wishListDTO.emailText
+                    </textarea>
+                #end                
+                
+                
+                
+            </div>
+        </div>
+        <div class="f-buttons">
+            <input class ="mdl-button mdl-js-button mdl-js-ripple-effect btn btn--primary" type="submit" name="submitEmail" value="#springMessage("vm.wishlist.send")" onClick='document.wishlist.openEmail.value = "false"; return checkEmailAddr();'/>
+            &nbsp;&nbsp;
+            <input class ="mdl-button mdl-js-button mdl-js-ripple-effect btn btn--secondary" type="submit" name="submitEmailCancel" value="#springMessage("vm.wishlist.cancel")" onClick='javascript:document.wishlist.openEmail.value = "false";'/>
+        </div>
+    #end
+</form>
+
+
+#*
+## List of Wish List Items
+*#
+
+<form action="wishlist.html?vid=$vendorSettingsDTO.vendorId" method="post" name="wishlist">
+<input type="hidden" id="securitytoken" name="securitytoken" value="${tokenEntity.token}"/>
+	#if($wishListVectorDTO.items)
+	    #if($wishListVectorDTO.items.size() == 0)
+			<div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+				#springMessage("vm.wishlist.info")
+				<br/>
+				<button class="mdl-button mdl-js-button btn btn-continue-shopping btn btn--secondary mdl-js-ripple-effect"
+				        onclick="ss.checkout_basket.continueShopping(event);"
+				>
+					#showMessage('checkout.button.shopping')
+				</button>
+			</div>
+		#else
+			<div class="mdl-grid wishlist-grid">
+                #foreach($node in $wishListVectorDTO.items)
+					<div class="mdl-cell wishlist-product-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+                        #set($title = $pageTile.getItemObject($wishListVectorDTO, $node, "title"))
+                        #set($itemid = $pageTile.getItemObject($wishListVectorDTO, $node, "itemid"))
+                        #set($shortdesc = $pageTile.getItemObject($wishListVectorDTO, $node, "shortdesc"))
+                        #set($longdesc = $pageTile.getItemObject($wishListVectorDTO, $node, "longdesc"))
+                        #set($cimage= $pageTile.getItemObject($wishListVectorDTO, $node, "cimage"))
+                        #set($wishlistid= $pageTile.getItemObject($wishListVectorDTO, $node, "wishlistid"))
+                        #set($notes= $pageTile.getItemObject($wishListVectorDTO, $node, "notes"))
+                        #set($compcode= $pageTile.getItemObject($wishListVectorDTO, $node, "compcode"))
+                        #set($item = $pageTile.getItemObject($wishListVectorDTO, $node, "item"))
+                        #set($price = $item.itemPrice)
+                        #set($attributs = $item.attributes)
+                        #set($supplier= $pageTile.getItemObject($wishListVectorDTO, $node, "Supplier"))
+
+						<div class="mdl-checkbox mdl-js-checkbox">
+						    <input class="mdl-checkbox__input" type="checkbox" name="select" value="$compcode"/>
+						</div>
+
+						<input type="hidden" id="item_$itemid" name="$compcode" value="false"/>
+                        #setComponentSetting('product_card', 'source', $item)
+                        
+                        
+                       #setComponentSetting('product_card', 'renderPattern', "
+                    	<!-- <% item_code %>, SourceType: <% java_class %> -->
+                    	<div <% class %> <% id %>>
+                    		<a href=""<% item_url %>"">
+                    			<div class=""img-container product-card-image"">
+                    				<img <% image_class %> src=""<% image_source %>"" alt=""<% item_title %>"" />
+                    			</div>
+                    
+                    			<% image_unavailable %>
+                    			
+                    			<div class=""name"">
+                    				<% item_title %>
+                    			</div>
+                    			<% price %>
+                    		</a>
+                    		<div class='name code'>
+                    		    <% code %>
+                    		</div>
+                    		<% wishlist %>
+                    	</div>
+                    ")
+                        
+                        
+                        
+                        #set($pc_tmp = "#renderComponent('product_card')")
+                        #set($pc = $pc_tmp.replace("<% code %>", "$compcode"))
+                        
+                       $!{pc}
+                        
+                        <div id="attribute_section_$compcode.replace('.', '-')" style="display: none;">
+    						#if($attributs && $attributs.size() > 0)
+    						    #set($currentAttrs = $selectedAttrs.get($compcode))
+    						    #foreach($attr in $attributs)
+    						        #if($attr && $attr.attype == 2)
+    						            <input type="hidden" id="attr_${compcode.replace('.','-')}_$velocityCount" value="$attr.attributeid"/>
+    						            #if($attr.options && $attr.options.size() > 0)
+    						                #foreach($opt in $attr.options)
+    						                    #if($opt && $list.contains($currentAttrs,$opt.code))
+    						                        <input type="hidden" id="opt_${compcode.replace('.','-')}_$attr.attributeid" value="$opt.optionid"/>
+    						                    #end
+    						                #end
+    						            #end
+    						        #end
+    						    #end
+    						#end
+                        </div>
+					</div>
+					<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+						#if($wishListDTO.owner)
+						    <textarea name="notes_$wishlistid">$notes</textarea>
+						    <br/>
+						    <div>
+						        <input class="mdl-button mdl-js-button mdl-js-ripple-effect btn--light" name="submitSaveNote_$wishlistid" type="submit" value="#springMessage("vm.wishlist.savenote")"/>
+						    </div>
+						#else
+						    $notes
+						#end
+					</div>
+				#end
+
+                <script>
+                    function buyItems(els){
+                        var url="action.html?mode=addItems",
+                            vid = $('#vid').val(),
+                            items = '',
+                            param = "&vid="+vid+"&url=basket.html?vid="+vid;
+
+                        for(var i = 0; i < els.length; i++) {
+                            var code = $(els[i]).val();
+                            items += '&ic' + (i+1) + '=' + code + '&qty' + (i+1) + '=1';
+                      
+                            jQuery('input[id^="attr_'+code.replace('.','-')+'"]').each(function(k) {
+                                var attr = jQuery(this).val();
+                                items += '&attrid' + (i+1) + '_' + (k+1) + '=' + attr;
+                                var opt = jQuery('#opt_' + code.replace('.','-') + '_' + attr).val();
+                                if(opt && opt != null)
+                                    items += '&attropt' + (i + 1) + '_' + (k + 1) + '=' + opt;
+                            });
+                        }
+                        console.log('items string: '+items);
+                        url += items + param;
+                        console.log('URL: '+url);
+                        window.location.href=url;
+                    };
+
+                    jQuery(document).ready(function() {
+                        jQuery('#submitAddToCart').on('click', function(){
+                            var els = $('input[type=checkbox]:checked').toArray();
+                            console.log('elements to add to cart: ' + els);
+                            buyItems(els);
+                        });
+                    });
+                </script>
+
+				<div class="mdl-cell wishlist-controls-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+					<input type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn--primary" name="submitAddToCart" id="submitAddToCart" value="#springMessage("vm.wishlist.addtocart")"/>
+					#if($wishListDTO.owner)
+					    <input type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn--secondary" name="submitDeleteItems" value="#springMessage("vm.wishlist.remove")"/>
+					    <input type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn--secondary" name="submitClearWishList" value="#springMessage("vm.wishlist.removeall")"/>
+					#end
+				</div>
+			</div>
+
+		#end
+	#end
+</form>
