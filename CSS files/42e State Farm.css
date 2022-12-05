@@ -2922,3 +2922,65 @@ input:focus { outline: solid 2px black !important; }
     font-size: 20px;
     display: none;
 }
+
+.slick-slider-img7{
+	background: url(../images/spot-bg.jpg);
+	width: 1500px;
+	height: 400px;
+}
+
+.spotContent100{
+	color: #fff;
+	margin: 0 auto;
+	width: 550px;
+	height: 400px;
+	display: flex;
+	align-items: center;
+	font-family: 'museo', serif;
+	font-weight: 300;
+	flex-wrap: wrap;
+	line-height: 1.5em;
+	justify-content: center;
+}
+
+.museoBold{
+	font-weight: 700;
+}
+
+.line1{
+	font-size: 30px;
+}
+
+.line2{
+	font-size: 40px;
+}
+
+.line3{
+	font-size: 29px;
+}
+
+.line4{
+	font-size: 58px;
+}
+
+.line5{
+	font-size: 29px;
+}
+
+.line6{
+	font-size: 29px;
+	  position: relative;
+	  bottom: 15px;
+}
+
+.line7{
+	font-size: 20px;
+}
+
+.line8{
+	font-size: 18px;
+	font-family: arial !important;
+	font-weight: 800;
+	position: relative;
+	bottom: 20px;
+}
