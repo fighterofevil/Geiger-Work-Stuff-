@@ -781,7 +781,7 @@
                       
         <div id="note">
             <p>To check out, please add two apparel pieces, two brand accessories, and one community shirt to your cart.</p> 
-            <p>Please note the site does not allow a combination of Men&#39;s and Women&#39;s sections. </p>
+            ## <p>Please note the site does not allow a combination of Men&#39;s and Women&#39;s sections. </p>
         </div>                      
 
                       <input type="hidden" name="_targetcheckout" value="checkout.html?vid=$vendorSettingsDTO.vendorId"/>
