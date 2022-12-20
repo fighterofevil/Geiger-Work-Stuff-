@@ -792,25 +792,29 @@
                                 <script>
                                     ## console.log("$!manApparel is the count for items in manApparel");
                                     ## console.log("$!womanApparel is the count for items in womanApparel");
-                                    ## console.log("$!mixAcessories is the count for items in mixAcessories");
-                                    ## console.log("$!communityShirt is the count for items in communityShirt");
-                                    ## console.log("$!masterQty is the count for items in masterQty");
+                                     console.log("$!mixAcessories is the count for items in mixAcessories");
+                                     console.log("$!communityShirt is the count for items in communityShirt");
+                                     console.log("$!masterQty is the count for items in masterQty");
                                 </script>
-                                #if( ($manApparel==2 || $womanApparel==2) && $mixAcessories==2 && $communityShirt==1)
+                                ## updated logic and error messages to remove gender checks - kevin 12.20.22
+                                ## #if( ($manApparel==2 || $womanApparel==2) && $mixAcessories==2 && $communityShirt==1)
+                                #if( $mixAcessories==2 && $communityShirt==1)                               
                                     <input id="checkoutbtn" class="btn btn-primary" type="button" value="#springMessage('vm.basket.tocheckout')" onclick="javascript:document.VIEWCART.mode.value='checkout';document.VIEWCART.submit();" style="float:right;" />
                                 #else
                                     ## cartAlert();
                                     <script>
                                         $( document ).ready(function() {    
                                             console.log("error");
-                                            alert("Please adjust your selections. To check out, please confirm there is only a combination of two apparel pieces [same gender], two brand accessories, and one community shirt, for a total of five items in your cart. ");
+                                            // alert("Please adjust your selections. To check out, please confirm there is only a combination of two apparel pieces [same gender], two brand accessories, and one community shirt, for a total of five items in your cart. ");
+                                            alert("Please adjust your selections. To check out, please confirm there is only a combination of two apparel pieces, two brand accessories, and one community shirt, for a total of five items in your cart. ");
                                         });
                                     </script>
                                 #end                                    
                           #elseif($masterQty>5)
                                 <script>
                                         $( document ).ready(function() {
-                                            alert("Please adjust your selections. To check out, please confirm there is only a combination of two apparel pieces [same gender], two brand accessories, and one community shirt, for a total of five items in your cart. ");
+                                            // alert("Please adjust your selections. To check out, please confirm there is only a combination of two apparel pieces [same gender], two brand accessories, and one community shirt, for a total of five items in your cart. ");
+                                            alert("Please adjust your selections. To check out, please confirm there is only a combination of two apparel pieces, two brand accessories, and one community shirt, for a total of five items in your cart. ");
                                         });                                     
                                 </script>
                           #end
