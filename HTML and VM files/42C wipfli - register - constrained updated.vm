@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+#parse('libGlobalConfig.vm')
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+
+#########################################################################
+
+#if (!$pageTileDictionaryDTO)
+  #if ($_commandName)
+    #springBind( "${_commandName}.pageTileDictionaryDTO" )
+    #set ($pageTileDictionaryDTO = ${status.value})
+  #end
+#end
+
+#########################################################################
+
+<html id="registration">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else #springMessage("vm.myaccount.title") $!{htmlSiteName} #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+    <script type="text/javascript">
+       
+      function checkOtherRegionInputBox(){
+         changeRegion1($("#shippingCountry").value);
+         changeRegion($("#country_id").value);    
+      
+      }
+    
+    </script>
+  </head>
+  <body>
+    #if($!$headerPosition == "OUTSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+    <div id="container">
+        #if($!$headerPosition == "INSIDE") #displayHeader($!$displayCustomHeaderContent) #end
+      <div id="content" role="main">
+            #if(${fancyUserForms} == "YES")
+                #parse("libPageFancyRegister.vm")
+            #else
+                #parse("libPageRegister.vm")
+            #end
+        
+            ## original constrained email check code commented out - this was for only 1 domain name. 
+            ## new codebade below to handle multiple domains 0- kevin 01.03.23
+            
+            ## #if($constrainedEmailReg && $constrainedEmailReg != "N") 
+            ## #if($configDomainLoginRestrictions && $configDomainLoginRestrictions["enabled"])
+                ## script initializes the Continue button on page load to 'deacivate' in order to constrain users to a specific email address
+                ## script checks on keypress up and evaluates email address entered using a regular expression. 
+                ## -kevin 12.12.18
+                ## <script>
+                ##     jQuery( document ).ready(function() {
+    
+                ##         $('#regContinue').css("pointer-events","none");
+                ##         $('#regContinue').addClass("buttonOff");
+                        
+                ##         checkEmail();
+    
+                ##         $('.emailName').keyup(function(){
+                ##             checkEmail();
+                ##         });
+                        
+                ##         function checkEmail(){
+                ##             const regex = /@$!constrainedEmailReg/gm;
+                ##             const str = $('.emailName').val().toLowerCase();
+                ##             let m;
+                            
+                ##             $('#regContinue').css("pointer-events","none");
+                ##             $('#regContinue').addClass("buttonOff");
+                            
+                ##             console.log("regex is "+regex);
+                ##             console.log("str is "+str);
+                            
+                            
+                ##             while ((m = regex.exec(str)) !== null) {
+                            
+                ##                 // This is necessary to avoid infinite loops with zero-width matches
+                ##                 if (m.index === regex.lastIndex) {
+                ##                     regex.lastIndex++;
+                ##                 }
+                                
+                ##                 // The result can be accessed through the `m`-variable.
+                ##                 m.forEach((match, groupIndex) => {
+                ##                     ## console.log(`Found match, group ${groupIndex}: ${match}`);
+                ##                     $('#regContinue').css("pointer-events","initial");
+                ##                     $('#regContinue').removeClass("buttonOff");
+                ##                     $('#regContinue').css("background-color","#FFB700");
+                ##                 });
+                                
+                ##                 $( "#regContinue" ).hover(
+                ##                   function() {
+                ##                     $('#regContinue').css("background-color","#FFD466");
+                ##                   }, function() {
+                ##                     $('#regContinue').css("background-color","#FFB700");
+                ##                   }
+                ##                 );                                 
+                ##             }                       
+                ##         }
+                ##     });
+                ## </script>   
+                ## #end
+                
+                ## checks to see if there any domain restrictions for registration 
+                #if($configDomainLoginRestrictions && $configDomainLoginRestrictions["enabled"])
+                <script>
+                    jQuery( document ).ready(function() {
+    
+                        ## defaults regContinue button to be "off"
+                        $('#regContinue').css("pointer-events","none");
+                        $('#regContinue').addClass("buttonOff");
+
+                		    ##  console.log("========> it sees that there is a configDomainLoginRestrictions");
+            				
+            				## 
+            				
+            				var rule = ''
+            				var domains = ''
+            				#foreach($domain in $configDomainLoginRestrictions["whitelist"])
+            				    ## 	console.log("domain is $!domain");
+            					#if($domain.contains('@'))
+            						rule += "contains=$domain"
+            						#if($velocityCount < $configDomainLoginRestrictions["whitelist"].size())
+            							rule += " || "
+            						#end
+            					#else
+            						rule += "contains=@$domain"
+            						domains += "$domain"
+            						#if($velocityCount < $configDomainLoginRestrictions["whitelist"].size())
+            							rule += " || "
+            							domains += ", "
+            						#end
+            					#end
+            				    ## 	console.log("domain is $!domain");
+            				#end
+                				
+                            ## console.log("=====>rule "+rule);
+                            ## console.log("=====>domains "+domains);
+
+                            checkEmail();
+                                
+                                $('.emailName').keyup(function(){
+                                    checkEmail();
+                                });                                
+                                
+                                function checkEmail(){
+                                    const str = $('.emailName').val().toLowerCase();
+                                    let m;
+                                    
+                                    $('#regContinue').css("pointer-events","none");
+                                    $('#regContinue').addClass("buttonOff");
+                                    
+                                    ## console.log("str is "+str);     
+                                    
+                                    ## let result = domains.includes(str);
+                                    ## let result2 = rule.includes(str);
+                               
+                                    let domainCheck = str.substring(str.indexOf('@') + 1);
+                                    
+                                    ## if (domainCheck==""){
+                                    ##     console.log("domainCheck is blank");
+                                    ## }else{
+                                    ##     console.log("domainCheck is NOT blank");
+                                    ## }
+                   
+                                    ## let result3=domains.includes(domainCheck);
+                       
+                                    ## console.log("the result is "+result);
+                                    ## console.log("the rule result is "+result2);
+                                    ## console.log("domainCheck is "+domainCheck);
+                                    
+                                    ## console.log("check if domains using domaincheck is "+result3);
+                                    
+                                    ## if (domainCheck==""){
+                                    ##     console.log("domainCheck is BLANK");
+                                    ## }
+                                    
+                                    const domainArray=[];
+                                    
+                                    #foreach($domain2 in $configDomainLoginRestrictions["whitelist"])
+                                        ## console.log("domain2 is $!domain2");
+                                        domainArray.push("$!domain2");
+                                    #end
+                                    
+
+                                    for (var i = 0; i < domainArray.length; i++) {
+                                        ## console.log("this is the domainArray value "+domainArray[i]);
+                                        if(domainCheck==domainArray[i]){
+                                            ## console.log("there is a match <XXXXXXXXXXXXXXXXXX");
+                                            
+                                            $('#regContinue').css("pointer-events","initial");
+                                            $('#regContinue').removeClass("buttonOff");
+                                            $('#regContinue').css("background-color","#FFB700");
+                                            
+                                            $( "#regContinue" ).hover(
+                                                function() {
+                                                    $('#regContinue').css("background-color","#FFD466");
+                                                }, function() {
+                                                    $('#regContinue').css("background-color","#FFB700");
+                                                }
+                                            );                                
+                                        }
+                                    }                                    
+                                }
+                        
+                    });
+                </script>                 
+                
+            #end
+      </div> <!--//#content -->
+      
+      #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end
+      #if($!$footerPosition == "INSIDE") #displayFooter($!$displayCustomFooterContent) #end
+    </div> <!--//#container -->
+    #if($!$footerPosition == "OUTSIDE") #displayFooter($!$displayCustomFooterContent) #end
+
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+  </body>
+</html>
