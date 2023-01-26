@@ -1,0 +1,56 @@
+[
+  {
+    "logo": "BSPH-logo.svg",
+    "storeName": "Bloomberg School of Public Health",
+    "siteActive":"y",
+    "vid": "Bloomberg.BrandingByGeiger.com"
+  },
+    {
+    "logo": "CBS-logo.svg",
+    "storeName": "Carey Business School",
+    "siteActive":"y",
+    "vid": "Carey.BrandingByGeiger.com"
+  },
+    {
+    "logo": "KSAS-logo.svg",
+    "storeName": "Krieger School of Arts and Sciences",
+    "siteActive":"y",
+    "vid": "Krieger.BrandingByGeiger.com"
+  },
+    {
+    "logo": "PC-logo.svg",
+    "storeName": "Peabody Conservatory",
+    "siteActive":"y",
+    "vid": "Peabody.BrandingByGeiger.com"
+  },
+    {
+    "logo": "SAIS-logo.svg",
+    "storeName": "School of Advanced International Studies",
+    "siteActive":"y",
+    "vid": "SAIS.BrandingByGeiger.com"
+  },
+    {
+    "logo": "SOE-logo.svg",
+    "storeName": "School of Education",
+    "siteActive":"y",
+    "vid": "Education.BrandingByGeiger.com"
+  },
+    {
+    "logo": "SOM-logo.svg",
+    "storeName": "School of Medicine",
+    "siteActive":"y",
+    "vid": "Medicine.BrandingByGeiger.com"
+  },
+    {
+    "logo": "SON-logo.svg",
+    "storeName": "School of Nursing",
+    "siteActive":"y",
+    "vid": "Nursing.BrandingByGeiger.com"
+  },
+    {
+    "logo": "WSE-logo.svg",
+    "storeName": "Whiting School of Engineering",
+    "siteActive":"y",
+    "vid": "Whiting.BrandingByGeiger.com"
+  }
+]
