@@ -36,6 +36,39 @@
 }
 
 
+#spotTextWrapper{
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    height: 324px;
+    align-items: center;    
+}
+
+#spotText{
+    color: #fff;
+    text-align: center;
+}
+
+.subtitle{
+    font-weight: 400;
+    font-size: 17px;
+    position: relative;
+    top: 20px;
+}
+
+.spot1{
+    font-size: 52px;
+    font-weight: 400;
+    font-family: "aw-conqueror-didot", serif;
+}
+
+.spot2{
+    font-size: 57px;
+    font-weight: 700;
+
+}
+
 /************ CSS Reset *************/
 html{
     
@@ -110,7 +143,7 @@ strong{
 /*********** Global - Typography: p, a, H1 H2, etc*************/
 body{
     color:#444444;
-    font-family: "Calibri", Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 #container{
     text-align: left;
@@ -129,14 +162,25 @@ p .pageItem{
 }
 
 a{ 
-    color:#031955;
+    color:#421f77;;
 }
+
+a:hover{
+    color: #ed2986;
+}
+
 #footer{
     font-size: 12px;
 }
 #footer a{
     color: #fff;
+    text-decoration: none;
 }
+
+#footer a:hover{
+    text-decoration: underline;
+}
+
 .nav a{
     color: #ffffff;
     font-size: 16px;
@@ -153,7 +197,7 @@ div#DDmenu a{
 
 .utilNav  a{
     color: #000;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: none;
     font-size: 14px;
     margin-right: 5px;
@@ -161,12 +205,13 @@ div#DDmenu a{
 }
 
 h1{ 
-    font-weight: bold;
-    font-size: 26px;
+    font-weight: 700;
+    font-size: 24px;
     padding: 0;
     margin: 0px 0px 15px 0px;
+      margin-top: 0px;
     line-height: 30px;
-    color: #156c94;
+    color: #000;
 }
 #pageHome h1{
     font-weight: normal;
@@ -192,10 +237,11 @@ h2{
 
 #pageHome h2{
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 24px;
     color:#fff;
-    background: url(../images/featured.png);
+    /*    background: url(../images/featured.png);*/
+    background-color: #421f77;
     height: 44px;
     line-height: 44px;
     text-align: center;
@@ -207,7 +253,7 @@ h5{ }
 h6{ }
 .bCrumbs, .bCrumbs a{
     font-size: 12px;
-    color:#777;
+    color:#404040;
 }
 .image .price-box{
     color:#fff;
@@ -223,10 +269,21 @@ h6{ }
 }
 
 #pageItem .price {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
     margin: 10px;
 }
+
+#pageItem h1{
+    font-size: 26px;
+}
+
+
+.price strong{
+    font-weight: 400 !important;
+}
+
 label, .label {
     font-weight: bold;
 }
@@ -305,11 +362,13 @@ body{
 }
 
 #footer{
-    background: #00517d;
+    background: #000;
     border-top: 2px solid #fff;
     height: 71px;
     z-index: 1;
     position: relative;
+    font-weight: 400;
+    font-size: 14px;
 }
 #footer .wrapper{ /* For IE8 and earlier */
     padding:15px 15px;
@@ -369,12 +428,12 @@ body{
 * navigation, header, footer, etc */
 
 #header .logo a{
-    background: url("../images/IRI_NPD-logo.png") no-repeat scroll left top transparent;
+    background: url("../images/header-logo.svg") no-repeat scroll left top transparent;
     display: block;
     float: left;
-    height: 61px;
+    height: 64px;
     margin-top: 22px;
-    width: 220px;
+    width: 122px;
 }
 #header .logo span {
     display: none;
@@ -474,7 +533,7 @@ div#DDmenu li:hover{
 }
 #footer ul{
     /* margin: 0 auto; */
-    width: 500px;
+    width: 520px;
     float: right;
     text-align: right;
 }
@@ -484,7 +543,7 @@ li.mini-cart {
     padding-left: 32px;
     height: 31px;
     line-height: 31px;
-    background: url('../images/cart-icon.png') center left no-repeat #80c536;
+    background: url('../images/cart-icon.png') center left no-repeat #e31c79;
 }
 
 li.mini-cart:hover{
@@ -507,13 +566,15 @@ li.mini-cart:hover{
     padding-top: 26px;
     float: right;
     width: 200px;
+    position: relative;
+    top: 10px;
 }
 #searchForm div{
     /* background-color: #fff; */
     /* width: 259px; */
     /* height: 30px; */
 }
-#searchForm input#key{border: none;width: 160px;float: left;padding-left: 3px;height: 28px;font-size: 14px;color: #404040;padding: .75em 1em;padding-left: 24px;background: url('../images/search-icon.png') center left no-repeat;}
+/*#searchForm input#key{border: none;width: 160px;float: left;padding-left: 3px;height: 28px;font-size: 14px;color: #404040;padding: .75em 1em;padding-left: 24px;background: url('../images/search-icon.png') center left no-repeat;}*/
 #searchForm input#searchBtn{
     width: 20px;
     height: 24px;
@@ -524,6 +585,16 @@ li.mini-cart:hover{
     text-indent:-20000px;
     margin-top: 2px;
     display: none;
+}
+
+.searchGlass{
+    position: relative;
+    float: left;
+    cursor: pointer;
+    font-size: 22px !important;
+    color: #404040;
+    top: 4px;
+    padding-left: 10px;    
 }
 
 /*********** Global - Reused Basic Elements: tables, HR, etc; *************/
@@ -544,11 +615,11 @@ table a:visited {
 }
 table a:active,
 table a:hover {
-    color: #bd5a35;
+/*    color: #bd5a35;*/
     text-decoration:underline;
 }
 table {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -642,38 +713,40 @@ tfoot tr td{
 }
 
 .btn {
-    background-color: #E7E7E7;
-    border:1px solid #777;
-    color:#000;
+    background-color: #ed2986;
+    border:0px solid #777;
+    color:#fff;
     padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    font-size: 16px;
+    font-weight: 700;
 }
 .btn:hover{
-    background-color: #fff;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #cf2575;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
 } 
 
 .btn-primary{
-    background-color: #82c341;
-    border:1px solid #777;
+    background-color: #421f77;
+    border:0px solid #777;
     color:#FFF;
-    font-weight: bold;
+    font-weight: 700;
     padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    font-size: 16px;
 }
 .btn-primary:hover{
-    background-color: #CCCCCC;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    background-color: #351860;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
 }
 
 /*********** Page Experience Specific Styles *************
@@ -844,7 +917,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     font-size: 12px;
     margin: 0px;
     padding: 15px;
@@ -873,7 +946,7 @@ tfoot tr td{
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 2px #D1D1D1;
     color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     font-size: 12px;
     margin: 20px 0 20px 0;
     padding: 15px;
@@ -894,7 +967,7 @@ tfoot tr td{
 }
 
 .login form{
-        font-family:Arial, Helvetica, sans-serif;
+        font-family:'Roboto Condensed', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -928,7 +1001,7 @@ a.forgotPassword{
 
 
 #registration form#registerForm{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Roboto Condensed', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -972,7 +1045,7 @@ a.forgotPassword{
 }
 
 #pageMyAccount form.myAccountForm{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Roboto Condensed', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -1065,11 +1138,11 @@ display:none;
 }
 .image .price-box{
     position: absolute;
-    background: #444;
+    background: #421f77;
     right: 0;
     bottom: 5px;
     padding: 5px 6px;
-
+    border-top-left-radius: 3px;
 }
 .pagination-new {
     float: left;
@@ -1123,6 +1196,12 @@ a.view-all{
     margin: 10px;
 }
 
+#pageItem .desc p{
+    font-size: 15px;
+    color: #404040;
+}
+
+
 #pageItem .actions{
     text-align: right;
 }
@@ -1168,7 +1247,7 @@ input.qty-input{
 
 
 .ui-tabs-panel{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     color:#666;
     font-size:12px;
     background:#eaebec;
@@ -1496,7 +1575,7 @@ float: right;
 }
 .tabs .tab {
 
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Roboto Condensed', sans-serif;
     color:#666;
     font-size:12px;
     background:#FFFFFF;
@@ -1628,7 +1707,7 @@ input#cvv{
     text-align: center;
     font-size: 19px;
     line-height: 20px;
-    font-family: arial;
+    font-family: 'Roboto Condensed', sans-serif;
     color: #FFF;
     text-shadow: 0px 0px 2px #000;
     box-shadow: 0px 1px 1px 0px #aaa;
@@ -1645,7 +1724,7 @@ input#cvv{
 
 /****Checkout ????????? Review****/
 .location{
-        font-family:Arial, Helvetica, sans-serif;
+        font-family:'Roboto Condensed', sans-serif;
         color:#666;
         font-size:12px;
         text-shadow: 1px 1px 0px #fff;
@@ -1939,7 +2018,7 @@ table.no-border tr, table.no-border td {
 #home-spotlight {
     width:1024px;
     height: 324px;
-    background: url('../images/spotlight.png') no-repeat;
+    background: url('../images/spotlight-img.jpg') no-repeat;
 }
 
 li.search {
@@ -1956,15 +2035,20 @@ li.search {
 
 .grey-footer {
     display: table;
-    background: url('../images/grey-footer-box.png');
+    /*    background: url('../images/grey-footer-box.png');*/
+    background-color: #313232;
     color: #fff;
     width: 964px;
     padding:30px;
     margin: 0 auto;
+    font-weight: 400;
+    font-size: 15px;    
 }
 
 .grey-footer h4 {
-    color: #0086c1;
+    color: #fedb00;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .grey-footer p {
@@ -2046,6 +2130,8 @@ li.search {
 
 .container a {
     text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 #pageCheckoutPayment .payment-section {
