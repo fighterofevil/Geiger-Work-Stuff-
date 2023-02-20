@@ -1,0 +1,89 @@
+
+#*
+## Subtotals and Checkout button.
+*#
+<div class="checkout-side-top mdl-shadow--2dp">
+	<div class='checkout-basket-subtotals'>
+		<span class="checkout-subtotals--subtotal-label">
+			#showMessage('checkout.label.subtotal')
+		</span>
+		<span class="checkout-subtotals--subtotal">
+			$!{basketData.get('subTotalDiscountedFormatted')}
+		</span>
+	</div>
+	<div class="checkout-basket-buttons">
+	    #if($configPlaceQuoteOrder && !$BrowserFromPost)
+	    ##<div class="checkout-basket-promo--text mdl-textfield mdl-js-textfield is-upgraded" data-upgraded=",MaterialTextfield">
+			##<input type="text" class="mdl-textfield__input" id="checkout-CSREmailAddr" data-upgraded=",MaterialRipple">
+		<div class="checkout-basket-promo--text mdl-textfield mdl-js-textfield is-upgraded">
+			<input type="text" class="mdl-textfield__input mdl-js-ripple-effect" id="checkout-CSREmailAddr">
+			<label class="mdl-textfield__label" for="checkout-CSREmailAddr">
+				CSR Email Address
+			</label>
+    	</div>
+		<button class="mdl-button mdl-js-button btn-main mdl-js-ripple-effect btn--primary"
+		        id="checkout-basket-submit"
+		        onclick="ss.checkout_basket.handleSendQuoteClick();"
+		>
+			Send Quote
+		</button>
+		#else
+		#if($configPlaceQuoteOrder)
+        <div class="checkout-main-bottom checkout-basket-promo mdl-shadow--2dp">
+            <div class="text-wrapper">
+                <div class="icon-wrapper">
+                    <i class="material-icons">local_offer</i>
+                </div>
+                <div class="checkout-basket-promo--text mdl-textfield mdl-js-textfield">
+                    <input type="text" class="mdl-textfield__input mdl-js-ripple-effect" id="checkout-reorderid" />
+                    <label class="mdl-textfield__label" for="checkout-reorderid">
+                        Quote ID
+                    </label>
+                </div>
+            </div>
+            <div><span id="loadQuoteMes" style="color:red;"></span><div>
+            <button class="mdl-button mdl-js-button btn--primary checkout-basket-reorder--btn mdl-js-ripple-effect" onclick="ss.checkout_basket.handleReorderSubmit(this);">
+                Load Quote
+            </button>
+        </div>
+        <span class="checkout-basket-taxwarning checkout-small-text"></span>
+        #end
+
+        ##==CUSTOM ORDER VALIDATION==
+        #if(!$disableCheckout)
+            ##Validation that user hasn't placed an order before
+            #if($request.session.getAttribute("SessionCustomerDTO_$vendorSettingsDTO.vendorId").ordersCount >= $configMaximumOrderCount && $configMaximumOrderCountEnabled)
+    			<button class="mdl-button mdl-js-button btn-main mdl-js-ripple-effect btn--primary"
+    			        id="checkout-basket-submit"
+    			        onclick="maxOrderAlert()"
+    			>
+    				#showMessage('checkout.button.checkout')
+    			</button>
+    		#else
+    		    <button class="mdl-button mdl-js-button btn-main mdl-js-ripple-effect btn--primary"
+    			        id="checkout-basket-submit"
+    			        onclick="ss.checkout_basket.handleCheckoutClick();"
+    			>
+    				#showMessage('checkout.button.checkout')
+    			</button>
+    		#end
+		#end
+		
+		#end
+		<span class="checkout-basket-taxwarning checkout-small-text">
+			#showMessage('checkout.taxwarning')
+		</span>
+		<button class="mdl-button mdl-js-button btn-continue-shopping mdl-js-ripple-effect btn--secondary"
+		        onclick="ss.checkout_basket.continueShopping();"
+		>
+			#showMessage('checkout.button.shopping')
+		</button>
+	</div>
+</div>
+
+##Alert User If They've Already Made a Purchase
+<script>
+    const maxOrderAlert = function(){
+        alert("You have already met the maximum order quantity, and can no longer make purchases.");
+    }
+</script>
