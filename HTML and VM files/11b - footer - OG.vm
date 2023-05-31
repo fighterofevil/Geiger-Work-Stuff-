@@ -1,0 +1,61 @@
+
+<div id="footer">
+    <div id="colorbar"></div>
+    <div class="wrapper">
+        ## <div class="colcontent">
+            <ul>
+                <li>
+                    <a href="https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/store.html?vid=$vendorSettingsDTO.vendorId&cid=353561">#springMessage("navHome")</a>
+                </li>
+            </ul>
+             <ul>
+                <li>
+                    <a href="$seourl.encodeURL("myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId")">#springMessage("navAccount")</a>
+                </li>
+            </ul>
+        ## </div>    
+    </div><!-- /.wrapper-->
+    <div class="wrapper">
+        ## <div class="colcontent">
+            <ul>
+                <li>
+                    <a href="$seourl.encodeURL("store.html?cid=344871&vid=$vendorSettingsDTO.vendorId")">FAQs</a>
+                </li>
+            </ul>
+             <ul>
+                <li>
+                    <a href="$seourl.encodeURL("store.html?cid=${cidContact}&vid=$vendorSettingsDTO.vendorId")">#springMessage("navContact")</a>
+                </li>
+            </ul>
+        ## </div>   
+    </div><!-- /.wrapper-->
+    <div class="wrapper" style="min-width:250px">
+        <ul>
+            ## <li>
+            ##     <a href="$seourl.encodeURL("store.html?cid=${cidTerms}&vid=$vendorSettingsDTO.vendorId")">TERMS OF SERVICE/POLICIES</a>
+            ## </li>
+              <li><a href="https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/store/20130831827/assets/terms-of-use.html">Terms of Use</a></li>
+  <li><a href="https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/store/20130831827/assets/privacy-policy.html")>Privacy Policy</a></li>
+        </ul>
+        <ul>
+            <li>
+               &copy; $date.year $!htmlCompanyName
+            </li>
+        </ul>
+    </div><!-- /.wrapper-->
+    <div class="wrapper">
+        <div class="logo">
+            <a href="store.html?vid=${vendorSettingsDTO.vendorId}&cid=353561"><span></span></a>
+        </div>
+    </div><!-- /.wrapper-->
+</div><!-- /#footer-->
+
+
+## <ul>
+##   <li><a href="https://${appSettingsDTO.getDomainAlias($vendorSettingsDTO.vendorId)}/${appSettingsDTO.AppName}/store.html?vid=$vendorSettingsDTO.vendorId">#springMessage("navHome")</a></li>
+##   <li><a href="$seourl.encodeURL("myaccount.html?mode=billingaddress&vid=$vendorSettingsDTO.vendorId")">#springMessage("navAccount")</a></li>
+##   <li><a href="$seourl.encodeURL("store.html?cid=${cidOrdering}&vid=$vendorSettingsDTO.vendorId")">#springMessage("navOrdering")</a></li>
+##   <li><a href="$seourl.encodeURL("store.html?cid=${cidContact}&vid=$vendorSettingsDTO.vendorId")">#springMessage("navContact")</a></li>
+##   <li><a href="$seourl.encodeURL("store.html?cid=${cidTerms}&vid=$vendorSettingsDTO.vendorId")">#springMessage("navTerms")</a></li>
+## </ul>
+## <p>&copy; $date.year $!htmlSiteName</p>
