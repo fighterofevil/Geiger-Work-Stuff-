@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+#parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteConfig.vm")
+<html id="pageHome">
+  <head>
+    <title>#if($!pagetitle) $pagetitle  #else $!{htmlSiteName} - Welcome #end</title>
+    #parse('libMarkupHead.vm')
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupHead.vm")
+
+  </head>
+  <body>
+    #if(${headerPosition} == "OUTSIDE") #displayHeader(${displayCustomHeaderContent}) #end
+    <div id="container">
+        #if(${headerPosition} == "INSIDE") #displayHeader(${displayCustomHeaderContent}) #end
+        
+      <div id="content" role="main">
+        ## #parse("libContentHome1.vm")
+        ## BEGIN libContentHome1
+        
+        ## <div id="homebanner">
+        ##     <a href="$seourl.encodeURL("store.html?vid=$vendorSettingsDTO.vendorId&iid=158865")">
+        ##         <img src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/images/AECOM_Explorer_Bag_Banner_2020.jpg" alt="Explorer Bag Banner">
+        ##     </a>
+        ## </div>
+        
+        <div class="home-content">
+        ##   <div class="welcome-message">
+        ##     ## <h1>Welcome to the $!{htmlSiteName}</h1>
+        ##     <p>Welcome to the Brand Merchandise Center for colleagues based in the United States — offering a unique collection of branded merchandise chosen exclusively for $!htmlCompanyName.</p>
+        ##     <p>To begin shopping, simply select a category from the menu above or the carousel below. Enjoy!</p>
+        ##     <p>Your dedicated toll-free Customer Service line is available from 8 a.m. - 8 p.m. EST Monday through Friday at $!{htmlCSRPhone}.</p>
+        ##   </div>
+        
+          #if($displaySalesRepInfo == "YES")
+            <div class="repInfo">
+              #if(${htmlRepPhotoURL} != '')
+                <img src="${htmlRepPhotoURL}" alt="$!{htmlRepName}">
+              #end
+              <p>
+                Can't find what you're looking for?<br> Need a special product for your next event?<br>
+                Contact $!{htmlRepName}, your $!{htmlSiteName} Special Order representative.
+              </p>
+              <p>
+                <strong>$!{htmlRepName}</strong><br>
+                $!{htmlRepPhone}<br>
+                <a href="mailto:$!{htmlRepEmail}">$!{htmlRepEmail}</a>
+              </p>
+            </div>
+          #end
+        
+        </div>        
+        ## END libContentHome1
+        <div class="clearfix">
+            ## #parse("libpartFeaturedItems.vm")
+            ## BEGIN libpartFeaturedItems
+
+                <div class="featured-product-carousel">
+                ##   <H2>Featured Products</H2>
+                  <div class="featuredwrap">
+                  <a class="prev" id="featured_carousel_new_left"></a>
+                  <div class="items-wrapper" id="featured_carousel_new">
+                    <div class="listing">
+                      #set($itemCounter = 0)
+                      #foreach($temp in $StoreFeaturedItemsDTO.items)
+                        #set($items = $pageTile.getItemObject($StoreFeaturedItemsDTO, $temp, "i"))
+                        <div class="item">
+                          <a href="$seourl.encodeURL("storeitem.html?vid=$vendorSettingsDTO.vendorId&iid=$items.itemid")">
+                            #if($items.thumbnail && $items.thumbnail != "")
+                              <img src="store$items.largeimage" alt="$items.title"/>
+                            ##   <img src="store$items.thumbnail" alt="$items.title"/>
+                            #else
+                              <img src="store/$vendorSettingsDTO.vendorId/assets/items/thumbnails/noimage.jpg" alt="$items.title"/>
+                            #end 
+                          </a>
+                        </div>
+                      #end
+                    </div>
+                  </div>
+                  <a class="next" id="featured_carousel_new_right"></a>
+                  </div>
+                </div>            
+            
+            ## END libpartFeaturedItems
+        </div>
+            <div class="clearBoth">&nbsp;</div>
+        </div> <!--//#content -->
+
+      #if(${displayStickyFooter} == "TRUE") #displayStickyFooterPush() #end      
+      #if(${footerPosition} == "INSIDE") #displayFooter(${displayCustomFooterContent}) #end
+    </div> <!--//#container -->
+    #if(${footerPosition} == "OUTSIDE") #displayFooter(${displayCustomFooterContent}) #end
+    
+    <script src="store/$vendorSettingsDTO.vendorId/assets/themes/$vendorSettingsDTO.skinname/js/jquery.jcarousellite.min.js"></script>
+    <script>
+    jQuery(document).ready(function(){
+      jQuery('#featured_carousel_new').jCarouselLite({
+        btnNext: "#featured_carousel_new_right",
+        btnPrev: "#featured_carousel_new_left",
+        visible: 5
+      });
+    });
+    </script>
+    #parse("/$vendorSettingsDTO.vendorId/$vendorSettingsDTO.themeId/siteMarkupFoot.vm")
+    #parse("libMarkupFoot.vm")
+
+  </body>
+</html>
