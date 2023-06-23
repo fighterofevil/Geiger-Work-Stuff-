@@ -1,0 +1,219 @@
+/*** ESSENTIAL STYLES ***/
+.sf-menu, .sf-menu * {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.sf-menu li {
+	position: relative;
+}
+.sf-menu ul {
+	position: absolute;
+	display: none;
+	top: 100%;
+	left: 0px;
+	z-index: 99;
+}
+.sf-menu > li {
+	float: left;
+}
+.sf-menu li:hover > ul,
+.sf-menu li.sfHover > ul {
+	display: block;
+}
+
+.sf-menu a {
+	display: block;
+	position: relative;
+}
+.sf-menu ul ul {
+	top: 0;
+	left: 100%;
+}
+
+
+/*** DEMO SKIN ***/
+.sf-menu {
+	float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 38px;
+}
+.sf-menu ul {
+/*	box-shadow: 2px 2px 6px rgba(0,0,0,.2);*/
+	min-width: 13em; /* allow long menu items to determine submenu width */
+	*width: 13em; /* no auto sub width for IE7, see white-space comment below */
+        border-top: 1px solid #E3DFDE;
+        border-bottom: 1px solid #E3DFDE;
+}
+.sf-menu a {
+	padding: 0 .5em;
+	text-decoration: none;
+	zoom: 1; /* IE7 */
+	line-height: 57px;
+}
+.sf-menu a {
+	color: #000;
+        font-size: 14px;
+       font-weight:700;
+}
+
+.sf-menu a:hover{
+	color: #007056;
+}
+.sf-menu li {
+	background: #e3dfde;
+	white-space: nowrap; /* no need for Supersubs plugin */
+/*	-webkit-transition: background .2s;
+	transition: background .2s;*/
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 75px;
+
+}
+.sf-menu ul li {
+	background: #36b2cc;
+/*	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);*/
+/*	box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.1);*/
+       border-left: 1px solid #E3DFDE;
+       border-right: 1px solid #E3DFDE;
+}
+.sf-menu ul ul li {
+	background: #36b2cc;
+}
+
+.sf-menu ul li a{
+	padding: 0 14px;
+}
+
+.sf-menu li:hover,
+.sf-menu li.sfHover {
+	/*background: #CFDEFF;*/
+	/* only transition out, not in */
+	-webkit-transition: none;
+	transition: none;
+}
+
+.sf-menu li ul li{
+	background-color: #fff;
+	justify-content: flex-start;
+}
+
+.sf-menu li ul li a{
+	color: #000;
+	font-weight: 400;
+	font-size: 14px;
+        min-width: 70%;
+        text-align: left;
+}
+
+.sf-menu li ul li:hover{
+	background-color: #e3dfde;
+	color: #007056;
+}
+
+.sf-menu li ul li:last-of-type{
+border-bottom: 1px solid #E3DFDE;
+}
+
+/*.sf-menu li:hover a{
+	color: #007056;
+}*/
+
+/*** arrows (for all except IE7) **/
+.sf-arrows .sf-with-ul {
+	padding-right: 0em;
+	*padding-right: 1em; /* no CSS arrows for IE7 (lack pseudo-elements) */
+}
+/* styling for both css and generated arrows */
+.sf-arrows .sf-with-ul:after {
+	/*	content: '';
+		position: absolute;
+		top: 50%;
+		right: 1em;
+		margin-top: -3px;
+		height: 0;
+		width: 0;*/
+		/* order of following 3 rules important for fallbacks to work */
+	/*	border: 5px solid transparent;*/
+	/*	border-top-color: #dFeEFF;*/
+		 /* edit this to suit design (no rgba in IE8) */
+	/*	border-top-color: rgba(255,255,255,.5);*/
+	/*display: none;*/
+    content: '\e313';
+    position: absolute;
+    height: 0;
+    width: 0;
+    font-family: Material Icons;
+    font-size: 24px;
+    color: #007056;
+}
+.sf-arrows > li > .sf-with-ul:focus:after,
+.sf-arrows > li:hover > .sf-with-ul:after,
+.sf-arrows > .sfHover > .sf-with-ul:after {
+	border-top-color: white; /* IE8 fallback colour */
+}
+/* styling for right-facing arrows */
+.sf-arrows ul .sf-with-ul:after {
+	/*	margin-top: -5px;
+		margin-right: -3px;
+		border-color: transparent;
+		border-left-color: #dFeEFF; */
+		/* edit this to suit design (no rgba in IE8) */
+	/*	border-left-color: rgba(255,255,255,.5);*/
+    content:'\e409';
+    font-family: Material Icons;	
+    font-size: 24px;
+    position: relative;
+    float: right;
+    right: -15px;
+    color: #007056;	
+}
+.sf-arrows ul li > .sf-with-ul:focus:after,
+.sf-arrows ul li:hover > .sf-with-ul:after,
+.sf-arrows ul .sfHover > .sf-with-ul:after {
+	border-left-color: white;
+}
+
+a.subCat1 {
+/*	color: #000000;
+    font-weight: bold;
+    font-size: 16px;*/
+}
+
+a.subCat1:hover{
+	/*background-color: #7ab700;*/
+/*	color: #36b2cc;*/
+}
+
+a.subCat2 {
+/*	color: #fff;
+	background-color: #36b2cc;
+    font-size: 16px;
+    text-align: left;
+    padding: .2em 1em;
+    line-height: 22px;*/
+}
+
+a.subCat2:hover{
+	/*background-color: #7ab700;*/
+/*	color: #000;*/
+}
+
+a.subCat3 {
+/*	color: #fff;
+	background-color: #36b2cc;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 20px;
+    padding: .2em 1em;
+    line-height: 22px;*/
+}
+
+a.subCat3:hover{
+	/*background-color: #7ab700;*/
+/*	color: #000;*/
+}
