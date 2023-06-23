@@ -124,6 +124,7 @@ body{
 
 p{ 
     margin-bottom: 15px;
+    line-height: 1.5em;
 
 }
 
@@ -431,9 +432,10 @@ label, .label {
 } 
 
 .sidebar .title{
-font-weight: bold;
-font-size: 20px;
-margin-top:10px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top:10px;
+    margin-bottom: 5px;
 }
 
 /*********** Global - Structure *************
@@ -483,6 +485,21 @@ body{
     width: 950px;
 }
 
+#contact p{
+    width: 650px;
+}
+
+.contactIconDiv{
+    display: flex;
+    align-items: center;
+    height: 25px;    
+}
+
+.contactIcon{
+    font-size: 24px;
+    color: #008768;
+}
+
 .home-content{
     width: 1024px;
     height: 300px;
@@ -510,8 +527,8 @@ body{
 .welcome-message{
     position: absolute;
     width: 650px;
-    top: 185px;
-    left: 200px;
+    top: 165px;
+    left: 185px;
     color: #fff;
     text-align: center;
 }
@@ -605,6 +622,15 @@ body{
 
 .sidebar .subcat-title a{
     color: #000;
+}
+
+#recentlyViewed a{
+    color: #000;
+}
+
+#recentlyViewed a:hover{
+    color: #000;
+    text-decoration: underline;
 }
 
 .page {
@@ -862,7 +888,8 @@ div#DDmenu li a:hover{
 
 #search{
     width: 133px;
-/*    top: 2px;*/
+    /*    top: 2px;*/
+    margin-left: 20px;
 }
 
 .search {
@@ -901,10 +928,14 @@ div#DDmenu li a:hover{
     position: relative;
     float: left;
     cursor: pointer;
-    font-size: 24px !important;
+    font-size: 18px !important;
     color: #4F5559;
-    top: -2px;
+    top: 0px;
 /*    padding-left: 10px;    */
+}
+
+#pageForgottenPassword .btn-primary{
+    margin-top: 10px;
 }
 
 /*********** Global - Reused Basic Elements: tables, HR, etc; *************/
@@ -1042,14 +1073,14 @@ tfoot tr td{
 
 .btn {
     background-color: #013e49;
-    border:1px solid #777;
+    border: 0px;
     color:#FFF;
     font-weight: 400;
     padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
+/*    -moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
     height: 30px;
     display: flex;
     align-items: center;
@@ -1058,22 +1089,23 @@ tfoot tr td{
 
 .btn:hover{
     background-color: #01161a;
+    border: 0px;
     /*text-decoration: underline;*/
-    -moz-border-radius:3px;
+/*    -moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
 } 
 
 .btn-primary{
     background-color: #008768;
-    border:1px solid #777;
+    border: 0px;
     color:#FFF;
     font-weight: 400;
     padding: 5px 10px;
     cursor: pointer;
-    -moz-border-radius:3px;
+/*    -moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
     height: 30px;
     display: flex;
     align-items: center;
@@ -1082,10 +1114,11 @@ tfoot tr td{
 
 .btn-primary:hover{
     background-color: #026c54;
+    border: 0px;
     /*text-decoration: underline;*/
-    -moz-border-radius:3px;
+/*    -moz-border-radius:3px;
     -webkit-border-radius:3px;
-    border-radius:3px;
+    border-radius:3px;*/
 }
 
 #continueShopBtn{
@@ -1132,6 +1165,8 @@ tfoot tr td{
 /*    padding-left:10px;*/
     /*height: 132px;*/
     height: 230px;
+    margin-bottom: 50px;
+
 }   
 
 .featured-product-carousel .prev{
@@ -1200,6 +1235,7 @@ tfoot tr td{
     font-size: 14px;
     font-weight: 400;
     color: #000;    
+    margin-top: 5px;
 }
         
 /****FAQ ****/
@@ -1234,6 +1270,8 @@ tfoot tr td{
 #pageFAQ .page{
     width: 950px;
 }
+
+
 
 /****Custom Orders****/
 
@@ -1368,6 +1406,23 @@ a.forgotPassword{
     width: 900px;
 }
 
+#pageMyAccount .warningText{
+    margin-bottom: 10px;
+}
+
+#pageMyAccount h2{
+    margin-bottom: 0px;
+}
+
+#pageMyAccount hr{
+    background:none;
+    clear:both;
+    float:none;
+    width:100%;
+    height:1px;
+    border:none;    
+}
+
 /****My Account My Address****/
 
 /****New Shipping Address****/
@@ -1409,6 +1464,12 @@ td.ar{
     top: 1px;
     left: 1px;
     display:none;
+}
+
+
+#pageCheckoutComplete p{
+    max-width: 715px;
+    line-height: 1.5em;
 }
 
 .sortView{
@@ -1554,6 +1615,7 @@ input.qty-input{
     border: 1px solid #CCCCCC;
     float: right;
     padding: 5px 10px;
+    text-transform: capitalize;
 }
 
 .add-another-item {
@@ -2144,18 +2206,18 @@ input#cvv{
     font-weight: bold;
 }
 .warning{
-    border: 1px solid #FC9801;
+    border: 1px solid #e60000;
     background-color: #FFFF99;
     padding: 10px;
     margin: 0px 0px 10px 0px;
-    color: #FC9801;
+    color: #e60000;
     text-shadow: none;
     font-weight: bold;
 
 }
 
 .warningText{
-    color: #FC9801;
+    color: #e60000;
     font-weight: bold;
 }
 
@@ -2463,6 +2525,7 @@ input#cvv{
 .dropbtn a:hover {
        /*transition: all 0.3s ease-out;*/
        color: #007056;
+       text-decoration: none;
 }
 
 .dropbtn a::after{
@@ -2490,11 +2553,12 @@ input#cvv{
     position: absolute;
     background-color: #fff;
     min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    /*    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+    border: 1px solid #E3DFDE;
     z-index: 1;
     text-align: left;
     top: 38px;
-/*    left: 15px;*/
+    left: 5px;
 }
 
 .dropdown-content a {

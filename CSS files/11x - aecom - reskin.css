@@ -124,7 +124,7 @@ body{
 }
 
 p{ 
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 
 }
 
@@ -154,8 +154,12 @@ a{
 
 #footer a{
     text-decoration: none;
-    font-size: 16px;
+    font-size: 13px !important;
     color: #fff;
+}
+
+#footer a:hover{
+    text-decoration: underline;
 }
 
 #colorbar{
@@ -286,6 +290,10 @@ h1{
     margin-bottom: 10px;    
 }
 
+.dropdownLi:hover{
+    background-color: #005d66;
+}
+
 #pageLanding .subCat2, #pageLanding .subCat3{
     display: none;
 }
@@ -341,7 +349,7 @@ h1{
 }
 
 .landingWelcomeBig{
-    font-size: 48px;
+    font-size: 43px;
     font-weight: 700;
     line-height: 1.1;
 }
@@ -667,7 +675,7 @@ body{
     display: block;
     float: left;
     height: 50px; /*110*/
-    /*margin: 15px 0px 0px 20px;*/
+    margin: 14px 0px 0px 30px;
     padding: 10px 8px 0px 0px;
     width: 175px; /*142*/
 }
@@ -783,7 +791,7 @@ div#DDmenu li a:hover{
 #footer ul li{
     display: inline;
     padding:0px 10px;
-    font-size: 16px;
+    font-size: 13px;
     color: #fff;
 }
 
