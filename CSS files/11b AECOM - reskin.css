@@ -2610,3 +2610,12 @@ input#cvv{
 .g-recaptcha {
     margin-bottom: 10px;
 }
+
+
+.alert-danger, .alert-error{
+      color: #aa4341 !important; 
+}
+
+.alert-danger, .alert-error a{
+       color: #00353e !important; 
+}
